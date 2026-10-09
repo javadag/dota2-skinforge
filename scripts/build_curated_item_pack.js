@@ -2,7 +2,8 @@ const fs = require('fs');
 const https = require('https');
 const path = require('path');
 
-const catalog = JSON.parse(fs.readFileSync('src/data/valveHeroCatalog.json', 'utf8'));
+const catalogPath = fs.existsSync('data/valveHeroCatalog.json') ? 'data/valveHeroCatalog.json' : 'src/data/valveHeroCatalog.json';
+const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
 
 // Build name -> item lookup map
 const nameToItem = new Map();
