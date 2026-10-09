@@ -8,7 +8,7 @@ import react from '@vitejs/plugin-react'
 
 const projectRoot = import.meta.dirname
 const env = loadEnv('', projectRoot, '')
-const r2PublicUrl = env.R2_PUBLIC_URL || process.env.R2_PUBLIC_URL || ''
+const r2PublicUrl = env.R2_PUBLIC_URL || process.env.R2_PUBLIC_URL || 'https://pub-0e63b59220954d098346c54bdc0b2563.r2.dev'
 
 function serveStaticFolder(prefix, folderPath) {
   return {
