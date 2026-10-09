@@ -5,7 +5,17 @@ import tseslint from 'typescript-eslint'
 
 export default [
   {
-    ignores: ['out/**', 'dist/**', 'node_modules/**', 'data/**', 'tools/**', '.staging_pack/**', 'package-lock.json']
+    ignores: [
+      'out/**',
+      'dist/**',
+      'node_modules/**',
+      'data/**',
+      'tools/**',
+      '.staging_pack/**',
+      '.staging_icons/**',
+      '.superpowers/**',
+      'package-lock.json'
+    ]
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
