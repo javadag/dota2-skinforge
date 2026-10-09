@@ -3,8 +3,11 @@
  */
 
 import { NON_HERO_SLOTS_CATALOG } from '../../data/nonHeroCatalog.js';
-import { HERO_ALIASES } from '../../shared/constants/heroAliases.js';
 import { state } from '../state/store.js';
+
+function getAliases() {
+  return (typeof window !== 'undefined' && window.heroAliases && window.heroAliases.HERO_ALIASES) || {};
+}
 
 let valveCatalog = {};
 
@@ -67,7 +70,8 @@ export function getHeroSlotsDefinition(heroTag, heroObj = null) {
 
   const rawKey = heroTag.toLowerCase();
   const normalized = rawKey.replace(/\s+/g, '_').replace(/-/g, '_');
-  const aliasKey = HERO_ALIASES[rawKey] || HERO_ALIASES[normalized];
+  const aliases = getAliases();
+  const aliasKey = aliases[rawKey] || aliases[normalized];
 
   // 1. Check official Valve Hero Catalog
   if (valveCatalog[normalized]) {
