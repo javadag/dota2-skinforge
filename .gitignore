@@ -8,6 +8,7 @@ dist/
 out/
 build/
 release/
+*.tsbuildinfo
 
 # Mod Generation Staging & Runtime Backups
 .staging_pack/
