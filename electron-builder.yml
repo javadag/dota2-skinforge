@@ -1,0 +1,41 @@
+appId: com.joad.dota2skinforge
+productName: Dota 2 SkinForge
+copyright: Copyright © 2026 Joad
+
+directories:
+  output: dist
+  buildResources: assets
+
+files:
+  - out/**/*
+  - package.json
+
+extraResources:
+  - from: data
+    to: data
+  - from: tools
+    to: tools
+    filter:
+      - "vpktool.exe"
+  - from: assets
+    to: assets
+
+win:
+  icon: assets/icon.ico
+  target:
+    - target: portable
+      arch:
+        - x64
+  artifactName: Dota2SkinForge-Portable.exe
+
+portable:
+  artifactName: Dota2SkinForge-Portable.exe
+  requestExecutionLevel: user
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: Dota 2 SkinForge
+  artifactName: Dota2SkinForge-Setup-v${version}.${ext}

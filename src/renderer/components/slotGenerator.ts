@@ -2,9 +2,9 @@
  * Dota 2 SkinForge — Equipment Slots Catalog & Slot Definition Resolver
  */
 
+import valveCatalogData from '../../../data/valveHeroCatalog.json'
 import { NON_HERO_SLOTS_CATALOG } from '../../data/nonHeroCatalog'
 import type { HeroEntry } from '../env'
-import valveCatalogData from '../../../data/valveHeroCatalog.json'
 
 let catalogHeroes: HeroEntry[] = []
 
@@ -24,7 +24,6 @@ export interface SlotItem {
 export interface HeroSlot {
   id: string
   name: string
-  icon?: string
 }
 
 export interface HeroSlotsCatalogEntry {
@@ -52,31 +51,15 @@ export function formatHeroName(tag?: string | null): string {
 
 export function getGenericCategorySlotDefinition(item: HeroEntry): HeroSlotsCatalogEntry {
   const name = formatHeroName(item.tag)
-  const group = item.g || 'maps'
-
-  let slotType = 'Cosmetic Skin'
-  let icon = '✨'
-  if (group === 'maps') {
-    slotType = 'Model & Texture'
-    icon = '🗺️'
-  } else if (group === 'cursor') {
-    slotType = 'Interface Pack'
-    icon = '🖥️'
-  } else if (group === 'ranged attack') {
-    slotType = 'Particle FX'
-    icon = '🪄'
-  } else if (group === 'icons') {
-    slotType = 'Sound & Voice Pack'
-    icon = '🎵'
-  }
+  const slotType = 'Cosmetic Skin'
 
   const fallbackImg = item.img || `../assets/categories/default.svg`
 
   return {
     slots: [
-      { id: 'primary', name: `${name} — ${slotType}`, icon: icon },
-      { id: 'variant', name: `${name} — Deluxe Variant`, icon: '💎' },
-      { id: 'ambient', name: `${name} — Special FX`, icon: '✨' }
+      { id: 'primary', name: `${name} — ${slotType}` },
+      { id: 'variant', name: `${name} — Deluxe Variant` },
+      { id: 'ambient', name: `${name} — Special FX` }
     ],
     items: {
       primary: [
@@ -135,7 +118,7 @@ export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEn
   // 4. Default fallback: only base weapon
   const name = formatHeroName(heroTag)
   return {
-    slots: [{ id: 'weapon', name: 'Weapon / Armament', icon: '⚔️' }],
+    slots: [{ id: 'weapon', name: 'Weapon / Armament' }],
     items: {
       weapon: [{ name: `Official Base Armament — ${name}`, tag: 'Common', best: true }]
     }

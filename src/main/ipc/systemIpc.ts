@@ -4,37 +4,40 @@
 
 import { ipcMain, shell } from 'electron'
 import fs from 'fs'
-import path from 'path'
 import { APP_CONFIG } from '../../shared/constants/appConfig'
+import { getDataPath } from '../services/appPathService'
 import * as dotaPathModule from '../services/dotaPathService'
 import * as pipeline from '../services/pipelineService'
 
-interface HeroItem {
+export interface HeroItem {
   id?: number | string
   name?: string
   tag?: string
   [key: string]: unknown
 }
 
-interface HeroesData {
+export interface HeroesData {
   heroes: HeroItem[]
   groups: string[]
+}
+
+export function loadHeroesData(): HeroesData {
+  const heroesJsonPath = getDataPath('heroes.json')
+  if (fs.existsSync(heroesJsonPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(heroesJsonPath, 'utf8')) as HeroesData
+    } catch (e: unknown) {
+      console.error('Failed to read heroes.json:', e)
+    }
+  }
+  return { heroes: [], groups: [] }
 }
 
 export function registerSystemIpc() {
   ipcMain.handle('get-initial-data', async () => {
     const dotaPath = dotaPathModule.detectDotaPath()
     const status = pipeline.checkStatus(dotaPath)
-
-    let heroesData: HeroesData = { heroes: [], groups: [] }
-    const heroesJsonPath = path.resolve(__dirname, '../../../data/heroes.json')
-    if (fs.existsSync(heroesJsonPath)) {
-      try {
-        heroesData = JSON.parse(fs.readFileSync(heroesJsonPath, 'utf8')) as HeroesData
-      } catch (e: unknown) {
-        console.error('Failed to read heroes.json:', e)
-      }
-    }
+    const heroesData = loadHeroesData()
 
     return {
       appInfo: APP_CONFIG,
@@ -53,5 +56,5 @@ export function registerSystemIpc() {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { registerSystemIpc }
+  module.exports = { registerSystemIpc, loadHeroesData }
 }

@@ -2,9 +2,9 @@
  * Valve dota.signatures Checksum Integrity & Bypass Service
  */
 
+import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
-import crypto from 'crypto'
 import { crc32 } from '../../shared/utils/crc32'
 
 export function getSignaturesPath(dotaGameDir: string): string {
@@ -32,6 +32,12 @@ export type SignatureUpdateResult =
       reason: string
     }
 
+export function formatCrc32LE(crcValue: number): string {
+  const buf = Buffer.alloc(4)
+  buf.writeUInt32LE(crcValue, 0)
+  return buf.toString('hex').toUpperCase()
+}
+
 export function updateSignaturesForGameinfo(dotaGameDir: string, backupDir: string | null = null): SignatureUpdateResult {
   const sigPath = getSignaturesPath(dotaGameDir)
   const giPath = getGameinfoPath(dotaGameDir)
@@ -52,26 +58,23 @@ export function updateSignaturesForGameinfo(dotaGameDir: string, backupDir: stri
     }
   }
 
-  // Calculate SHA1 and CRC32 of current gameinfo_branchspecific.gi
+  // Calculate SHA1 and Little-Endian CRC32 of current gameinfo_branchspecific.gi
   const giBuffer = fs.readFileSync(giPath)
   const sha1 = crypto.createHash('sha1').update(giBuffer).digest('hex').toUpperCase()
-  const crc = crc32(giBuffer).toString(16).toUpperCase().padStart(8, '0')
+  const crc = formatCrc32LE(crc32(giBuffer))
 
   const newEntry = `...\\..\\..\\dota\\gameinfo_branchspecific.gi~SHA1:${sha1};CRC:${crc}`
 
   let sigContent = fs.readFileSync(sigPath, 'utf-8')
 
-  // Replace any existing gameinfo_branchspecific lines
-  const regex = /\.\.\.\\\.\.\\\.\.\\dota\\gameinfo_branchspecific\.gi~SHA1:[0-9A-Fa-f]+;CRC:[0-9A-Fa-f]+/g
-  if (regex.test(sigContent)) {
-    sigContent = sigContent.replace(regex, newEntry)
-  }
-
-  // Ensure it is present at the end
-  const lines = sigContent.split(/\r?\n/).filter((l) => l.trim().length > 0)
-  const lastLine = lines[lines.length - 1]
-  if (lastLine !== newEntry) {
-    sigContent = lines.join('\n') + '\n' + newEntry + '\n'
+  const digestIndex = sigContent.indexOf('DIGEST:')
+  if (digestIndex !== -1) {
+    const digestEnd = sigContent.indexOf('\n', digestIndex)
+    const baseContent = digestEnd !== -1 ? sigContent.slice(0, digestEnd).replace(/\r$/, '') : sigContent
+    sigContent = `${baseContent}\r\n${newEntry}\r\n`
+  } else {
+    const trimmed = sigContent.trimEnd()
+    sigContent = `${trimmed}\r\n${newEntry}\r\n`
   }
 
   fs.writeFileSync(sigPath, sigContent, 'utf-8')
@@ -112,6 +115,20 @@ export function restoreSignatures(dotaGameDir: string, backupDir: string | null 
   if (fs.existsSync(d2cBackup)) {
     fs.copyFileSync(d2cBackup, sigPath)
     return { success: true, status: 'restored_from_d2c_backup' }
+  }
+
+  // Fallback: strip any custom entries appended after the official DIGEST line
+  if (fs.existsSync(sigPath)) {
+    const content = fs.readFileSync(sigPath, 'utf-8')
+    const digestIndex = content.indexOf('DIGEST:')
+    if (digestIndex !== -1) {
+      const digestEnd = content.indexOf('\n', digestIndex)
+      if (digestEnd !== -1 && digestEnd < content.length - 1) {
+        const cleanContent = content.slice(0, digestEnd).replace(/\r$/, '') + '\r\n'
+        fs.writeFileSync(sigPath, cleanContent, 'utf-8')
+        return { success: true, status: 'restored_from_backup' }
+      }
+    }
   }
 
   return { success: false, status: 'no_backup_found' }

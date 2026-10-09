@@ -134,7 +134,7 @@ export function injectSearchPaths(
     return { success: true, status: 'already_configured' }
   }
 
-  const newContent = TEMPLATE_WITH_MOD(modFolderName)
+  const newContent = TEMPLATE_WITH_MOD(modFolderName).replace(/\r?\n/g, '\r\n')
   fs.writeFileSync(filePath, newContent, 'utf-8')
   return { success: true, status: 'updated' }
 }
@@ -148,7 +148,7 @@ export function restoreCleanGameinfo(dotaGameDir: string, backupDir: string | nu
       return { success: true, status: 'restored_from_backup' }
     }
   }
-  fs.writeFileSync(filePath, CLEAN_TEMPLATE, 'utf-8')
+  fs.writeFileSync(filePath, CLEAN_TEMPLATE.replace(/\r?\n/g, '\r\n'), 'utf-8')
   return { success: true, status: 'reset_to_clean' }
 }
 

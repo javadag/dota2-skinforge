@@ -7,6 +7,7 @@ import path from 'path'
 import { exec } from 'child_process'
 import util from 'util'
 import { applyModModifications } from './compiler'
+import { getDataPath } from '../appPathService'
 
 const execPromise = util.promisify(exec)
 
@@ -37,7 +38,7 @@ export async function generateModPackage(
   }
   fs.mkdirSync(stagingDir, { recursive: true })
 
-  const templateZip = path.resolve(__dirname, '../../../../data/mod_template.zip')
+  const templateZip = getDataPath('mod_template.zip')
   if (!fs.existsSync(templateZip)) {
     throw new Error(`Base template archive missing at ${templateZip}`)
   }

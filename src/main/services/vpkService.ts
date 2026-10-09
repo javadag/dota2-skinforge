@@ -2,13 +2,14 @@
  * Valve Source 2 VPK Packing & Extraction Service
  */
 
-import path from 'path'
 import { execFile } from 'child_process'
-import fs from 'fs'
 import crypto from 'crypto'
+import fs from 'fs'
+import path from 'path'
 import { crc32 } from '../../shared/utils/crc32'
+import { getToolsPath } from './appPathService'
 
-export const VPKTOOL_PATH = path.resolve(__dirname, '../../../tools/vpktool.exe')
+export const VPKTOOL_PATH = getToolsPath('vpktool.exe')
 
 export interface VpkToolResult {
   ok: boolean

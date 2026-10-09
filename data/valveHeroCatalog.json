@@ -1404,7 +1404,7 @@
         {
           "id": "7277",
           "name": "Golden Basher of Mage Skulls",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/antimage/skullbasher_gold/skullbasher_gold1",
           "best": true
@@ -1760,7 +1760,7 @@
         {
           "id": "9457",
           "name": "Golden Origins of Faith",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/antimage/ti7_antimage_immortal/ti7_immortal_armor1",
           "best": true
@@ -2259,7 +2259,7 @@
         {
           "id": "7276",
           "name": "Golden Offhand Basher of Mage Skulls",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/antimage/skullbasher_gold_offhand/skullbasher_gold_offhand1",
           "best": true
@@ -2601,7 +2601,7 @@
         {
           "id": "35840",
           "name": "Golden Basher Kirin Bolts Dual Blade",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/antimage_female/mh_antimage_kirin/mh_antimage_kirin_weapon_thunder",
           "best": true
@@ -2681,7 +2681,7 @@
         {
           "id": "35841",
           "name": "Golden Basher Kirin Bolts Dual Blade Offhand",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/antimage_female/mh_antimage_kirin/mh_antimage_kirin_offhand_thunder",
           "best": true
@@ -2761,7 +2761,7 @@
         {
           "id": "35838",
           "name": "Golden Basher Kirin Jacket and Hoop",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/antimage_female/mh_antimage_kirin/mh_antimage_kirin_armor_thunder",
           "best": true
@@ -2841,7 +2841,7 @@
         {
           "id": "35839",
           "name": "Golden Basher Kirin Horn",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/antimage_female/mh_antimage_kirin/mh_antimage_kirin_horn_thunder",
           "best": true
@@ -3016,7 +3016,7 @@
         {
           "id": "24185",
           "name": "Crimson Crests - Weapon",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/axe/call_of_battlefield_weapon/call_of_battlefield_weapon",
           "best": true
@@ -3376,7 +3376,7 @@
         {
           "id": "36151",
           "name": "Golden Armor",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/axe/axe_winter_2025_armor_alt/axe_winter_2025_armor_alt",
           "best": true
@@ -3384,7 +3384,7 @@
         {
           "id": "24183",
           "name": "Crimson Crests - Armor",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/axe/call_of_battlefield_amor/call_of_battlefield_amor"
         },
@@ -3624,7 +3624,7 @@
         {
           "id": "13543",
           "name": "Golden Crucible of Rile",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/axe/axe_ti9_immortal_head/axe_ti9_immortal_head1",
           "best": true
@@ -3632,14 +3632,14 @@
         {
           "id": "36150",
           "name": "Golden Mane",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/axe/axe_winter_2025_head_alt/axe_winter_2025_head_alt"
         },
         {
           "id": "24182",
           "name": "Crimson Crests - Head",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/axe/call_of_battlefield_head/call_of_battlefield_head"
         },
@@ -3893,7 +3893,7 @@
         {
           "id": "36149",
           "name": "Golden Warkilt",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/axe/axe_winter_2025_belt_alt/axe_winter_2025_belt_alt",
           "best": true
@@ -3901,7 +3901,7 @@
         {
           "id": "24184",
           "name": "Crimson Crests - Belt",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/axe/call_of_battlefield_belt/call_of_battlefield_belt"
         },
@@ -4198,7 +4198,7 @@
         {
           "id": "36152",
           "name": "Golden Sigil",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/axe/axe_winter_2025_misc_alt/axe_winter_2025_misc_alt",
           "best": true
@@ -4206,7 +4206,7 @@
         {
           "id": "24186",
           "name": "Crimson Crests - Back",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/axe/call_of_battlefield_misc/call_of_battlefield_misc"
         },
@@ -4664,7 +4664,7 @@
         {
           "id": "12296",
           "name": "Golden Edge of the Lost Order",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/juggernaut/jugg_ti8/jugg_ti8_sword1",
           "best": true
@@ -4672,7 +4672,7 @@
         {
           "id": "12417",
           "name": "Crimson Edge of the Lost Order",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/juggernaut/jugg_ti8/jugg_ti8_sword2"
         },
@@ -5481,7 +5481,7 @@
         {
           "id": "7909",
           "name": "Golden Fortune's Tout",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/juggernaut/ward/golden_fortunes_tout/golden_fortunes_tout_npc_dota_juggernaut_healing_ward",
           "best": true
@@ -7027,7 +7027,7 @@
         {
           "id": "22267",
           "name": "Fetters of Omniscience of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/omniknight/omni_fall20_immortal_shoulders/omni_fall20_immortal_shoulders1",
           "best": true
@@ -8108,7 +8108,7 @@
         {
           "id": "7996",
           "name": "Bracers of Aeons of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/faceless_void/bracers_of_aeons/bracers_of_aeons1",
           "best": true
@@ -10171,7 +10171,7 @@
         {
           "id": "35990",
           "name": "Sylvan Vedette of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/windrunner/windranger_ti8_immortal_shoulders/windranger_ti8_immortal_shoulders1",
           "best": true
@@ -10775,7 +10775,7 @@
         {
           "id": "12337",
           "name": "Golden Bloodfeather Feast",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/queenofpain/qop_ti8_weapon/qop_ti8_weapon1",
           "best": true
@@ -10783,7 +10783,7 @@
         {
           "id": "6839",
           "name": "Crimson Agony",
-          "tag": "Crimson",
+          "tag": "Common",
           "isDefault": false,
           "img": "econ/items/queenofpain/sanguine_weapon/sanguine_weapon"
         },
@@ -11714,7 +11714,7 @@
         {
           "id": "35264",
           "name": "Aspect of Oscilla of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/silencer/silencer_ti10_immortal_shield/silencer_ti10_immortal_shield1",
           "best": true
@@ -11965,7 +11965,7 @@
         {
           "id": "8033",
           "name": "Dam'arakan Muzzle of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/silencer/ti6_helmet/mesh/ti6_helmet1",
           "best": true
@@ -12925,7 +12925,7 @@
         {
           "id": "29574",
           "name": "Monarch of the Sapphire Glen of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/furion/np_ti9_immortal_back/np_ti9_immortal_back1",
           "best": true
@@ -13952,7 +13952,7 @@
         {
           "id": "7461",
           "name": "Golden Floodmask",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/tidehunter/diving_helmet/tidehunter_diving_helmet1",
           "best": true
@@ -14102,7 +14102,7 @@
         {
           "id": "19023",
           "name": "Golden Deepshock Destroyer",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/tidehunter/tide_fall20_immortal_back/tide_fall20_immortal_back1",
           "best": true
@@ -14871,7 +14871,7 @@
         {
           "id": "13669",
           "name": "Golden Ice Blossom",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/crystal_maiden/cm_ti9_immortal_weapon/cm_ti9_immortal_weapon1",
           "best": true
@@ -15766,7 +15766,7 @@
         {
           "id": "8038",
           "name": "Golden Ripper's Reel",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/pudge/harpoon_hook/mesh/harpoon_hook2",
           "best": true
@@ -15774,7 +15774,7 @@
         {
           "id": "8010",
           "name": "Ripper's Reel of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/pudge/harpoon_hook/mesh/harpoon_hook1"
         },
@@ -16573,7 +16573,7 @@
         {
           "id": "7742",
           "name": "Golden Scavenging Guttleslug",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/pudge/immortal_arm/immortal_arm1",
           "best": true
@@ -17791,7 +17791,7 @@
         {
           "id": "4452",
           "name": "Mancatcher of the Crimson Cut-throat",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/bounty_hunter/lg_weapon_v2/lg_weapon_v2",
           "best": true
@@ -17948,7 +17948,7 @@
         {
           "id": "4469",
           "name": "Blade of the Crimson Cut-throat",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/bounty_hunter/poniard_of_the_crimson_cut-throat/poniard_of_the_crimson_cut-throat",
           "best": true
@@ -18112,7 +18112,7 @@
         {
           "id": "4385",
           "name": "Guard of the Crimson Cut-throat",
-          "tag": "Crimson",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/bounty_hunter/bh_back001/bh_back001",
           "best": true
@@ -18120,7 +18120,7 @@
         {
           "id": "8009",
           "name": "Hunter's Hoard of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/bounty_hunter/ti6_hunters_hoard/mesh/ti6_hunters_hoard_model1"
         },
@@ -18241,7 +18241,7 @@
         {
           "id": "4465",
           "name": "Pads of the Crimson Cut-throat",
-          "tag": "Crimson",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/bounty_hunter/pads/pads",
           "best": true
@@ -18377,7 +18377,7 @@
         {
           "id": "4486",
           "name": "Shuriken of the Crimson Cut-throat",
-          "tag": "Crimson",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/bounty_hunter/shuriken_of_the_crimson_cut-throat/shuriken_of_the_crimson_cut-throat",
           "best": true
@@ -18548,7 +18548,7 @@
         {
           "id": "4384",
           "name": "Mask of the Crimson Cut-throat",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/bounty_hunter/mask_v2/mask_v2",
           "best": true
@@ -19450,7 +19450,7 @@
         {
           "id": "4516",
           "name": "Crimson Wyvern Helm",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/dragon_knight/wyver_head2/wyver_head2",
           "best": true
@@ -19642,7 +19642,7 @@
         {
           "id": "4564",
           "name": "Crimson Wyvern Shoulders",
-          "tag": "Crimson",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/dragon_knight/wyvern_shoulder/wyvern_shoulder",
           "best": true
@@ -19827,7 +19827,7 @@
         {
           "id": "4610",
           "name": "Crimson Wyvern Bracers",
-          "tag": "Crimson",
+          "tag": "Common",
           "isDefault": false,
           "img": "econ/items/dragon_knight/wyvern_bracers/wyvern_bracers",
           "best": true
@@ -20012,7 +20012,7 @@
         {
           "id": "4612",
           "name": "Crimson Wyvern Sword",
-          "tag": "Crimson",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/dragon_knight/wyvern_sword3/wyvern_sword3",
           "best": true
@@ -20246,7 +20246,7 @@
         {
           "id": "4513",
           "name": "Crimson Wyvern Shield",
-          "tag": "Crimson",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/dragon_knight/crimson_wyvern_shield/crimson_wyvern_shield",
           "best": true
@@ -20452,7 +20452,7 @@
         {
           "id": "4519",
           "name": "Crimson Wyvern Skirt",
-          "tag": "Crimson",
+          "tag": "Common",
           "isDefault": false,
           "img": "econ/items/dragon_knight/wyvern_skirt3ba/wyvern_skirt3ba",
           "best": true
@@ -22113,7 +22113,7 @@
         {
           "id": "8037",
           "name": "Golden Silent Wake",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/drow/ti6_immortal_cape/mesh/drow_ti6_immortal_cape1",
           "best": true
@@ -22121,7 +22121,7 @@
         {
           "id": "8035",
           "name": "Silent Wake of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/drow/ti6_immortal_cape/mesh/drow_ti6_immortal_cape2"
         },
@@ -24788,7 +24788,7 @@
         {
           "id": "14975",
           "name": "Golden Awaleb's Trundleweed",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/witchdoctor/wd_ti10_immortal_weapon/wd_ti10_immortal_weapon1",
           "best": true
@@ -24796,7 +24796,7 @@
         {
           "id": "29575",
           "name": "Awaleb's Trundleweed of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/witchdoctor/wd_ti10_immortal_weapon/wd_ti10_immortal_weapon2"
         },
@@ -26178,7 +26178,7 @@
         {
           "id": "32607",
           "name": "Everglyph Goggles of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/meepo/meepo_2021_immortal/meepo_2021_immortal1",
           "best": true
@@ -26803,7 +26803,7 @@
         {
           "id": "4360",
           "name": "Golden Walrus Whacker",
-          "tag": "Golden",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/ogre_magi/goldenwalruswhacker/goldenwalruswhacker",
           "best": true
@@ -28633,7 +28633,7 @@
         {
           "id": "6637",
           "name": "Golden Scythe of The Iron Claw",
-          "tag": "Golden",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/lone_druid/iron_claw_weapon/iron_claw_weapon",
           "best": true
@@ -30362,7 +30362,7 @@
         {
           "id": "9428",
           "name": "Golden Atomic Ray Thrusters",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/gyrocopter/immortal_guns/immortal_guns_gold",
           "best": true
@@ -30613,7 +30613,7 @@
         {
           "id": "24670",
           "name": "B.U.S.T.E.R of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/gyrocopter/gyro_ti10_immortal_missile/gyro_ti10_immortal_missile1",
           "best": true
@@ -30847,7 +30847,7 @@
         {
           "id": "4547",
           "name": "Belt of the Golden Mane",
-          "tag": "Golden",
+          "tag": "Common",
           "isDefault": false,
           "img": "econ/items/phantom_lancer/belt_sunlit/belt_sunlit",
           "best": true
@@ -30976,7 +30976,7 @@
         {
           "id": "4576",
           "name": "Gauntlet of the Golden Mane",
-          "tag": "Golden",
+          "tag": "Common",
           "isDefault": false,
           "img": "econ/items/phantom_lancer/arms_sunlit_ga/arms_sunlit_ga",
           "best": true
@@ -31105,7 +31105,7 @@
         {
           "id": "4577",
           "name": "Shoulder of the Golden Mane",
-          "tag": "Golden",
+          "tag": "Common",
           "isDefault": false,
           "img": "econ/items/phantom_lancer/shoulder_sunlit/shoulder_sunlit",
           "best": true
@@ -31113,7 +31113,7 @@
         {
           "id": "31206",
           "name": "Concord Dominion of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/phantom_lancer/phantom_lancer_ti7_immortal_shoulder/phantom_lancer_ti7_immortal_shoulder1"
         },
@@ -31241,7 +31241,7 @@
         {
           "id": "4575",
           "name": "Spear of the Golden Mane",
-          "tag": "Golden",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/phantom_lancer/weapon_sunli_spear/weapon_sunli_spear",
           "best": true
@@ -31818,7 +31818,7 @@
         {
           "id": "22268",
           "name": "Avowance of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/phantom_assassin/pa_fall20_immortal_shoulders/pa_fall20_immortal_shoulders1",
           "best": true
@@ -32799,7 +32799,7 @@
         {
           "id": "32538",
           "name": "Orb of Deliverance of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/disruptor/disruptor_ti8_immortal_weapon/disruptor_ti8_immortal_weapon1",
           "best": true
@@ -33507,7 +33507,7 @@
         {
           "id": "5918",
           "name": "Crimson Raptor of Druud",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/disruptor/dismount/dismount",
           "best": true
@@ -33898,7 +33898,7 @@
         {
           "id": "12424",
           "name": "Crimson Unbroken Fealty",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/wraith_king/wk_ti8_weapon/wk_ti8_weapon2",
           "best": true
@@ -34310,7 +34310,7 @@
         {
           "id": "6918",
           "name": "Blistering Shade of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/wraith_king/blistering_shade/mesh/blistering_shade1",
           "best": true
@@ -34845,7 +34845,7 @@
         {
           "id": "7460",
           "name": "Golden Nether Lord's Hat",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/pugna/nether_lords_hat/nether_lords_hat1",
           "best": true
@@ -34853,7 +34853,7 @@
         {
           "id": "13755",
           "name": "Golden Eye of Ix'yxa",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/pugna/pugna_ti10_immortal_head/pugna_ti10_immortal_head1"
         },
@@ -34939,7 +34939,7 @@
         {
           "id": "7577",
           "name": "Golden Nether Lord's Cape",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/pugna/nether_lords_cape/nether_lords_cape1",
           "best": true
@@ -35005,7 +35005,7 @@
         {
           "id": "7574",
           "name": "Golden Nether Lord's Bracer",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/pugna/nether_lords_bracer/nether_lords_bracer1",
           "best": true
@@ -35078,7 +35078,7 @@
         {
           "id": "7575",
           "name": "Golden Nether Lord's Scepter",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/pugna/nether_lords_scepter/nether_lords_scepter1",
           "best": true
@@ -35151,7 +35151,7 @@
         {
           "id": "7565",
           "name": "Golden Nether Lord's Belt",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/pugna/nether_lords_belt/nether_lords_belt1",
           "best": true
@@ -35217,7 +35217,7 @@
         {
           "id": "7573",
           "name": "Golden Nether Lord's Devourer",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/pugna/nether_lords_devourer/nether_lords_devourer1",
           "best": true
@@ -35293,7 +35293,7 @@
         {
           "id": "8042",
           "name": "Golden Nether Heart",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/pugna/ward/nether_heart/nether_heart_npc_dota_pugna_nether_ward",
           "best": true
@@ -36102,7 +36102,7 @@
         {
           "id": "9773",
           "name": "Golden Edict of Shadows",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/rikimaru/riki_ti8_immortal_head/riki_ti8_immortal_head1",
           "best": true
@@ -36110,7 +36110,7 @@
         {
           "id": "12418",
           "name": "Crimson Edict of Shadows",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/rikimaru/riki_ti8_immortal_head/riki_ti8_immortal_head2"
         },
@@ -36245,7 +36245,7 @@
         {
           "id": "7990",
           "name": "Golden Shadow Masquerade",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/rikimaru/ti6_blink_strike/riki_ti6_blink_strike1",
           "best": true
@@ -36253,7 +36253,7 @@
         {
           "id": "35392",
           "name": "Shadow Masquerade of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/rikimaru/ti6_blink_strike/riki_ti6_blink_strike2"
         },
@@ -36618,7 +36618,7 @@
         {
           "id": "6548",
           "name": "Golden Siblings Offhand",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/rikimaru/rightful_heir_offhand/rightful_heir_offhand",
           "best": true
@@ -36775,7 +36775,7 @@
         {
           "id": "6547",
           "name": "Golden Siblings Dagger",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/rikimaru/rightful_heir_weapon/rightful_heir_weapon",
           "best": true
@@ -37000,7 +37000,7 @@
         {
           "id": "13991",
           "name": "Flight of the Crimson Queen - Legs",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/death_prophet/queen_of_crimson_thorns_legs/queen_of_crimson_thorns_legs",
           "best": true
@@ -37248,7 +37248,7 @@
         {
           "id": "13990",
           "name": "Flight of the Crimson Queen - Head",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/death_prophet/queen_of_crimson_thorns_head/queen_of_crimson_thorns_head",
           "best": true
@@ -37517,7 +37517,7 @@
         {
           "id": "13995",
           "name": "Flight of the Crimson Queen - Armor",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/death_prophet/queen_of_crimson_thorns_armor/queen_of_crimson_thorns_armor",
           "best": true
@@ -37751,7 +37751,7 @@
         {
           "id": "13996",
           "name": "Flight of the Crimson Queen - Belt",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/death_prophet/queen_of_crimson_thorns_belt/queen_of_crimson_thorns_belt",
           "best": true
@@ -38005,7 +38005,7 @@
         {
           "id": "13992",
           "name": "Flight of the Crimson Queen - Misc",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/death_prophet/queen_of_crimson_thorns_misc/queen_of_crimson_thorns_misc",
           "best": true
@@ -38127,7 +38127,7 @@
         {
           "id": "13993",
           "name": "Flight of the Crimson Queen - Spirit",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/death_prophet/exorcism/queen_of_crimson_thorns_ghost/queen_of_crimson_thorns_ghost_dota_death_prophet_exorcism_spirit",
           "best": true
@@ -38804,7 +38804,7 @@
         {
           "id": "23836",
           "name": "Golden Seclusions of the Void",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lanaya/ta_2022_immortal/ta_2022_immortal1",
           "best": true
@@ -38812,7 +38812,7 @@
         {
           "id": "29571",
           "name": "Seclusions of the Void of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lanaya/ta_2022_immortal/ta_2022_immortal2"
         },
@@ -39045,7 +39045,7 @@
         {
           "id": "32540",
           "name": "Mantle of the Whispered Bond of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lanaya/ta_ti9_immortal_shoulders/ta_ti9_immortal_shoulders1",
           "best": true
@@ -39788,7 +39788,7 @@
         {
           "id": "31205",
           "name": "The Barren Vector of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/sand_king/sand_king_immortal_arms_ti7/sand_king_ti7_immortal_arms1",
           "best": true
@@ -40891,7 +40891,7 @@
         {
           "id": "7740",
           "name": "Golden Chaos Fulcrum",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/chaos_knight/chaos_knight_ti7_shield/chaos_knight_ti7_shield_gold",
           "best": true
@@ -42176,7 +42176,7 @@
         {
           "id": "7509",
           "name": "Golden Shards of Exile",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/obsidian_destroyer/immortal_weapon_1/immortal_weapon_11a",
           "best": true
@@ -42428,7 +42428,7 @@
         {
           "id": "23727",
           "name": "Golden Monarch - Crown",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/siren/feathers_of_the_queen_of_the_deep_head/feathers_of_the_queen_of_the_deep_head",
           "best": true
@@ -42592,7 +42592,7 @@
         {
           "id": "4615",
           "name": "Golden Riptide",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/siren/weapon_wave/weapon_wave",
           "best": true
@@ -42600,7 +42600,7 @@
         {
           "id": "23724",
           "name": "Golden Monarch - Weapon",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/siren/feathers_of_the_queen_of_the_deep_weapon/feathers_of_the_queen_of_the_deep_weapon"
         },
@@ -42763,7 +42763,7 @@
         {
           "id": "23725",
           "name": "Golden Monarch - Legs",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/siren/feathers_of_the_queen_of_the_deep_legs/feathers_of_the_queen_of_the_deep_legs",
           "best": true
@@ -42920,7 +42920,7 @@
         {
           "id": "23726",
           "name": "Golden Monarch - Armor",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/siren/feathers_of_the_queen_of_the_deep_armor/feathers_of_the_queen_of_the_deep_armor",
           "best": true
@@ -43077,7 +43077,7 @@
         {
           "id": "23723",
           "name": "Golden Monarch - Off-Hand",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/siren/feathers_of_the_queen_of_the_deep_off_hand/feathers_of_the_queen_of_the_deep_off_hand",
           "best": true
@@ -43085,7 +43085,7 @@
         {
           "id": "4611",
           "name": "Crimson Riptide",
-          "tag": "Crimson",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/siren/offhand_cwave/offhand_cwave"
         },
@@ -43306,7 +43306,7 @@
         {
           "id": "13574",
           "name": "Crimson Latticean Hierarchy",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/nerubian_assassin/nyx_ti9_immortal_back/nyx_ti9_immortal_back1",
           "best": true
@@ -43871,7 +43871,7 @@
         {
           "id": "8021",
           "name": "Golden Latticean Shards",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/nerubian_assassin/ti6_immortal/mesh/ti6_immortal_nyx_weapon_model1",
           "best": true
@@ -43879,7 +43879,7 @@
         {
           "id": "8032",
           "name": "Latticean Shards of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/nerubian_assassin/ti6_immortal/mesh/ti6_immortal_nyx_weapon_model2"
         },
@@ -44111,7 +44111,7 @@
         {
           "id": "7507",
           "name": "Golden Staff of Perplex",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/rubick/force_staff/force_staff1",
           "best": true
@@ -44339,14 +44339,14 @@
         {
           "id": "8108",
           "name": "Golden Ornithomancer Mantle of the Benefactor",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/rubick/golden_ornithomancer_mantle/golden_ornithomancer_mantle"
         },
         {
           "id": "8230",
           "name": "Golden Ornithomancer Mantle",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/rubick/ornithomancer_back/ornithomancer_back_gold"
         },
@@ -45617,7 +45617,7 @@
         {
           "id": "24879",
           "name": "Golden Sullen Strands",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/necrolyte/necro_2022_immortal/necro_2022_immortal_beard1",
           "best": true
@@ -45760,7 +45760,7 @@
         {
           "id": "24878",
           "name": "Golden Sullen Shrine",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/necrolyte/necro_2022_immortal/necro_2022_immortal_head1",
           "best": true
@@ -45903,7 +45903,7 @@
         {
           "id": "7508",
           "name": "Golden Sullen Hollow",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/necrolyte/immortal_shoulders/immortal_shoulders2",
           "best": true
@@ -47790,7 +47790,7 @@
         {
           "id": "13758",
           "name": "Golden Rabid Watchcog",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/rattletrap/clockwerk_ti10_immortal_weapon/clockwerk_ti10_immortal_weapon1",
           "best": true
@@ -49793,7 +49793,7 @@
         {
           "id": "6915",
           "name": "Golden Lamb to the Slaughter",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/shadowshaman/sheep_stick/sheep_stick_gold",
           "best": true
@@ -49929,7 +49929,7 @@
         {
           "id": "12419",
           "name": "Crimson Censer of Gliss",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/shadowshaman/ss_ti8_immortal_offhand/ss_ti8_immortal_offhand1",
           "best": true
@@ -51126,7 +51126,7 @@
         {
           "id": "13570",
           "name": "Crimson Gates of Nothl",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/dazzle/dazzle_ti9_immortal_back/dazzle_ti9_immortal_back1",
           "best": true
@@ -51565,7 +51565,7 @@
         {
           "id": "8040",
           "name": "Golden Nothlic Burden",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/dazzle/dazzle_ti6_immortal/mesh/dazzle_ti6_immortal1",
           "best": true
@@ -51573,7 +51573,7 @@
         {
           "id": "8034",
           "name": "Nothlic Burden of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/dazzle/dazzle_ti6_immortal/mesh/dazzle_ti6_immortal2"
         },
@@ -51843,7 +51843,7 @@
         {
           "id": "24877",
           "name": "Golden Draca Mane",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/huskar/husk_2022_immortal/husk_2022_immortal1",
           "best": true
@@ -52216,7 +52216,7 @@
         {
           "id": "18564",
           "name": "Golden Draca Maw",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/huskar/husk_2021_immortal/husk_2021_immortal1",
           "best": true
@@ -52386,7 +52386,7 @@
         {
           "id": "7506",
           "name": "Golden Grasping Bludgeon",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/slardar/takoyaki/slardar_takoyaki1",
           "best": true
@@ -52515,7 +52515,7 @@
         {
           "id": "13575",
           "name": "Crimson First of the Flood",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/slardar/slardar_ti9_immortal_back/slardar_ti9_immortal_back1",
           "best": true
@@ -52609,7 +52609,7 @@
         {
           "id": "14974",
           "name": "Golden Fin of the First Spear",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/slardar/slardar_ti10_immortal_head/slardar_ti10_immortal_head1",
           "best": true
@@ -52849,7 +52849,7 @@
         {
           "id": "7813",
           "name": "Golden Cyrridae",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/weaver/weaver_immortal_head_ti7/weaver_ti7_immortal_head_gold",
           "best": true
@@ -52857,7 +52857,7 @@
         {
           "id": "7810",
           "name": "Crimson Cyrridae",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/weaver/weaver_immortal_head_ti7/weaver_immortal_head_ti7"
         },
@@ -53110,7 +53110,7 @@
         {
           "id": "7578",
           "name": "Crimson Pique",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/weaver/crimson_pique/mesh/crimson_pique_model",
           "best": true
@@ -53550,7 +53550,7 @@
         {
           "id": "9455",
           "name": "Golden Full-Bore Bonanza",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/sniper/sniper_cape_immortal/sniper_cape_immortal1",
           "best": true
@@ -53558,7 +53558,7 @@
         {
           "id": "35389",
           "name": "Full-Bore Bonanza of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/sniper/sniper_cape_immortal/sniper_cape_immortal2"
         },
@@ -54411,7 +54411,7 @@
         {
           "id": "22266",
           "name": "Harborblossom of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/enchantress/enchantress_2021_immortal/enchantress_2021_immortal1",
           "best": true
@@ -54648,7 +54648,7 @@
         {
           "id": "29573",
           "name": "Flutterstep of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/enchantress/ench_2022_immortal/ench_2022_immortal1",
           "best": true
@@ -56111,7 +56111,7 @@
         {
           "id": "12423",
           "name": "Golden Mandate of the Stormborn",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/storm_spirit/storm_ti8_immortal_shoulders/storm_ti8_immortal_shoulders1",
           "best": true
@@ -56397,7 +56397,7 @@
         {
           "id": "22265",
           "name": "Primal Peacemaker of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/beastmaster/bm_2021_immortal/bm_2021_immortal1",
           "best": true
@@ -56498,7 +56498,7 @@
         {
           "id": "35574",
           "name": "Golden Bone Helm",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/beastmaster/mh_beastmaster_bone/mh_beastmaster_dark_bone_head",
           "best": true
@@ -56620,7 +56620,7 @@
         {
           "id": "35571",
           "name": "Golden Bone Mail",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/beastmaster/mh_beastmaster_bone/mh_beastmaster_bone_dark_shoulders",
           "best": true
@@ -56628,7 +56628,7 @@
         {
           "id": "35988",
           "name": "Primal Paean of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/beastmaster/bm_ti7_immortal_shoulder/bm_ti7_immortal_shoulder1"
         },
@@ -56749,7 +56749,7 @@
         {
           "id": "35572",
           "name": "Golden Bone Vambraces",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/beastmaster/mh_beastmaster_bone/mh_beastmaster_dark_bone_arms",
           "best": true
@@ -56864,7 +56864,7 @@
         {
           "id": "35573",
           "name": "Golden Bone Coil",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/beastmaster/mh_beastmaster_bone/mh_beastmaster_dark_bone_belt",
           "best": true
@@ -57705,7 +57705,7 @@
         {
           "id": "7741",
           "name": "Golden Wyrmwrought Flare",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lina/lina_ti7/lina_ti71",
           "best": true
@@ -58207,7 +58207,7 @@
         {
           "id": "9204",
           "name": "Transversant Soul of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/spectre/immortal_shoulders/immortal_shoulders1",
           "best": true
@@ -58665,7 +58665,7 @@
         {
           "id": "24679",
           "name": "Eyes of Ardenok of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/magnataur/magnus_ti10_immortal_head/magnus_ti10_immortal_head1",
           "best": true
@@ -60000,7 +60000,7 @@
         {
           "id": "7400",
           "name": "The Golden Barb of Skadi",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/slark/golden_barb_of_skadi/golden_barb_of_skadi",
           "best": true
@@ -60008,7 +60008,7 @@
         {
           "id": "8002",
           "name": "Golden Hydrakan Latch",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/slark/hydrakan_latch/mesh/hydrkan_latch_model1"
         },
@@ -60892,7 +60892,7 @@
         {
           "id": "13813",
           "name": "Golden Shadow of the Dark Age",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/nightstalker/ns_ti10_immortal_arms/ns_ti10_immortal_arms1",
           "best": true
@@ -60900,7 +60900,7 @@
         {
           "id": "32606",
           "name": "Shadow of the Dark Age of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/nightstalker/ns_ti10_immortal_arms/ns_ti10_immortal_arms2"
         },
@@ -61274,7 +61274,7 @@
         {
           "id": "6916",
           "name": "Golden Severing Crest",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/razor/razor_helmet_blade/razor_helmet_blade1",
           "best": true
@@ -62458,7 +62458,7 @@
         {
           "id": "12299",
           "name": "Golden Bracers of Forlorn Precipice",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/dark_seer/dark_seer_ti8_immortal_arms/dark_seer_ti8_immortal_arms1",
           "best": true
@@ -63017,7 +63017,7 @@
         {
           "id": "8039",
           "name": "Golden Infernal Chieftain",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/centaur/centaur_ti6_immortal/mesh/centaur_ti6_immortal_model1",
           "best": true
@@ -63025,7 +63025,7 @@
         {
           "id": "8036",
           "name": "Infernal Chieftain of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/centaur/centaur_ti6_immortal/mesh/centaur_ti6_immortal_model2"
         },
@@ -63188,7 +63188,7 @@
         {
           "id": "23837",
           "name": "Golden Infernal Cavalcade",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/centaur/cent_2022_immortal_horn/cent_2022_immortal_horn1",
           "best": true
@@ -63196,7 +63196,7 @@
         {
           "id": "29572",
           "name": "Infernal Cavalcade of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/centaur/cent_2022_immortal_horn/cent_2022_immortal_horn2"
         },
@@ -64144,7 +64144,7 @@
         {
           "id": "8007",
           "name": "Mulctant Pall of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lion/mana_drain_immortal/mesh/mana_drain_immortal_model1",
           "best": true
@@ -64346,7 +64346,7 @@
         {
           "id": "35387",
           "name": "Hell-Spar Anathema of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lion/lion_ti8_arm/lion_ti8_arm_alt1",
           "best": true
@@ -64720,7 +64720,7 @@
         {
           "id": "37108",
           "name": "Merry Wanderer's Brush of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/puck/merry_wanderers_brush_tail/merry_wanderers_brush_tail1",
           "best": true
@@ -66193,7 +66193,7 @@
         {
           "id": "24090",
           "name": "Fate of Hydrophiinae of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/medusa/medusa_ti10_immortal_tail/medusa_ti10_immortal_tail1",
           "best": true
@@ -66482,7 +66482,7 @@
         {
           "id": "13523",
           "name": "Golden Rectifier",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/shredder/timbersaw_ti9_immortal_offhand/timbersaw_ti9_immortal_offhand1",
           "best": true
@@ -68772,7 +68772,7 @@
         {
           "id": "9450",
           "name": "Golden Mantle of Grim Facade",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/shadow_demon/ti7_immortal_back/sd_ti7_immortal_back1",
           "best": true
@@ -69478,7 +69478,7 @@
         {
           "id": "19005",
           "name": "Golden Mask of Metira",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/mirana/mirana_2021_immortal/mirana_2021_immortal1",
           "best": true
@@ -69486,7 +69486,7 @@
         {
           "id": "24671",
           "name": "Mask of Metira of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/mirana/mirana_2021_immortal/mirana_2021_immortal2"
         },
@@ -70272,7 +70272,7 @@
         {
           "id": "13668",
           "name": "Golden Piscean Pulverizer",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/tuskarr/tusk_ti9_immortal_fist/tusk_ti9_immortal_fist1",
           "best": true
@@ -71024,7 +71024,7 @@
         {
           "id": "6919",
           "name": "Golden Empyrean",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/skywrath_mage/empyrean1",
           "best": true
@@ -71402,21 +71402,21 @@
         {
           "id": "12010",
           "name": "Golden Wings of the Manticore",
-          "tag": "Golden",
+          "tag": "Legendary",
           "isDefault": false,
           "img": "econ/items/skywrath_mage/manticore_of_the_eyrie_wings/manticore_of_the_eyrie_wings_golden"
         },
         {
           "id": "12993",
           "name": "Golden Flight of Epiphany",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/skywrath_mage/skywrath_ti9_immortal_back/skywrath_ti9_immortal_back1"
         },
         {
           "id": "13568",
           "name": "Crimson Flight of Epiphany",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/skywrath_mage/skywrath_ti9_immortal_back/skywrath_ti9_immortal_back2"
         },
@@ -72468,7 +72468,7 @@
         {
           "id": "13398",
           "name": "Crimsonwing Slayer Helm",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/bloody_battle_angel_the_international_2019_head/bloody_battle_angel_the_international_2019_head",
           "best": true
@@ -72476,7 +72476,7 @@
         {
           "id": "6994",
           "name": "Immortals Pride Helm",
-          "tag": "Immortal",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/legion_commander/immortalspride_head/immortalspride_head"
         },
@@ -72688,7 +72688,7 @@
         {
           "id": "13394",
           "name": "Crimsonwing Slayer Shoulders",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/bloody_battle_angel_shoulder/bloody_battle_angel_shoulder",
           "best": true
@@ -72696,7 +72696,7 @@
         {
           "id": "7008",
           "name": "Immortals Pride Pauldrons",
-          "tag": "Immortal",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/immortalspride_shoulder/immortalspride_shoulder"
         },
@@ -72894,7 +72894,7 @@
         {
           "id": "13397",
           "name": "Crimsonwing Slayer Wings",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/bloody_battle_angel_the_international_2019_back/bloody_battle_angel_the_international_2019_back",
           "best": true
@@ -72902,7 +72902,7 @@
         {
           "id": "6909",
           "name": "Immortals Pride Flags",
-          "tag": "Immortal",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/immortalspride_back/immortalspride_back"
         },
@@ -73114,7 +73114,7 @@
         {
           "id": "13395",
           "name": "Crimsonwing Slayer Weapon",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/bloody_battle_angel_the_international_2019_weapon/bloody_battle_angel_the_international_2019_weapon",
           "best": true
@@ -73122,7 +73122,7 @@
         {
           "id": "6995",
           "name": "Immortals Pride Halberd",
-          "tag": "Immortal",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/immortalspride_weapon/immortalspride_weapon"
         },
@@ -73355,7 +73355,7 @@
         {
           "id": "13396",
           "name": "Crimsonwing Slayer Bracers",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/bloody_battle_angel_the_international_2019_arms/bloody_battle_angel_the_international_2019_arms",
           "best": true
@@ -73363,7 +73363,7 @@
         {
           "id": "6910",
           "name": "Immortals Pride Bracers",
-          "tag": "Immortal",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/immortalspride_arms/immortalspride_arms"
         },
@@ -73561,7 +73561,7 @@
         {
           "id": "13399",
           "name": "Crimsonwing Slayer Belt",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/legion_commander/bloody_battle_angel_the_international_2019_legs/bloody_battle_angel_the_international_2019_legs",
           "best": true
@@ -73830,7 +73830,7 @@
         {
           "id": "14514",
           "name": "Beast of the Crimson Ring Back",
-          "tag": "Crimson",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/bristleback/bristleback_warrior_of_arena_back/bristleback_warrior_of_arena_back",
           "best": true
@@ -73924,7 +73924,7 @@
         {
           "id": "7994",
           "name": "Blastforge Exhaler of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/bristleback/bristleback_immortal_helmet/bristleback_immortal_helmet1",
           "best": true
@@ -73932,7 +73932,7 @@
         {
           "id": "14515",
           "name": "Beast of the Crimson Ring Helm",
-          "tag": "Crimson",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/bristleback/bristleback_warrior_of_arena_head/bristleback_warrior_of_arena_head"
         },
@@ -74018,7 +74018,7 @@
         {
           "id": "14517",
           "name": "Beast of the Crimson Ring Weapon",
-          "tag": "Crimson",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/bristleback/bristleback_warrior_of_arena_weapon/bristleback_warrior_of_arena_weapon",
           "best": true
@@ -74105,7 +74105,7 @@
         {
           "id": "14513",
           "name": "Beast of the Crimson Ring Bracers",
-          "tag": "Crimson",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/bristleback/bristleback_warrior_of_arena_arms/bristleback_warrior_of_arena_arms",
           "best": true
@@ -74185,7 +74185,7 @@
         {
           "id": "14516",
           "name": "Beast of the Crimson Ring Armor",
-          "tag": "Crimson",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/bristleback/bristleback_warrior_of_arena_neck/bristleback_warrior_of_arena_neck",
           "best": true
@@ -74665,7 +74665,7 @@
         {
           "id": "12420",
           "name": "Crimson Mournful Reverie",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/vengefulspirit/vs_ti8_immortal_shoulder/vs_ti8_immortal_shoulder1",
           "best": true
@@ -75092,7 +75092,7 @@
         {
           "id": "12998",
           "name": "Golden Dread Requisition",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lifestealer/ls_ti9_immortal_arms/ls_ti9_immortal_arms1",
           "best": true
@@ -75220,7 +75220,7 @@
         {
           "id": "13818",
           "name": "Golden Dark Maw Inhibitor",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lifestealer/ls_ti10_immortal_head/ls_ti10_immortal_head_gold",
           "best": true
@@ -75314,7 +75314,7 @@
         {
           "id": "9215",
           "name": "Golden Profane Union",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/lifestealer/immortal_back/lifestealer_immortal_back_golden",
           "best": true
@@ -75464,7 +75464,7 @@
         {
           "id": "13524",
           "name": "Golden Twilight Schism",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/luna/luna_ti9_immortal/luna_ti9_immortal1",
           "best": true
@@ -75472,7 +75472,7 @@
         {
           "id": "32539",
           "name": "Twilight Schism of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/luna/luna_ti9_immortal/luna_ti9_immortal2"
         },
@@ -75684,7 +75684,7 @@
         {
           "id": "8327",
           "name": "Golden Moonfall",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/luna/moonfall/moonfall1",
           "best": true
@@ -77504,7 +77504,7 @@
         {
           "id": "5756",
           "name": "Golden Reel Guardian Arms",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/earthshaker/golden_reel_arms/golden_reel_arms",
           "best": true
@@ -77512,7 +77512,7 @@
         {
           "id": "8578",
           "name": "Bracers of the Crimson Beast",
-          "tag": "Crimson",
+          "tag": "Common",
           "isDefault": false,
           "img": "econ/items/earthshaker/siege_beast_arms/siege_beast_arms"
         },
@@ -77661,7 +77661,7 @@
         {
           "id": "5775",
           "name": "Golden Reel Guardian Belt",
-          "tag": "Golden",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/earthshaker/golden_reel_belt/golden_reel_belt",
           "best": true
@@ -77669,7 +77669,7 @@
         {
           "id": "8579",
           "name": "Belt of the Crimson Beast",
-          "tag": "Crimson",
+          "tag": "Common",
           "isDefault": false,
           "img": "econ/items/earthshaker/siege_beast_belt/siege_beast_belt"
         },
@@ -77828,7 +77828,7 @@
         {
           "id": "5776",
           "name": "Golden Reel Guardian Helmet",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/earthshaker/golden_reel_head/golden_reel_head",
           "best": true
@@ -77836,7 +77836,7 @@
         {
           "id": "8580",
           "name": "Mask of the Crimson Beast",
-          "tag": "Crimson",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/earthshaker/siege_beast_head/siege_beast_head"
         },
@@ -77992,7 +77992,7 @@
         {
           "id": "5777",
           "name": "Golden Reel Guardian Totem",
-          "tag": "Golden",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/earthshaker/golden_reel_totem/golden_reel_totem",
           "best": true
@@ -78000,14 +78000,14 @@
         {
           "id": "6486",
           "name": "Golden Gravelmaw",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/earthshaker/totem_dragon_wall/totem_dragon1"
         },
         {
           "id": "8577",
           "name": "Totem of the Crimson Beast",
-          "tag": "Crimson",
+          "tag": "Uncommon",
           "isDefault": false,
           "img": "econ/items/earthshaker/siege_beast_weapon/siege_beast_weapon"
         },
@@ -78486,7 +78486,7 @@
         {
           "id": "6014",
           "name": "Crimson Guard of Prosperity",
-          "tag": "Crimson",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/ember_spirit/crimson_guard_of_prosperity/crimson_guard_of_prosperity",
           "best": true
@@ -81896,7 +81896,7 @@
         {
           "id": "7995",
           "name": "Malefic Drake's Hood of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/viper/viper_immortal_head_ti7/viper_immortal_head_ti71",
           "best": true
@@ -82097,7 +82097,7 @@
         {
           "id": "9523",
           "name": "Crown of Golden Nirvana",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/phoenix/golden_nirvana_head/golden_nirvana_head",
           "best": true
@@ -82105,7 +82105,7 @@
         {
           "id": "25964",
           "name": "Crimson Dawn - Head",
-          "tag": "Crimson",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/phoenix/phoenix_crimson_dawn_head/phoenix_crimson_dawn_head"
         },
@@ -82177,7 +82177,7 @@
         {
           "id": "9524",
           "name": "Trappings of Golden Nirvana",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/phoenix/golden_nirvana_golden_nirvana_wings_tail_armor/golden_nirvana_golden_nirvana_wings_tail_armor",
           "best": true
@@ -82185,7 +82185,7 @@
         {
           "id": "25963",
           "name": "Crimson Dawn - Back",
-          "tag": "Crimson",
+          "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/phoenix/phoenix_crimson_dawn_back/phoenix_crimson_dawn_back"
         },
@@ -82264,7 +82264,7 @@
         {
           "id": "9525",
           "name": "Nova of Golden Nirvana",
-          "tag": "Golden",
+          "tag": "Rare",
           "isDefault": false,
           "img": "econ/items/phoenix/ultimate/golden_nirvana_golden_nirvana_nova/golden_nirvana_golden_nirvana_nova_npc_dota_phoenix_sun",
           "best": true
@@ -84334,7 +84334,7 @@
         {
           "id": "9453",
           "name": "Golden Staff of Gun-Yu",
-          "tag": "Golden",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/monkey_king/monkey_king_immortal_weapon/monkey_king_immortal_weapon2",
           "best": true
@@ -84342,7 +84342,7 @@
         {
           "id": "7824",
           "name": "Staff of Gun-Yu of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/monkey_king/monkey_king_immortal_weapon/monkey_king_immortal_weapon1"
         },
@@ -84647,7 +84647,7 @@
         {
           "id": "29570",
           "name": "Emerald Subjugation of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/underlord/ul_2021_immortal/ul_2021_immortal1",
           "best": true
@@ -84713,7 +84713,7 @@
         {
           "id": "12421",
           "name": "Crimson Emerald Conquest",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/underlord/underlord_ti8_immortal_weapon/underlord_ti8_immortal_weapon1",
           "best": true
@@ -85095,7 +85095,7 @@
         {
           "id": "12422",
           "name": "Crimson Hearts of Misrule",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/dark_willow/dark_willow_ti8_immortal_head/dark_willow_ti8_immortal_head1",
           "best": true
@@ -86434,7 +86434,7 @@
         {
           "id": "22264",
           "name": "God's Mercy of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/mars/mars_fall20_immortal_shield/mars_fall20_immortal_shield1",
           "best": true
@@ -86565,7 +86565,7 @@
         {
           "id": "13572",
           "name": "Crimson Progenitor's Bane",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/mars/mars_ti9_immortal_weapon/mars_ti9_immortal_weapon1",
           "best": true
@@ -87472,7 +87472,7 @@
         {
           "id": "35533",
           "name": "The Strings of Suradan of the Crimson Witness",
-          "tag": "Crimson",
+          "tag": "Immortal",
           "isDefault": false,
           "img": "econ/items/hoodwink/hood_2022_immortal_weapon/hood_2022_immortal_weapon1",
           "best": true
