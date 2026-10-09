@@ -7,7 +7,17 @@ const path = require('path');
 const { registerIpcHandlers } = require('./ipc');
 const { APP_CONFIG } = require('../shared/constants/appConfig');
 
+const fs = require('fs');
+
 let mainWindow = null;
+
+function getPreloadPath() {
+  const mjsPath = path.join(__dirname, '../preload/index.mjs');
+  if (fs.existsSync(mjsPath)) return mjsPath;
+  const jsPath = path.join(__dirname, '../preload/index.js');
+  if (fs.existsSync(jsPath)) return jsPath;
+  return path.resolve(__dirname, '../preload/index.js');
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -17,7 +27,7 @@ function createWindow() {
     minHeight: 700,
     backgroundColor: '#090b10',
     webPreferences: {
-      preload: path.resolve(__dirname, '../preload/index.js'),
+      preload: getPreloadPath(),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
@@ -36,7 +46,11 @@ function createWindow() {
     console.log(`[Renderer] ${message} (${sourceId}:${line})`);
   });
 
-  mainWindow.loadFile(path.resolve(__dirname, '../index.html'));
+  if (process.env.ELECTRON_RENDERER_URL) {
+    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
+  } else {
+    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+  }
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
