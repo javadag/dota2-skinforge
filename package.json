@@ -15,6 +15,7 @@
     "restart": "taskkill /F /IM electron.exe 2>nul & electron-vite preview",
     "stop": "taskkill /F /IM electron.exe 2>nul",
     "build:icons": "node scripts/build_curated_item_pack.js",
+    "sync:icons": "tsx scripts/sync_r2_icons.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{js,ts,css,html}\"",
@@ -32,6 +33,7 @@
   "author": "Joad",
   "license": "MIT",
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1148.0",
     "@eslint/js": "^10.0.1",
     "@rollup/plugin-commonjs": "^29.0.3",
     "@types/node": "^26.6.4",
@@ -43,6 +45,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.9",
+    "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.1",
