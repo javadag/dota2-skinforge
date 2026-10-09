@@ -29,8 +29,6 @@ jobs:
 
       - name: Build frontend & main bundles
         run: npm run build
-        env:
-          R2_PUBLIC_URL: https://pub-0e63b59220954d098346c54bdc0b2563.r2.dev
 
       - name: Package Windows binaries (Portable & Installer)
         run: |

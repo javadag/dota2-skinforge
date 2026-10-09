@@ -6,30 +6,10 @@
 import { app, net, protocol } from 'electron'
 import fs from 'fs'
 import path from 'path'
+import { APP_CONFIG } from '../../shared/constants/appConfig'
 import { getAssetsPath, getStagingIconsPath } from './appPathService'
 
-export const PUBLIC_FALLBACK_CDN_URL = 'https://pub-0e63b59220954d098346c54bdc0b2563.r2.dev'
-
-export function resolveDefaultCdnUrl(): string {
-  if (process.env.R2_PUBLIC_URL && process.env.R2_PUBLIC_URL.trim().length > 0) {
-    return process.env.R2_PUBLIC_URL.trim()
-  }
-  const envPath = path.resolve(process.cwd(), '.env')
-  if (fs.existsSync(envPath)) {
-    try {
-      const content = fs.readFileSync(envPath, 'utf8')
-      const match = content.match(/^R2_PUBLIC_URL\s*=\s*(.+)$/m)
-      if (match && match[1]) {
-        return match[1].trim().replace(/^['"]|['"]$/g, '')
-      }
-    } catch {
-      // ignore
-    }
-  }
-  return PUBLIC_FALLBACK_CDN_URL
-}
-
-export const DEFAULT_CDN_URL = resolveDefaultCdnUrl()
+export const DEFAULT_CDN_URL = APP_CONFIG.cdnUrl
 const inFlightRequests = new Map<string, Promise<Response>>()
 
 export function normalizeIconPath(uri: string): string {

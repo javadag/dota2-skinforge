@@ -1,14 +1,11 @@
 import { resolve } from 'path'
 import fs from 'fs'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
-import { loadEnv } from 'vite'
 import commonjs from '@rollup/plugin-commonjs'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
 const projectRoot = import.meta.dirname
-const env = loadEnv('', projectRoot, '')
-const r2PublicUrl = env.R2_PUBLIC_URL || process.env.R2_PUBLIC_URL || 'https://pub-0e63b59220954d098346c54bdc0b2563.r2.dev'
 
 function serveStaticFolder(prefix, folderPath) {
   return {
@@ -48,9 +45,6 @@ function copyStaticFolderPlugin(items) {
 export default defineConfig({
   main: {
     plugins: [externalizeDepsPlugin(), commonjs()],
-    define: {
-      'process.env.R2_PUBLIC_URL': JSON.stringify(r2PublicUrl)
-    },
     build: {
       rollupOptions: {
         input: {
