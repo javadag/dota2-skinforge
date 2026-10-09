@@ -5,7 +5,7 @@
 import { DOM } from '../utils/dom.js';
 import { state, setSelectedHero } from '../state/store.js';
 import { on } from '../state/events.js';
-import { getHeroAttribute, getAttrLabel } from '../../shared/constants/attributes.js';
+import { getHeroAttribute, getAttrLabel } from '../utils/attributes.js';
 import { CATEGORY_META } from '../../data/categoryMeta.js';
 import { formatHeroName } from './slotGenerator.js';
 

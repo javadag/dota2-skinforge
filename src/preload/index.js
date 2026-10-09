@@ -4,6 +4,7 @@
 
 const { contextBridge, ipcRenderer } = require('electron');
 const { APP_CONFIG } = require('../shared/constants/appConfig');
+const { HERO_ALIASES, getCanonicalHero } = require('../shared/constants/heroAliases');
 
 const api = {
   appInfo: APP_CONFIG,
@@ -19,4 +20,5 @@ const api = {
 };
 
 contextBridge.exposeInMainWorld('appInfo', APP_CONFIG);
+contextBridge.exposeInMainWorld('heroAliases', { HERO_ALIASES, getCanonicalHero });
 contextBridge.exposeInMainWorld('skinforge', api);
