@@ -11,6 +11,7 @@
 import { HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { execFile } from 'child_process'
 import fs from 'fs'
+import os from 'os'
 import path from 'path'
 import sharp from 'sharp'
 import { detectDotaPath } from '../src/main/services/dotaPathService'
@@ -95,7 +96,8 @@ export async function ensureSource2ViewerCli(toolsDir = path.resolve(process.cwd
 export function decompileVpkEcon(viewerExe: string, vpkPath: string, outDir: string): Promise<void> {
   return new Promise((resolve, reject) => {
     console.log(`[Decompile] Extracting panorama/images/econ textures from ${vpkPath}...`)
-    const args = ['-i', vpkPath, '-g', 'panorama/images/econ', '-o', outDir, '-e', 'png']
+    const threadCount = String(Math.max(2, Math.min(16, (os.cpus()?.length || 4) - 1)))
+    const args = ['-i', vpkPath, '-f', 'panorama/images/econ', '-d', '-o', outDir, '--threads', threadCount]
 
     execFile(viewerExe, args, { maxBuffer: 1024 * 1024 * 64 }, (error, stdout, stderr) => {
       if (error) {
@@ -142,9 +144,10 @@ export async function convertPngsToWebp(
   let totalBytes = 0
 
   for (const src of toProcess) {
-    const rel = path.relative(sourceDir, src)
-    const outRel = rel.replace(/\.png$/i, '.webp')
-    const dest = path.join(targetDir, outRel)
+    let rel = path.relative(sourceDir, src).replace(/\\/g, '/')
+    rel = rel.replace(/^panorama\/images\//i, '')
+    rel = rel.replace(/(_png)?\.png$/i, '.webp')
+    const dest = path.join(targetDir, rel)
 
     await fs.promises.mkdir(path.dirname(dest), { recursive: true })
     const buffer = await sharp(src).webp({ quality: 85, effort: 4 }).toBuffer()
