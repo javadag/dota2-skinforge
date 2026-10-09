@@ -6,8 +6,9 @@
       "available": 110,
       "img": "../assets/heroes/abaddon.png",
       "alias": [
-        "абаддон",
-        "абба"
+        "aba",
+        "loa",
+        "lord of avernus"
       ]
     },
     {
@@ -37,8 +38,9 @@
       "available": 155,
       "img": "../assets/heroes/alchemist.png",
       "alias": [
-        "алхим",
-        "алхимик"
+        "alch",
+        "razzil",
+        "chemist"
       ]
     },
     {
@@ -54,7 +56,8 @@
       "available": 27,
       "img": "../assets/heroes/ancient_apparition.png",
       "alias": [
-        "аа"
+        "aa",
+        "kaldr"
       ]
     },
     {
@@ -78,9 +81,10 @@
       "img": "../assets/heroes/antimage.png",
       "name": "Anti-Mage",
       "alias": [
-        "ам",
-        "антимаг",
-        "антимейдж"
+        "am",
+        "magina",
+        "anti mage",
+        "anti-mage"
       ]
     },
     {
@@ -89,8 +93,9 @@
       "available": 40,
       "img": "../assets/heroes/arc_warden.png",
       "alias": [
-        "арк",
-        "арк варден"
+        "arc",
+        "zet",
+        "aw"
       ]
     },
     {
@@ -106,8 +111,8 @@
       "available": 179,
       "img": "../assets/heroes/axe.png",
       "alias": [
-        "акс",
-        "топор"
+        "mogul khan",
+        "red duck"
       ]
     },
     {
@@ -116,7 +121,8 @@
       "available": 39,
       "img": "../assets/heroes/bane.png",
       "alias": [
-        "бейн"
+        "atropos",
+        "bane elemental"
       ]
     },
     {
@@ -125,8 +131,9 @@
       "available": 71,
       "img": "../assets/heroes/batrider.png",
       "alias": [
-        "бат",
-        "батрайдер"
+        "bat",
+        "jin'zakk",
+        "bat rider"
       ]
     },
     {
@@ -135,8 +142,9 @@
       "available": 105,
       "img": "../assets/heroes/beastmaster.png",
       "alias": [
-        "бист",
-        "бистмастер"
+        "bm",
+        "rexxar",
+        "beast master"
       ]
     },
     {
@@ -152,9 +160,9 @@
       "available": 155,
       "img": "../assets/heroes/bloodseeker.png",
       "alias": [
-        "бладсикер",
-        "бс",
-        "кровосток"
+        "bs",
+        "strygwyr",
+        "seeker"
       ]
     },
     {
@@ -170,8 +178,9 @@
       "available": 142,
       "img": "../assets/heroes/bounty_hunter.png",
       "alias": [
-        "баунти",
-        "бх"
+        "bh",
+        "gondar",
+        "bounty"
       ]
     },
     {
@@ -180,8 +189,9 @@
       "available": 104,
       "img": "../assets/heroes/brewmaster.png",
       "alias": [
-        "брюмастер",
-        "панда"
+        "brew",
+        "panda",
+        "mangix"
       ]
     },
     {
@@ -190,9 +200,9 @@
       "available": 58,
       "img": "../assets/heroes/bristleback.png",
       "alias": [
-        "бристл",
-        "бристлбек",
-        "кабан"
+        "bb",
+        "rigwarl",
+        "bristle"
       ]
     },
     {
@@ -201,9 +211,9 @@
       "available": 95,
       "img": "../assets/heroes/broodmother.png",
       "alias": [
-        "бруда",
-        "брудмазер",
-        "паучиха"
+        "brood",
+        "black arachnia",
+        "spider"
       ]
     },
     {
@@ -212,7 +222,10 @@
       "available": 156,
       "img": "../assets/heroes/centaur.png",
       "alias": [
-        "кентавр"
+        "cent",
+        "centaur",
+        "bradwarden",
+        "cw"
       ]
     },
     {
@@ -221,9 +234,8 @@
       "available": 129,
       "img": "../assets/heroes/chaos_knight.png",
       "alias": [
-        "ск",
-        "хаос",
-        "чаос кнайт"
+        "ck",
+        "nessaj"
       ]
     },
     {
@@ -232,7 +244,7 @@
       "available": 78,
       "img": "../assets/heroes/chen.png",
       "alias": [
-        "чен"
+        "holy knight"
       ]
     },
     {
@@ -248,8 +260,9 @@
       "available": 99,
       "img": "../assets/heroes/clinkz.png",
       "alias": [
-        "клинк",
-        "клинкз"
+        "bone",
+        "bone fletcher",
+        "clinks"
       ]
     },
     {
@@ -258,8 +271,9 @@
       "available": 130,
       "img": "../assets/heroes/rattletrap.png",
       "alias": [
-        "клок",
-        "клокверк"
+        "clock",
+        "rattletrap",
+        "cw"
       ]
     },
     {
@@ -276,8 +290,9 @@
       "img": "../assets/categories/courier.svg",
       "g": "maps",
       "alias": [
-        "курьер",
-        "курьеры"
+        "courier",
+        "donkey",
+        "flying courier"
       ]
     },
     {
@@ -287,7 +302,10 @@
       "img": "../assets/categories/creeps.svg",
       "g": "maps",
       "alias": [
-        "крипы"
+        "creep",
+        "creeps",
+        "lane creeps",
+        "neutrals"
       ]
     },
     {
@@ -296,9 +314,9 @@
       "available": 144,
       "img": "../assets/heroes/crystal_maiden.png",
       "alias": [
-        "кристал мейден",
-        "кристалка",
-        "цм"
+        "cm",
+        "rylai",
+        "maiden"
       ]
     },
     {
@@ -308,7 +326,9 @@
       "img": "../assets/categories/interface.svg",
       "g": "cursor",
       "alias": [
-        "курсор"
+        "cursor",
+        "pointer",
+        "mouse"
       ]
     },
     {
@@ -324,8 +344,8 @@
       "available": 95,
       "img": "../assets/heroes/dark_seer.png",
       "alias": [
-        "дарк сир",
-        "дс"
+        "ds",
+        "ish'kafel"
       ]
     },
     {
@@ -334,8 +354,9 @@
       "available": 97,
       "img": "../assets/heroes/dark_willow.png",
       "alias": [
-        "вилка",
-        "дарк виллоу"
+        "dw",
+        "willow",
+        "mireska"
       ]
     },
     {
@@ -345,8 +366,11 @@
       "img": "../assets/categories/interface.svg",
       "g": "cursor",
       "alias": [
-        "дашборд",
-        "заставка"
+        "dashboard",
+        "hud",
+        "ui",
+        "menu",
+        "background"
       ]
     },
     {
@@ -355,8 +379,9 @@
       "available": 27,
       "img": "../assets/heroes/dawnbreaker.png",
       "alias": [
-        "дава",
-        "донбрейкер"
+        "db",
+        "valora",
+        "dawn"
       ]
     },
     {
@@ -365,8 +390,7 @@
       "available": 70,
       "img": "../assets/heroes/dazzle.png",
       "alias": [
-        "даззл",
-        "дазл"
+        "shadow priest"
       ]
     },
     {
@@ -375,8 +399,9 @@
       "available": 179,
       "img": "../assets/heroes/death_prophet.png",
       "alias": [
-        "дед профет",
-        "дп"
+        "dp",
+        "krob",
+        "krobelus"
       ]
     },
     {
@@ -392,7 +417,8 @@
       "available": 129,
       "img": "../assets/heroes/disruptor.png",
       "alias": [
-        "дизраптор"
+        "thrall",
+        "stormcrafter"
       ]
     },
     {
@@ -401,7 +427,8 @@
       "available": 171,
       "img": "../assets/heroes/doom_bringer.png",
       "alias": [
-        "дум"
+        "lucifer",
+        "doom bringer"
       ]
     },
     {
@@ -410,9 +437,8 @@
       "available": 184,
       "img": "../assets/heroes/dragon_knight.png",
       "alias": [
-        "дк",
-        "драгон кнайт",
-        "дракон"
+        "dk",
+        "davion"
       ]
     },
     {
@@ -421,10 +447,9 @@
       "available": 203,
       "img": "../assets/heroes/drow_ranger.png",
       "alias": [
-        "дров рейнджер",
-        "дровка",
-        "дроу",
-        "лучница"
+        "drow",
+        "traxex",
+        "dr"
       ]
     },
     {
@@ -433,9 +458,8 @@
       "available": 68,
       "img": "../assets/heroes/earth_spirit.png",
       "alias": [
-        "земеля",
-        "земляной",
-        "эрт спирит"
+        "es",
+        "kaolin"
       ]
     },
     {
@@ -444,9 +468,9 @@
       "available": 66,
       "img": "../assets/heroes/earthshaker.png",
       "alias": [
-        "шейкер",
-        "эрша",
-        "эршейкер"
+        "es",
+        "raigor",
+        "shaker"
       ]
     },
     {
@@ -455,8 +479,9 @@
       "available": 51,
       "img": "../assets/heroes/elder_titan.png",
       "alias": [
-        "титан",
-        "элдер титан"
+        "et",
+        "tc",
+        "tauren chieftain"
       ]
     },
     {
@@ -465,7 +490,8 @@
       "available": 103,
       "img": "../assets/heroes/ember_spirit.png",
       "alias": [
-        "эмбер"
+        "ember",
+        "xin"
       ]
     },
     {
@@ -481,8 +507,9 @@
       "available": 89,
       "img": "../assets/heroes/enchantress.png",
       "alias": [
-        "энча",
-        "энчантресс"
+        "ench",
+        "bambi",
+        "aiushtha"
       ]
     },
     {
@@ -491,7 +518,7 @@
       "available": 27,
       "img": "../assets/heroes/enigma.png",
       "alias": [
-        "энигма"
+        "darchrow"
       ]
     },
     {
@@ -514,8 +541,9 @@
       "available": 88,
       "img": "../assets/heroes/faceless_void.png",
       "alias": [
-        "войд",
-        "фейслесс"
+        "fv",
+        "void",
+        "darkterror"
       ]
     },
     {
@@ -538,8 +566,8 @@
       "available": 43,
       "img": "../assets/heroes/grimstroke.png",
       "alias": [
-        "грим",
-        "гримстроук"
+        "grim",
+        "ashvor"
       ]
     },
     {
@@ -548,8 +576,8 @@
       "available": 95,
       "img": "../assets/heroes/gyrocopter.png",
       "alias": [
-        "гиро",
-        "гирокоптер"
+        "gyro",
+        "aurel"
       ]
     },
     {
@@ -559,7 +587,10 @@
       "img": "../assets/categories/default.svg",
       "g": "icons",
       "alias": [
-        "пьедестал"
+        "pedestal",
+        "base",
+        "effigy",
+        "stand"
       ]
     },
     {
@@ -575,9 +606,8 @@
       "available": 28,
       "img": "../assets/heroes/hoodwink.png",
       "alias": [
-        "белка",
-        "хувинк",
-        "худвинк"
+        "hood",
+        "squirrel"
       ]
     },
     {
@@ -593,7 +623,7 @@
       "available": 84,
       "img": "../assets/heroes/huskar.png",
       "alias": [
-        "хускар"
+        "sacred warrior"
       ]
     },
     {
@@ -609,10 +639,10 @@
       "available": 164,
       "img": "../assets/heroes/invoker.png",
       "alias": [
-        "вокер",
-        "инвк",
-        "инвок",
-        "инвокер"
+        "invo",
+        "kael",
+        "carl",
+        "arsenal magus"
       ]
     },
     {
@@ -621,9 +651,7 @@
       "available": 10,
       "img": "../assets/heroes/wisp.png",
       "alias": [
-        "вимп",
-        "висп",
-        "ио"
+        "wisp"
       ]
     },
     {
@@ -639,7 +667,9 @@
       "available": 17,
       "img": "../assets/heroes/jakiro.png",
       "alias": [
-        "джакиро"
+        "thd",
+        "twin head dragon",
+        "twin headed dragon"
       ]
     },
     {
@@ -648,9 +678,8 @@
       "available": 161,
       "img": "../assets/heroes/juggernaut.png",
       "alias": [
-        "джаг",
-        "джаггернаут",
-        "джагер"
+        "jugg",
+        "yurnero"
       ]
     },
     {
@@ -659,8 +688,9 @@
       "available": 68,
       "img": "../assets/heroes/keeper_of_the_light.png",
       "alias": [
-        "кипер",
-        "котл"
+        "kotl",
+        "ezalor",
+        "keeper"
       ]
     },
     {
@@ -669,7 +699,9 @@
       "available": 11,
       "img": "../assets/heroes/kez.png",
       "alias": [
-        "кез"
+        "bird",
+        "swordsman",
+        "kazurai"
       ]
     },
     {
@@ -685,7 +717,9 @@
       "available": 156,
       "img": "../assets/heroes/kunkka.png",
       "alias": [
-        "кунка"
+        "admiral",
+        "coco",
+        "daelin"
       ]
     },
     {
@@ -694,7 +728,8 @@
       "available": 0,
       "img": "../assets/heroes/largo.png",
       "alias": [
-        "ларго"
+        "largo",
+        "frog"
       ]
     },
     {
@@ -710,10 +745,9 @@
       "available": 163,
       "img": "../assets/heroes/legion_commander.png",
       "alias": [
-        "лега",
-        "легион",
-        "легионка",
-        "лц"
+        "lc",
+        "tresdin",
+        "legion"
       ]
     },
     {
@@ -722,7 +756,9 @@
       "available": 57,
       "img": "../assets/heroes/leshrac.png",
       "alias": [
-        "лешрак"
+        "lesh",
+        "tormented soul",
+        "disco pony"
       ]
     },
     {
@@ -738,7 +774,7 @@
       "available": 100,
       "img": "../assets/heroes/lich.png",
       "alias": [
-        "лич"
+        "ethreain"
       ]
     },
     {
@@ -747,8 +783,10 @@
       "available": 43,
       "img": "../assets/heroes/life_stealer.png",
       "alias": [
-        "лайфстилер",
-        "наикс"
+        "ls",
+        "naix",
+        "stealer",
+        "life stealer"
       ]
     },
     {
@@ -757,7 +795,8 @@
       "available": 120,
       "img": "../assets/heroes/lina.png",
       "alias": [
-        "лина"
+        "slayer",
+        "lina inverse"
       ]
     },
     {
@@ -766,7 +805,7 @@
       "available": 57,
       "img": "../assets/heroes/lion.png",
       "alias": [
-        "лион"
+        "demon witch"
       ]
     },
     {
@@ -789,9 +828,10 @@
       "available": 83,
       "img": "../assets/heroes/lone_druid.png",
       "alias": [
-        "друид",
-        "лд",
-        "лон друид"
+        "ld",
+        "sylla",
+        "syllabear",
+        "bear"
       ]
     },
     {
@@ -800,7 +840,7 @@
       "available": 157,
       "img": "../assets/heroes/luna.png",
       "alias": [
-        "луна"
+        "moon fang"
       ]
     },
     {
@@ -809,7 +849,8 @@
       "available": 100,
       "img": "../assets/heroes/lycan.png",
       "alias": [
-        "ликан"
+        "banehallow",
+        "wolf"
       ]
     },
     {
@@ -818,7 +859,8 @@
       "available": 77,
       "img": "../assets/heroes/magnataur.png",
       "alias": [
-        "магнус"
+        "mag",
+        "magnataur"
       ]
     },
     {
@@ -834,7 +876,7 @@
       "available": 30,
       "img": "../assets/heroes/marci.png",
       "alias": [
-        "марси"
+        "anime"
       ]
     },
     {
@@ -843,7 +885,7 @@
       "available": 49,
       "img": "../assets/heroes/mars.png",
       "alias": [
-        "марс"
+        "ares"
       ]
     },
     {
@@ -859,9 +901,8 @@
       "available": 53,
       "img": "../assets/heroes/medusa.png",
       "alias": [
-        "дуся",
-        "медуза",
-        "медузка"
+        "dusa",
+        "gorgon"
       ]
     },
     {
@@ -870,7 +911,7 @@
       "available": 91,
       "img": "../assets/heroes/meepo.png",
       "alias": [
-        "мипо"
+        "geomancer"
       ]
     },
     {
@@ -886,8 +927,8 @@
       "available": 125,
       "img": "../assets/heroes/mirana.png",
       "alias": [
-        "мирана",
-        "потма"
+        "potm",
+        "priestess of the moon"
       ]
     },
     {
@@ -903,10 +944,9 @@
       "available": 42,
       "img": "../assets/heroes/monkey_king.png",
       "alias": [
-        "манки кинг",
-        "мартышка",
-        "мк",
-        "обезьяна"
+        "mk",
+        "wukong",
+        "monkey"
       ]
     },
     {
@@ -915,8 +955,8 @@
       "available": 34,
       "img": "../assets/heroes/morphling.png",
       "alias": [
-        "морф",
-        "морфлинг"
+        "morph",
+        "water"
       ]
     },
     {
@@ -925,7 +965,8 @@
       "available": 14,
       "img": "../assets/heroes/muerta.png",
       "alias": [
-        "муэрта"
+        "death",
+        "gunslinger"
       ]
     },
     {
@@ -941,7 +982,8 @@
       "available": 124,
       "img": "../assets/heroes/naga_siren.png",
       "alias": [
-        "нага"
+        "naga",
+        "slithice"
       ]
     },
     {
@@ -950,8 +992,11 @@
       "available": 172,
       "img": "../assets/heroes/furion.png",
       "alias": [
-        "нп",
-        "фурион"
+        "np",
+        "furion",
+        "prophet",
+        "nature's prophet",
+        "tequoia"
       ]
     },
     {
@@ -960,8 +1005,9 @@
       "available": 101,
       "img": "../assets/heroes/necrolyte.png",
       "alias": [
-        "некр",
-        "некрофос"
+        "necro",
+        "rotund'jere",
+        "necrolyte"
       ]
     },
     {
@@ -971,7 +1017,10 @@
       "img": "../assets/categories/default.svg",
       "g": "icons",
       "alias": [
-        "новый год"
+        "new year",
+        "spring",
+        "new bloom",
+        "frostivus"
       ]
     },
     {
@@ -980,8 +1029,10 @@
       "available": 44,
       "img": "../assets/heroes/night_stalker.png",
       "alias": [
-        "найт сталкер",
-        "нс"
+        "ns",
+        "balanar",
+        "stalker",
+        "nightstalker"
       ]
     },
     {
@@ -990,7 +1041,10 @@
       "available": 131,
       "img": "../assets/heroes/nyx_assassin.png",
       "alias": [
-        "никс"
+        "nyx",
+        "na",
+        "anub'arak",
+        "nerubian assassin"
       ]
     },
     {
@@ -1006,8 +1060,8 @@
       "available": 79,
       "img": "../assets/heroes/ogre_magi.png",
       "alias": [
-        "огр",
-        "огр маги"
+        "ogre",
+        "aggron stonebreak"
       ]
     },
     {
@@ -1016,8 +1070,9 @@
       "available": 83,
       "img": "../assets/heroes/omniknight.png",
       "alias": [
-        "омни",
-        "омник"
+        "omni",
+        "purist thunderwrath",
+        "omni knight"
       ]
     },
     {
@@ -1026,7 +1081,7 @@
       "available": 52,
       "img": "../assets/heroes/oracle.png",
       "alias": [
-        "оракул"
+        "nerif"
       ]
     },
     {
@@ -1042,7 +1097,10 @@
       "available": 50,
       "img": "../assets/heroes/obsidian_destroyer.png",
       "alias": [
-        "од"
+        "od",
+        "obsidian destroyer",
+        "outworld destroyer",
+        "harbinger"
       ]
     },
     {
@@ -1051,8 +1109,8 @@
       "available": 33,
       "img": "../assets/heroes/pangolier.png",
       "alias": [
-        "панго",
-        "панголир"
+        "pango",
+        "donte panlin"
       ]
     },
     {
@@ -1061,9 +1119,8 @@
       "available": 156,
       "img": "../assets/heroes/phantom_assassin.png",
       "alias": [
-        "па",
-        "фантом ассасин",
-        "фантомка"
+        "pa",
+        "mortred"
       ]
     },
     {
@@ -1072,8 +1129,9 @@
       "available": 103,
       "img": "../assets/heroes/phantom_lancer.png",
       "alias": [
-        "пл",
-        "фантом лансер"
+        "pl",
+        "azwraith",
+        "lancer"
       ]
     },
     {
@@ -1089,7 +1147,8 @@
       "available": 23,
       "img": "../assets/heroes/phoenix.png",
       "alias": [
-        "феникс"
+        "bird",
+        "icarus"
       ]
     },
     {
@@ -1098,8 +1157,9 @@
       "available": 26,
       "img": "../assets/heroes/primal_beast.png",
       "alias": [
-        "зверь",
-        "праймал"
+        "pb",
+        "primal",
+        "beast"
       ]
     },
     {
@@ -1108,7 +1168,7 @@
       "available": 72,
       "img": "../assets/heroes/puck.png",
       "alias": [
-        "пак"
+        "faerie dragon"
       ]
     },
     {
@@ -1117,7 +1177,7 @@
       "available": 243,
       "img": "../assets/heroes/pudge.png",
       "alias": [
-        "пудж"
+        "butcher"
       ]
     },
     {
@@ -1126,7 +1186,7 @@
       "available": 104,
       "img": "../assets/heroes/pugna.png",
       "alias": [
-        "пугна"
+        "oblivion mage"
       ]
     },
     {
@@ -1135,9 +1195,8 @@
       "available": 124,
       "img": "../assets/heroes/queenofpain.png",
       "alias": [
-        "кв",
-        "квопа",
-        "куин"
+        "qop",
+        "akasha"
       ]
     },
     {
@@ -1167,7 +1226,7 @@
       "available": 96,
       "img": "../assets/heroes/razor.png",
       "alias": [
-        "рейзор"
+        "lightning revenant"
       ]
     },
     {
@@ -1176,7 +1235,9 @@
       "available": 124,
       "img": "../assets/heroes/riki.png",
       "alias": [
-        "рики"
+        "sa",
+        "stealth assassin",
+        "rikimaru"
       ]
     },
     {
@@ -1185,7 +1246,9 @@
       "available": 14,
       "img": "../assets/heroes/ringmaster.png",
       "alias": [
-        "рингмастер"
+        "coax",
+        "ring master",
+        "clown"
       ]
     },
     {
@@ -1195,7 +1258,10 @@
       "img": "../assets/categories/river.svg",
       "g": "maps",
       "alias": [
-        "река"
+        "river",
+        "vial",
+        "river vial",
+        "water"
       ]
     },
     {
@@ -1205,7 +1271,9 @@
       "img": "../assets/categories/roshan.svg",
       "g": "maps",
       "alias": [
-        "рошан"
+        "rosh",
+        "roshan",
+        "aegis"
       ]
     },
     {
@@ -1214,7 +1282,7 @@
       "available": 121,
       "img": "../assets/heroes/rubick.png",
       "alias": [
-        "рубик"
+        "grand magus"
       ]
     },
     {
@@ -1230,7 +1298,8 @@
       "available": 89,
       "img": "../assets/heroes/sand_king.png",
       "alias": [
-        "санд кинг"
+        "sk",
+        "crixalis"
       ]
     },
     {
@@ -1246,8 +1315,8 @@
       "available": 42,
       "img": "../assets/heroes/shadow_demon.png",
       "alias": [
-        "сд",
-        "шадов демон"
+        "sd",
+        "eradar"
       ]
     },
     {
@@ -1256,9 +1325,8 @@
       "available": 44,
       "img": "../assets/heroes/nevermore.png",
       "alias": [
-        "невермор",
-        "сф",
-        "шадов фиенд"
+        "sf",
+        "nevermore"
       ]
     },
     {
@@ -1267,8 +1335,9 @@
       "available": 100,
       "img": "../assets/heroes/shadow_shaman.png",
       "alias": [
-        "сс",
-        "шаман"
+        "ss",
+        "rhasta",
+        "shaman"
       ]
     },
     {
@@ -1285,7 +1354,10 @@
       "img": "../assets/categories/maps.svg",
       "g": "maps",
       "alias": [
-        "торговец"
+        "shop",
+        "shopkeeper",
+        "merchant",
+        "vendor"
       ]
     },
     {
@@ -1301,7 +1373,7 @@
       "available": 92,
       "img": "../assets/heroes/silencer.png",
       "alias": [
-        "сайленсер"
+        "nortrom"
       ]
     },
     {
@@ -1310,9 +1382,9 @@
       "available": 127,
       "img": "../assets/heroes/skywrath_mage.png",
       "alias": [
-        "скай",
-        "скаймаг",
-        "скайрас"
+        "sky",
+        "dragonus",
+        "sm"
       ]
     },
     {
@@ -1321,7 +1393,8 @@
       "available": 66,
       "img": "../assets/heroes/slardar.png",
       "alias": [
-        "слардар"
+        "slard",
+        "guard"
       ]
     },
     {
@@ -1330,7 +1403,8 @@
       "available": 73,
       "img": "../assets/heroes/slark.png",
       "alias": [
-        "сларк"
+        "nightcrawler",
+        "fish"
       ]
     },
     {
@@ -1339,8 +1413,10 @@
       "available": 30,
       "img": "../assets/heroes/snapfire.png",
       "alias": [
-        "бабка",
-        "снапфаер"
+        "snap",
+        "beatrix",
+        "grandma",
+        "granny"
       ]
     },
     {
@@ -1349,7 +1425,8 @@
       "available": 153,
       "img": "../assets/heroes/sniper.png",
       "alias": [
-        "снайпер"
+        "kardel",
+        "kardel sharpeye"
       ]
     },
     {
@@ -1358,7 +1435,8 @@
       "available": 73,
       "img": "../assets/heroes/spectre.png",
       "alias": [
-        "спектра"
+        "spec",
+        "mercurial"
       ]
     },
     {
@@ -1367,9 +1445,10 @@
       "available": 127,
       "img": "../assets/heroes/spirit_breaker.png",
       "alias": [
-        "барабашка",
-        "сб",
-        "спирит брейкер"
+        "sb",
+        "bara",
+        "barathrum",
+        "cow"
       ]
     },
     {
@@ -1378,8 +1457,9 @@
       "available": 69,
       "img": "../assets/heroes/storm_spirit.png",
       "alias": [
-        "сторм",
-        "шторм"
+        "storm",
+        "raijin",
+        "ss"
       ]
     },
     {
@@ -1395,7 +1475,7 @@
       "available": 224,
       "img": "../assets/heroes/sven.png",
       "alias": [
-        "свен"
+        "rogue knight"
       ]
     },
     {
@@ -1404,10 +1484,10 @@
       "available": 81,
       "img": "../assets/heroes/techies.png",
       "alias": [
-        "минер",
-        "минёр",
-        "тех",
-        "течис"
+        "squee",
+        "spleen",
+        "spoon",
+        "goblin techies"
       ]
     },
     {
@@ -1423,9 +1503,8 @@
       "available": 108,
       "img": "../assets/heroes/templar_assassin.png",
       "alias": [
-        "та",
-        "темплар",
-        "темпларка"
+        "ta",
+        "lanaya"
       ]
     },
     {
@@ -1434,8 +1513,8 @@
       "available": 31,
       "img": "../assets/heroes/terrorblade.png",
       "alias": [
-        "тб",
-        "террорблейд"
+        "tb",
+        "soul keeper"
       ]
     },
     {
@@ -1444,7 +1523,9 @@
       "available": 103,
       "img": "../assets/heroes/tidehunter.png",
       "alias": [
-        "тайд"
+        "tide",
+        "leviathan",
+        "watermelon"
       ]
     },
     {
@@ -1453,7 +1534,9 @@
       "available": 115,
       "img": "../assets/heroes/shredder.png",
       "alias": [
-        "тимбер"
+        "timber",
+        "rizzrack",
+        "shredder"
       ]
     },
     {
@@ -1462,7 +1545,7 @@
       "available": 44,
       "img": "../assets/heroes/tinker.png",
       "alias": [
-        "тинкер"
+        "boush"
       ]
     },
     {
@@ -1471,7 +1554,7 @@
       "available": 25,
       "img": "../assets/heroes/tiny.png",
       "alias": [
-        "тини"
+        "stone giant"
       ]
     },
     {
@@ -1494,8 +1577,10 @@
       "available": 78,
       "img": "../assets/heroes/treant.png",
       "alias": [
-        "треант",
-        "трент"
+        "tree",
+        "rooftrellen",
+        "treant",
+        "tp"
       ]
     },
     {
@@ -1511,8 +1596,9 @@
       "available": 42,
       "img": "../assets/heroes/troll_warlord.png",
       "alias": [
-        "тролль",
-        "троль"
+        "troll",
+        "jah'rakal",
+        "tw"
       ]
     },
     {
@@ -1521,8 +1607,8 @@
       "available": 95,
       "img": "../assets/heroes/tusk.png",
       "alias": [
-        "таск",
-        "тускар"
+        "ymir",
+        "tuskarr"
       ]
     },
     {
@@ -1531,7 +1617,9 @@
       "available": 18,
       "img": "../assets/heroes/abyssal_underlord.png",
       "alias": [
-        "андерлорд"
+        "pit lord",
+        "vrogros",
+        "abyssal underlord"
       ]
     },
     {
@@ -1540,7 +1628,8 @@
       "available": 48,
       "img": "../assets/heroes/undying.png",
       "alias": [
-        "андаинг"
+        "dirge",
+        "zombie"
       ]
     },
     {
@@ -1549,8 +1638,8 @@
       "available": 81,
       "img": "../assets/heroes/ursa.png",
       "alias": [
-        "медведь",
-        "урса"
+        "ulfsaar",
+        "bear"
       ]
     },
     {
@@ -1559,8 +1648,9 @@
       "available": 71,
       "img": "../assets/heroes/vengefulspirit.png",
       "alias": [
-        "венга",
-        "вс"
+        "vs",
+        "venge",
+        "shendelzare"
       ]
     },
     {
@@ -1569,8 +1659,9 @@
       "available": 65,
       "img": "../assets/heroes/venomancer.png",
       "alias": [
-        "вено",
-        "веномансер"
+        "veno",
+        "lesale deathbringer",
+        "banana"
       ]
     },
     {
@@ -1586,8 +1677,7 @@
       "available": 21,
       "img": "../assets/heroes/viper.png",
       "alias": [
-        "вайпер",
-        "випер"
+        "netherdrake"
       ]
     },
     {
@@ -1596,7 +1686,8 @@
       "available": 25,
       "img": "../assets/heroes/visage.png",
       "alias": [
-        "визаж"
+        "necro'lic",
+        "vis"
       ]
     },
     {
@@ -1605,7 +1696,8 @@
       "available": 10,
       "img": "../assets/heroes/void_spirit.png",
       "alias": [
-        "войд спирит"
+        "inai",
+        "vs"
       ]
     },
     {
@@ -1628,7 +1720,7 @@
       "available": 95,
       "img": "../assets/heroes/warlock.png",
       "alias": [
-        "варлок"
+        "demnok lannik"
       ]
     },
     {
@@ -1638,7 +1730,12 @@
       "img": "../assets/categories/weather.svg",
       "g": "maps",
       "alias": [
-        "погода"
+        "weather",
+        "weather effects",
+        "rain",
+        "snow",
+        "aurora",
+        "ash"
       ]
     },
     {
@@ -1647,7 +1744,9 @@
       "available": 68,
       "img": "../assets/heroes/weaver.png",
       "alias": [
-        "вивер"
+        "anub'seran",
+        "nerubian weaver",
+        "bug"
       ]
     },
     {
@@ -1656,8 +1755,9 @@
       "available": 143,
       "img": "../assets/heroes/windrunner.png",
       "alias": [
-        "винда",
-        "вр"
+        "wr",
+        "windrunner",
+        "lyralei"
       ]
     },
     {
@@ -1666,8 +1766,9 @@
       "available": 26,
       "img": "../assets/heroes/winter_wyvern.png",
       "alias": [
-        "вв",
-        "виверна"
+        "ww",
+        "auroth",
+        "wyvern"
       ]
     },
     {
@@ -1676,8 +1777,9 @@
       "available": 116,
       "img": "../assets/heroes/witch_doctor.png",
       "alias": [
-        "вд",
-        "витч доктор"
+        "wd",
+        "zharvakko",
+        "doctor"
       ]
     },
     {
@@ -1686,9 +1788,10 @@
       "available": 131,
       "img": "../assets/heroes/skeleton_king.png",
       "alias": [
-        "вк",
-        "врайт кинг",
-        "скелет"
+        "wk",
+        "sk",
+        "skeleton king",
+        "ostarion"
       ]
     },
     {
@@ -1697,14 +1800,16 @@
       "available": 47,
       "img": "../assets/heroes/zuus.png",
       "alias": [
-        "зевс"
+        "zuus",
+        "lord of heaven",
+        "mario"
       ]
     }
   ],
   "groups": [
     {
       "key": "hero",
-      "title": "Герои"
+      "title": "Heroes"
     },
     {
       "key": "maps",
