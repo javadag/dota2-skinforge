@@ -48,10 +48,18 @@ export async function handleApplyMods() {
   }
 
   const equipped = state.heroSlots || {};
-  const totalSelected = Object.values(equipped).reduce((acc, slots) => acc + Object.keys(slots || {}).length, 0);
+  const totalSelected = Object.values(equipped).reduce(
+    (acc, slots) => acc + Object.keys(slots || {}).length,
+    0
+  );
   if (totalSelected === 0) {
-    log('No custom cosmetics are currently equipped! Please select items for your hero or click "Unlock Best Set" before applying.', 'warn');
-    alert('No custom cosmetics are currently equipped!\n\nPlease customize slots on your hero in the equipment grid or click "Unlock Best Set" before clicking Apply.');
+    log(
+      'No custom cosmetics are currently equipped! Please select items for your hero or click "Unlock Best Set" before applying.',
+      'warn'
+    );
+    alert(
+      'No custom cosmetics are currently equipped!\n\nPlease customize slots on your hero in the equipment grid or click "Unlock Best Set" before clicking Apply.'
+    );
     return;
   }
 
@@ -70,12 +78,18 @@ export async function handleApplyMods() {
     if (res && res.success) {
       const count = res.patchedCount || 0;
       if (count === 0) {
-        log('Notice: 0 items were matched with the items schema. Please select valid cosmetics.', 'warn');
+        log(
+          'Notice: 0 items were matched with the items schema. Please select valid cosmetics.',
+          'warn'
+        );
         DOM.progressFill.style.width = '100%';
         DOM.progressPct.textContent = '100%';
         DOM.progressMsg.textContent = 'Notice: 0 items applied';
       } else {
-        log(`Successfully compiled and injected ${count} cosmetic loadout(s) into Dota 2!`, 'success');
+        log(
+          `Successfully compiled and injected ${count} cosmetic loadout(s) into Dota 2!`,
+          'success'
+        );
         DOM.progressFill.style.width = '100%';
         DOM.progressPct.textContent = '100%';
         DOM.progressMsg.textContent = `Success (${count} items applied)!`;

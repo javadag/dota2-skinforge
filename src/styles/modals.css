@@ -15,8 +15,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-box {
@@ -40,8 +44,14 @@
 }
 
 @keyframes modalScale {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modal-header {
@@ -140,12 +150,36 @@
   color: #fff;
 }
 
-.mrf-btn[data-rarity="arcana"].active { background: rgba(0, 229, 255, 0.2); border-color: rgba(0, 229, 255, 0.5); color: #00e5ff; }
-.mrf-btn[data-rarity="persona"].active { background: rgba(236, 72, 153, 0.2); border-color: rgba(236, 72, 153, 0.5); color: #ec4899; }
-.mrf-btn[data-rarity="immortal"].active { background: rgba(234, 179, 8, 0.2); border-color: rgba(234, 179, 8, 0.5); color: #facc15; }
-.mrf-btn[data-rarity="mythical"].active { background: rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.5); color: #c084fc; }
-.mrf-btn[data-rarity="rare"].active { background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.5); color: #60a5fa; }
-.mrf-btn[data-rarity="common"].active { background: rgba(148, 163, 184, 0.2); border-color: rgba(148, 163, 184, 0.5); color: #cbd5e1; }
+.mrf-btn[data-rarity='arcana'].active {
+  background: rgba(0, 229, 255, 0.2);
+  border-color: rgba(0, 229, 255, 0.5);
+  color: #00e5ff;
+}
+.mrf-btn[data-rarity='persona'].active {
+  background: rgba(236, 72, 153, 0.2);
+  border-color: rgba(236, 72, 153, 0.5);
+  color: #ec4899;
+}
+.mrf-btn[data-rarity='immortal'].active {
+  background: rgba(234, 179, 8, 0.2);
+  border-color: rgba(234, 179, 8, 0.5);
+  color: #facc15;
+}
+.mrf-btn[data-rarity='mythical'].active {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #c084fc;
+}
+.mrf-btn[data-rarity='rare'].active {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #60a5fa;
+}
+.mrf-btn[data-rarity='common'].active {
+  background: rgba(148, 163, 184, 0.2);
+  border-color: rgba(148, 163, 184, 0.5);
+  color: #cbd5e1;
+}
 
 .modal-item-list {
   flex: 1;

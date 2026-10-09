@@ -136,5 +136,5 @@ function restoreCleanGameinfo(dotaGameDir, backupDir = null) {
 module.exports = {
   getGameinfoPath,
   injectSearchPaths,
-  restoreCleanGameinfo
+  restoreCleanGameinfo,
 };

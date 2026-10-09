@@ -22,18 +22,30 @@ function applyModModifications(content, equipped = {}) {
     // Replace model_player if cosmetic has a model
     if (cosmetic.model) {
       if (currentBlock.includes('"model_player"')) {
-        currentBlock = currentBlock.replace(/"model_player"\s+"[^"]+"/, `"model_player"\t\t"${cosmetic.model}"`);
+        currentBlock = currentBlock.replace(
+          /"model_player"\s+"[^"]+"/,
+          `"model_player"\t\t"${cosmetic.model}"`
+        );
       } else {
-        currentBlock = currentBlock.replace(/(\t*\}\s*)$/, `\t\t"model_player"\t\t"${cosmetic.model}"\n$1`);
+        currentBlock = currentBlock.replace(
+          /(\t*\}\s*)$/,
+          `\t\t"model_player"\t\t"${cosmetic.model}"\n$1`
+        );
       }
     }
 
     // Add particle_folder if cosmetic has one
     if (cosmetic.particleFolder) {
       if (currentBlock.includes('"particle_folder"')) {
-        currentBlock = currentBlock.replace(/"particle_folder"\s+"[^"]+"/, `"particle_folder"\t\t"${cosmetic.particleFolder}"`);
+        currentBlock = currentBlock.replace(
+          /"particle_folder"\s+"[^"]+"/,
+          `"particle_folder"\t\t"${cosmetic.particleFolder}"`
+        );
       } else {
-        currentBlock = currentBlock.replace(/(\t*\}\s*)$/, `\t\t"particle_folder"\t\t"${cosmetic.particleFolder}"\n$1`);
+        currentBlock = currentBlock.replace(
+          /(\t*\}\s*)$/,
+          `\t\t"particle_folder"\t\t"${cosmetic.particleFolder}"\n$1`
+        );
       }
     }
 
@@ -49,7 +61,8 @@ function applyModModifications(content, equipped = {}) {
           else if (currentBlock[vClose] === '}') depth--;
           vClose++;
         }
-        currentBlock = currentBlock.substring(0, vIdx) + cosmetic.visualsBlock + currentBlock.substring(vClose);
+        currentBlock =
+          currentBlock.substring(0, vIdx) + cosmetic.visualsBlock + currentBlock.substring(vClose);
       } else {
         currentBlock = currentBlock.replace(/(\t*\}\s*)$/, `\t\t${cosmetic.visualsBlock}\n$1`);
       }
@@ -58,7 +71,7 @@ function applyModModifications(content, equipped = {}) {
     replacementMap.set(defaultItem.id, {
       start: defaultItem.start,
       end: defaultItem.end,
-      replacement: currentBlock
+      replacement: currentBlock,
     });
   }
 
@@ -68,7 +81,10 @@ function applyModModifications(content, equipped = {}) {
     for (const [slotId, itemName] of Object.entries(slots)) {
       if (!itemName || typeof itemName !== 'string') continue;
       const cleanItemName = itemName.trim();
-      if (cleanItemName.toLowerCase().includes('official base') || cleanItemName.toLowerCase() === 'default') {
+      if (
+        cleanItemName.toLowerCase().includes('official base') ||
+        cleanItemName.toLowerCase() === 'default'
+      ) {
         continue;
       }
 
@@ -95,7 +111,7 @@ function applyModModifications(content, equipped = {}) {
           slots,
           cosmetics,
           defaultItems,
-          patchDefaultItem
+          patchDefaultItem,
         });
       }
     }
@@ -106,12 +122,13 @@ function applyModModifications(content, equipped = {}) {
   replacements.sort((a, b) => b.start - a.start);
 
   for (const r of replacements) {
-    modifiedContent = modifiedContent.substring(0, r.start) + r.replacement + modifiedContent.substring(r.end);
+    modifiedContent =
+      modifiedContent.substring(0, r.start) + r.replacement + modifiedContent.substring(r.end);
   }
 
   return { modifiedContent, patchedCount: replacements.length };
 }
 
 module.exports = {
-  applyModModifications
+  applyModModifications,
 };

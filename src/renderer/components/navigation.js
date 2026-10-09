@@ -20,7 +20,7 @@ export function switchTab(tabId, category = null) {
     state.activeCategoryGroup = category;
   }
 
-  DOM.navButtons.forEach(btn => {
+  DOM.navButtons.forEach((btn) => {
     if (btn.dataset.tab === 'heroes') {
       const btnCat = btn.dataset.category || 'hero';
       btn.classList.toggle('active', tabId === 'heroes' && btnCat === state.activeCategoryGroup);
@@ -29,11 +29,13 @@ export function switchTab(tabId, category = null) {
     }
   });
 
-  DOM.tabSections.forEach(section => {
+  DOM.tabSections.forEach((section) => {
     section.classList.remove('active');
   });
 
-  const activeSection = document.getElementById(`tab${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`);
+  const activeSection = document.getElementById(
+    `tab${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`
+  );
   if (activeSection) {
     activeSection.classList.add('active');
   }
@@ -46,9 +48,15 @@ export function switchTab(tabId, category = null) {
     const appName = (window.appInfo && window.appInfo.name) || 'Dota 2 SkinForge';
     const titles = {
       presets: { title: 'Cosmetic Presets', sub: 'Manage and quickly apply full loadout presets' },
-      launch: { title: 'Steam Launch Options', sub: 'Tweak launch flags for optimal FPS and engine startup' },
-      settings: { title: 'Preferences & Storage', sub: 'Configure game directories and automation rules' },
-      about: { title: `About ${appName}`, sub: 'Architecture and safety guarantees' }
+      launch: {
+        title: 'Steam Launch Options',
+        sub: 'Tweak launch flags for optimal FPS and engine startup',
+      },
+      settings: {
+        title: 'Preferences & Storage',
+        sub: 'Configure game directories and automation rules',
+      },
+      about: { title: `About ${appName}`, sub: 'Architecture and safety guarantees' },
     };
     const current = titles[tabId] || titles.presets;
     DOM.topbarTitle.textContent = current.title;
@@ -59,7 +67,7 @@ export function switchTab(tabId, category = null) {
 }
 
 export function setupNavigation() {
-  DOM.navButtons.forEach(btn => {
+  DOM.navButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const tab = btn.dataset.tab;
       const category = btn.dataset.category;

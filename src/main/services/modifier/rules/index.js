@@ -5,9 +5,6 @@
 const legionCommander = require('./legionCommander');
 const tidehunter = require('./tidehunter');
 
-const rules = [
-  legionCommander,
-  tidehunter
-];
+const rules = [legionCommander, tidehunter];
 
 module.exports = rules;

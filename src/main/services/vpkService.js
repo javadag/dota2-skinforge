@@ -81,7 +81,7 @@ function packMultiChunk(srcDir, outDirVpkPath) {
           ext,
           dir,
           base,
-          size: stat.size
+          size: stat.size,
         });
       }
     }
@@ -124,12 +124,12 @@ function packMultiChunk(srcDir, outDirVpkPath) {
       for (const f of files) {
         treeChunks.push(Buffer.from(f.base + '\0', 'utf-8'));
         const entryBuf = Buffer.alloc(18);
-        entryBuf.writeUInt32LE(f.crc, 0);       // CRC32
-        entryBuf.writeUInt16LE(0, 4);           // PreloadBytes = 0
-        entryBuf.writeUInt16LE(0, 6);           // ArchiveIndex = 0 (pak01_000.vpk)
-        entryBuf.writeUInt32LE(f.offset, 8);    // EntryOffset
-        entryBuf.writeUInt32LE(f.size, 12);     // EntryLength
-        entryBuf.writeUInt16LE(0xFFFF, 16);     // Terminator
+        entryBuf.writeUInt32LE(f.crc, 0); // CRC32
+        entryBuf.writeUInt16LE(0, 4); // PreloadBytes = 0
+        entryBuf.writeUInt16LE(0, 6); // ArchiveIndex = 0 (pak01_000.vpk)
+        entryBuf.writeUInt32LE(f.offset, 8); // EntryOffset
+        entryBuf.writeUInt32LE(f.size, 12); // EntryLength
+        entryBuf.writeUInt16LE(0xffff, 16); // Terminator
         treeChunks.push(entryBuf);
       }
       treeChunks.push(Buffer.from([0])); // End of files for dir
@@ -142,13 +142,13 @@ function packMultiChunk(srcDir, outDirVpkPath) {
 
   // 5. Build Header
   const header = Buffer.alloc(28);
-  header.writeUInt32LE(0x55aa1234, 0);         // Signature
-  header.writeUInt32LE(2, 4);                  // Version 2
-  header.writeUInt32LE(treeBuffer.length, 8);   // TreeSize
-  header.writeUInt32LE(0, 12);                 // FileDataSectionSize = 0 (data is in 000.vpk)
-  header.writeUInt32LE(0, 16);                 // ArchiveMD5SectionSize
-  header.writeUInt32LE(48, 20);                // OtherMD5SectionSize
-  header.writeUInt32LE(0, 24);                 // SignatureSectionSize
+  header.writeUInt32LE(0x55aa1234, 0); // Signature
+  header.writeUInt32LE(2, 4); // Version 2
+  header.writeUInt32LE(treeBuffer.length, 8); // TreeSize
+  header.writeUInt32LE(0, 12); // FileDataSectionSize = 0 (data is in 000.vpk)
+  header.writeUInt32LE(0, 16); // ArchiveMD5SectionSize
+  header.writeUInt32LE(48, 20); // OtherMD5SectionSize
+  header.writeUInt32LE(0, 24); // SignatureSectionSize
 
   // 6. Build Footer (Other MD5 Section)
   const treeMD5 = crypto.createHash('md5').update(treeBuffer).digest();
@@ -164,7 +164,7 @@ function packMultiChunk(srcDir, outDirVpkPath) {
     ok: true,
     filesCount: fileEntries.length,
     dirVpk: resolvedDirVpk,
-    chunkVpk: outChunkVpkPath
+    chunkVpk: outChunkVpkPath,
   };
 }
 
@@ -182,5 +182,5 @@ module.exports = {
   unpack,
   pack,
   packMultiChunk,
-  VPKTOOL_PATH
+  VPKTOOL_PATH,
 };

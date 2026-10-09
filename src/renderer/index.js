@@ -7,10 +7,21 @@ import { state, loadPresets, loadHeroSlots, savePresets, setSelectedHero } from 
 import { log, updateStatusUI } from './utils/logger.js';
 import { initCatalog } from './components/slotGenerator.js';
 import { renderHeroList } from './components/heroList.js';
-import { renderHeroSlots, renderSlotItemsList, closeSlotModal, unlockBestSet, resetHeroSlots } from './components/slotEditor.js';
+import {
+  renderHeroSlots,
+  renderSlotItemsList,
+  closeSlotModal,
+  unlockBestSet,
+  resetHeroSlots,
+} from './components/slotEditor.js';
 import { openPresetNameModal, saveCurrentAsPreset } from './components/presetsView.js';
 import { updateLaunchString } from './components/launchView.js';
-import { loadSettings, saveSettings, handleApplyMods, handleRestoreMods } from './components/settingsView.js';
+import {
+  loadSettings,
+  saveSettings,
+  handleApplyMods,
+  handleRestoreMods,
+} from './components/settingsView.js';
 import { setupNavigation } from './components/navigation.js';
 
 // ── Progress IPC Listener ─────────────────────────────────────────────────────
@@ -37,9 +48,9 @@ function setupEventListeners() {
   });
 
   // Hero Attribute Filter Buttons
-  DOM.heroFilters.forEach(btn => {
+  DOM.heroFilters.forEach((btn) => {
     btn.addEventListener('click', () => {
-      DOM.heroFilters.forEach(b => b.classList.remove('active'));
+      DOM.heroFilters.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       state.attrFilter = btn.dataset.attr;
       renderHeroList();
@@ -63,7 +74,9 @@ function setupEventListeners() {
   DOM.slotModalSearch.addEventListener('input', renderSlotItemsList);
 
   DOM.presetNameClose.addEventListener('click', () => DOM.presetNameModal.classList.add('hidden'));
-  DOM.btnPresetNameCancel.addEventListener('click', () => DOM.presetNameModal.classList.add('hidden'));
+  DOM.btnPresetNameCancel.addEventListener('click', () =>
+    DOM.presetNameModal.classList.add('hidden')
+  );
   DOM.btnPresetNameSave.addEventListener('click', saveCurrentAsPreset);
 
   // Top Bar Actions
@@ -80,14 +93,14 @@ function setupEventListeners() {
   DOM.btnDismissAlert.addEventListener('click', () => DOM.patchAlert.classList.add('hidden'));
 
   // Steam Launch Tweaks
-  [DOM.twNovid, DOM.twMap, DOM.twHigh, DOM.twConsole, DOM.twNojoy, DOM.twDx11].forEach(cb => {
+  [DOM.twNovid, DOM.twMap, DOM.twHigh, DOM.twConsole, DOM.twNojoy, DOM.twDx11].forEach((cb) => {
     if (cb) cb.addEventListener('change', updateLaunchString);
   });
 
   DOM.btnCopyLaunch.addEventListener('click', () => {
     navigator.clipboard.writeText(DOM.launchOutput.textContent);
     DOM.btnCopyLaunch.textContent = '✅ Copied!';
-    setTimeout(() => DOM.btnCopyLaunch.textContent = '📋 Copy', 2000);
+    setTimeout(() => (DOM.btnCopyLaunch.textContent = '📋 Copy'), 2000);
   });
 
   // Settings
@@ -116,7 +129,7 @@ function setupEventListeners() {
         modFolder: 'skinforge',
         autoDetect: true,
         launchAfter: false,
-        confirmRestore: true
+        confirmRestore: true,
       };
       saveSettings();
       loadSettings();
@@ -139,24 +152,24 @@ function applyAppInfo() {
     shortName: 'SkinForge',
     version: '1.0.0',
     displayVersion: 'v1.0',
-    tagline: 'Cosmetic Suite'
+    tagline: 'Cosmetic Suite',
   };
 
   document.title = `${info.name} — ${info.tagline}`;
 
-  document.querySelectorAll('[data-app-name]').forEach(el => {
+  document.querySelectorAll('[data-app-name]').forEach((el) => {
     el.textContent = info.name;
   });
 
-  document.querySelectorAll('[data-app-short-name]').forEach(el => {
+  document.querySelectorAll('[data-app-short-name]').forEach((el) => {
     el.textContent = info.shortName;
   });
 
-  document.querySelectorAll('[data-app-tagline]').forEach(el => {
+  document.querySelectorAll('[data-app-tagline]').forEach((el) => {
     el.textContent = `${info.displayVersion} · ${info.tagline}`;
   });
 
-  document.querySelectorAll('[data-app-version-sub]').forEach(el => {
+  document.querySelectorAll('[data-app-version-sub]').forEach((el) => {
     el.textContent = `${info.displayVersion} — Local Cosmetic Suite`;
   });
 }

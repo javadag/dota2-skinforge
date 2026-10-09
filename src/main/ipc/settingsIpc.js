@@ -14,7 +14,7 @@ function registerSettingsIpc(getMainWindow) {
     const mainWindow = getMainWindow();
     const result = await dialog.showOpenDialog(mainWindow, {
       properties: ['openDirectory'],
-      title: 'Select Dota 2 Game Directory (e.g. .../dota 2 beta/game)'
+      title: 'Select Dota 2 Game Directory (e.g. .../dota 2 beta/game)',
     });
     if (result.canceled || result.filePaths.length === 0) return null;
     const selected = result.filePaths[0];
@@ -42,5 +42,5 @@ function registerSettingsIpc(getMainWindow) {
 }
 
 module.exports = {
-  registerSettingsIpc
+  registerSettingsIpc,
 };

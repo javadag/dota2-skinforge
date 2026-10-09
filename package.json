@@ -13,6 +13,10 @@
     "stop": "taskkill /F /IM electron.exe 2>nul",
     "dev": "electron . --dev",
     "build:icons": "node scripts/build_curated_item_pack.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.{js,ts,css,html}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,css,html}\"",
     "prepare": "husky"
   },
   "keywords": [
@@ -30,6 +34,7 @@
     "electron-vite": "^5.0.0",
     "eslint": "^10.12.0",
     "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.9",
