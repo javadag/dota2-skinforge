@@ -63,6 +63,27 @@ export const AboutView: React.FC = () => {
             </p>
           </div>
         </div>
+
+        {/* Disclaimer */}
+        <div className="p-5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex flex-col gap-2.5">
+          <div className="flex items-center gap-2">
+            <div className="text-xl">⚠️</div>
+            <h4 className="text-sm font-bold text-amber-400">Use at Your Own Risk</h4>
+          </div>
+          <p className="text-xs text-amber-200/70 leading-relaxed">
+            SkinForge modifies local game files on your machine. While it uses only Valve&apos;s
+            native asset loading pipeline and does <strong className="text-amber-300">not</strong>{' '}
+            inject code or memory into <code>dota2.exe</code>, the author makes no guarantees
+            regarding Valve&apos;s Terms of Service, VAC status, or future game updates. Cosmetic
+            changes are <strong className="text-amber-300">client-side only</strong> — other players
+            cannot see them. Always use the{' '}
+            <strong className="text-amber-300">Restore</strong> function before verifying game files
+            in Steam. The author is not responsible for any bans, game corruption, or data loss.
+          </p>
+          <p className="text-[11px] text-amber-500/60 italic">
+            Not affiliated with or endorsed by Valve Corporation.
+          </p>
+        </div>
       </div>
     </section>
   )

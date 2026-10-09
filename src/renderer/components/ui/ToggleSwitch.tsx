@@ -1,5 +1,5 @@
-import React from 'react'
 import { clsx } from 'clsx'
+import React from 'react'
 
 export interface ToggleSwitchProps {
   id?: string
@@ -29,8 +29,8 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ id, checked, onChang
       <span
         className={clsx(
           'absolute inset-0 rounded-full transition-all duration-200 border border-white/10',
-          'bg-white/10 peer-checked:bg-[#8b5cf6] peer-checked:border-purple-500/50 peer-checked:shadow-[0_0_10px_rgba(139,92,246,0.4)]',
-          "before:content-[''] before:absolute before:top-[2px] before:left-[2px] before:w-4.5 before:h-4.5 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:shadow-md",
+          'bg-white/10 peer-checked:bg-accent-purple peer-checked:border-purple-500/50 peer-checked:shadow-[0_0_10px_rgba(139,92,246,0.4)]',
+          "before:content-[''] before:absolute before:top-0.5 before:left-0.5 before:w-4.5 before:h-4.5 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:shadow-md",
           'peer-checked:before:translate-x-5'
         )}
       />
