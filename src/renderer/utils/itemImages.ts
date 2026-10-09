@@ -283,19 +283,22 @@ export function getItemImage(item?: ItemDescriptor | null, slotId = 'weapon', he
     return generateItemSvg({ name: 'Default Base', tag: 'default', isDefault: true }, slotId, heroTag)
   }
 
+  // Tier 1: Local curated offline bundle
   if (item && item.id && AVAILABLE_ITEM_ICONS.has(String(item.id))) {
     return `../assets/items/${item.id}.png`
   }
 
-  if (
-    item.img &&
-    typeof item.img === 'string' &&
-    item.img.length > 0 &&
-    !item.img.startsWith('econ/') &&
-    !item.img.includes('cloudflare')
-  ) {
+  // Tier 2: Official Valve econ cosmetic asset -> skinforge-icon protocol
+  if (item && item.img && item.img.startsWith('econ/')) {
+    const cleanImg = item.img.replace(/\.(png|vtex_c)$/i, '')
+    return `skinforge-icon://${cleanImg}.webp`
+  }
+
+  // Tier 3: Direct custom image path / URL
+  if (item && item.img && typeof item.img === 'string' && item.img.length > 0 && !item.img.includes('cloudflare')) {
     return item.img
   }
 
+  // Tier 4: Procedural SVG Fallback
   return generateItemSvg(item, slotId, heroTag)
 }
