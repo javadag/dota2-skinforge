@@ -17,6 +17,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{js,ts,css,html}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,css,html}\"",
+    "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
   "keywords": [
