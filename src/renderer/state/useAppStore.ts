@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import type { CategoryKey } from '../../data/categoryMeta'
 import type { HeroAttribute } from '../../shared/constants/attributes'
-import type { HeroEntry, InstallProgress, PipelineStatus } from '../env'
 import {
   formatHeroName,
   getHeroSlotsDefinition,
@@ -10,6 +9,7 @@ import {
   type HeroSlot,
   type HeroSlotsCatalogEntry
 } from '../components/slotGenerator'
+import type { HeroEntry, InstallProgress, PipelineStatus } from '../env'
 
 export type AppTab = 'heroes' | 'presets' | 'launch' | 'settings' | 'about'
 export type AttributeFilter = 'all' | HeroAttribute

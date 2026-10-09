@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
-import { Sidebar } from './components/Sidebar'
-import { Topbar } from './components/Topbar'
-import { HeroesView } from './components/HeroesView'
-import { PresetsView } from './components/PresetsView'
-import { LaunchView } from './components/LaunchView'
-import { SettingsView } from './components/SettingsView'
+import { useEffect } from 'react'
 import { AboutView } from './components/AboutView'
 import { ConsoleFooter } from './components/ConsoleFooter'
+import { HeroesView } from './components/HeroesView'
 import { ItemSelectModal } from './components/ItemSelectModal'
+import { LaunchView } from './components/LaunchView'
 import { PresetNameModal } from './components/PresetNameModal'
+import { PresetsView } from './components/PresetsView'
+import { SettingsView } from './components/SettingsView'
+import { Sidebar } from './components/Sidebar'
+import { Topbar } from './components/Topbar'
 import { useAppStore } from './state/useAppStore'
 
-export const App: React.FC = () => {
+export const App = () => {
   const activeTab = useAppStore((s) => s.activeTab)
   const initApp = useAppStore((s) => s.initApp)
 
@@ -28,9 +28,9 @@ export const App: React.FC = () => {
   }, [])
 
   return (
-    <div className="app-shell">
+    <div className="flex w-screen h-screen relative overflow-hidden select-none bg-bg-app text-[#f8fafc]">
       <Sidebar />
-      <div className="main-area">
+      <div className="flex-1 flex flex-col overflow-hidden relative bg-bg-app">
         <Topbar />
         {activeTab === 'heroes' && <HeroesView />}
         {activeTab === 'presets' && <PresetsView />}

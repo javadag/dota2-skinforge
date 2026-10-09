@@ -12,6 +12,7 @@ import * as gameinfo from './gameinfoService'
 import * as itemModifier from './modifier'
 import * as signatures from './signatureService'
 import * as vpk from './vpkService'
+import { getStagingPackPath } from './appPathService'
 
 export const MOD_FOLDER_NAME = APP_CONFIG.modFolder || 'skinforge'
 
@@ -122,7 +123,7 @@ export async function installMods(
   })
   signatures.updateSignaturesForGameinfo(dotaGameDir, backupDir)
 
-  const stagingDir = path.resolve(__dirname, '../../../.staging_pack')
+  const stagingDir = getStagingPackPath()
 
   onProgress({ step: 3, total: 5, message: 'Generating mod assets and tailoring items schema...' })
   const modResult = await itemModifier.generateModPackage(dotaGameDir, stagingDir, equipped, onProgress, vpk)

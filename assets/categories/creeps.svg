@@ -15,5 +15,5 @@
      <line x1="0" y1="-14" x2="0" y2="16" stroke="#ef4444" stroke-width="3"/>
      <line x1="-12" y1="-2" x2="12" y2="-2" stroke="#ef4444" stroke-width="3"/>
   </g>
-  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">CREEPS & UNITS</text>
+  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">CREEPS &amp; UNITS</text>
 </svg>

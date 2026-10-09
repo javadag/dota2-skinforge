@@ -15,6 +15,7 @@ release/
 .staging_icons/
 # Standalone Binaries
 tools/Source2Viewer-CLI.exe
+tools/extracted_items_game
 tools/*.dll
 *.temp
 temp/
@@ -58,4 +59,4 @@ desktop.ini
 
 # Executable binaries (preserve bundled tools)
 *.exe
-!tools/*.exe
+!tools/vpktool.exe

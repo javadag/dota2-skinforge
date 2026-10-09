@@ -8,6 +8,7 @@ import path from 'path'
 import { APP_CONFIG } from '../shared/constants/appConfig'
 import { registerIpcHandlers } from './ipc'
 import { registerIconScheme, registerIconProtocol } from './services/iconCacheService'
+import { getAssetsPath } from './services/appPathService'
 
 // Register skinforge-icon scheme as standard and privileged
 registerIconScheme()
@@ -20,6 +21,14 @@ function getPreloadPath() {
   const jsPath = path.join(__dirname, '../preload/index.js')
   if (fs.existsSync(jsPath)) return jsPath
   return path.resolve(__dirname, '../preload/index.js')
+}
+
+function getAppIconPath(): string {
+  const icoPath = getAssetsPath('icon.ico')
+  if (fs.existsSync(icoPath)) return icoPath
+  const pngPath = getAssetsPath('icon.png')
+  if (fs.existsSync(pngPath)) return pngPath
+  return getAssetsPath('icon.jpg')
 }
 
 function createWindow() {
@@ -38,7 +47,7 @@ function createWindow() {
     autoHideMenuBar: true,
     show: false,
     title: `${APP_CONFIG.name} — ${APP_CONFIG.tagline}`,
-    icon: path.resolve(__dirname, '../../assets/icon.jpg')
+    icon: getAppIconPath()
   })
 
   mainWindow.webContents.on('preload-error', (_event, preloadPath, error) => {

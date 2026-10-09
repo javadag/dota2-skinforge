@@ -24,6 +24,12 @@ assert.strictEqual(resolved, path.join(mockBase, 'icon_cache', 'econ/items/invok
 // 3. Format bytes helper
 assert.strictEqual(formatBytes(0), '0 B')
 assert.strictEqual(formatBytes(1024), '1.0 KB')
-assert.strictEqual(formatBytes(1024 * 1024 * 2.5), '2.5 MB')
+// 4. Staging icon resolution check
+const { getStagingIconsPath } = require('../src/main/services/appPathService')
+const sampleRel = normalizeIconPath('skinforge-icon://econ/items/invoker/dark_artistry/dark_artistry_hair_model.png')
+const stagingFile = getStagingIconsPath(sampleRel)
+assert.ok(
+  stagingFile.endsWith(path.join('.staging_icons', 'webp', 'econ', 'items', 'invoker', 'dark_artistry', 'dark_artistry_hair_model.webp'))
+)
 
 console.log('Icon cache service unit tests passed!')

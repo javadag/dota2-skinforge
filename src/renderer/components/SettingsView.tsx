@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { useAppStore } from '../state/useAppStore'
 import { Button } from './ui/Button'
 import { ToggleSwitch } from './ui/ToggleSwitch'
-import { useAppStore } from '../state/useAppStore'
 
 export const SettingsView: React.FC = () => {
   const dotaPath = useAppStore((s) => s.dotaPath)
@@ -46,22 +46,25 @@ export const SettingsView: React.FC = () => {
   const cacheSize = cacheStats?.formattedSize ?? '0 B'
 
   return (
-    <section id="tabSettings" className="tab-section active">
-      <div className="settings-panel">
-        <div className="panel-header-block">
-          <h3 className="panel-h3">Settings</h3>
-          <p className="panel-sub">
+    <section id="tabSettings" className="flex-1 h-full overflow-y-auto p-8">
+      <div className="max-w-4xl mx-auto flex flex-col gap-6">
+        <div>
+          <h3 className="text-xl font-extrabold text-white">Settings</h3>
+          <p className="text-xs text-slate-400 mt-1">
             Configure <span data-app-name>Dota 2 SkinForge</span> preferences and Dota 2 path
           </p>
         </div>
 
         {/* Installation */}
-        <div className="settings-group">
-          <div className="sg-title">Dota 2 Installation</div>
-          <div className="sg-row">
-            <div className="sg-label">Game Directory</div>
-            <div className="sg-control path-row">
-              <code id="settingsDotaPath" className="path-code">
+        <div className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-4">
+          <div className="text-xs font-bold uppercase tracking-wider text-purple-400">Dota 2 Installation</div>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-2 border-b border-white/5">
+            <div className="text-xs font-semibold text-white min-w-45">Game Directory</div>
+            <div className="flex-1 flex items-center gap-2.5">
+              <code
+                id="settingsDotaPath"
+                className="px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 font-mono text-xs text-slate-300 flex-1 truncate"
+              >
                 {dotaPath || 'Not detected'}
               </code>
               <Button id="btnChangePathSettings" variant="ghost" size="sm" onClick={selectDotaDirectory}>
@@ -69,69 +72,73 @@ export const SettingsView: React.FC = () => {
               </Button>
             </div>
           </div>
-          <div className="sg-row">
-            <div className="sg-label">Mod Folder Name</div>
-            <div className="sg-control">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-2">
+            <div className="text-xs font-semibold text-white min-w-45">Mod Folder Name</div>
+            <div className="flex-1 flex flex-col gap-1">
               <input
                 type="text"
                 id="settingsModFolder"
-                className="settings-input"
+                className="w-full max-w-xs bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-400 outline-none focus:border-purple-500/50"
                 value={settings.modFolder}
                 placeholder="skinforge"
                 onChange={(e) => updateSettings({ modFolder: e.target.value })}
               />
-              <span className="sg-hint">Folder created inside the game directory. Avoid spaces.</span>
+              <span className="text-[11px] text-slate-400">Folder created inside the game directory. Avoid spaces.</span>
             </div>
           </div>
         </div>
 
         {/* Behavior */}
-        <div className="settings-group">
-          <div className="sg-title">Behavior</div>
-          <div className="sg-row">
-            <div className="sg-label">Auto-detect game updates</div>
-            <div className="sg-control">
-              <ToggleSwitch
-                id="settingAutoDetect"
-                checked={settings.autoDetect}
-                onChange={(val) => updateSettings({ autoDetect: val })}
-              />
-              <span className="sg-hint">Show banner when Steam resets your mod files</span>
+        <div className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-4">
+          <div className="text-xs font-bold uppercase tracking-wider text-purple-400">Behavior</div>
+          <div className="flex items-center justify-between gap-4 py-2 border-b border-white/5">
+            <div>
+              <div className="text-xs font-semibold text-white">Auto-detect game updates</div>
+              <span className="text-[11px] text-slate-400 block mt-0.5">Show banner when Steam resets your mod files</span>
+            </div>
+            <div>
+              <ToggleSwitch id="settingAutoDetect" checked={settings.autoDetect} onChange={(val) => updateSettings({ autoDetect: val })} />
             </div>
           </div>
-          <div className="sg-row">
-            <div className="sg-label">Launch Dota 2 after applying</div>
-            <div className="sg-control">
+          <div className="flex items-center justify-between gap-4 py-2 border-b border-white/5">
+            <div>
+              <div className="text-xs font-semibold text-white">Launch Dota 2 after applying</div>
+              <span className="text-[11px] text-slate-400 block mt-0.5">Automatically launch Dota 2 once mods are applied</span>
+            </div>
+            <div>
               <ToggleSwitch
                 id="settingLaunchAfter"
                 checked={settings.launchAfter}
                 onChange={(val) => updateSettings({ launchAfter: val })}
               />
-              <span className="sg-hint">Automatically launch Dota 2 once mods are applied</span>
             </div>
           </div>
-          <div className="sg-row">
-            <div className="sg-label">Confirm before restore</div>
-            <div className="sg-control">
+          <div className="flex items-center justify-between gap-4 py-2">
+            <div>
+              <div className="text-xs font-semibold text-white">Confirm before restore</div>
+              <span className="text-[11px] text-slate-400 block mt-0.5">Ask for confirmation before removing mods</span>
+            </div>
+            <div>
               <ToggleSwitch
                 id="settingConfirmRestore"
                 checked={settings.confirmRestore}
                 onChange={(val) => updateSettings({ confirmRestore: val })}
               />
-              <span className="sg-hint">Ask for confirmation before removing mods</span>
             </div>
           </div>
         </div>
 
         {/* Assets & Cache */}
-        <div className="settings-group">
-          <div className="sg-title">Assets & Icon Cache</div>
-          <div className="sg-row">
-            <div className="sg-label">Local Icon Cache</div>
-            <div className="sg-control" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span id="iconCacheStatsLabel" className="sg-hint" style={{ color: 'var(--text-main)' }}>
+        <div className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-4">
+          <div className="text-xs font-bold uppercase tracking-wider text-purple-400">Assets & Icon Cache</div>
+          <div className="flex items-center justify-between gap-4 py-2">
+            <div>
+              <div className="text-xs font-semibold text-white">Local Icon Cache</div>
+              <span id="iconCacheStatsLabel" className="text-[11px] text-slate-400 block mt-0.5">
                 {cacheCount} items cached ({cacheSize})
               </span>
+            </div>
+            <div>
               <Button id="btnClearIconCache" variant="secondary" size="sm" onClick={handleClearCache}>
                 Clear Cache
               </Button>
@@ -140,19 +147,19 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Danger Zone */}
-        <div className="settings-group">
-          <div className="sg-title">Danger Zone</div>
-          <div className="sg-row">
-            <div className="sg-label">Clear all saved presets</div>
-            <div className="sg-control">
+        <div className="p-5 rounded-xl bg-rose-500/5 border border-rose-500/20 flex flex-col gap-4">
+          <div className="text-xs font-bold uppercase tracking-wider text-rose-400">Danger Zone</div>
+          <div className="flex items-center justify-between gap-4 py-2 border-b border-rose-500/10">
+            <div className="text-xs font-semibold text-white">Clear all saved presets</div>
+            <div>
               <Button id="btnClearPresets" variant="danger" size="sm" onClick={handleClearPresets}>
                 Clear Presets
               </Button>
             </div>
           </div>
-          <div className="sg-row">
-            <div className="sg-label">Reset all settings to default</div>
-            <div className="sg-control">
+          <div className="flex items-center justify-between gap-4 py-2">
+            <div className="text-xs font-semibold text-white">Reset all settings to default</div>
+            <div>
               <Button id="btnResetSettings" variant="danger" size="sm" onClick={handleResetDefaults}>
                 Reset Settings
               </Button>
@@ -161,13 +168,13 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Save Row */}
-        <div className="settings-save-row">
+        <div className="flex items-center gap-3 pt-2">
           <Button id="btnSaveSettings" variant="primary" onClick={handleSave}>
             Save Settings
           </Button>
           <span
             id="settingsSavedMsg"
-            className={`settings-saved-msg ${savedSuccess ? '' : 'hidden'}`}
+            className={`text-xs font-semibold text-emerald-400 ${savedSuccess ? '' : 'hidden'}`}
           >
             ✅ Saved!
           </span>

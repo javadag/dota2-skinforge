@@ -6,9 +6,28 @@
 import { app, net, protocol } from 'electron'
 import fs from 'fs'
 import path from 'path'
-import { pathToFileURL } from 'url'
+import { getAssetsPath, getStagingIconsPath } from './appPathService'
 
-export const DEFAULT_CDN_URL = 'https://assets.dota2skinforge.com'
+export function resolveDefaultCdnUrl(): string {
+  if (process.env.R2_PUBLIC_URL && process.env.R2_PUBLIC_URL.trim().length > 0) {
+    return process.env.R2_PUBLIC_URL.trim()
+  }
+  const envPath = path.resolve(process.cwd(), '.env')
+  if (fs.existsSync(envPath)) {
+    try {
+      const content = fs.readFileSync(envPath, 'utf8')
+      const match = content.match(/^R2_PUBLIC_URL\s*=\s*(.+)$/m)
+      if (match && match[1]) {
+        return match[1].trim().replace(/^['"]|['"]$/g, '')
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return ''
+}
+
+export const DEFAULT_CDN_URL = resolveDefaultCdnUrl()
 const inFlightRequests = new Map<string, Promise<Response>>()
 
 export function normalizeIconPath(uri: string): string {
@@ -54,12 +73,60 @@ export function registerIconProtocol(getSettings?: () => { r2CdnUrl?: string }):
     const cacheDir = app.getPath('userData')
     const localPath = resolveCachePath(cacheDir, relativePath)
 
-    // Tier 1: Local Disk Cache Hit
+    // Tier 1: Local Disk Cache Hit (%userData%/icon_cache)
     try {
       if (fs.existsSync(localPath)) {
         const stat = fs.statSync(localPath)
         if (stat.size > 0) {
-          return await net.fetch(pathToFileURL(localPath).toString())
+          const buf = await fs.promises.readFile(localPath)
+          return new Response(buf, {
+            status: 200,
+            headers: {
+              'Content-Type': 'image/webp',
+              'Access-Control-Allow-Origin': '*'
+            }
+          })
+        }
+      }
+    } catch {
+      // Continue to next tier on read error
+    }
+
+    // Tier 2: Local Staged Icons (.staging_icons/webp)
+    try {
+      const stagingPath = getStagingIconsPath(relativePath)
+      if (fs.existsSync(stagingPath)) {
+        const stat = fs.statSync(stagingPath)
+        if (stat.size > 0) {
+          const buf = await fs.promises.readFile(stagingPath)
+          return new Response(buf, {
+            status: 200,
+            headers: {
+              'Content-Type': 'image/webp',
+              'Access-Control-Allow-Origin': '*'
+            }
+          })
+        }
+      }
+    } catch {
+      // Continue to next tier on read error
+    }
+
+    // Tier 3: Local Project Assets fallback
+    try {
+      const assetPath = getAssetsPath(relativePath)
+      if (fs.existsSync(assetPath)) {
+        const stat = fs.statSync(assetPath)
+        if (stat.size > 0) {
+          const buf = await fs.promises.readFile(assetPath)
+          const isPng = assetPath.toLowerCase().endsWith('.png')
+          return new Response(buf, {
+            status: 200,
+            headers: {
+              'Content-Type': isPng ? 'image/png' : 'image/webp',
+              'Access-Control-Allow-Origin': '*'
+            }
+          })
         }
       }
     } catch {
@@ -96,14 +163,22 @@ export function registerIconProtocol(getSettings?: () => { r2CdnUrl?: string }):
 
           return new Response(buffer, {
             status: 200,
-            headers: { 'Content-Type': 'image/webp' }
+            headers: {
+              'Content-Type': 'image/webp',
+              'Access-Control-Allow-Origin': '*'
+            }
           })
         }
       } catch {
         // Network timeout / DNS error / offline
       }
 
-      return new Response('Icon not found', { status: 404 })
+      return new Response('Icon not found', {
+        status: 404,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      })
     })().finally(() => {
       inFlightRequests.delete(relativePath)
     })

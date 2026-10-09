@@ -15,5 +15,5 @@
      <polygon points="-8,-4 -8,8 4,2" fill="#00dafe"/>
      <line x1="-12" y1="20" x2="12" y2="20" stroke="#00dafe" stroke-width="3" stroke-linecap="round"/>
   </g>
-  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">HUD & INTERFACE</text>
+  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">HUD &amp; INTERFACE</text>
 </svg>

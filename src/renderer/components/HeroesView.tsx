@@ -4,8 +4,8 @@ import { SlotEditor } from './SlotEditor'
 
 export const HeroesView: React.FC = () => {
   return (
-    <section id="tabHeroes" className="tab-section active">
-      <div className="heroes-layout">
+    <section id="tabHeroes" className="flex-1 h-full flex overflow-hidden">
+      <div className="flex-1 h-full flex overflow-hidden">
         <HeroList />
         <SlotEditor />
       </div>
