@@ -50,6 +50,7 @@ export interface AppSettingsPayload {
   autoDetect?: boolean
   launchAfter?: boolean
   confirmRestore?: boolean
+  r2CdnUrl?: string
 }
 
 export interface SkinforgeBridge {
@@ -62,6 +63,8 @@ export interface SkinforgeBridge {
   openExternal: (url: string) => Promise<void>
   readSettings: () => Promise<AppSettingsPayload>
   writeSettings: (settings: AppSettingsPayload) => Promise<{ ok: true } | { ok: false; error: string }>
+  getCacheStats: () => Promise<{ count: number; sizeBytes: number; formattedSize: string }>
+  clearIconCache: () => Promise<boolean>
   onInstallProgress: (callback: (progress: InstallProgress) => void) => void
 }
 

@@ -6,6 +6,7 @@ import { app, BrowserWindow, dialog, ipcMain } from 'electron'
 import fs from 'fs'
 import path from 'path'
 import * as dotaPathModule from '../services/dotaPathService'
+import { getIconCacheStats, clearIconCache } from '../services/iconCacheService'
 
 export function registerSettingsIpc(getMainWindow: () => BrowserWindow | null) {
   const settingsPath = path.join(app.getPath('userData'), 'skinforge_settings.json')
@@ -40,6 +41,14 @@ export function registerSettingsIpc(getMainWindow: () => BrowserWindow | null) {
       const errorMessage = e instanceof Error ? e.message : String(e)
       return { ok: false, error: errorMessage }
     }
+  })
+
+  ipcMain.handle('get-cache-stats', async () => {
+    return await getIconCacheStats()
+  })
+
+  ipcMain.handle('clear-icon-cache', async () => {
+    return await clearIconCache()
   })
 }
 

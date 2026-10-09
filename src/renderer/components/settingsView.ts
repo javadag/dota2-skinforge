@@ -6,6 +6,32 @@ import { DOM } from '../utils/dom'
 import { state } from '../state/store'
 import { log, updateStatusUI } from '../utils/logger'
 
+export async function updateIconCacheStatsUI(): Promise<void> {
+  if (!DOM.iconCacheStatsLabel) return
+  try {
+    const stats = await window.skinforge.getCacheStats()
+    if (stats) {
+      DOM.iconCacheStatsLabel.textContent = `${stats.count} items cached (${stats.formattedSize})`
+    }
+  } catch (e: unknown) {
+    console.error('Failed fetching cache stats:', e)
+  }
+}
+
+export async function handleClearIconCache(): Promise<void> {
+  if (!confirm('Clear all locally cached cosmetic item icons? They will be re-downloaded on demand.')) return
+  try {
+    const ok = await window.skinforge.clearIconCache()
+    if (ok) {
+      await updateIconCacheStatsUI()
+      log('Local icon cache cleared successfully.', 'success')
+    }
+  } catch (e: unknown) {
+    const err = e instanceof Error ? e.message : String(e)
+    log(`Failed to clear icon cache: ${err}`, 'error')
+  }
+}
+
 export async function loadSettings(): Promise<void> {
   try {
     const saved = await window.skinforge.readSettings()
@@ -16,7 +42,8 @@ export async function loadSettings(): Promise<void> {
         modFolder: typeof saved.modFolder === 'string' ? saved.modFolder : state.settings.modFolder,
         autoDetect: typeof saved.autoDetect === 'boolean' ? saved.autoDetect : state.settings.autoDetect,
         launchAfter: typeof saved.launchAfter === 'boolean' ? saved.launchAfter : state.settings.launchAfter,
-        confirmRestore: typeof saved.confirmRestore === 'boolean' ? saved.confirmRestore : state.settings.confirmRestore
+        confirmRestore: typeof saved.confirmRestore === 'boolean' ? saved.confirmRestore : state.settings.confirmRestore,
+        r2CdnUrl: typeof saved.r2CdnUrl === 'string' ? saved.r2CdnUrl : state.settings.r2CdnUrl
       }
     }
   } catch (e: unknown) {
@@ -27,6 +54,9 @@ export async function loadSettings(): Promise<void> {
   if (DOM.settingAutoDetect) DOM.settingAutoDetect.checked = state.settings.autoDetect !== false
   if (DOM.settingLaunchAfter) DOM.settingLaunchAfter.checked = !!state.settings.launchAfter
   if (DOM.settingConfirmRestore) DOM.settingConfirmRestore.checked = state.settings.confirmRestore !== false
+  if (DOM.settingR2CdnUrl) DOM.settingR2CdnUrl.value = state.settings.r2CdnUrl || ''
+
+  await updateIconCacheStatsUI()
 }
 
 export async function saveSettings(): Promise<void> {
@@ -34,6 +64,7 @@ export async function saveSettings(): Promise<void> {
   if (DOM.settingAutoDetect) state.settings.autoDetect = DOM.settingAutoDetect.checked
   if (DOM.settingLaunchAfter) state.settings.launchAfter = DOM.settingLaunchAfter.checked
   if (DOM.settingConfirmRestore) state.settings.confirmRestore = DOM.settingConfirmRestore.checked
+  if (DOM.settingR2CdnUrl) state.settings.r2CdnUrl = DOM.settingR2CdnUrl.value.trim()
 
   try {
     await window.skinforge.writeSettings(state.settings)

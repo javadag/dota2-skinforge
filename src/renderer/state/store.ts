@@ -25,6 +25,7 @@ export interface AppSettings {
   autoDetect: boolean
   launchAfter: boolean
   confirmRestore: boolean
+  r2CdnUrl?: string
 }
 
 export interface AppState {
