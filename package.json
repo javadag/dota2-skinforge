@@ -12,7 +12,8 @@
     "restart": "taskkill /F /IM electron.exe 2>nul & electron .",
     "stop": "taskkill /F /IM electron.exe 2>nul",
     "dev": "electron . --dev",
-    "build:icons": "node scripts/build_curated_item_pack.js"
+    "build:icons": "node scripts/build_curated_item_pack.js",
+    "prepare": "husky"
   },
   "keywords": [
     "dota2",
@@ -23,7 +24,27 @@
   "author": "Joad",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^33.0.0"
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.4",
+    "electron": "^33.0.0",
+    "electron-vite": "^5.0.0",
+    "eslint": "^10.12.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.9",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.1",
+    "vite": "^7.3.7"
+  },
+  "lint-staged": {
+    "*.{js,ts,mjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,html,md}": [
+      "prettier --write"
+    ]
   },
   "allowScripts": {
     "electron@33.4.11": true
