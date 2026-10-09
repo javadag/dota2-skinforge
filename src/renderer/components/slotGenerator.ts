@@ -3,15 +3,21 @@
  */
 
 import { NON_HERO_SLOTS_CATALOG } from '../../data/nonHeroCatalog'
-import { state } from '../state/store'
 import type { HeroEntry } from '../env'
 import valveCatalogData from '../../../data/valveHeroCatalog.json'
+
+let catalogHeroes: HeroEntry[] = []
+
+export function setCatalogHeroes(heroes: HeroEntry[]): void {
+  catalogHeroes = heroes
+}
 
 export interface SlotItem {
   id?: string | number
   name: string
   tag?: string
   rarity?: string
+  img?: string
   best?: boolean
 }
 
@@ -64,6 +70,8 @@ export function getGenericCategorySlotDefinition(item: HeroEntry): HeroSlotsCata
     icon = '🎵'
   }
 
+  const fallbackImg = item.img || `../assets/categories/default.svg`
+
   return {
     slots: [
       { id: 'primary', name: `${name} — ${slotType}`, icon: icon },
@@ -72,20 +80,20 @@ export function getGenericCategorySlotDefinition(item: HeroEntry): HeroSlotsCata
     ],
     items: {
       primary: [
-        { name: `The International Deluxe ${name}`, tag: 'Immortal', best: true },
-        { name: `Mythical Enhanced ${name}`, tag: 'Mythical' },
-        { name: `Collector's Cache ${name}`, tag: 'Mythical' },
-        { name: `Classic Vintage ${name}`, tag: 'Rare' }
+        { name: `The International Deluxe ${name}`, tag: 'Immortal', img: fallbackImg, best: true },
+        { name: `Mythical Enhanced ${name}`, tag: 'Mythical', img: fallbackImg },
+        { name: `Collector's Cache ${name}`, tag: 'Mythical', img: fallbackImg },
+        { name: `Classic Vintage ${name}`, tag: 'Rare', img: fallbackImg }
       ],
       variant: [
-        { name: `Golden Edition ${name}`, tag: 'Golden', best: true },
-        { name: `Crimson Witness Variant ${name}`, tag: 'Crimson' },
-        { name: `Celestial Astral ${name}`, tag: 'Mythical' }
+        { name: `Golden Edition ${name}`, tag: 'Immortal', img: fallbackImg, best: true },
+        { name: `Crimson Witness Variant ${name}`, tag: 'Immortal', img: fallbackImg },
+        { name: `Celestial Astral ${name}`, tag: 'Mythical', img: fallbackImg }
       ],
       ambient: [
-        { name: 'Crimson Witness Ambient Aura', tag: 'Crimson', best: true },
-        { name: 'Golden Particle Aura', tag: 'Golden' },
-        { name: 'Ethereal Flame Infusion', tag: 'Mythical' }
+        { name: 'Crimson Witness Ambient Aura', tag: 'Immortal', img: fallbackImg, best: true },
+        { name: 'Golden Particle Aura', tag: 'Immortal', img: fallbackImg },
+        { name: 'Ethereal Flame Infusion', tag: 'Mythical', img: fallbackImg }
       ]
     }
   }
@@ -119,7 +127,7 @@ export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEn
   }
 
   // 3. Check if non-hero item from state
-  const obj = heroObj || (state.heroes && state.heroes.find((h) => h.tag.toLowerCase() === rawKey || h.tag.toLowerCase() === normalized))
+  const obj = heroObj || catalogHeroes.find((h) => h.tag.toLowerCase() === rawKey || h.tag.toLowerCase() === normalized)
   if (obj && obj.g && obj.g !== 'hero') {
     return getGenericCategorySlotDefinition(obj)
   }

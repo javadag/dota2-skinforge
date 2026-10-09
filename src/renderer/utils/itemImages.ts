@@ -2,8 +2,6 @@
  * Dota 2 SkinForge — Item Images & Official Valve Rarity Visual Engine
  */
 
-import { AVAILABLE_ITEM_ICONS } from '../../data/availableIcons'
-
 export interface RarityConfigItem {
   name: string
   color: string
@@ -51,7 +49,7 @@ export const RARITY_CONFIG: Record<ItemRarity, RarityConfigItem> = {
     bg2: '#160e01'
   },
   golden: {
-    name: 'Golden',
+    name: 'Immortal',
     color: '#ffd700',
     glow: 'rgba(255, 215, 0, 0.65)',
     bg1: '#3a2902',
@@ -147,22 +145,32 @@ export interface HeroImageTarget {
 export function getItemRarityKey(item?: ItemDescriptor | null): ItemRarity {
   if (!item) return 'default'
   if (item.isDefault) return 'common'
-  const tag = (item.tag || item.rarity || '').toLowerCase()
-  const name = (item.name || '').toLowerCase()
+  const tag = (item.tag || item.rarity || '').toLowerCase().trim()
 
-  if (tag.includes('arcana') || name.includes('arcana')) return 'arcana'
-  if (tag.includes('persona') || name.includes('persona')) return 'persona'
-  if (tag.includes('golden') || name.includes('golden')) return 'golden'
-  if (tag.includes('crimson') || name.includes('crimson witness')) return 'crimson'
-  if (tag.includes('immortal') || name.includes('immortal')) return 'immortal'
-  if (tag.includes('legendary') || name.includes('legendary')) return 'legendary'
-  if (tag.includes('mythical') || name.includes('mythical')) return 'mythical'
-  if (tag.includes('rare') || name.includes('rare')) return 'rare'
-  if (tag.includes('uncommon') || name.includes('uncommon')) return 'uncommon'
-  if (tag.includes('common') || name.includes('common')) return 'common'
-  if (tag.includes('taunt') || name.includes('taunt:')) return 'taunt'
-  if (tag.includes('voice') || name.includes('voice') || tag.includes('sound')) return 'voice'
+  // 1. Prioritize authoritative Valve tag / rarity
+  if (tag.includes('arcana')) return 'arcana'
+  if (tag.includes('persona')) return 'persona'
+  if (tag.includes('immortal')) return 'immortal'
+  if (tag.includes('legendary')) return 'legendary'
+  if (tag.includes('mythical')) return 'mythical'
+  if (tag.includes('uncommon')) return 'uncommon'
+  if (tag.includes('common')) return 'common'
+  if (tag.includes('rare')) return 'rare'
+  if (tag.includes('seasonal') || tag.includes('ancient')) return 'rare'
+  if (tag.includes('taunt')) return 'taunt'
+  if (tag.includes('voice') || tag.includes('sound')) return 'voice'
   if (tag.includes('gem') || tag.includes('ambient') || tag.includes('particle')) return 'ambient'
+
+  // 2. Fallback heuristic ONLY when tag is completely absent
+  // Never infer 'immortal' or 'golden' from item names (e.g. "Immortals Pride", "Golden Walrus Whacker")
+  if (!tag) {
+    const name = (item.name || '').toLowerCase()
+    if (name.includes('taunt:') || name.startsWith('taunt')) return 'taunt'
+    if (name.includes('voice pack') || name.includes('announcer')) return 'voice'
+    if (name.includes('ambient') || name.includes('particle')) return 'ambient'
+    if (name.includes('arcana')) return 'arcana'
+    if (name.includes('persona')) return 'persona'
+  }
 
   return 'rare'
 }
@@ -172,9 +180,127 @@ export function getRarityConfig(item?: ItemDescriptor | null): RarityConfigItem 
   return RARITY_CONFIG[key] || RARITY_CONFIG.rare
 }
 
+export const CATEGORY_SVG_MAP: Record<string, string> = {
+  creeps: '../assets/categories/creeps.svg',
+  radiant_creeps: '../assets/categories/creeps.svg',
+  dire_creeps: '../assets/categories/creeps.svg',
+  courier: '../assets/categories/courier.svg',
+  couriers: '../assets/categories/courier.svg',
+  wards: '../assets/categories/wards.svg',
+  ward: '../assets/categories/wards.svg',
+  music: '../assets/categories/music.svg',
+  music_packs: '../assets/categories/music.svg',
+  official_music_packs: '../assets/categories/music.svg',
+  weather: '../assets/categories/weather.svg',
+  announcers: '../assets/categories/announcers.svg',
+  announcer: '../assets/categories/announcers.svg',
+  roshan: '../assets/categories/roshan.svg',
+  tower: '../assets/categories/tower.svg',
+  towers: '../assets/categories/tower.svg',
+  river: '../assets/categories/river.svg',
+  cursor: '../assets/categories/interface.svg',
+  huds: '../assets/categories/interface.svg',
+  hud: '../assets/categories/interface.svg',
+  loadscreens: '../assets/categories/interface.svg',
+  loading: '../assets/categories/interface.svg',
+  loading_screen: '../assets/categories/interface.svg',
+  versus_screen: '../assets/categories/interface.svg',
+  versus: '../assets/categories/interface.svg',
+  tormentor: '../assets/categories/maps.svg',
+  ancient: '../assets/categories/maps.svg',
+  kill_streak: '../assets/categories/effects.svg',
+  streak_effect: '../assets/categories/effects.svg',
+  shader: '../assets/categories/interface.svg',
+  emblem: '../assets/categories/effects.svg',
+  interface: '../assets/categories/interface.svg',
+  teleport: '../assets/categories/effects.svg',
+  blink: '../assets/categories/effects.svg',
+  effects: '../assets/categories/effects.svg',
+  maps: '../assets/categories/maps.svg',
+  world: '../assets/categories/maps.svg',
+  default: '../assets/categories/default.svg'
+}
+
+export function getCategorySvg(tagOrSlot?: string | null): string | null {
+  if (!tagOrSlot) return null
+  const key = tagOrSlot.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_')
+  if (CATEGORY_SVG_MAP[key]) return CATEGORY_SVG_MAP[key]
+  for (const [k, v] of Object.entries(CATEGORY_SVG_MAP)) {
+    if (key.includes(k)) return v
+  }
+  return null
+}
+
 function getSlotSvgIcon(slotId: string, color: string): string {
   const s = slotId ? slotId.toLowerCase() : ''
 
+  // Non-hero slot icons
+  if (s.includes('creep') || s.includes('siege')) {
+    return `<path d="M22 24 L40 14 L58 24 L54 52 L40 68 L26 52 Z M32 30 L48 30 L44 48 L40 56 L36 48 Z" fill="${color}" filter="drop-shadow(0 0 5px ${color})"/>
+            <line x1="30" y1="20" x2="50" y2="20" stroke="#ffffff" stroke-width="2" opacity="0.6"/>`
+  }
+  if (s.includes('music') || s.includes('soundtrack') || s.includes('audio')) {
+    return `<path d="M28 54 A8 8 0 1 1 20 46 L20 22 L52 14 L52 46 A8 8 0 1 1 44 38 L44 20 L28 26 Z" fill="${color}" filter="drop-shadow(0 0 5px ${color})"/>`
+  }
+  if (s.includes('announcer') || s.includes('mega_kill') || s.includes('voice')) {
+    return `<rect x="32" y="16" width="16" height="30" rx="8" fill="${color}" filter="drop-shadow(0 0 5px ${color})"/>
+            <path d="M22 36 C22 48 30 54 40 54 C50 54 58 48 58 36 M40 54 L40 66 M28 66 L52 66" stroke="${color}" stroke-width="4" stroke-linecap="round" fill="none"/>`
+  }
+  if (s.includes('courier')) {
+    return `<path d="M20 44 C20 32 30 22 44 22 C56 22 62 30 62 44 L60 62 C52 66 28 66 20 62 Z M34 32 C38 32 40 36 38 40 C34 40 32 36 34 32 Z" fill="${color}" filter="drop-shadow(0 0 5px ${color})"/>
+            <path d="M16 32 C12 24 18 16 28 18 C34 20 32 28 26 30 Z" fill="${color}" opacity="0.8"/>
+            <path d="M64 32 C68 24 62 16 52 18 C46 20 48 28 54 30 Z" fill="${color}" opacity="0.8"/>`
+  }
+  if (s.includes('weather') || s.includes('atmosphere')) {
+    return `<path d="M26 44 C20 44 16 38 18 32 C20 26 26 24 30 26 C34 20 44 18 50 24 C56 24 62 28 62 36 C62 44 56 44 50 44 Z" fill="${color}" filter="drop-shadow(0 0 5px ${color})"/>
+            <line x1="28" y1="52" x2="24" y2="62" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+            <line x1="40" y1="52" x2="36" y2="62" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+            <line x1="52" y1="52" x2="48" y2="62" stroke="${color}" stroke-width="3" stroke-linecap="round"/>`
+  }
+  if (s.includes('ward')) {
+    return `<ellipse cx="40" cy="30" rx="18" ry="12" fill="none" stroke="${color}" stroke-width="3.5" filter="drop-shadow(0 0 5px ${color})"/>
+            <circle cx="40" cy="30" r="6" fill="${color}"/>
+            <circle cx="42" cy="28" r="2" fill="#ffffff"/>
+            <path d="M40 42 L40 68 M32 68 L48 68" stroke="${color}" stroke-width="4" stroke-linecap="round"/>`
+  }
+  if (s.includes('cursor')) {
+    return `<path d="M24 16 L24 58 L36 46 L48 64 L54 60 L42 42 L58 42 Z" fill="${color}" stroke="#0f172a" stroke-width="2" filter="drop-shadow(0 0 5px ${color})"/>`
+  }
+  if (s.includes('hud')) {
+    return `<rect x="16" y="20" width="48" height="34" rx="4" fill="none" stroke="${color}" stroke-width="3.5" filter="drop-shadow(0 0 5px ${color})"/>
+            <line x1="40" y1="54" x2="40" y2="66" stroke="${color}" stroke-width="4"/>
+            <line x1="28" y1="66" x2="52" y2="66" stroke="${color}" stroke-width="3.5" stroke-linecap="round"/>
+            <rect x="22" y="26" width="16" height="8" rx="2" fill="${color}" opacity="0.7"/>`
+  }
+  if (s.includes('loading') || s.includes('loadscreen')) {
+    return `<rect x="14" y="18" width="52" height="38" rx="4" fill="none" stroke="${color}" stroke-width="3" filter="drop-shadow(0 0 5px ${color})"/>
+            <polygon points="22,46 34,32 44,40 54,28 62,46" fill="${color}" opacity="0.8"/>
+            <circle cx="28" cy="28" r="4" fill="${color}"/>`
+  }
+  if (s.includes('versus')) {
+    return `<path d="M22 22 L36 36 M36 22 L22 36 M44 26 L56 38 L48 42 Z" stroke="${color}" stroke-width="3" filter="drop-shadow(0 0 5px ${color})"/>`
+  }
+  if (s.includes('teleport') || s.includes('tp_effect')) {
+    return `<circle cx="40" cy="40" r="22" fill="none" stroke="${color}" stroke-width="3" stroke-dasharray="8 4" filter="drop-shadow(0 0 6px ${color})"/>
+            <circle cx="40" cy="40" r="12" fill="none" stroke="${color}" stroke-width="2.5"/>
+            <circle cx="40" cy="40" r="4" fill="${color}"/>
+            <path d="M40 18 C46 26 50 34 50 40 C50 46 44 50 40 50 C36 50 32 44 34 40 C36 36 40 36 40 40" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.8"/>`
+  }
+  if (s.includes('blink')) {
+    return `<polygon points="44,12 24,40 38,40 32,68 56,34 42,34" fill="${color}" filter="drop-shadow(0 0 6px ${color})"/>`
+  }
+  if (s.includes('river') || s.includes('vial')) {
+    return `<path d="M34 16 L46 16 L46 26 L56 46 C60 54 54 66 40 66 C26 66 20 54 24 46 L34 26 Z" fill="none" stroke="${color}" stroke-width="3.5" filter="drop-shadow(0 0 5px ${color})"/>
+            <path d="M26 50 C28 54 34 60 40 60 C46 60 52 54 54 50 Z" fill="${color}" opacity="0.8"/>`
+  }
+  if (s.includes('roshan')) {
+    return `<path d="M20 30 C18 20 28 14 34 22 C38 18 42 18 46 22 C52 14 62 20 60 30 C64 42 56 60 40 68 C24 60 16 42 20 30 Z M30 36 A4 4 0 1 1 30 44 A4 4 0 1 1 30 36 M50 36 A4 4 0 1 1 50 44 A4 4 0 1 1 50 36" fill="${color}" filter="drop-shadow(0 0 6px ${color})"/>`
+  }
+  if (s.includes('tower')) {
+    return `<path d="M26 18 L32 18 L32 24 L38 24 L38 18 L42 18 L42 24 L48 24 L48 18 L54 18 L50 66 L30 66 Z M36 40 A4 8 0 0 1 44 40 L44 56 L36 56 Z" fill="${color}" filter="drop-shadow(0 0 5px ${color})"/>`
+  }
+
+  // Hero slot icons
   if (s.includes('weapon') || s.includes('sword') || s.includes('blade') || s.includes('staff')) {
     return `<path d="M48 16 L56 24 L34 46 L26 38 Z M32 48 L18 62 L12 66 L16 70 L20 66 L34 52 Z M14 68 L10 72 L12 74 L16 70 Z M52 20 L44 12 L38 18 L46 26 Z" fill="${color}" filter="drop-shadow(0 0 5px ${color})"/>`
   }
@@ -277,28 +403,37 @@ export function getItemImage(item?: ItemDescriptor | null, slotId = 'weapon', he
       return heroObj.img
     }
     if (heroTag) {
+      const catSvg = getCategorySvg(heroTag)
+      if (catSvg) return catSvg
       const cleanTag = heroTag.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_')
       return `../assets/heroes/${cleanTag}.png`
     }
     return generateItemSvg({ name: 'Default Base', tag: 'default', isDefault: true }, slotId, heroTag)
   }
 
-  // Tier 1: Local curated offline bundle
-  if (item && item.id && AVAILABLE_ITEM_ICONS.has(String(item.id))) {
-    return `../assets/items/${item.id}.png`
-  }
-
-  // Tier 2: Official Valve econ cosmetic asset -> skinforge-icon protocol
-  if (item && item.img && item.img.startsWith('econ/')) {
+  // Tier 1: Official Valve econ cosmetic asset -> skinforge-icon protocol
+  if (
+    item &&
+    item.img &&
+    typeof item.img === 'string' &&
+    (item.img.startsWith('econ/') ||
+      item.img.startsWith('loadingscreens/') ||
+      item.img.startsWith('compendium/') ||
+      item.img.startsWith('teamfancontent/') ||
+      item.img.startsWith('talentcontent/') ||
+      item.img.startsWith('events/') ||
+      item.img.startsWith('stickers/') ||
+      item.img.startsWith('materials/'))
+  ) {
     const cleanImg = item.img.replace(/\.(png|vtex_c)$/i, '')
     return `skinforge-icon://${cleanImg}.webp`
   }
 
-  // Tier 3: Direct custom image path / URL
+  // Tier 2: Direct custom image path / URL / SVG
   if (item && item.img && typeof item.img === 'string' && item.img.length > 0 && !item.img.includes('cloudflare')) {
     return item.img
   }
 
-  // Tier 4: Procedural SVG Fallback
+  // Tier 3: Procedural SVG Fallback
   return generateItemSvg(item, slotId, heroTag)
 }
