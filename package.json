@@ -19,8 +19,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{js,ts,css,html}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,css,html}\"",
-    "typecheck": "tsc --noEmit",
-    "test": "node test/services.test.js && node test/modifier.test.js && node test/catalog.test.js && node test/shared.test.js && electron test/electron-smoke.js",
+    "typecheck": "tsc -b --noEmit",
+    "test": "tsx test/services.test.js && tsx test/modifier.test.js && tsx test/catalog.test.js && tsx test/shared.test.js && electron -r tsx/cjs test/electron-smoke.js",
     "prepare": "husky"
   },
   "keywords": [
@@ -43,6 +43,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.9",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.1",
     "vite": "^7.3.7"

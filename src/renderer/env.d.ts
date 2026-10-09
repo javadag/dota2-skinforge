@@ -1,34 +1,79 @@
 /// <reference types="vite/client" />
 
-export interface SkinforgeApi {
-  detectDotaPath: () => Promise<string | null>;
-  validateDotaPath: (gameDir: string) => Promise<boolean>;
-  checkStatus: (
-    gameDir: string
-  ) => Promise<{ installed: boolean; searchPathOk: boolean; signatureOk: boolean }>;
-  installMods: (payload: {
-    heroId: string;
-    selectedItems: Record<string, any>;
-    gameDir?: string;
-  }) => Promise<{ success: boolean; error?: string }>;
-  uninstallMods: (gameDir: string) => Promise<{ success: boolean; error?: string }>;
-  isDotaRunning: () => Promise<boolean>;
-  openDialog: (options: {
-    title?: string;
-    properties?: string[];
-  }) => Promise<{ canceled: boolean; filePaths: string[] }>;
-  openExternal: (url: string) => Promise<void>;
-  loadPreset: () => Promise<any>;
-  savePreset: (preset: any) => Promise<boolean>;
-  getAppVersion: () => Promise<string>;
-  log: (level: string, message: string) => Promise<void>;
+export interface InstallProgress {
+  step: number
+  total: number
+  message: string
+}
+
+export interface PipelineStatus {
+  validDotaDir: boolean
+  dotaRunning: boolean
+  installed: boolean
+  signaturesBypassed: boolean
+  gameinfoConfigured: boolean
+  vpkFileExists?: boolean
+}
+
+export type StatusResult = PipelineStatus
+
+export interface ModInstallResult {
+  success: boolean
+  patchedCount?: number
+  error?: string
+}
+
+export interface SelectDirectoryResult {
+  path: string
+  isValid: boolean
+}
+
+export interface HeroEntry {
+  tag: string
+  name?: string
+  attr?: string
+  g?: string
+  alias?: string[]
+  img?: string
+  mods?: string
+}
+
+export interface InitialDataPayload {
+  appInfo: import('../shared/constants/appConfig').AppConfig
+  dotaPath: string
+  status: PipelineStatus
+  heroes: HeroEntry[]
+  groups: string[]
+}
+
+export interface AppSettingsPayload {
+  dotaPath?: string
+  modFolder?: string
+  autoDetect?: boolean
+  launchAfter?: boolean
+  confirmRestore?: boolean
+}
+
+export interface SkinforgeBridge {
+  appInfo: import('../shared/constants/appConfig').AppConfig
+  getInitialData: () => Promise<InitialDataPayload>
+  checkStatus: (customPath?: string) => Promise<PipelineStatus>
+  selectDirectory: () => Promise<SelectDirectoryResult | null>
+  installMods: (customPath?: string, equipped?: Record<string, Record<string, string>>) => Promise<ModInstallResult>
+  uninstallMods: (customPath?: string) => Promise<{ success: boolean; error?: string }>
+  openExternal: (url: string) => Promise<void>
+  readSettings: () => Promise<AppSettingsPayload>
+  writeSettings: (settings: AppSettingsPayload) => Promise<{ ok: boolean; error?: string }>
+  onInstallProgress: (callback: (progress: InstallProgress) => void) => void
 }
 
 declare global {
   interface Window {
-    skinforgeApi: SkinforgeApi;
+    skinforge: SkinforgeBridge
+    appInfo: import('../shared/constants/appConfig').AppConfig
     heroAliases?: {
-      HERO_ALIASES: Record<string, string>;
-    };
+      HERO_ALIASES: Record<string, string>
+      getCanonicalHero: (tag?: string) => string
+    }
   }
 }
