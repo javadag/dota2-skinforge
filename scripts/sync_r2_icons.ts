@@ -129,6 +129,11 @@ export async function convertPngsToWebp(
     return files
   }
 
+  if (!fs.existsSync(sourceDir)) {
+    console.log(`[WebP] Source directory ${sourceDir} does not exist. Run without --skip-extract first.`)
+    return { converted: 0, totalBytes: 0 }
+  }
+
   const pngFiles = await getFiles(sourceDir)
   const toProcess = limit ? pngFiles.slice(0, limit) : pngFiles
   console.log(`[WebP] Found ${pngFiles.length} PNG textures. Processing ${toProcess.length} items...`)

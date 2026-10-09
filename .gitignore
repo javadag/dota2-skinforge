@@ -12,6 +12,7 @@ release/
 
 # Mod Generation Staging & Runtime Backups
 .staging_pack/
+.staging_icons/
 *.backup/
 *.tmp
 *.temp
