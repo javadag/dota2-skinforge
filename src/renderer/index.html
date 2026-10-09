@@ -399,6 +399,30 @@
             </div>
 
             <div class="settings-group">
+              <div class="sg-title">Assets & Icon Cache</div>
+              <div class="sg-row">
+                <div class="sg-label">Cloudflare R2 CDN URL</div>
+                <div class="sg-control">
+                  <input
+                    type="text"
+                    id="settingR2CdnUrl"
+                    class="text-input"
+                    placeholder="https://assets.dota2skinforge.com"
+                    style="width: 280px"
+                  />
+                  <span class="sg-hint">Remote asset domain for high-definition cosmetic icons</span>
+                </div>
+              </div>
+              <div class="sg-row">
+                <div class="sg-label">Local Icon Cache</div>
+                <div class="sg-control" style="display: flex; align-items: center; gap: 10px">
+                  <span id="iconCacheStatsLabel" class="sg-hint" style="color: var(--text-main)">0 items cached (0 B)</span>
+                  <button id="btnClearIconCache" class="btn btn-secondary btn-sm">Clear Cache</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
               <div class="sg-title">Danger Zone</div>
               <div class="sg-row">
                 <div class="sg-label">Clear all saved presets</div>

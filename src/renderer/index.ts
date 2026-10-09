@@ -6,7 +6,7 @@ import { renderHeroList } from './components/heroList'
 import { updateLaunchString } from './components/launchView'
 import { setupNavigation } from './components/navigation'
 import { openPresetNameModal, saveCurrentAsPreset } from './components/presetsView'
-import { handleApplyMods, handleRestoreMods, loadSettings, saveSettings } from './components/settingsView'
+import { handleApplyMods, handleClearIconCache, handleRestoreMods, loadSettings, saveSettings } from './components/settingsView'
 import { closeSlotModal, renderSlotItemsList, resetHeroSlots, unlockBestSet } from './components/slotEditor'
 import { initCatalog } from './components/slotGenerator'
 import type { InstallProgress } from './env'
@@ -136,6 +136,7 @@ function setupEventListeners(): void {
   })
 
   DOM.btnSaveSettings?.addEventListener('click', saveSettings)
+  DOM.btnClearIconCache?.addEventListener('click', handleClearIconCache)
 
   // Console Drawer Toggle
   DOM.consoleToggle?.addEventListener('click', () => {

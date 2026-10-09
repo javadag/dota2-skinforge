@@ -22,6 +22,8 @@ const api = {
   openExternal: (url: string) => ipcRenderer.invoke('open-external', url),
   readSettings: () => ipcRenderer.invoke('read-settings'),
   writeSettings: (settings: Record<string, unknown>) => ipcRenderer.invoke('write-settings', settings),
+  getCacheStats: () => ipcRenderer.invoke('get-cache-stats'),
+  clearIconCache: () => ipcRenderer.invoke('clear-icon-cache'),
   onInstallProgress: (cb: (progress: ProgressPayload) => void) =>
     ipcRenderer.on('install-progress', (_e, data: ProgressPayload) => cb(data))
 }
