@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 144" width="256" height="144">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#422006"/><stop offset="100%" stop-color="#1a0c02"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="144" fill="url(#bg)"/>
+  <rect width="256" height="144" fill="url(#glow)"/>
+  <g transform="translate(128, 62)">
+    <polygon points="0,-26 8,-8 26,-8 12,4 18,22 0,10 -18,22 -12,4 -26,-8 -8,-8" fill="#eab308"/>
+     <circle cx="0" cy="0" r="4" fill="#ffffff"/>
+  </g>
+  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">SPELL & ITEM EFFECTS</text>
+</svg>

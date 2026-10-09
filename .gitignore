@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Production & Packaging Builds
+dist/
+out/
+build/
+release/
+
+# Mod Generation Staging & Runtime Backups
+.staging_pack/
+*.backup/
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Electron Crash Reports
+CrashDumps/
+*.dmp
+
+# Environment Variables & Local Config
+.env
+.env.local
+.env.*.local
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Directories
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Executable binaries (preserve bundled tools)
+*.exe
+!tools/*.exe

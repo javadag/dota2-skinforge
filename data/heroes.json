@@ -1,0 +1,1726 @@
+{
+  "heroes": [
+    {
+      "tag": "abaddon",
+      "mods": 150,
+      "available": 110,
+      "img": "../assets/heroes/abaddon.png",
+      "alias": [
+        "абаддон",
+        "абба"
+      ]
+    },
+    {
+      "tag": "aegis",
+      "mods": 2,
+      "available": 1,
+      "img": "../assets/categories/maps.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "aegis fountain",
+      "mods": 6,
+      "available": 0,
+      "img": "../assets/categories/maps.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "aghanim",
+      "mods": 9,
+      "available": 5,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "alchemist",
+      "mods": 214,
+      "available": 155,
+      "img": "../assets/heroes/alchemist.png",
+      "alias": [
+        "алхим",
+        "алхимик"
+      ]
+    },
+    {
+      "tag": "ancient",
+      "mods": 1,
+      "available": 0,
+      "img": "../assets/categories/maps.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "ancient apparition",
+      "mods": 75,
+      "available": 27,
+      "img": "../assets/heroes/ancient_apparition.png",
+      "alias": [
+        "аа"
+      ]
+    },
+    {
+      "tag": "anime hero sounds",
+      "mods": 15,
+      "available": 15,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "announcers",
+      "mods": 89,
+      "available": 75,
+      "img": "../assets/categories/announcers.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "antimage",
+      "mods": 345,
+      "available": 156,
+      "img": "../assets/heroes/antimage.png",
+      "name": "Anti-Mage",
+      "alias": [
+        "ам",
+        "антимаг",
+        "антимейдж"
+      ]
+    },
+    {
+      "tag": "arc warden",
+      "mods": 76,
+      "available": 40,
+      "img": "../assets/heroes/arc_warden.png",
+      "alias": [
+        "арк",
+        "арк варден"
+      ]
+    },
+    {
+      "tag": "arcana sounds",
+      "mods": 13,
+      "available": 12,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "axe",
+      "mods": 249,
+      "available": 179,
+      "img": "../assets/heroes/axe.png",
+      "alias": [
+        "акс",
+        "топор"
+      ]
+    },
+    {
+      "tag": "bane",
+      "mods": 74,
+      "available": 39,
+      "img": "../assets/heroes/bane.png",
+      "alias": [
+        "бейн"
+      ]
+    },
+    {
+      "tag": "batrider",
+      "mods": 90,
+      "available": 71,
+      "img": "../assets/heroes/batrider.png",
+      "alias": [
+        "бат",
+        "батрайдер"
+      ]
+    },
+    {
+      "tag": "beastmaster",
+      "mods": 132,
+      "available": 105,
+      "img": "../assets/heroes/beastmaster.png",
+      "alias": [
+        "бист",
+        "бистмастер"
+      ]
+    },
+    {
+      "tag": "blink",
+      "mods": 19,
+      "available": 11,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "bloodseeker",
+      "mods": 171,
+      "available": 155,
+      "img": "../assets/heroes/bloodseeker.png",
+      "alias": [
+        "бладсикер",
+        "бс",
+        "кровосток"
+      ]
+    },
+    {
+      "tag": "bottle",
+      "mods": 10,
+      "available": 7,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "bounty hunter",
+      "mods": 165,
+      "available": 142,
+      "img": "../assets/heroes/bounty_hunter.png",
+      "alias": [
+        "баунти",
+        "бх"
+      ]
+    },
+    {
+      "tag": "brewmaster",
+      "mods": 118,
+      "available": 104,
+      "img": "../assets/heroes/brewmaster.png",
+      "alias": [
+        "брюмастер",
+        "панда"
+      ]
+    },
+    {
+      "tag": "bristleback",
+      "mods": 89,
+      "available": 58,
+      "img": "../assets/heroes/bristleback.png",
+      "alias": [
+        "бристл",
+        "бристлбек",
+        "кабан"
+      ]
+    },
+    {
+      "tag": "broodmother",
+      "mods": 171,
+      "available": 95,
+      "img": "../assets/heroes/broodmother.png",
+      "alias": [
+        "бруда",
+        "брудмазер",
+        "паучиха"
+      ]
+    },
+    {
+      "tag": "centaur warrunner",
+      "mods": 190,
+      "available": 156,
+      "img": "../assets/heroes/centaur.png",
+      "alias": [
+        "кентавр"
+      ]
+    },
+    {
+      "tag": "chaos knight",
+      "mods": 161,
+      "available": 129,
+      "img": "../assets/heroes/chaos_knight.png",
+      "alias": [
+        "ск",
+        "хаос",
+        "чаос кнайт"
+      ]
+    },
+    {
+      "tag": "chen",
+      "mods": 94,
+      "available": 78,
+      "img": "../assets/heroes/chen.png",
+      "alias": [
+        "чен"
+      ]
+    },
+    {
+      "tag": "click",
+      "mods": 5,
+      "available": 1,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "clinkz",
+      "mods": 121,
+      "available": 99,
+      "img": "../assets/heroes/clinkz.png",
+      "alias": [
+        "клинк",
+        "клинкз"
+      ]
+    },
+    {
+      "tag": "clockwerk",
+      "mods": 173,
+      "available": 130,
+      "img": "../assets/heroes/rattletrap.png",
+      "alias": [
+        "клок",
+        "клокверк"
+      ]
+    },
+    {
+      "tag": "countdowns",
+      "mods": 1,
+      "available": 0,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "courier",
+      "mods": 317,
+      "available": 110,
+      "img": "../assets/categories/courier.svg",
+      "g": "maps",
+      "alias": [
+        "курьер",
+        "курьеры"
+      ]
+    },
+    {
+      "tag": "creeps",
+      "mods": 20,
+      "available": 9,
+      "img": "../assets/categories/creeps.svg",
+      "g": "maps",
+      "alias": [
+        "крипы"
+      ]
+    },
+    {
+      "tag": "crystal maiden",
+      "mods": 215,
+      "available": 144,
+      "img": "../assets/heroes/crystal_maiden.png",
+      "alias": [
+        "кристал мейден",
+        "кристалка",
+        "цм"
+      ]
+    },
+    {
+      "tag": "cursor",
+      "mods": 16,
+      "available": 2,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor",
+      "alias": [
+        "курсор"
+      ]
+    },
+    {
+      "tag": "dagon",
+      "mods": 7,
+      "available": 2,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "dark seer",
+      "mods": 107,
+      "available": 95,
+      "img": "../assets/heroes/dark_seer.png",
+      "alias": [
+        "дарк сир",
+        "дс"
+      ]
+    },
+    {
+      "tag": "dark willow",
+      "mods": 135,
+      "available": 97,
+      "img": "../assets/heroes/dark_willow.png",
+      "alias": [
+        "вилка",
+        "дарк виллоу"
+      ]
+    },
+    {
+      "tag": "dashboard",
+      "mods": 289,
+      "available": 211,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor",
+      "alias": [
+        "дашборд",
+        "заставка"
+      ]
+    },
+    {
+      "tag": "dawnbreaker",
+      "mods": 60,
+      "available": 27,
+      "img": "../assets/heroes/dawnbreaker.png",
+      "alias": [
+        "дава",
+        "донбрейкер"
+      ]
+    },
+    {
+      "tag": "dazzle",
+      "mods": 103,
+      "available": 70,
+      "img": "../assets/heroes/dazzle.png",
+      "alias": [
+        "даззл",
+        "дазл"
+      ]
+    },
+    {
+      "tag": "death prophet",
+      "mods": 247,
+      "available": 179,
+      "img": "../assets/heroes/death_prophet.png",
+      "alias": [
+        "дед профет",
+        "дп"
+      ]
+    },
+    {
+      "tag": "deny",
+      "mods": 8,
+      "available": 6,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "disruptor",
+      "mods": 155,
+      "available": 129,
+      "img": "../assets/heroes/disruptor.png",
+      "alias": [
+        "дизраптор"
+      ]
+    },
+    {
+      "tag": "doom",
+      "mods": 210,
+      "available": 171,
+      "img": "../assets/heroes/doom_bringer.png",
+      "alias": [
+        "дум"
+      ]
+    },
+    {
+      "tag": "dragon knight",
+      "mods": 283,
+      "available": 184,
+      "img": "../assets/heroes/dragon_knight.png",
+      "alias": [
+        "дк",
+        "драгон кнайт",
+        "дракон"
+      ]
+    },
+    {
+      "tag": "drow ranger",
+      "mods": 316,
+      "available": 203,
+      "img": "../assets/heroes/drow_ranger.png",
+      "alias": [
+        "дров рейнджер",
+        "дровка",
+        "дроу",
+        "лучница"
+      ]
+    },
+    {
+      "tag": "earth spirit",
+      "mods": 90,
+      "available": 68,
+      "img": "../assets/heroes/earth_spirit.png",
+      "alias": [
+        "земеля",
+        "земляной",
+        "эрт спирит"
+      ]
+    },
+    {
+      "tag": "earthshaker",
+      "mods": 104,
+      "available": 66,
+      "img": "../assets/heroes/earthshaker.png",
+      "alias": [
+        "шейкер",
+        "эрша",
+        "эршейкер"
+      ]
+    },
+    {
+      "tag": "elder titan",
+      "mods": 59,
+      "available": 51,
+      "img": "../assets/heroes/elder_titan.png",
+      "alias": [
+        "титан",
+        "элдер титан"
+      ]
+    },
+    {
+      "tag": "ember spirit",
+      "mods": 145,
+      "available": 103,
+      "img": "../assets/heroes/ember_spirit.png",
+      "alias": [
+        "эмбер"
+      ]
+    },
+    {
+      "tag": "emblem",
+      "mods": 14,
+      "available": 0,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "enchantress",
+      "mods": 107,
+      "available": 89,
+      "img": "../assets/heroes/enchantress.png",
+      "alias": [
+        "энча",
+        "энчантресс"
+      ]
+    },
+    {
+      "tag": "enigma",
+      "mods": 65,
+      "available": 27,
+      "img": "../assets/heroes/enigma.png",
+      "alias": [
+        "энигма"
+      ]
+    },
+    {
+      "tag": "ethereal",
+      "mods": 1,
+      "available": 0,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "eul scepter",
+      "mods": 12,
+      "available": 8,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "faceless void",
+      "mods": 139,
+      "available": 88,
+      "img": "../assets/heroes/faceless_void.png",
+      "alias": [
+        "войд",
+        "фейслесс"
+      ]
+    },
+    {
+      "tag": "force staff",
+      "mods": 9,
+      "available": 7,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "fountain",
+      "mods": 18,
+      "available": 8,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "grimstroke",
+      "mods": 72,
+      "available": 43,
+      "img": "../assets/heroes/grimstroke.png",
+      "alias": [
+        "грим",
+        "гримстроук"
+      ]
+    },
+    {
+      "tag": "gyrocopter",
+      "mods": 112,
+      "available": 95,
+      "img": "../assets/heroes/gyrocopter.png",
+      "alias": [
+        "гиро",
+        "гирокоптер"
+      ]
+    },
+    {
+      "tag": "hero pedestal",
+      "mods": 27,
+      "available": 16,
+      "img": "../assets/categories/default.svg",
+      "g": "icons",
+      "alias": [
+        "пьедестал"
+      ]
+    },
+    {
+      "tag": "hex",
+      "mods": 2,
+      "available": 1,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "hoodwink",
+      "mods": 74,
+      "available": 28,
+      "img": "../assets/heroes/hoodwink.png",
+      "alias": [
+        "белка",
+        "хувинк",
+        "худвинк"
+      ]
+    },
+    {
+      "tag": "huds",
+      "mods": 104,
+      "available": 55,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "huskar",
+      "mods": 114,
+      "available": 84,
+      "img": "../assets/heroes/huskar.png",
+      "alias": [
+        "хускар"
+      ]
+    },
+    {
+      "tag": "icons",
+      "mods": 6,
+      "available": 6,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "invoker",
+      "mods": 278,
+      "available": 164,
+      "img": "../assets/heroes/invoker.png",
+      "alias": [
+        "вокер",
+        "инвк",
+        "инвок",
+        "инвокер"
+      ]
+    },
+    {
+      "tag": "io",
+      "mods": 21,
+      "available": 10,
+      "img": "../assets/heroes/wisp.png",
+      "alias": [
+        "вимп",
+        "висп",
+        "ио"
+      ]
+    },
+    {
+      "tag": "iron branch",
+      "mods": 2,
+      "available": 2,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "jakiro",
+      "mods": 46,
+      "available": 17,
+      "img": "../assets/heroes/jakiro.png",
+      "alias": [
+        "джакиро"
+      ]
+    },
+    {
+      "tag": "juggernaut",
+      "mods": 307,
+      "available": 161,
+      "img": "../assets/heroes/juggernaut.png",
+      "alias": [
+        "джаг",
+        "джаггернаут",
+        "джагер"
+      ]
+    },
+    {
+      "tag": "keeper of the light",
+      "mods": 90,
+      "available": 68,
+      "img": "../assets/heroes/keeper_of_the_light.png",
+      "alias": [
+        "кипер",
+        "котл"
+      ]
+    },
+    {
+      "tag": "kez",
+      "mods": 26,
+      "available": 11,
+      "img": "../assets/heroes/kez.png",
+      "alias": [
+        "кез"
+      ]
+    },
+    {
+      "tag": "kill streak",
+      "mods": 5,
+      "available": 0,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "kunkka",
+      "mods": 229,
+      "available": 156,
+      "img": "../assets/heroes/kunkka.png",
+      "alias": [
+        "кунка"
+      ]
+    },
+    {
+      "tag": "largo",
+      "mods": 1,
+      "available": 0,
+      "img": "../assets/heroes/largo.png",
+      "alias": [
+        "ларго"
+      ]
+    },
+    {
+      "tag": "lasthit",
+      "mods": 1,
+      "available": 1,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "legion commander",
+      "mods": 265,
+      "available": 163,
+      "img": "../assets/heroes/legion_commander.png",
+      "alias": [
+        "лега",
+        "легион",
+        "легионка",
+        "лц"
+      ]
+    },
+    {
+      "tag": "leshrac",
+      "mods": 80,
+      "available": 57,
+      "img": "../assets/heroes/leshrac.png",
+      "alias": [
+        "лешрак"
+      ]
+    },
+    {
+      "tag": "level up",
+      "mods": 7,
+      "available": 5,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "lich",
+      "mods": 124,
+      "available": 100,
+      "img": "../assets/heroes/lich.png",
+      "alias": [
+        "лич"
+      ]
+    },
+    {
+      "tag": "lifestealer",
+      "mods": 89,
+      "available": 43,
+      "img": "../assets/heroes/life_stealer.png",
+      "alias": [
+        "лайфстилер",
+        "наикс"
+      ]
+    },
+    {
+      "tag": "lina",
+      "mods": 170,
+      "available": 120,
+      "img": "../assets/heroes/lina.png",
+      "alias": [
+        "лина"
+      ]
+    },
+    {
+      "tag": "lion",
+      "mods": 101,
+      "available": 57,
+      "img": "../assets/heroes/lion.png",
+      "alias": [
+        "лион"
+      ]
+    },
+    {
+      "tag": "live dashboard",
+      "mods": 68,
+      "available": 2,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "loadscreens",
+      "mods": 278,
+      "available": 225,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "lone druid",
+      "mods": 96,
+      "available": 83,
+      "img": "../assets/heroes/lone_druid.png",
+      "alias": [
+        "друид",
+        "лд",
+        "лон друид"
+      ]
+    },
+    {
+      "tag": "luna",
+      "mods": 186,
+      "available": 157,
+      "img": "../assets/heroes/luna.png",
+      "alias": [
+        "луна"
+      ]
+    },
+    {
+      "tag": "lycan",
+      "mods": 127,
+      "available": 100,
+      "img": "../assets/heroes/lycan.png",
+      "alias": [
+        "ликан"
+      ]
+    },
+    {
+      "tag": "magnus",
+      "mods": 100,
+      "available": 77,
+      "img": "../assets/heroes/magnataur.png",
+      "alias": [
+        "магнус"
+      ]
+    },
+    {
+      "tag": "maps",
+      "mods": 13,
+      "available": 10,
+      "img": "../assets/categories/maps.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "marci",
+      "mods": 90,
+      "available": 30,
+      "img": "../assets/heroes/marci.png",
+      "alias": [
+        "марси"
+      ]
+    },
+    {
+      "tag": "mars",
+      "mods": 80,
+      "available": 49,
+      "img": "../assets/heroes/mars.png",
+      "alias": [
+        "марс"
+      ]
+    },
+    {
+      "tag": "match ready",
+      "mods": 13,
+      "available": 13,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "medusa",
+      "mods": 88,
+      "available": 53,
+      "img": "../assets/heroes/medusa.png",
+      "alias": [
+        "дуся",
+        "медуза",
+        "медузка"
+      ]
+    },
+    {
+      "tag": "meepo",
+      "mods": 147,
+      "available": 91,
+      "img": "../assets/heroes/meepo.png",
+      "alias": [
+        "мипо"
+      ]
+    },
+    {
+      "tag": "mekanism",
+      "mods": 7,
+      "available": 5,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "mirana",
+      "mods": 167,
+      "available": 125,
+      "img": "../assets/heroes/mirana.png",
+      "alias": [
+        "мирана",
+        "потма"
+      ]
+    },
+    {
+      "tag": "mjollnir",
+      "mods": 7,
+      "available": 2,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "monkey king",
+      "mods": 77,
+      "available": 42,
+      "img": "../assets/heroes/monkey_king.png",
+      "alias": [
+        "манки кинг",
+        "мартышка",
+        "мк",
+        "обезьяна"
+      ]
+    },
+    {
+      "tag": "morphling",
+      "mods": 120,
+      "available": 34,
+      "img": "../assets/heroes/morphling.png",
+      "alias": [
+        "морф",
+        "морфлинг"
+      ]
+    },
+    {
+      "tag": "muerta",
+      "mods": 31,
+      "available": 14,
+      "img": "../assets/heroes/muerta.png",
+      "alias": [
+        "муэрта"
+      ]
+    },
+    {
+      "tag": "music packs",
+      "mods": 33,
+      "available": 32,
+      "img": "../assets/categories/music.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "naga siren",
+      "mods": 148,
+      "available": 124,
+      "img": "../assets/heroes/naga_siren.png",
+      "alias": [
+        "нага"
+      ]
+    },
+    {
+      "tag": "natures prophet",
+      "mods": 198,
+      "available": 172,
+      "img": "../assets/heroes/furion.png",
+      "alias": [
+        "нп",
+        "фурион"
+      ]
+    },
+    {
+      "tag": "necrophos",
+      "mods": 135,
+      "available": 101,
+      "img": "../assets/heroes/necrolyte.png",
+      "alias": [
+        "некр",
+        "некрофос"
+      ]
+    },
+    {
+      "tag": "new year",
+      "mods": 2,
+      "available": 1,
+      "img": "../assets/categories/default.svg",
+      "g": "icons",
+      "alias": [
+        "новый год"
+      ]
+    },
+    {
+      "tag": "night stalker",
+      "mods": 84,
+      "available": 44,
+      "img": "../assets/heroes/night_stalker.png",
+      "alias": [
+        "найт сталкер",
+        "нс"
+      ]
+    },
+    {
+      "tag": "nyx assassin",
+      "mods": 173,
+      "available": 131,
+      "img": "../assets/heroes/nyx_assassin.png",
+      "alias": [
+        "никс"
+      ]
+    },
+    {
+      "tag": "official music packs",
+      "mods": 25,
+      "available": 22,
+      "img": "../assets/categories/music.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "ogre magi",
+      "mods": 118,
+      "available": 79,
+      "img": "../assets/heroes/ogre_magi.png",
+      "alias": [
+        "огр",
+        "огр маги"
+      ]
+    },
+    {
+      "tag": "omniknight",
+      "mods": 124,
+      "available": 83,
+      "img": "../assets/heroes/omniknight.png",
+      "alias": [
+        "омни",
+        "омник"
+      ]
+    },
+    {
+      "tag": "oracle",
+      "mods": 87,
+      "available": 52,
+      "img": "../assets/heroes/oracle.png",
+      "alias": [
+        "оракул"
+      ]
+    },
+    {
+      "tag": "other sounds",
+      "mods": 62,
+      "available": 62,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "outworld devourer",
+      "mods": 68,
+      "available": 50,
+      "img": "../assets/heroes/obsidian_destroyer.png",
+      "alias": [
+        "од"
+      ]
+    },
+    {
+      "tag": "pangolier",
+      "mods": 60,
+      "available": 33,
+      "img": "../assets/heroes/pangolier.png",
+      "alias": [
+        "панго",
+        "панголир"
+      ]
+    },
+    {
+      "tag": "phantom assassin",
+      "mods": 260,
+      "available": 156,
+      "img": "../assets/heroes/phantom_assassin.png",
+      "alias": [
+        "па",
+        "фантом ассасин",
+        "фантомка"
+      ]
+    },
+    {
+      "tag": "phantom lancer",
+      "mods": 125,
+      "available": 103,
+      "img": "../assets/heroes/phantom_lancer.png",
+      "alias": [
+        "пл",
+        "фантом лансер"
+      ]
+    },
+    {
+      "tag": "phase boots",
+      "mods": 8,
+      "available": 4,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "phoenix",
+      "mods": 51,
+      "available": 23,
+      "img": "../assets/heroes/phoenix.png",
+      "alias": [
+        "феникс"
+      ]
+    },
+    {
+      "tag": "primal beast",
+      "mods": 56,
+      "available": 26,
+      "img": "../assets/heroes/primal_beast.png",
+      "alias": [
+        "зверь",
+        "праймал"
+      ]
+    },
+    {
+      "tag": "puck",
+      "mods": 93,
+      "available": 72,
+      "img": "../assets/heroes/puck.png",
+      "alias": [
+        "пак"
+      ]
+    },
+    {
+      "tag": "pudge",
+      "mods": 415,
+      "available": 243,
+      "img": "../assets/heroes/pudge.png",
+      "alias": [
+        "пудж"
+      ]
+    },
+    {
+      "tag": "pugna",
+      "mods": 120,
+      "available": 104,
+      "img": "../assets/heroes/pugna.png",
+      "alias": [
+        "пугна"
+      ]
+    },
+    {
+      "tag": "queen of pain",
+      "mods": 184,
+      "available": 124,
+      "img": "../assets/heroes/queenofpain.png",
+      "alias": [
+        "кв",
+        "квопа",
+        "куин"
+      ]
+    },
+    {
+      "tag": "radiance",
+      "mods": 7,
+      "available": 2,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "radius",
+      "mods": 1,
+      "available": 1,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "ranged attack",
+      "mods": 9,
+      "available": 0,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "razor",
+      "mods": 130,
+      "available": 96,
+      "img": "../assets/heroes/razor.png",
+      "alias": [
+        "рейзор"
+      ]
+    },
+    {
+      "tag": "riki",
+      "mods": 161,
+      "available": 124,
+      "img": "../assets/heroes/riki.png",
+      "alias": [
+        "рики"
+      ]
+    },
+    {
+      "tag": "ringmaster",
+      "mods": 47,
+      "available": 14,
+      "img": "../assets/heroes/ringmaster.png",
+      "alias": [
+        "рингмастер"
+      ]
+    },
+    {
+      "tag": "river",
+      "mods": 20,
+      "available": 8,
+      "img": "../assets/categories/river.svg",
+      "g": "maps",
+      "alias": [
+        "река"
+      ]
+    },
+    {
+      "tag": "roshan",
+      "mods": 16,
+      "available": 9,
+      "img": "../assets/categories/roshan.svg",
+      "g": "maps",
+      "alias": [
+        "рошан"
+      ]
+    },
+    {
+      "tag": "rubick",
+      "mods": 171,
+      "available": 121,
+      "img": "../assets/heroes/rubick.png",
+      "alias": [
+        "рубик"
+      ]
+    },
+    {
+      "tag": "runes",
+      "mods": 1,
+      "available": 0,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "sand king",
+      "mods": 102,
+      "available": 89,
+      "img": "../assets/heroes/sand_king.png",
+      "alias": [
+        "санд кинг"
+      ]
+    },
+    {
+      "tag": "shader",
+      "mods": 18,
+      "available": 11,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "shadow demon",
+      "mods": 53,
+      "available": 42,
+      "img": "../assets/heroes/shadow_demon.png",
+      "alias": [
+        "сд",
+        "шадов демон"
+      ]
+    },
+    {
+      "tag": "shadow fiend",
+      "mods": 99,
+      "available": 44,
+      "img": "../assets/heroes/nevermore.png",
+      "alias": [
+        "невермор",
+        "сф",
+        "шадов фиенд"
+      ]
+    },
+    {
+      "tag": "shadow shaman",
+      "mods": 137,
+      "available": 100,
+      "img": "../assets/heroes/shadow_shaman.png",
+      "alias": [
+        "сс",
+        "шаман"
+      ]
+    },
+    {
+      "tag": "shivas",
+      "mods": 8,
+      "available": 3,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "shopkeeper",
+      "mods": 1,
+      "available": 0,
+      "img": "../assets/categories/maps.svg",
+      "g": "maps",
+      "alias": [
+        "торговец"
+      ]
+    },
+    {
+      "tag": "silence",
+      "mods": 1,
+      "available": 1,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "silencer",
+      "mods": 128,
+      "available": 92,
+      "img": "../assets/heroes/silencer.png",
+      "alias": [
+        "сайленсер"
+      ]
+    },
+    {
+      "tag": "skywrath mage",
+      "mods": 171,
+      "available": 127,
+      "img": "../assets/heroes/skywrath_mage.png",
+      "alias": [
+        "скай",
+        "скаймаг",
+        "скайрас"
+      ]
+    },
+    {
+      "tag": "slardar",
+      "mods": 88,
+      "available": 66,
+      "img": "../assets/heroes/slardar.png",
+      "alias": [
+        "слардар"
+      ]
+    },
+    {
+      "tag": "slark",
+      "mods": 127,
+      "available": 73,
+      "img": "../assets/heroes/slark.png",
+      "alias": [
+        "сларк"
+      ]
+    },
+    {
+      "tag": "snapfire",
+      "mods": 83,
+      "available": 30,
+      "img": "../assets/heroes/snapfire.png",
+      "alias": [
+        "бабка",
+        "снапфаер"
+      ]
+    },
+    {
+      "tag": "sniper",
+      "mods": 205,
+      "available": 153,
+      "img": "../assets/heroes/sniper.png",
+      "alias": [
+        "снайпер"
+      ]
+    },
+    {
+      "tag": "spectre",
+      "mods": 123,
+      "available": 73,
+      "img": "../assets/heroes/spectre.png",
+      "alias": [
+        "спектра"
+      ]
+    },
+    {
+      "tag": "spirit breaker",
+      "mods": 171,
+      "available": 127,
+      "img": "../assets/heroes/spirit_breaker.png",
+      "alias": [
+        "барабашка",
+        "сб",
+        "спирит брейкер"
+      ]
+    },
+    {
+      "tag": "storm spirit",
+      "mods": 93,
+      "available": 69,
+      "img": "../assets/heroes/storm_spirit.png",
+      "alias": [
+        "сторм",
+        "шторм"
+      ]
+    },
+    {
+      "tag": "stun",
+      "mods": 1,
+      "available": 0,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "sven",
+      "mods": 297,
+      "available": 224,
+      "img": "../assets/heroes/sven.png",
+      "alias": [
+        "свен"
+      ]
+    },
+    {
+      "tag": "techies",
+      "mods": 163,
+      "available": 81,
+      "img": "../assets/heroes/techies.png",
+      "alias": [
+        "минер",
+        "минёр",
+        "тех",
+        "течис"
+      ]
+    },
+    {
+      "tag": "teleport",
+      "mods": 104,
+      "available": 60,
+      "img": "../assets/categories/effects.svg",
+      "g": "ranged attack"
+    },
+    {
+      "tag": "templar assassin",
+      "mods": 145,
+      "available": 108,
+      "img": "../assets/heroes/templar_assassin.png",
+      "alias": [
+        "та",
+        "темплар",
+        "темпларка"
+      ]
+    },
+    {
+      "tag": "terrorblade",
+      "mods": 95,
+      "available": 31,
+      "img": "../assets/heroes/terrorblade.png",
+      "alias": [
+        "тб",
+        "террорблейд"
+      ]
+    },
+    {
+      "tag": "tidehunter",
+      "mods": 172,
+      "available": 103,
+      "img": "../assets/heroes/tidehunter.png",
+      "alias": [
+        "тайд"
+      ]
+    },
+    {
+      "tag": "timbersaw",
+      "mods": 147,
+      "available": 115,
+      "img": "../assets/heroes/shredder.png",
+      "alias": [
+        "тимбер"
+      ]
+    },
+    {
+      "tag": "tinker",
+      "mods": 71,
+      "available": 44,
+      "img": "../assets/heroes/tinker.png",
+      "alias": [
+        "тинкер"
+      ]
+    },
+    {
+      "tag": "tiny",
+      "mods": 70,
+      "available": 25,
+      "img": "../assets/heroes/tiny.png",
+      "alias": [
+        "тини"
+      ]
+    },
+    {
+      "tag": "tormentor",
+      "mods": 2,
+      "available": 0,
+      "img": "../assets/categories/maps.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "tower",
+      "mods": 33,
+      "available": 7,
+      "img": "../assets/categories/tower.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "treant protector",
+      "mods": 96,
+      "available": 78,
+      "img": "../assets/heroes/treant.png",
+      "alias": [
+        "треант",
+        "трент"
+      ]
+    },
+    {
+      "tag": "trees",
+      "mods": 45,
+      "available": 18,
+      "img": "../assets/categories/maps.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "troll warlord",
+      "mods": 50,
+      "available": 42,
+      "img": "../assets/heroes/troll_warlord.png",
+      "alias": [
+        "тролль",
+        "троль"
+      ]
+    },
+    {
+      "tag": "tusk",
+      "mods": 134,
+      "available": 95,
+      "img": "../assets/heroes/tusk.png",
+      "alias": [
+        "таск",
+        "тускар"
+      ]
+    },
+    {
+      "tag": "underlord",
+      "mods": 39,
+      "available": 18,
+      "img": "../assets/heroes/abyssal_underlord.png",
+      "alias": [
+        "андерлорд"
+      ]
+    },
+    {
+      "tag": "undying",
+      "mods": 105,
+      "available": 48,
+      "img": "../assets/heroes/undying.png",
+      "alias": [
+        "андаинг"
+      ]
+    },
+    {
+      "tag": "ursa",
+      "mods": 120,
+      "available": 81,
+      "img": "../assets/heroes/ursa.png",
+      "alias": [
+        "медведь",
+        "урса"
+      ]
+    },
+    {
+      "tag": "vengeful spirit",
+      "mods": 120,
+      "available": 71,
+      "img": "../assets/heroes/vengefulspirit.png",
+      "alias": [
+        "венга",
+        "вс"
+      ]
+    },
+    {
+      "tag": "venomancer",
+      "mods": 99,
+      "available": 65,
+      "img": "../assets/heroes/venomancer.png",
+      "alias": [
+        "вено",
+        "веномансер"
+      ]
+    },
+    {
+      "tag": "versus screen",
+      "mods": 7,
+      "available": 1,
+      "img": "../assets/categories/interface.svg",
+      "g": "cursor"
+    },
+    {
+      "tag": "viper",
+      "mods": 53,
+      "available": 21,
+      "img": "../assets/heroes/viper.png",
+      "alias": [
+        "вайпер",
+        "випер"
+      ]
+    },
+    {
+      "tag": "visage",
+      "mods": 41,
+      "available": 25,
+      "img": "../assets/heroes/visage.png",
+      "alias": [
+        "визаж"
+      ]
+    },
+    {
+      "tag": "void spirit",
+      "mods": 57,
+      "available": 10,
+      "img": "../assets/heroes/void_spirit.png",
+      "alias": [
+        "войд спирит"
+      ]
+    },
+    {
+      "tag": "warcraft 3 hero sounds",
+      "mods": 50,
+      "available": 50,
+      "img": "../assets/categories/default.svg",
+      "g": "icons"
+    },
+    {
+      "tag": "wards",
+      "mods": 99,
+      "available": 71,
+      "img": "../assets/categories/wards.svg",
+      "g": "maps"
+    },
+    {
+      "tag": "warlock",
+      "mods": 134,
+      "available": 95,
+      "img": "../assets/heroes/warlock.png",
+      "alias": [
+        "варлок"
+      ]
+    },
+    {
+      "tag": "weather",
+      "mods": 10,
+      "available": 9,
+      "img": "../assets/categories/weather.svg",
+      "g": "maps",
+      "alias": [
+        "погода"
+      ]
+    },
+    {
+      "tag": "weaver",
+      "mods": 85,
+      "available": 68,
+      "img": "../assets/heroes/weaver.png",
+      "alias": [
+        "вивер"
+      ]
+    },
+    {
+      "tag": "windranger",
+      "mods": 196,
+      "available": 143,
+      "img": "../assets/heroes/windrunner.png",
+      "alias": [
+        "винда",
+        "вр"
+      ]
+    },
+    {
+      "tag": "winter wyvern",
+      "mods": 38,
+      "available": 26,
+      "img": "../assets/heroes/winter_wyvern.png",
+      "alias": [
+        "вв",
+        "виверна"
+      ]
+    },
+    {
+      "tag": "witch doctor",
+      "mods": 172,
+      "available": 116,
+      "img": "../assets/heroes/witch_doctor.png",
+      "alias": [
+        "вд",
+        "витч доктор"
+      ]
+    },
+    {
+      "tag": "wraith king",
+      "mods": 204,
+      "available": 131,
+      "img": "../assets/heroes/skeleton_king.png",
+      "alias": [
+        "вк",
+        "врайт кинг",
+        "скелет"
+      ]
+    },
+    {
+      "tag": "zeus",
+      "mods": 72,
+      "available": 47,
+      "img": "../assets/heroes/zuus.png",
+      "alias": [
+        "зевс"
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "key": "hero",
+      "title": "Герои"
+    },
+    {
+      "key": "maps",
+      "title": "World Environment"
+    },
+    {
+      "key": "cursor",
+      "title": "Interfaces"
+    },
+    {
+      "key": "ranged attack",
+      "title": "Effects"
+    },
+    {
+      "key": "icons",
+      "title": "Other"
+    }
+  ]
+}

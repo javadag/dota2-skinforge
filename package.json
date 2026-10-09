@@ -1,0 +1,31 @@
+{
+  "name": "dota2-skinforge",
+  "productName": "Dota 2 SkinForge",
+  "shortName": "SkinForge",
+  "modFolder": "skinforge",
+  "version": "1.0.0",
+  "tagline": "Cosmetic Suite",
+  "description": "Local Dota 2 cosmetic suite via VPK modding",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "restart": "taskkill /F /IM electron.exe 2>nul & electron .",
+    "stop": "taskkill /F /IM electron.exe 2>nul",
+    "dev": "electron . --dev",
+    "build:icons": "node scripts/build_curated_item_pack.js"
+  },
+  "keywords": [
+    "dota2",
+    "cosmetics",
+    "vpk",
+    "electron"
+  ],
+  "author": "Joad",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  },
+  "allowScripts": {
+    "electron@33.4.11": true
+  }
+}

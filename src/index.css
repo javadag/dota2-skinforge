@@ -1,0 +1,11 @@
+/* ==========================================================================
+   Dota 2 SkinForge — Master Stylesheet
+   Modularized Architecture for Maintainability
+   ========================================================================== */
+
+@import './styles/variables.css';
+@import './styles/layout.css';
+@import './styles/cosmetics.css';
+@import './styles/panels.css';
+@import './styles/console.css';
+@import './styles/modals.css';
