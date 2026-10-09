@@ -22,9 +22,9 @@ export const state = {
     modFolder: 'skinforge',
     autoDetect: true,
     launchAfter: false,
-    confirmRestore: true
+    confirmRestore: true,
   },
-  activeModalSlot: null
+  activeModalSlot: null,
 };
 
 export function loadPresets() {
@@ -48,7 +48,7 @@ export function addPreset(name) {
     id: 'preset_' + Date.now(),
     name,
     timestamp: Date.now(),
-    heroSlots: JSON.parse(JSON.stringify(state.heroSlots))
+    heroSlots: JSON.parse(JSON.stringify(state.heroSlots)),
   };
   state.presets.unshift(newPreset);
   savePresets();
@@ -56,7 +56,7 @@ export function addPreset(name) {
 }
 
 export function deletePreset(presetId) {
-  state.presets = state.presets.filter(p => p.id !== presetId);
+  state.presets = state.presets.filter((p) => p.id !== presetId);
   savePresets();
 }
 

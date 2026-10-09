@@ -1,16 +1,16 @@
 const path = require('path');
 
-let pkg = {};
+let pkg;
 try {
   pkg = require(path.resolve(__dirname, '../../../package.json'));
-} catch (e) {
+} catch {
   pkg = {
     productName: 'Dota 2 SkinForge',
     shortName: 'SkinForge',
     modFolder: 'skinforge',
     version: '1.0.0',
     tagline: 'Cosmetic Suite',
-    description: 'Local Dota 2 cosmetic suite via VPK modding'
+    description: 'Local Dota 2 cosmetic suite via VPK modding',
   };
 }
 
@@ -24,7 +24,7 @@ const APP_CONFIG = {
   version: pkg.version || '1.0.0',
   displayVersion: displayVersion,
   tagline: pkg.tagline || 'Cosmetic Suite',
-  description: pkg.description || 'Local Dota 2 cosmetic suite via VPK modding'
+  description: pkg.description || 'Local Dota 2 cosmetic suite via VPK modding',
 };
 
 if (typeof module !== 'undefined' && module.exports) {

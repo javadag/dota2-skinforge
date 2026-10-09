@@ -6,7 +6,9 @@ import { NON_HERO_SLOTS_CATALOG } from '../../data/nonHeroCatalog.js';
 import { state } from '../state/store.js';
 
 function getAliases() {
-  return (typeof window !== 'undefined' && window.heroAliases && window.heroAliases.HERO_ALIASES) || {};
+  return (
+    (typeof window !== 'undefined' && window.heroAliases && window.heroAliases.HERO_ALIASES) || {}
+  );
 }
 
 let valveCatalog = {};
@@ -24,44 +26,56 @@ export async function initCatalog() {
 
 export function formatHeroName(tag) {
   if (!tag) return '';
-  return tag.split(/[_\s-]+/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  return tag
+    .split(/[_\s-]+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
 }
 
 export function getGenericCategorySlotDefinition(item) {
   const name = formatHeroName(item.tag);
   const group = item.g || 'maps';
-  
+
   let slotType = 'Cosmetic Skin';
   let icon = '✨';
-  if (group === 'maps') { slotType = 'Model & Texture'; icon = '🗺️'; }
-  else if (group === 'cursor') { slotType = 'Interface Pack'; icon = '🖥️'; }
-  else if (group === 'ranged attack') { slotType = 'Particle FX'; icon = '🪄'; }
-  else if (group === 'icons') { slotType = 'Sound & Voice Pack'; icon = '🎵'; }
+  if (group === 'maps') {
+    slotType = 'Model & Texture';
+    icon = '🗺️';
+  } else if (group === 'cursor') {
+    slotType = 'Interface Pack';
+    icon = '🖥️';
+  } else if (group === 'ranged attack') {
+    slotType = 'Particle FX';
+    icon = '🪄';
+  } else if (group === 'icons') {
+    slotType = 'Sound & Voice Pack';
+    icon = '🎵';
+  }
 
   return {
     slots: [
       { id: 'primary', name: `${name} — ${slotType}`, icon: icon },
       { id: 'variant', name: `${name} — Deluxe Variant`, icon: '💎' },
-      { id: 'ambient', name: `${name} — Special FX`, icon: '✨' }
+      { id: 'ambient', name: `${name} — Special FX`, icon: '✨' },
     ],
     items: {
-      'primary': [
+      primary: [
         { name: `The International Deluxe ${name}`, tag: 'Immortal', best: true },
         { name: `Mythical Enhanced ${name}`, tag: 'Mythical' },
         { name: `Collector's Cache ${name}`, tag: 'Mythical' },
-        { name: `Classic Vintage ${name}`, tag: 'Rare' }
+        { name: `Classic Vintage ${name}`, tag: 'Rare' },
       ],
-      'variant': [
+      variant: [
         { name: `Golden Edition ${name}`, tag: 'Golden', best: true },
         { name: `Crimson Witness Variant ${name}`, tag: 'Crimson' },
-        { name: `Celestial Astral ${name}`, tag: 'Mythical' }
+        { name: `Celestial Astral ${name}`, tag: 'Mythical' },
       ],
-      'ambient': [
+      ambient: [
         { name: 'Crimson Witness Ambient Aura', tag: 'Crimson', best: true },
         { name: 'Golden Particle Aura', tag: 'Golden' },
-        { name: 'Ethereal Flame Infusion', tag: 'Mythical' }
-      ]
-    }
+        { name: 'Ethereal Flame Infusion', tag: 'Mythical' },
+      ],
+    },
   };
 }
 
@@ -93,7 +107,12 @@ export function getHeroSlotsDefinition(heroTag, heroObj = null) {
   }
 
   // 3. Check if non-hero item from state
-  const obj = heroObj || (state.heroes && state.heroes.find(h => h.tag.toLowerCase() === rawKey || h.tag.toLowerCase() === normalized));
+  const obj =
+    heroObj ||
+    (state.heroes &&
+      state.heroes.find(
+        (h) => h.tag.toLowerCase() === rawKey || h.tag.toLowerCase() === normalized
+      ));
   if (obj && obj.g && obj.g !== 'hero') {
     return getGenericCategorySlotDefinition(obj);
   }
@@ -101,13 +120,9 @@ export function getHeroSlotsDefinition(heroTag, heroObj = null) {
   // 4. Default fallback: only base weapon
   const name = formatHeroName(heroTag);
   return {
-    slots: [
-      { id: 'weapon', name: 'Weapon / Armament', icon: '⚔️' }
-    ],
+    slots: [{ id: 'weapon', name: 'Weapon / Armament', icon: '⚔️' }],
     items: {
-      'weapon': [
-        { name: `Official Base Armament — ${name}`, tag: 'Common', best: true }
-      ]
-    }
+      weapon: [{ name: `Official Base Armament — ${name}`, tag: 'Common', best: true }],
+    },
   };
 }

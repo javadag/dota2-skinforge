@@ -34,5 +34,5 @@ function registerModsIpc(getMainWindow) {
 }
 
 module.exports = {
-  registerModsIpc
+  registerModsIpc,
 };

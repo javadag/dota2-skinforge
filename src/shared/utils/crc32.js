@@ -6,10 +6,10 @@ function crc32(buf) {
   for (let i = 0; i < buf.length; i++) {
     crc ^= buf[i];
     for (let j = 0; j < 8; j++) {
-      crc = (crc >>> 1) ^ (-(crc & 1) & 0xEDB88320);
+      crc = (crc >>> 1) ^ (-(crc & 1) & 0xedb88320);
     }
   }
-  return (~crc) >>> 0;
+  return ~crc >>> 0;
 }
 
 if (typeof module !== 'undefined' && module.exports) {

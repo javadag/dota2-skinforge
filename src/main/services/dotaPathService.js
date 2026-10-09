@@ -8,7 +8,9 @@ const { execSync } = require('child_process');
 
 function getSteamPathFromRegistry() {
   try {
-    const output = execSync('reg query "HKCU\\Software\\Valve\\Steam" /v SteamPath', { encoding: 'utf-8' });
+    const output = execSync('reg query "HKCU\\Software\\Valve\\Steam" /v SteamPath', {
+      encoding: 'utf-8',
+    });
     const match = output.match(/SteamPath\s+REG_SZ\s+(.+)/i);
     if (match && match[1]) {
       return match[1].trim().replace(/\//g, '\\');
@@ -75,5 +77,5 @@ function detectDotaPath() {
 
 module.exports = {
   detectDotaPath,
-  isValidDotaGameDir
+  isValidDotaGameDir,
 };

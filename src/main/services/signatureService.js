@@ -49,13 +49,14 @@ function updateSignaturesForGameinfo(dotaGameDir, backupDir = null) {
   let sigContent = fs.readFileSync(sigPath, 'utf-8');
 
   // Replace any existing gameinfo_branchspecific lines
-  const regex = /\.\.\.\\\.\.\\\.\.\\dota\\gameinfo_branchspecific\.gi~SHA1:[0-9A-Fa-f]+;CRC:[0-9A-Fa-f]+/g;
+  const regex =
+    /\.\.\.\\\.\.\\\.\.\\dota\\gameinfo_branchspecific\.gi~SHA1:[0-9A-Fa-f]+;CRC:[0-9A-Fa-f]+/g;
   if (regex.test(sigContent)) {
     sigContent = sigContent.replace(regex, newEntry);
   }
 
   // Ensure it is present at the end
-  const lines = sigContent.split(/\r?\n/).filter(l => l.trim().length > 0);
+  const lines = sigContent.split(/\r?\n/).filter((l) => l.trim().length > 0);
   const lastLine = lines[lines.length - 1];
   if (lastLine !== newEntry) {
     sigContent = lines.join('\n') + '\n' + newEntry + '\n';
@@ -68,7 +69,7 @@ function updateSignaturesForGameinfo(dotaGameDir, backupDir = null) {
     sha1,
     crc,
     newEntry,
-    sigPath
+    sigPath,
   };
 }
 
@@ -85,7 +86,14 @@ function restoreSignatures(dotaGameDir, backupDir = null) {
 
   // Check Dota2Changer backup if available
   const userProfile = process.env.USERPROFILE || '';
-  const d2cBackup = path.join(userProfile, 'AppData', 'Roaming', 'Dota2ChangerLauncher', 'gameinfo_replaced', 'dota.signatures');
+  const d2cBackup = path.join(
+    userProfile,
+    'AppData',
+    'Roaming',
+    'Dota2ChangerLauncher',
+    'gameinfo_replaced',
+    'dota.signatures'
+  );
   if (fs.existsSync(d2cBackup)) {
     fs.copyFileSync(d2cBackup, sigPath);
     return { success: true, status: 'restored_from_d2c_backup' };
@@ -97,5 +105,5 @@ function restoreSignatures(dotaGameDir, backupDir = null) {
 module.exports = {
   getSignaturesPath,
   updateSignaturesForGameinfo,
-  restoreSignatures
+  restoreSignatures,
 };

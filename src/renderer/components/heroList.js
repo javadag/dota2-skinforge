@@ -16,10 +16,10 @@ export function renderHeroList() {
 
   // Toggle visibility of attribute filters bar: only show if category is hero
   if (DOM.heroAttrFilters) {
-    DOM.heroAttrFilters.style.display = (catGroup === 'hero') ? 'flex' : 'none';
+    DOM.heroAttrFilters.style.display = catGroup === 'hero' ? 'flex' : 'none';
   }
 
-  const filtered = state.heroes.filter(h => {
+  const filtered = state.heroes.filter((h) => {
     const itemGroup = h.g || 'hero';
 
     // Group filter: if catGroup is not 'all', constrain to group
@@ -35,8 +35,9 @@ export function renderHeroList() {
     }
 
     if (query) {
-      const matchName = h.tag.toLowerCase().includes(query) || formatHeroName(h.tag).toLowerCase().includes(query);
-      const matchAlias = h.alias && h.alias.some(a => a.toLowerCase().includes(query));
+      const matchName =
+        h.tag.toLowerCase().includes(query) || formatHeroName(h.tag).toLowerCase().includes(query);
+      const matchAlias = h.alias && h.alias.some((a) => a.toLowerCase().includes(query));
       if (!matchName && !matchAlias) return false;
     }
     return true;
@@ -45,7 +46,7 @@ export function renderHeroList() {
   DOM.heroListScroll.innerHTML = '';
   const frag = document.createDocumentFragment();
 
-  filtered.forEach(h => {
+  filtered.forEach((h) => {
     const isHero = !h.g || h.g === 'hero';
     const heroAttr = getHeroAttribute(h.tag);
     const item = document.createElement('div');
@@ -53,11 +54,15 @@ export function renderHeroList() {
     const heroModCount = Object.keys(state.heroSlots[h.tag] || {}).length;
 
     item.className = `hero-list-item ${isSelected ? 'active' : ''} ${heroModCount > 0 ? 'has-modded-slots' : ''}`;
-    
-    const imgSrc = h.img || (isHero ? `../assets/heroes/${h.tag.replace(/\s+/g, '_')}.png` : `../assets/categories/default.svg`);
+
+    const imgSrc =
+      h.img ||
+      (isHero
+        ? `../assets/heroes/${h.tag.replace(/\s+/g, '_')}.png`
+        : `../assets/categories/default.svg`);
     const thumbClass = isHero ? 'hero-item-thumb' : 'hero-item-thumb is-category';
 
-    const subHtml = isHero 
+    const subHtml = isHero
       ? `<span class="hero-attr-dot ${heroAttr}"></span><span>${getAttrLabel(heroAttr)}</span>`
       : `<span style="font-size:12px;">${(CATEGORY_META[h.g] || {}).icon || '✨'}</span><span>${(CATEGORY_META[h.g] || {}).name || 'Item'}</span>`;
 
@@ -92,7 +97,11 @@ on('hero:selected', (hero) => {
 
   const isHero = !hero.g || hero.g === 'hero';
   const heroAttr = getHeroAttribute(hero.tag);
-  const imgSrc = hero.img || (isHero ? `../assets/heroes/${hero.tag.replace(/\s+/g, '_')}.png` : `../assets/categories/default.svg`);
+  const imgSrc =
+    hero.img ||
+    (isHero
+      ? `../assets/heroes/${hero.tag.replace(/\s+/g, '_')}.png`
+      : `../assets/categories/default.svg`);
 
   DOM.hspHeroImg.src = imgSrc;
   DOM.hspHeroImg.className = isHero ? 'hsp-hero-portrait' : 'hsp-hero-portrait is-category';

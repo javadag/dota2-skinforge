@@ -14,5 +14,5 @@ module.exports = {
   normalizeName,
   normalizeSlot,
   findBestCosmetic,
-  findDefaultItem
+  findDefaultItem,
 };

@@ -81,7 +81,11 @@ function parseItemsGame(content) {
       model = 'models/props_nature/prop_null.vmdl';
     }
 
-    const norm = name.toLowerCase().replace(/\([^)]*\)/g, '').replace(/[^a-z0-9]/g, '').trim();
+    const norm = name
+      .toLowerCase()
+      .replace(/\([^)]*\)/g, '')
+      .replace(/[^a-z0-9]/g, '')
+      .trim();
 
     if (prefab === 'default_item' && hero) {
       defaultItems.push({
@@ -92,7 +96,7 @@ function parseItemsGame(content) {
         model,
         start,
         end,
-        block
+        block,
       });
     }
 
@@ -106,7 +110,7 @@ function parseItemsGame(content) {
         slot,
         particleFolder,
         visualsBlock,
-        block
+        block,
       });
     }
   }
@@ -115,5 +119,5 @@ function parseItemsGame(content) {
 }
 
 module.exports = {
-  parseItemsGame
+  parseItemsGame,
 };

@@ -104,7 +104,15 @@
   flex-shrink: 0;
 }
 
-.log-line.info { color: #94a3b8; }
-.log-line.success { color: #34d399; }
-.log-line.warn { color: #fbbf24; }
-.log-line.error { color: #f87171; }
+.log-line.info {
+  color: #94a3b8;
+}
+.log-line.success {
+  color: #34d399;
+}
+.log-line.warn {
+  color: #fbbf24;
+}
+.log-line.error {
+  color: #f87171;
+}

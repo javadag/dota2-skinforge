@@ -7,7 +7,12 @@ import { state, setHeroSlot, resetHeroSlot, resetAllHeroSlots } from '../state/s
 import { on } from '../state/events.js';
 import { log } from '../utils/logger.js';
 import { formatHeroName, getHeroSlotsDefinition } from './slotGenerator.js';
-import { getItemImage, getRarityConfig, getItemRarityKey, generateItemSvg } from '../utils/itemImages.js';
+import {
+  getItemImage,
+  getRarityConfig,
+  getItemRarityKey,
+  generateItemSvg,
+} from '../utils/itemImages.js';
 
 let activeCatalog = null;
 let activeModalHero = null;
@@ -20,7 +25,7 @@ export function renderHeroSlots(hero) {
 
   // Clean up any stale or non-existent slots for this hero from previous versions
   if (state.heroSlots[hero.tag]) {
-    const validSlotIds = new Set(catalog.slots.map(s => s.id));
+    const validSlotIds = new Set(catalog.slots.map((s) => s.id));
     let cleaned = false;
     for (const sid of Object.keys(state.heroSlots[hero.tag])) {
       if (!validSlotIds.has(sid)) {
@@ -37,18 +42,25 @@ export function renderHeroSlots(hero) {
 
   let modifiedCount = 0;
 
-  catalog.slots.forEach(slot => {
+  catalog.slots.forEach((slot) => {
     const selectedItemName = currentSlots[slot.id];
     const isEquipped = !!selectedItemName;
     if (isEquipped) modifiedCount++;
 
-    const equippedItemObj = isEquipped 
-      ? ((catalog.items[slot.id] || []).find(it => it.name === selectedItemName) || { name: selectedItemName, tag: 'Custom' })
+    const equippedItemObj = isEquipped
+      ? (catalog.items[slot.id] || []).find((it) => it.name === selectedItemName) || {
+          name: selectedItemName,
+          tag: 'Custom',
+        }
       : null;
 
     const conf = getRarityConfig(equippedItemObj);
     const itemImg = getItemImage(equippedItemObj, slot.id, hero.tag, hero);
-    const fallbackSvg = generateItemSvg(equippedItemObj || { name: slot.name, tag: 'default', isDefault: true }, slot.id, hero.tag);
+    const fallbackSvg = generateItemSvg(
+      equippedItemObj || { name: slot.name, tag: 'default', isDefault: true },
+      slot.id,
+      hero.tag
+    );
 
     const card = document.createElement('div');
     card.className = `slot-card ${isEquipped ? 'has-item' : ''}`;
@@ -70,11 +82,15 @@ export function renderHeroSlots(hero) {
           <div class="slot-item-name" style="color: ${isEquipped ? conf.color : 'var(--text-main)'}">${selectedItemName || 'Official Base Model'}</div>
           <div class="slot-item-status">${isEquipped ? `${conf.name} Cosmetic` : 'Valve Official Base'}</div>
         </div>
-        ${isEquipped ? `
+        ${
+          isEquipped
+            ? `
           <button class="slot-quick-reset" title="Reset to default Base" data-reset-slot="${slot.id}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
-        ` : ''}
+        `
+            : ''
+        }
       </div>
     `;
 
@@ -97,9 +113,10 @@ export function renderHeroSlots(hero) {
 
   // Update active set bar count
   if (DOM.asbSetName) {
-    DOM.asbSetName.textContent = modifiedCount > 0 
-      ? `Custom Loadout (${modifiedCount}/${catalog.slots.length} modified)` 
-      : 'Default Equipment Loadout';
+    DOM.asbSetName.textContent =
+      modifiedCount > 0
+        ? `Custom Loadout (${modifiedCount}/${catalog.slots.length} modified)`
+        : 'Default Equipment Loadout';
   }
 }
 
@@ -151,13 +168,20 @@ export function renderSlotItemsList() {
     resetHeroSlot(activeModalHero.tag, activeModalSlot.id);
     renderHeroSlots(activeModalHero);
     closeSlotModal();
-    log(`Reset ${formatHeroName(activeModalHero.tag)} [${activeModalSlot.name}] to Official Base.`, 'info');
+    log(
+      `Reset ${formatHeroName(activeModalHero.tag)} [${activeModalSlot.name}] to Official Base.`,
+      'info'
+    );
   });
   frag.appendChild(defEntry);
 
   // 2. Official Cosmetic Items
-  items.forEach(it => {
-    if (query && !it.name.toLowerCase().includes(query) && !(it.tag && it.tag.toLowerCase().includes(query))) {
+  items.forEach((it) => {
+    if (
+      query &&
+      !it.name.toLowerCase().includes(query) &&
+      !(it.tag && it.tag.toLowerCase().includes(query))
+    ) {
       return;
     }
 
@@ -182,7 +206,10 @@ export function renderSlotItemsList() {
       setHeroSlot(activeModalHero.tag, activeModalSlot.id, it.name);
       renderHeroSlots(activeModalHero);
       closeSlotModal();
-      log(`Equipped ${it.name} on ${formatHeroName(activeModalHero.tag)} [${activeModalSlot.name}].`, 'success');
+      log(
+        `Equipped ${it.name} on ${formatHeroName(activeModalHero.tag)} [${activeModalSlot.name}].`,
+        'success'
+      );
     });
 
     frag.appendChild(opt);
@@ -195,9 +222,9 @@ export function unlockBestSet(hero) {
   const catalog = getHeroSlotsDefinition(hero.tag, hero);
   let count = 0;
 
-  catalog.slots.forEach(slot => {
+  catalog.slots.forEach((slot) => {
     const items = catalog.items[slot.id] || [];
-    const bestItem = items.find(it => it.best) || items[0];
+    const bestItem = items.find((it) => it.best) || items[0];
     if (bestItem) {
       setHeroSlot(hero.tag, slot.id, bestItem.name);
       count++;

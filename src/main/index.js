@@ -20,12 +20,12 @@ function createWindow() {
       preload: path.resolve(__dirname, '../preload/index.js'),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: false
+      sandbox: false,
     },
     autoHideMenuBar: true,
     show: false,
     title: `${APP_CONFIG.name} — ${APP_CONFIG.tagline}`,
-    icon: path.resolve(__dirname, '../../assets/icon.jpg')
+    icon: path.resolve(__dirname, '../../assets/icon.jpg'),
   });
 
   mainWindow.webContents.on('preload-error', (_event, preloadPath, error) => {

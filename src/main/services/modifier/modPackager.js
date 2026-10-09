@@ -9,7 +9,13 @@ const util = require('util');
 const execPromise = util.promisify(exec);
 const { applyModModifications } = require('./compiler');
 
-async function generateModPackage(dotaGameDir, stagingDir, equipped = {}, onProgress = () => {}, vpkService) {
+async function generateModPackage(
+  dotaGameDir,
+  stagingDir,
+  equipped = {},
+  onProgress = () => {},
+  vpkService
+) {
   if (fs.existsSync(stagingDir)) {
     fs.rmSync(stagingDir, { recursive: true, force: true });
   }
@@ -27,7 +33,7 @@ async function generateModPackage(dotaGameDir, stagingDir, equipped = {}, onProg
   // Try extracting the game's actual up-to-date items_game.txt and localization
   const dotaVpk = path.join(dotaGameDir, 'dota', 'pak01_dir.vpk');
   const targetItemsGame = path.join(stagingDir, 'scripts', 'items', 'items_game.txt');
-  let baseContent = '';
+  let baseContent;
 
   if (vpkService && fs.existsSync(dotaVpk)) {
     try {
@@ -58,5 +64,5 @@ async function generateModPackage(dotaGameDir, stagingDir, equipped = {}, onProg
 }
 
 module.exports = {
-  generateModPackage
+  generateModPackage,
 };

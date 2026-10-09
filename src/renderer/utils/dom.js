@@ -90,5 +90,5 @@ export const DOM = {
   consoleBody: document.getElementById('consoleBody'),
   consoleFooter: document.querySelector('.console-footer'),
   cfStatus: document.getElementById('cfStatus'),
-  logOutput: document.getElementById('logOutput')
+  logOutput: document.getElementById('logOutput'),
 };

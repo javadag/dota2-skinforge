@@ -35,7 +35,7 @@ function checkStatus(dotaGameDir) {
       dotaRunning: false,
       installed: false,
       signaturesBypassed: false,
-      gameinfoConfigured: false
+      gameinfoConfigured: false,
     };
   }
 
@@ -69,7 +69,7 @@ function checkStatus(dotaGameDir) {
     installed,
     signaturesBypassed,
     gameinfoConfigured,
-    vpkFileExists: hasVpk
+    vpkFileExists: hasVpk,
   };
 }
 
@@ -90,15 +90,29 @@ async function installMods(dotaGameDir, equipped = {}, onProgress = () => {}) {
   onProgress({ step: 1, total: 5, message: 'Injecting search paths into gameinfo...' });
   gameinfo.injectSearchPaths(dotaGameDir, MOD_FOLDER_NAME, backupDir);
 
-  onProgress({ step: 2, total: 5, message: 'Updating file integrity signatures (dota.signatures)...' });
+  onProgress({
+    step: 2,
+    total: 5,
+    message: 'Updating file integrity signatures (dota.signatures)...',
+  });
   signatures.updateSignaturesForGameinfo(dotaGameDir, backupDir);
 
   const stagingDir = path.resolve(__dirname, '../../../.staging_pack');
 
   onProgress({ step: 3, total: 5, message: 'Generating mod assets and tailoring items schema...' });
-  const modResult = await itemModifier.generateModPackage(dotaGameDir, stagingDir, equipped, onProgress, vpk);
+  const modResult = await itemModifier.generateModPackage(
+    dotaGameDir,
+    stagingDir,
+    equipped,
+    onProgress,
+    vpk
+  );
 
-  onProgress({ step: 4, total: 5, message: 'Packing mod assets into multi-chunk VPK (pak01_dir & pak01_000)...' });
+  onProgress({
+    step: 4,
+    total: 5,
+    message: 'Packing mod assets into multi-chunk VPK (pak01_dir & pak01_000)...',
+  });
   const targetModDir = path.join(dotaGameDir, MOD_FOLDER_NAME);
   if (!fs.existsSync(targetModDir)) {
     fs.mkdirSync(targetModDir, { recursive: true });
@@ -112,7 +126,11 @@ async function installMods(dotaGameDir, equipped = {}, onProgress = () => {}) {
     fs.rmSync(stagingDir, { recursive: true, force: true });
   } catch (e) {}
 
-  onProgress({ step: 5, total: 5, message: `Installation complete! (${modResult.patchedCount} cosmetics active)` });
+  onProgress({
+    step: 5,
+    total: 5,
+    message: `Installation complete! (${modResult.patchedCount} cosmetics active)`,
+  });
   return { success: true, patchedCount: modResult.patchedCount };
 }
 
@@ -147,5 +165,5 @@ module.exports = {
   installMods,
   uninstallMods,
   isDotaRunning,
-  MOD_FOLDER_NAME
+  MOD_FOLDER_NAME,
 };

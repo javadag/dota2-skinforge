@@ -29,17 +29,20 @@ function registerSystemIpc() {
       dotaPath,
       status,
       heroes: heroesData.heroes || [],
-      groups: heroesData.groups || []
+      groups: heroesData.groups || [],
     };
   });
 
   ipcMain.handle('open-external', async (_event, url) => {
-    if (url && (url.startsWith('https://') || url.startsWith('http://') || url.startsWith('steam://'))) {
+    if (
+      url &&
+      (url.startsWith('https://') || url.startsWith('http://') || url.startsWith('steam://'))
+    ) {
       await shell.openExternal(url);
     }
   });
 }
 
 module.exports = {
-  registerSystemIpc
+  registerSystemIpc,
 };

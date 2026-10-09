@@ -18,13 +18,13 @@ export function renderPresetsList() {
   DOM.presetsEmpty.classList.add('hidden');
   const frag = document.createDocumentFragment();
 
-  state.presets.forEach(p => {
+  state.presets.forEach((p) => {
     const card = document.createElement('div');
     card.className = 'preset-card';
 
     const heroCount = Object.keys(p.heroSlots || {}).length;
     let totalSlots = 0;
-    Object.values(p.heroSlots || {}).forEach(slots => {
+    Object.values(p.heroSlots || {}).forEach((slots) => {
       totalSlots += Object.keys(slots).length;
     });
 
@@ -68,7 +68,7 @@ export function renderPresetsList() {
 }
 
 export function openPresetNameModal() {
-  DOM.presetNameInput.value = state.selectedHero 
+  DOM.presetNameInput.value = state.selectedHero
     ? `${formatHeroName(state.selectedHero.tag)} Custom Loadout`
     : `Custom Build ${new Date().toLocaleDateString()}`;
   DOM.presetNameModal.classList.remove('hidden');

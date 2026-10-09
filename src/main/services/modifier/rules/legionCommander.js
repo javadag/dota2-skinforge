@@ -9,21 +9,20 @@ const { normalizeName, normalizeSlot } = require('../matcher');
 module.exports = {
   hero: 'legioncommander',
   apply({ heroTag, slots, cosmetics, defaultItems, patchDefaultItem }) {
-    const arcanaEquippedInBase = slots['hero_base'] && (
-      normalizeName(slots['hero_base']).includes('vothdomosh') ||
-      normalizeName(slots['hero_base']).includes('arcana')
-    );
-    const arcanaEquippedInWeapon = slots['weapon'] && (
-      normalizeName(slots['weapon']).includes('vothdomosh')
-    );
+    const arcanaEquippedInBase =
+      slots['hero_base'] &&
+      (normalizeName(slots['hero_base']).includes('vothdomosh') ||
+        normalizeName(slots['hero_base']).includes('arcana'));
+    const arcanaEquippedInWeapon =
+      slots['weapon'] && normalizeName(slots['weapon']).includes('vothdomosh');
 
     if (arcanaEquippedInBase || arcanaEquippedInWeapon) {
-      const c5810 = cosmetics.find(c => c.id === '5810');
-      const defBase = defaultItems.find(d => 
-        (normalizeSlot(d.slot) === 'hero_base' || d.id === '847')
+      const c5810 = cosmetics.find((c) => c.id === '5810');
+      const defBase = defaultItems.find(
+        (d) => normalizeSlot(d.slot) === 'hero_base' || d.id === '847'
       );
-      const defWeapon = defaultItems.find(d => 
-        (normalizeSlot(d.slot) === 'weapon' || d.id === '434')
+      const defWeapon = defaultItems.find(
+        (d) => normalizeSlot(d.slot) === 'weapon' || d.id === '434'
       );
 
       // Ensure hero_base has Arcana visuals & particles
@@ -31,14 +30,17 @@ module.exports = {
         patchDefaultItem(defBase, c5810);
       }
 
-      const hasOtherCustomWeapon = slots['weapon'] &&
+      const hasOtherCustomWeapon =
+        slots['weapon'] &&
         !normalizeName(slots['weapon']).includes('vothdomosh') &&
         !normalizeName(slots['weapon']).includes('officialbase') &&
         !normalizeName(slots['weapon']).includes('default');
 
       if (!hasOtherCustomWeapon && defWeapon) {
-        patchDefaultItem(defWeapon, { model: 'models/heroes/legion_commander/legion_commander_sword_weapon.vmdl' });
+        patchDefaultItem(defWeapon, {
+          model: 'models/heroes/legion_commander/legion_commander_sword_weapon.vmdl',
+        });
       }
     }
-  }
+  },
 };

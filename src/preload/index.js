@@ -16,7 +16,7 @@ const api = {
   openExternal: (url) => ipcRenderer.invoke('open-external', url),
   readSettings: () => ipcRenderer.invoke('read-settings'),
   writeSettings: (s) => ipcRenderer.invoke('write-settings', s),
-  onInstallProgress: (cb) => ipcRenderer.on('install-progress', (_e, d) => cb(d))
+  onInstallProgress: (cb) => ipcRenderer.on('install-progress', (_e, d) => cb(d)),
 };
 
 contextBridge.exposeInMainWorld('appInfo', APP_CONFIG);
