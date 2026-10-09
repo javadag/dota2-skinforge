@@ -2,6 +2,7 @@
  * Dota 2 SkinForge — Master Client Renderer Orchestrator
  */
 
+import './index.css';
 import { DOM } from './utils/dom.js';
 import { state, loadPresets, loadHeroSlots, savePresets, setSelectedHero } from './state/store.js';
 import { log, updateStatusUI } from './utils/logger.js';
