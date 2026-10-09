@@ -21,7 +21,7 @@
     "format": "prettier --write \"src/**/*.{js,ts,css,html}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,css,html}\"",
     "typecheck": "tsc -b --noEmit",
-    "test": "tsx test/services.test.js && tsx test/modifier.test.js && tsx test/catalog.test.js && tsx test/shared.test.js && electron -r tsx/cjs test/electron-smoke.js",
+    "test": "tsx test/services.test.js && tsx test/modifier.test.js && tsx test/catalog.test.js && tsx test/shared.test.js && tsx test/iconCache.test.js && tsx test/itemImages.test.js && tsx test/settingsIpc.test.js && tsx test/syncCli.test.js && electron -r tsx/cjs test/electron-smoke.js",
     "prepare": "husky"
   },
   "keywords": [

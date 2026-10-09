@@ -11,7 +11,6 @@
 import { HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { execFile } from 'child_process'
 import fs from 'fs'
-import https from 'https'
 import path from 'path'
 import sharp from 'sharp'
 import { detectDotaPath } from '../src/main/services/dotaPathService'
