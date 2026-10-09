@@ -45,17 +45,26 @@ No code injection. No banned techniques. No third-party assets.
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 📥 Download Pre-built Binaries
+
+Grab the latest executable directly from **[Releases](https://github.com/javadag/dota2-skinforge/releases)**:
+
+- **`Dota2SkinForge-Portable.exe`** — Portable version (no installation needed)
+- **`Dota2SkinForge-Setup-vX.X.X.exe`** — Windows Installer with desktop & start menu shortcuts
+
+---
+
+### Prerequisites (for building from source)
 
 - Windows 10 / 11
-- [Node.js](https://nodejs.org/) ≥ 18 (for running from source)
+- [Node.js](https://nodejs.org/) ≥ 18
 - Dota 2 installed via Steam
 
 ### Run from Source
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/dota2-skinforge.git
+git clone https://github.com/javadag/dota2-skinforge.git
 cd dota2-skinforge
 
 # Install dependencies
