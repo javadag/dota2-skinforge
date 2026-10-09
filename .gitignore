@@ -45,7 +45,6 @@ desktop.ini
 !.vscode/settings.json
 !.vscode/extensions.json
 .idea/
-docs/superpowers
 *.sublime-project
 *.sublime-workspace
 *.suo
