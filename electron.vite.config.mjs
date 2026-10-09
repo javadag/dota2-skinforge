@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import fs from 'fs';
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
+import commonjs from '@rollup/plugin-commonjs';
 
 const projectRoot = import.meta.dirname;
 
@@ -25,7 +26,7 @@ function serveStaticFolder(prefix, folderPath) {
 
 export default defineConfig({
   main: {
-    plugins: [externalizeDepsPlugin()],
+    plugins: [externalizeDepsPlugin(), commonjs()],
     build: {
       rollupOptions: {
         input: {
@@ -35,7 +36,7 @@ export default defineConfig({
     },
   },
   preload: {
-    plugins: [externalizeDepsPlugin()],
+    plugins: [externalizeDepsPlugin(), commonjs()],
     build: {
       rollupOptions: {
         input: {

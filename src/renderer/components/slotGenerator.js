@@ -4,6 +4,7 @@
 
 import { NON_HERO_SLOTS_CATALOG } from '../../data/nonHeroCatalog.js';
 import { state } from '../state/store.js';
+import valveCatalogData from '../../../data/valveHeroCatalog.json';
 
 function getAliases() {
   return (
@@ -11,16 +12,9 @@ function getAliases() {
   );
 }
 
-let valveCatalog = {};
+let valveCatalog = valveCatalogData || {};
 
 export async function initCatalog() {
-  if (Object.keys(valveCatalog).length > 0) return valveCatalog;
-  try {
-    const res = await fetch('../data/valveHeroCatalog.json');
-    valveCatalog = await res.json();
-  } catch (e) {
-    console.error('Failed to load valveHeroCatalog.json:', e);
-  }
   return valveCatalog;
 }
 
