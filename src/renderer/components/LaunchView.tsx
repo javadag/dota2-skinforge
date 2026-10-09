@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Play } from 'lucide-react'
+import { Button } from './ui/Button'
 import { useAppStore } from '../state/useAppStore'
 
 export const LaunchView: React.FC = () => {
@@ -142,18 +143,19 @@ export const LaunchView: React.FC = () => {
           <div className="lou-header">
             <span>Generated Steam Launch String:</span>
             <div style={{ display: 'flex', gap: '8px' }}>
-              <button id="btnCopyLaunch" className="btn btn-ghost btn-sm" onClick={handleCopy}>
+              <Button id="btnCopyLaunch" variant="ghost" size="sm" onClick={handleCopy}>
                 {copied ? '✅ Copied!' : '📋 Copy'}
-              </button>
-              <button
+              </Button>
+              <Button
                 id="btnLaunchFromTweaks"
-                className="btn btn-play btn-sm"
+                variant="play"
+                size="sm"
                 title="Launch Dota 2 via Steam"
                 onClick={launchDota}
               >
-                <Play style={{ width: '13px', height: '13px', fill: 'currentColor' }} />
+                <Play className="w-3.5 h-3.5 fill-current" />
                 <span>Play Dota 2</span>
-              </button>
+              </Button>
             </div>
           </div>
           <code id="launchOutput" className="launch-code">
