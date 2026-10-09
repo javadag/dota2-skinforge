@@ -110,12 +110,48 @@ export function decompileVpkEcon(viewerExe: string, vpkPath: string, outDir: str
   })
 }
 
+export function getCatalogImagePaths(): Set<string> {
+  const set = new Set<string>()
+  const catalogCandidates = [
+    path.resolve(process.cwd(), 'data/valveHeroCatalog.json'),
+    path.resolve(process.cwd(), 'src/data/valveHeroCatalog.json')
+  ]
+  for (const catPath of catalogCandidates) {
+    if (fs.existsSync(catPath)) {
+      try {
+        const catalog = JSON.parse(fs.readFileSync(catPath, 'utf8'))
+        for (const hero of Object.values(catalog) as Array<{ items?: Record<string, Array<{ img?: string }>> }>) {
+          if (!hero.items) continue
+          for (const items of Object.values(hero.items)) {
+            for (const it of items) {
+              if (it.img && typeof it.img === 'string') {
+                const clean = it.img
+                  .replace(/\\/g, '/')
+                  .replace(/^panorama\/images\//i, '')
+                  .replace(/\.(png|vtex_c|webp)$/i, '')
+                  .toLowerCase()
+                  .trim()
+                set.add(clean)
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.error('[Catalog] Error reading catalog:', err)
+      }
+      break
+    }
+  }
+  return set
+}
+
 export async function convertPngsToWebp(
   sourceDir: string,
   targetDir: string,
-  limit?: number
+  limit?: number,
+  catalogFilter?: Set<string>
 ): Promise<{ converted: number; totalBytes: number }> {
-  console.log(`[WebP] Converting PNG textures from ${sourceDir} to ${targetDir}...`)
+  console.log(`[WebP] Scanning PNG textures from ${sourceDir}...`)
 
   async function getFiles(dir: string): Promise<string[]> {
     const entries = await fs.promises.readdir(dir, { withFileTypes: true })
@@ -137,8 +173,23 @@ export async function convertPngsToWebp(
   }
 
   const pngFiles = await getFiles(sourceDir)
-  const toProcess = limit ? pngFiles.slice(0, limit) : pngFiles
-  console.log(`[WebP] Found ${pngFiles.length} PNG textures. Processing ${toProcess.length} items...`)
+  let toProcess = pngFiles
+
+  if (catalogFilter && catalogFilter.size > 0) {
+    toProcess = pngFiles.filter((src) => {
+      let rel = path.relative(sourceDir, src).replace(/\\/g, '/')
+      rel = rel.replace(/^panorama\/images\//i, '')
+      rel = rel.replace(/(_png)?\.png$/i, '').toLowerCase()
+      return catalogFilter.has(rel)
+    })
+    console.log(`[Filter] Filtered from ${pngFiles.length} textures down to ${toProcess.length} cosmetic items in catalog.`)
+  } else {
+    console.log(`[WebP] Found ${pngFiles.length} PNG textures. Processing ${toProcess.length} items...`)
+  }
+
+  if (limit) {
+    toProcess = toProcess.slice(0, limit)
+  }
 
   let converted = 0
   let totalBytes = 0
@@ -168,9 +219,10 @@ export async function uploadToR2(
   localDir: string,
   s3: S3Client,
   bucketName: string,
-  limit?: number
+  limit?: number,
+  catalogFilter?: Set<string>
 ): Promise<{ uploaded: number; skipped: number }> {
-  console.log(`[R2 Sync] Uploading WebP assets from ${localDir} to bucket: ${bucketName}...`)
+  console.log(`[R2 Sync] Scanning WebP assets from ${localDir} for bucket: ${bucketName}...`)
 
   async function getWebpFiles(dir: string): Promise<string[]> {
     const entries = await fs.promises.readdir(dir, { withFileTypes: true })
@@ -187,41 +239,79 @@ export async function uploadToR2(
   }
 
   const allFiles = await getWebpFiles(localDir)
-  const toUpload = limit ? allFiles.slice(0, limit) : allFiles
+  let toUpload = allFiles
+
+  if (catalogFilter && catalogFilter.size > 0) {
+    toUpload = allFiles.filter((file) => {
+      const relKey = path
+        .relative(localDir, file)
+        .replace(/\\/g, '/')
+        .replace(/\.webp$/i, '')
+        .toLowerCase()
+      return catalogFilter.has(relKey)
+    })
+    console.log(`[Filter] Filtered from ${allFiles.length} files down to ${toUpload.length} cosmetic items in catalog.`)
+  }
+
+  if (limit) {
+    toUpload = toUpload.slice(0, limit)
+  }
+
+  const CONCURRENCY = 25
+  console.log(`[R2 Sync] Starting parallel upload with ${CONCURRENCY} concurrent workers for ${toUpload.length} items...`)
+
   let uploaded = 0
   let skipped = 0
+  let processed = 0
+  let currentIndex = 0
 
-  for (const file of toUpload) {
-    const relKey = path.relative(localDir, file).replace(/\\/g, '/')
-    const stat = await fs.promises.stat(file)
+  async function worker(): Promise<void> {
+    while (currentIndex < toUpload.length) {
+      const idx = currentIndex++
+      const file = toUpload[idx]
+      const relKey = path.relative(localDir, file).replace(/\\/g, '/')
 
-    // Check if file already exists with same size
-    try {
-      const head = await s3.send(new HeadObjectCommand({ Bucket: bucketName, Key: relKey }))
-      if (head.ContentLength === stat.size) {
-        skipped++
-        continue
+      try {
+        const stat = await fs.promises.stat(file)
+
+        // Check if file already exists with same size
+        try {
+          const head = await s3.send(new HeadObjectCommand({ Bucket: bucketName, Key: relKey }))
+          if (head.ContentLength === stat.size) {
+            skipped++
+            processed++
+            if (processed % 200 === 0 || processed === toUpload.length) {
+              console.log(`[R2 Progress] Processed ${processed}/${toUpload.length} (Uploaded: ${uploaded}, Skipped: ${skipped})`)
+            }
+            continue
+          }
+        } catch {
+          // Object does not exist, proceed to upload
+        }
+
+        const body = await fs.promises.readFile(file)
+        await s3.send(
+          new PutObjectCommand({
+            Bucket: bucketName,
+            Key: relKey,
+            Body: body,
+            ContentType: 'image/webp',
+            CacheControl: 'public, max-age=31536000, immutable'
+          })
+        )
+        uploaded++
+        processed++
+
+        if (processed % 200 === 0 || processed === toUpload.length) {
+          console.log(`[R2 Progress] Processed ${processed}/${toUpload.length} (Uploaded: ${uploaded}, Skipped: ${skipped})`)
+        }
+      } catch (err) {
+        console.error(`[R2 Error] Failed uploading ${relKey}:`, (err as Error).message || err)
       }
-    } catch {
-      // Object does not exist, proceed to put
-    }
-
-    const body = await fs.promises.readFile(file)
-    await s3.send(
-      new PutObjectCommand({
-        Bucket: bucketName,
-        Key: relKey,
-        Body: body,
-        ContentType: 'image/webp',
-        CacheControl: 'public, max-age=31536000, immutable'
-      })
-    )
-    uploaded++
-
-    if ((uploaded + skipped) % 100 === 0 || uploaded + skipped === toUpload.length) {
-      console.log(`[R2 Progress] Uploaded: ${uploaded} | Skipped (up to date): ${skipped} / Total: ${toUpload.length}`)
     }
   }
+
+  await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()))
 
   return { uploaded, skipped }
 }
@@ -242,6 +332,9 @@ export async function runCli(): Promise<void> {
   }
   console.log(`[Dota 2] Using VPK: ${vpkPath}`)
 
+  const catalogSet = getCatalogImagePaths()
+  console.log(`[Catalog] Loaded ${catalogSet.size} unique cosmetic item paths from catalog.`)
+
   const stagingRoot = options.outDir || path.resolve(process.cwd(), '.staging_icons')
   const extractedDir = path.join(stagingRoot, 'extracted')
   const webpDir = path.join(stagingRoot, 'webp')
@@ -251,7 +344,7 @@ export async function runCli(): Promise<void> {
     await decompileVpkEcon(viewerExe, vpkPath, extractedDir)
   }
 
-  const { converted, totalBytes } = await convertPngsToWebp(extractedDir, webpDir, options.limit)
+  const { converted, totalBytes } = await convertPngsToWebp(extractedDir, webpDir, options.limit, catalogSet)
   console.log(`\n[WebP Complete] Converted ${converted} textures (${(totalBytes / 1024 / 1024).toFixed(1)} MB).`)
 
   if (options.dryRun) {
@@ -278,7 +371,7 @@ export async function runCli(): Promise<void> {
     credentials: { accessKeyId, secretAccessKey }
   })
 
-  const { uploaded, skipped } = await uploadToR2(webpDir, s3, bucketName, options.limit)
+  const { uploaded, skipped } = await uploadToR2(webpDir, s3, bucketName, options.limit, catalogSet)
   console.log(`\n[Sync Success] Finished: ${uploaded} uploaded, ${skipped} already up to date.`)
 }
 
