@@ -12,7 +12,23 @@ export interface RarityConfigItem {
   bg2: string
 }
 
-export const RARITY_CONFIG: Record<string, RarityConfigItem> = {
+export type ItemRarity =
+  | 'arcana'
+  | 'persona'
+  | 'immortal'
+  | 'golden'
+  | 'crimson'
+  | 'legendary'
+  | 'mythical'
+  | 'rare'
+  | 'uncommon'
+  | 'common'
+  | 'taunt'
+  | 'voice'
+  | 'ambient'
+  | 'default'
+
+export const RARITY_CONFIG: Record<ItemRarity, RarityConfigItem> = {
   arcana: {
     name: 'Arcana',
     color: '#00e5ff',
@@ -117,7 +133,7 @@ export interface ItemDescriptor {
   id?: string | number
   name?: string
   tag?: string
-  rarity?: string
+  rarity?: ItemRarity | string
   isDefault?: boolean
   best?: boolean
   img?: string
@@ -128,7 +144,7 @@ export interface HeroImageTarget {
   img?: string
 }
 
-export function getItemRarityKey(item?: ItemDescriptor | null): string {
+export function getItemRarityKey(item?: ItemDescriptor | null): ItemRarity {
   if (!item) return 'default'
   if (item.isDefault) return 'common'
   const tag = (item.tag || item.rarity || '').toLowerCase()

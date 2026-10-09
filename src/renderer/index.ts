@@ -2,18 +2,18 @@
  * Dota 2 SkinForge — Master Client Renderer Orchestrator
  */
 
-import './index.css'
-import { DOM } from './utils/dom'
-import { state, loadPresets, loadHeroSlots, savePresets } from './state/store'
-import { log, updateStatusUI } from './utils/logger'
-import { initCatalog } from './components/slotGenerator'
 import { renderHeroList } from './components/heroList'
-import { renderSlotItemsList, closeSlotModal, unlockBestSet, resetHeroSlots } from './components/slotEditor'
-import { openPresetNameModal, saveCurrentAsPreset } from './components/presetsView'
 import { updateLaunchString } from './components/launchView'
-import { loadSettings, saveSettings, handleApplyMods, handleRestoreMods } from './components/settingsView'
 import { setupNavigation } from './components/navigation'
+import { openPresetNameModal, saveCurrentAsPreset } from './components/presetsView'
+import { handleApplyMods, handleRestoreMods, loadSettings, saveSettings } from './components/settingsView'
+import { closeSlotModal, renderSlotItemsList, resetHeroSlots, unlockBestSet } from './components/slotEditor'
+import { initCatalog } from './components/slotGenerator'
 import type { InstallProgress } from './env'
+import './index.css'
+import { AttributeFilter, loadHeroSlots, loadPresets, savePresets, state } from './state/store'
+import { DOM } from './utils/dom'
+import { log, updateStatusUI } from './utils/logger'
 
 // ── Progress IPC Listener ─────────────────────────────────────────────────────
 if (window.skinforge && typeof window.skinforge.onInstallProgress === 'function') {
@@ -40,11 +40,16 @@ function setupEventListeners(): void {
   })
 
   // Hero Attribute Filter Buttons
+  function isAttributeFilter(val: string): val is AttributeFilter {
+    return ['all', 'str', 'agi', 'int', 'uni'].includes(val)
+  }
+
   DOM.heroFilters.forEach((btn) => {
     btn.addEventListener('click', () => {
       DOM.heroFilters.forEach((b) => b.classList.remove('active'))
       btn.classList.add('active')
-      state.attrFilter = btn.dataset.attr || 'all'
+      const rawAttr = btn.dataset.attr || 'all'
+      state.attrFilter = isAttributeFilter(rawAttr) ? rawAttr : 'all'
       renderHeroList()
     })
   })
