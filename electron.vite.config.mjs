@@ -4,6 +4,7 @@ import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import { loadEnv } from 'vite'
 import commonjs from '@rollup/plugin-commonjs'
 import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
 
 const projectRoot = import.meta.dirname
 const env = loadEnv('', projectRoot, '')
@@ -71,6 +72,7 @@ export default defineConfig({
   renderer: {
     root: resolve(projectRoot, 'src/renderer'),
     plugins: [
+      react(),
       tailwindcss(),
       serveStaticFolder('assets', resolve(projectRoot, 'assets')),
       serveStaticFolder('data', resolve(projectRoot, 'data')),
