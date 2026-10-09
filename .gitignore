@@ -13,8 +13,9 @@ release/
 # Mod Generation Staging & Runtime Backups
 .staging_pack/
 .staging_icons/
-*.backup/
-*.tmp
+# Standalone Binaries
+tools/Source2Viewer-CLI.exe
+tools/*.dll
 *.temp
 temp/
 tmp/
