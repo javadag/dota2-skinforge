@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
-import { X } from 'lucide-react'
 import { clsx } from 'clsx'
+import { X } from 'lucide-react'
+import React, { useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface ModalProps {
@@ -13,15 +13,7 @@ export interface ModalProps {
   children: React.ReactNode
 }
 
-export const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  subtitle,
-  maxWidth = 'max-w-2xl',
-  className,
-  children
-}) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, subtitle, maxWidth = 'max-w-2xl', className, children }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
