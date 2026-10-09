@@ -6,18 +6,30 @@ app.whenReady().then(async () => {
   try {
     let win = null;
     registerIpcHandlers(() => win);
+    const fs = require('fs');
+    const hasOut = fs.existsSync(path.resolve(__dirname, '../out/renderer/index.html'));
+    const preloadPath = hasOut
+      ? fs.existsSync(path.resolve(__dirname, '../out/preload/index.mjs'))
+        ? path.resolve(__dirname, '../out/preload/index.mjs')
+        : path.resolve(__dirname, '../out/preload/index.js')
+      : path.resolve(__dirname, '../src/preload/index.js');
+
+    const htmlPath = hasOut
+      ? path.resolve(__dirname, '../out/renderer/index.html')
+      : path.resolve(__dirname, '../src/renderer/index.html');
+
     win = new BrowserWindow({
       show: false,
       webPreferences: {
-        preload: path.resolve(__dirname, '../src/preload/index.js'),
+        preload: preloadPath,
         contextIsolation: true,
         nodeIntegration: false,
-        sandbox: false
-      }
+        sandbox: false,
+      },
     });
 
-    win.webContents.on('preload-error', (_e, preloadPath, err) => {
-      console.error('Preload error at', preloadPath, err);
+    win.webContents.on('preload-error', (_e, p, err) => {
+      console.error('Preload error at', p, err);
       process.exit(1);
     });
 
@@ -25,7 +37,7 @@ app.whenReady().then(async () => {
       console.log('[Smoke Renderer]', msg);
     });
 
-    await win.loadFile(path.resolve(__dirname, '../src/index.html'));
+    await win.loadFile(htmlPath);
     console.log('Electron smoke test: window loaded without crash!');
 
     setTimeout(() => {
