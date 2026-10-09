@@ -7,6 +7,10 @@ import fs from 'fs'
 import path from 'path'
 import { APP_CONFIG } from '../shared/constants/appConfig'
 import { registerIpcHandlers } from './ipc'
+import { registerIconScheme, registerIconProtocol } from './services/iconCacheService'
+
+// Register skinforge-icon scheme as standard and privileged
+registerIconScheme()
 
 let mainWindow: BrowserWindow | null = null
 
@@ -73,6 +77,18 @@ if (!gotTheLock) {
   })
 
   app.whenReady().then(() => {
+    const settingsFile = path.join(app.getPath('userData'), 'skinforge_settings.json')
+    registerIconProtocol(() => {
+      try {
+        if (fs.existsSync(settingsFile)) {
+          return JSON.parse(fs.readFileSync(settingsFile, 'utf8'))
+        }
+      } catch {
+        // Fallback to empty settings
+      }
+      return {}
+    })
+
     registerIpcHandlers(() => mainWindow)
     createWindow()
 
