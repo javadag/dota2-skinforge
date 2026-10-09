@@ -42,24 +42,29 @@ A standalone desktop application built with Electron that enables official clien
 
 ```
 skinforge/
-├── main.js                 # Electron main process & IPC handlers
-├── preload.js              # Secure IPC bridge (window.skinforge)
+├── main.js                 # Entry delegate to src/main/index.js
+├── preload.js              # Entry delegate to src/preload/index.js
 ├── package.json            # Electron dependencies & metadata
 ├── run.bat                 # 1-Click launcher batch file
-├── assets/                 # App icon & offline hero portraits
+├── assets/                 # App icons & offline hero portraits
 ├── tools/
 │   └── vpktool.exe         # Standalone VPK pack/unpack tool
 ├── data/
 │   ├── heroes.json         # Complete offline hero catalog
+│   ├── valveHeroCatalog.json # Authentic Valve loadout catalog
 │   └── mod_template.zip    # Base schema & assets template
 └── src/
     ├── index.html          # Application UI
-    ├── index.css           # Glassmorphism dark theme & responsive layout
-    ├── renderer.js         # Reactive UI & event controller
-    └── core/
-        ├── dotaPath.js     # Auto-detection for Steam library & Dota 2
-        ├── vpk.js          # Node wrapper for vpktool.exe
-        ├── gameinfo.js     # SearchPaths injector for Source 2
-        ├── signatures.js   # Signature backup & bypass handler
-        └── pipeline.js     # Complete install/restore pipeline
+    ├── index.css           # Master stylesheet
+    ├── main/               # Electron Main Process (Node.js)
+    │   ├── index.js        # App lifecycle & window manager
+    │   ├── ipc/            # Domain-driven IPC handlers (mods, settings, system)
+    │   └── services/       # Domain services (pipeline, gameinfo, signatures, vpk, modifier)
+    ├── preload/            # Secure IPC Bridge (window.skinforge)
+    ├── renderer/           # Client UI (Pure ES Modules / Browser)
+    │   ├── index.js        # UI bootstrap & orchestrator
+    │   ├── state/          # Decoupled EventTarget bus & State store
+    │   ├── components/     # UI views (heroList, slotEditor, presets, settings, launch)
+    │   └── utils/          # DOM helpers, logger, SVG armory card generator
+    └── shared/             # Isomorphic constants & utils (heroAliases, crc32, appConfig)
 ```
