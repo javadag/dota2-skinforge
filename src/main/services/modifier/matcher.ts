@@ -14,7 +14,26 @@ export function normalizeName(str?: string | null): string {
     .trim()
 }
 
-export function normalizeSlot(slot?: string | null): string {
+export type KnownSlot =
+  | 'weapon'
+  | 'offhand_weapon'
+  | 'hero_base'
+  | 'head'
+  | 'shoulder'
+  | 'arms'
+  | 'armor'
+  | 'back'
+  | 'belt'
+  | 'legs'
+  | 'tail'
+  | 'misc'
+  | 'taunt'
+  | 'mount'
+  | 'persona_selector'
+
+export type NormalizedSlot = KnownSlot | (string & {})
+
+export function normalizeSlot(slot?: string | null): NormalizedSlot {
   if (!slot) return ''
   const s = slot.toLowerCase().replace(/[^a-z0-9]/g, '')
   if (s === 'weapon' || s === 'primary') return 'weapon'

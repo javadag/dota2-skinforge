@@ -2,13 +2,13 @@
  * Hero & Category List Component
  */
 
-import { DOM } from '../utils/dom'
-import { state, setSelectedHero } from '../state/store'
-import { on } from '../state/events'
-import { getHeroAttribute, getAttrLabel } from '../utils/attributes'
-import { CATEGORY_META } from '../../data/categoryMeta'
-import { formatHeroName } from './slotGenerator'
+import { CATEGORY_META, isCategoryKey } from '../../data/categoryMeta'
 import type { HeroEntry } from '../env'
+import { on } from '../state/events'
+import { setSelectedHero, state } from '../state/store'
+import { getAttrLabel, getHeroAttribute } from '../utils/attributes'
+import { DOM } from '../utils/dom'
+import { formatHeroName } from './slotGenerator'
 
 export function renderHeroList(): void {
   const query = state.searchQuery.toLowerCase().trim()
@@ -59,9 +59,10 @@ export function renderHeroList(): void {
     const imgSrc = h.img || (isHero ? `../assets/heroes/${h.tag.replace(/\s+/g, '_')}.png` : `../assets/categories/default.svg`)
     const thumbClass = isHero ? 'hero-item-thumb' : 'hero-item-thumb is-category'
 
+    const catMeta = h.g && isCategoryKey(h.g) ? CATEGORY_META[h.g] : null
     const subHtml = isHero
       ? `<span class="hero-attr-dot ${heroAttr}"></span><span>${getAttrLabel(heroAttr)}</span>`
-      : `<span style="font-size:12px;">${h.g && CATEGORY_META[h.g] ? CATEGORY_META[h.g].icon : '✨'}</span><span>${h.g && CATEGORY_META[h.g] ? CATEGORY_META[h.g].name : 'Item'}</span>`
+      : `<span style="font-size:12px;">${catMeta ? catMeta.icon : '✨'}</span><span>${catMeta ? catMeta.name : 'Item'}</span>`
 
     item.innerHTML = `
       <img src="${imgSrc}" class="${thumbClass}" onerror="this.src='../assets/categories/default.svg'">
@@ -110,7 +111,7 @@ on<HeroEntry>('hero:selected', (hero) => {
       DOM.hspHeroAttr.className = `hsp-hero-attr-badge ${heroAttr}`
       DOM.hspHeroAttr.textContent = getAttrLabel(heroAttr)
     } else {
-      const meta = (hero.g && CATEGORY_META[hero.g]) || { badge: 'Cosmetic', name: 'Item' }
+      const meta = hero.g && isCategoryKey(hero.g) ? CATEGORY_META[hero.g] : { badge: 'Cosmetic', name: 'Item' }
       DOM.hspHeroAttr.className = `hsp-hero-attr-badge int`
       DOM.hspHeroAttr.textContent = meta.name
     }

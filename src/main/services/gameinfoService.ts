@@ -96,16 +96,26 @@ const CLEAN_TEMPLATE = `"GameInfo"
 }
 `
 
-export interface GameinfoResult {
-  success: boolean
-  status: string
+export type GameinfoInjectStatus = 'already_configured' | 'updated'
+export type GameinfoRestoreStatus = 'restored_from_backup' | 'reset_to_clean'
+
+export interface GameinfoInjectResult {
+  success: true
+  status: GameinfoInjectStatus
 }
+
+export interface GameinfoRestoreResult {
+  success: true
+  status: GameinfoRestoreStatus
+}
+
+export type GameinfoResult = GameinfoInjectResult | GameinfoRestoreResult
 
 export function injectSearchPaths(
   dotaGameDir: string,
   modFolderName = DEFAULT_MOD_FOLDER,
   backupDir: string | null = null
-): GameinfoResult {
+): GameinfoInjectResult {
   const filePath = getGameinfoPath(dotaGameDir)
   if (!fs.existsSync(filePath)) {
     throw new Error(`gameinfo_branchspecific.gi not found at ${filePath}`)
@@ -129,7 +139,7 @@ export function injectSearchPaths(
   return { success: true, status: 'updated' }
 }
 
-export function restoreCleanGameinfo(dotaGameDir: string, backupDir: string | null = null): GameinfoResult {
+export function restoreCleanGameinfo(dotaGameDir: string, backupDir: string | null = null): GameinfoRestoreResult {
   const filePath = getGameinfoPath(dotaGameDir)
   if (backupDir) {
     const backupTarget = path.join(backupDir, 'gameinfo_branchspecific.gi')

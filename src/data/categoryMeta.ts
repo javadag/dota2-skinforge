@@ -1,4 +1,6 @@
 // Category Metadata and Descriptions
+export type CategoryKey = 'hero' | 'maps' | 'icons' | 'ranged attack' | 'cursor' | 'all';
+
 export interface CategoryMetaItem {
   name: string;
   title: string;
@@ -7,7 +9,7 @@ export interface CategoryMetaItem {
   badge: string;
 }
 
-export const CATEGORY_META: Record<string, CategoryMetaItem> = {
+export const CATEGORY_META: Record<CategoryKey, CategoryMetaItem> = {
   hero: {
     name: 'Heroes',
     title: 'Heroes & Cosmetics',
@@ -51,3 +53,7 @@ export const CATEGORY_META: Record<string, CategoryMetaItem> = {
     badge: 'Dota 2',
   },
 };
+
+export function isCategoryKey(value: string): value is CategoryKey {
+  return value in CATEGORY_META;
+}

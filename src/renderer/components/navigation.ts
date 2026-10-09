@@ -2,19 +2,19 @@
  * Sidebar Navigation & View Routing Controller
  */
 
+import { CATEGORY_META, isCategoryKey } from '../../data/categoryMeta'
+import { state, type AppTab, type CategoryGroup } from '../state/store'
 import { DOM } from '../utils/dom'
-import { state } from '../state/store'
-import { CATEGORY_META } from '../../data/categoryMeta'
 import { renderHeroList } from './heroList'
 import { renderPresetsList } from './presetsView'
 
-export function updateTopbarForCategory(group: string): void {
+export function updateTopbarForCategory(group: CategoryGroup): void {
   const meta = CATEGORY_META[group] || CATEGORY_META.hero
   if (DOM.topbarTitle) DOM.topbarTitle.textContent = meta.title
   if (DOM.topbarSub) DOM.topbarSub.textContent = meta.sub
 }
 
-export function switchTab(tabId: string, category: string | null = null): void {
+export function switchTab(tabId: AppTab, category: CategoryGroup | null = null): void {
   state.activeTab = tabId
   if (category) {
     state.activeCategoryGroup = category
@@ -44,7 +44,7 @@ export function switchTab(tabId: string, category: string | null = null): void {
     renderHeroList()
   } else {
     const appName = (window.appInfo && window.appInfo.name) || 'Dota 2 SkinForge'
-    const titles: Record<string, { title: string; sub: string }> = {
+    const titles: Record<Exclude<AppTab, 'heroes'>, { title: string; sub: string }> = {
       presets: { title: 'Cosmetic Presets', sub: 'Manage and quickly apply full loadout presets' },
       launch: {
         title: 'Steam Launch Options',
@@ -56,7 +56,7 @@ export function switchTab(tabId: string, category: string | null = null): void {
       },
       about: { title: `About ${appName}`, sub: 'Architecture and safety guarantees' }
     }
-    const current = titles[tabId] || titles.presets
+    const current = titles[tabId]
     if (DOM.topbarTitle) DOM.topbarTitle.textContent = current.title
     if (DOM.topbarSub) DOM.topbarSub.textContent = current.sub
   }
@@ -64,11 +64,18 @@ export function switchTab(tabId: string, category: string | null = null): void {
   if (tabId === 'presets') renderPresetsList()
 }
 
+function isAppTab(value: string): value is AppTab {
+  return ['heroes', 'presets', 'launch', 'settings', 'about'].includes(value)
+}
+
 export function setupNavigation(): void {
   DOM.navButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const tab = btn.dataset.tab || 'heroes'
-      const category = btn.dataset.category || null
+      const tabStr = btn.dataset.tab || 'heroes'
+      const catStr = btn.dataset.category || null
+      const tab: AppTab = isAppTab(tabStr) ? tabStr : 'heroes'
+      const category: CategoryGroup | null = catStr && isCategoryKey(catStr) ? catStr : null
+
       if (tab === 'heroes' && category) {
         state.activeCategoryGroup = category
       }

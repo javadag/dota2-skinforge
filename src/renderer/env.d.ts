@@ -17,11 +17,9 @@ export interface PipelineStatus {
 
 export type StatusResult = PipelineStatus
 
-export interface ModInstallResult {
-  success: boolean
-  patchedCount?: number
-  error?: string
-}
+export type ModInstallResult = { success: true; patchedCount: number } | { success: false; error: string; patchedCount?: number }
+
+export type ModUninstallResult = { success: true } | { success: false; error: string }
 
 export interface SelectDirectoryResult {
   path: string
@@ -60,10 +58,10 @@ export interface SkinforgeBridge {
   checkStatus: (customPath?: string) => Promise<PipelineStatus>
   selectDirectory: () => Promise<SelectDirectoryResult | null>
   installMods: (customPath?: string, equipped?: Record<string, Record<string, string>>) => Promise<ModInstallResult>
-  uninstallMods: (customPath?: string) => Promise<{ success: boolean; error?: string }>
+  uninstallMods: (customPath?: string) => Promise<ModUninstallResult>
   openExternal: (url: string) => Promise<void>
   readSettings: () => Promise<AppSettingsPayload>
-  writeSettings: (settings: AppSettingsPayload) => Promise<{ ok: boolean; error?: string }>
+  writeSettings: (settings: AppSettingsPayload) => Promise<{ ok: true } | { ok: false; error: string }>
   onInstallProgress: (callback: (progress: InstallProgress) => void) => void
 }
 

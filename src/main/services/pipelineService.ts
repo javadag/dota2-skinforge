@@ -2,16 +2,16 @@
  * High-Level Mod Pipeline Orchestrator Service
  */
 
-import fs from 'fs'
-import path from 'path'
 import { execSync } from 'child_process'
 import crypto from 'crypto'
+import fs from 'fs'
+import path from 'path'
 
-import * as vpk from './vpkService'
-import * as gameinfo from './gameinfoService'
-import * as signatures from './signatureService'
-import * as itemModifier from './modifier'
 import { APP_CONFIG } from '../../shared/constants/appConfig'
+import * as gameinfo from './gameinfoService'
+import * as itemModifier from './modifier'
+import * as signatures from './signatureService'
+import * as vpk from './vpkService'
 
 export const MOD_FOLDER_NAME = APP_CONFIG.modFolder || 'skinforge'
 
@@ -90,10 +90,9 @@ export interface ProgressCallbackData {
 
 export type ProgressCallback = (progress: ProgressCallbackData) => void
 
-export interface InstallResult {
-  success: boolean
-  patchedCount?: number
-}
+export type InstallResult = { success: true; patchedCount: number } | { success: false; error: string; patchedCount?: number }
+
+export type UninstallResult = { success: true } | { success: false; error: string }
 
 export async function installMods(
   dotaGameDir?: string | null,
@@ -156,7 +155,7 @@ export async function installMods(
   return { success: true, patchedCount: modResult.patchedCount }
 }
 
-export async function uninstallMods(dotaGameDir?: string | null, onProgress: ProgressCallback = () => {}): Promise<{ success: boolean }> {
+export async function uninstallMods(dotaGameDir?: string | null, onProgress: ProgressCallback = () => {}): Promise<UninstallResult> {
   if (!dotaGameDir || !fs.existsSync(dotaGameDir)) {
     throw new Error('Invalid Dota 2 game directory.')
   }

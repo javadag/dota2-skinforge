@@ -3,8 +3,14 @@
  * Manages reactive state updates and persistence with event broadcasting.
  */
 
+import type { CategoryKey } from '../../data/categoryMeta'
+import type { HeroAttribute } from '../../shared/constants/attributes'
 import type { HeroEntry, PipelineStatus } from '../env'
 import { emit } from './events'
+
+export type AppTab = 'heroes' | 'presets' | 'launch' | 'settings' | 'about'
+export type AttributeFilter = 'all' | HeroAttribute
+export type CategoryGroup = CategoryKey
 
 export interface Preset {
   id: string
@@ -26,9 +32,9 @@ export interface AppState {
   status: PipelineStatus | null
   heroes: HeroEntry[]
   selectedHero: HeroEntry | null
-  activeTab: string
-  activeCategoryGroup: string
-  attrFilter: string
+  activeTab: AppTab
+  activeCategoryGroup: CategoryGroup
+  attrFilter: AttributeFilter
   searchQuery: string
   isBusy: boolean
   heroSlots: Record<string, Record<string, string>>

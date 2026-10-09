@@ -19,14 +19,18 @@ export function getGameinfoPath(dotaGameDir: string): string {
   return path.join(dotaGameDir, 'dota', 'gameinfo_branchspecific.gi')
 }
 
-export interface SignatureUpdateResult {
-  success: boolean
-  reason?: string
-  sha1?: string
-  crc?: string
-  newEntry?: string
-  sigPath?: string
-}
+export type SignatureUpdateResult =
+  | {
+      success: true
+      sha1: string
+      crc: string
+      newEntry: string
+      sigPath: string
+    }
+  | {
+      success: false
+      reason: string
+    }
 
 export function updateSignaturesForGameinfo(dotaGameDir: string, backupDir: string | null = null): SignatureUpdateResult {
   const sigPath = getSignaturesPath(dotaGameDir)
@@ -81,10 +85,15 @@ export function updateSignaturesForGameinfo(dotaGameDir: string, backupDir: stri
   }
 }
 
-export interface SignatureRestoreResult {
-  success: boolean
-  status: string
-}
+export type SignatureRestoreResult =
+  | {
+      success: true
+      status: 'restored_from_backup' | 'restored_from_d2c_backup'
+    }
+  | {
+      success: false
+      status: 'no_backup_found'
+    }
 
 export function restoreSignatures(dotaGameDir: string, backupDir: string | null = null): SignatureRestoreResult {
   const sigPath = getSignaturesPath(dotaGameDir)
