@@ -8,6 +8,7 @@ import { exec } from 'child_process'
 import util from 'util'
 import { applyModModifications } from './compiler'
 import { getDataPath } from '../appPathService'
+import type { HeroCustomizationsMap } from '../../../shared/types/customization'
 
 const execPromise = util.promisify(exec)
 
@@ -30,9 +31,28 @@ export async function generateModPackage(
   dotaGameDir: string,
   stagingDir: string,
   equipped: Record<string, Record<string, string>> = {},
-  onProgress: (progress: ModProgressData) => void = () => {},
+  customizationsOrProgress: HeroCustomizationsMap | ((progress: ModProgressData) => void) = {},
+  onProgressOrVpk?: ((progress: ModProgressData) => void) | VpkServiceLike,
   vpkService?: VpkServiceLike
 ): Promise<ModPackageResult> {
+  let customizations: HeroCustomizationsMap
+  let onProgress: (progress: ModProgressData) => void = () => {}
+  let activeVpkService: VpkServiceLike | undefined
+
+  if (typeof customizationsOrProgress === 'function') {
+    onProgress = customizationsOrProgress
+    customizations = {}
+    activeVpkService = onProgressOrVpk as VpkServiceLike | undefined
+  } else {
+    customizations = customizationsOrProgress || {}
+    if (typeof onProgressOrVpk === 'function') {
+      onProgress = onProgressOrVpk
+      activeVpkService = vpkService
+    } else {
+      activeVpkService = onProgressOrVpk as VpkServiceLike | undefined
+    }
+  }
+
   if (fs.existsSync(stagingDir)) {
     fs.rmSync(stagingDir, { recursive: true, force: true })
   }
@@ -52,14 +72,14 @@ export async function generateModPackage(
   const targetItemsGame = path.join(stagingDir, 'scripts', 'items', 'items_game.txt')
   let baseContent: string
 
-  if (vpkService && fs.existsSync(dotaVpk)) {
+  if (activeVpkService && fs.existsSync(dotaVpk)) {
     try {
       onProgress({ step: 3, total: 5, message: 'Extracting fresh items schema from Dota 2...' })
-      await vpkService.extract(dotaVpk, 'scripts/items/items_game.txt', targetItemsGame)
+      await activeVpkService.extract(dotaVpk, 'scripts/items/items_game.txt', targetItemsGame)
 
       const targetLoc = path.join(stagingDir, 'resource', 'localization', 'dota_english.txt')
       try {
-        await vpkService.extract(dotaVpk, 'resource/localization/dota_english.txt', targetLoc)
+        await activeVpkService.extract(dotaVpk, 'resource/localization/dota_english.txt', targetLoc)
       } catch {
         // Localization is optional
       }
@@ -75,7 +95,7 @@ export async function generateModPackage(
   }
 
   onProgress({ step: 3, total: 5, message: 'Compiling custom loadouts into items schema...' })
-  const { modifiedContent, patchedCount } = applyModModifications(baseContent, equipped)
+  const { modifiedContent, patchedCount } = applyModModifications(baseContent, equipped, customizations)
 
   fs.writeFileSync(targetItemsGame, modifiedContent, 'utf-8')
 

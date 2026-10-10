@@ -8,6 +8,7 @@ import fs from 'fs'
 import path from 'path'
 
 import { APP_CONFIG } from '../../shared/constants/appConfig'
+import type { HeroCustomizationsMap } from '../../shared/types/customization'
 import * as gameinfo from './gameinfoService'
 import * as itemModifier from './modifier'
 import * as signatures from './signatureService'
@@ -98,8 +99,22 @@ export type UninstallResult = { success: true } | { success: false; error: strin
 export async function installMods(
   dotaGameDir?: string | null,
   equipped: Record<string, Record<string, string>> = {},
-  onProgress: ProgressCallback = () => {}
+  customizationsOrProgress: HeroCustomizationsMap | ProgressCallback = {},
+  onProgress?: ProgressCallback
 ): Promise<InstallResult> {
+  let customizations: HeroCustomizationsMap
+  let progressCb: ProgressCallback = () => {}
+
+  if (typeof customizationsOrProgress === 'function') {
+    progressCb = customizationsOrProgress
+    customizations = {}
+  } else {
+    customizations = customizationsOrProgress || {}
+    if (typeof onProgress === 'function') {
+      progressCb = onProgress
+    }
+  }
+
   if (!dotaGameDir || !fs.existsSync(dotaGameDir)) {
     throw new Error('Invalid Dota 2 game directory.')
   }
@@ -113,10 +128,10 @@ export async function installMods(
     fs.mkdirSync(backupDir, { recursive: true })
   }
 
-  onProgress({ step: 1, total: 5, message: 'Injecting search paths into gameinfo...' })
+  progressCb({ step: 1, total: 5, message: 'Injecting search paths into gameinfo...' })
   gameinfo.injectSearchPaths(dotaGameDir, MOD_FOLDER_NAME, backupDir)
 
-  onProgress({
+  progressCb({
     step: 2,
     total: 5,
     message: 'Updating file integrity signatures (dota.signatures)...'
@@ -125,10 +140,10 @@ export async function installMods(
 
   const stagingDir = getStagingPackPath()
 
-  onProgress({ step: 3, total: 5, message: 'Generating mod assets and tailoring items schema...' })
-  const modResult = await itemModifier.generateModPackage(dotaGameDir, stagingDir, equipped, onProgress, vpk)
+  progressCb({ step: 3, total: 5, message: 'Generating mod assets and tailoring items schema...' })
+  const modResult = await itemModifier.generateModPackage(dotaGameDir, stagingDir, equipped, customizations, progressCb, vpk)
 
-  onProgress({
+  progressCb({
     step: 4,
     total: 5,
     message: 'Packing mod assets into multi-chunk VPK (pak01_dir & pak01_000)...'
@@ -148,7 +163,7 @@ export async function installMods(
     // Ignore cleanup errors
   }
 
-  onProgress({
+  progressCb({
     step: 5,
     total: 5,
     message: `Installation complete! (${modResult.patchedCount} cosmetics active)`

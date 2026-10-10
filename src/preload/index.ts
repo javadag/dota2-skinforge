@@ -17,7 +17,8 @@ const api = {
   getInitialData: () => ipcRenderer.invoke('get-initial-data'),
   checkStatus: (customPath?: string) => ipcRenderer.invoke('check-status', customPath),
   selectDirectory: () => ipcRenderer.invoke('select-directory'),
-  installMods: (customPath?: string, equipped?: Record<string, unknown>) => ipcRenderer.invoke('install-mods', customPath, equipped),
+  installMods: (customPath?: string, equipped?: Record<string, unknown>, customizations?: Record<string, unknown>) =>
+    ipcRenderer.invoke('install-mods', customPath, equipped, customizations),
   uninstallMods: (customPath?: string) => ipcRenderer.invoke('uninstall-mods', customPath),
   openExternal: (url: string) => ipcRenderer.invoke('open-external', url),
   readSettings: () => ipcRenderer.invoke('read-settings'),
