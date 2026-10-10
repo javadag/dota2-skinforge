@@ -238,10 +238,14 @@ function extractItem(vdf, itemId) {
   assert.ok(patchedBase.includes('particle_control_point'), 'TB Base must include CP modifier')
   assert.ok(patchedBase.includes('209 31 161'), 'TB Base must have Rubiline RGB vector')
   assert.ok(patchedBase.includes('"control_point_number"\t\t"15"'), 'TB Base must inject CP 15')
+  assert.ok(patchedBase.includes('"control_point_number"\t\t"16"'), 'TB Base must inject CP 16')
+  assert.ok(patchedBase.includes('"cp_position"\t\t"1 0 0"'), 'TB Base must inject CP 16 activation')
 
   assert.ok(patchedAmbient.includes('particle_control_point'), 'TB Ambient must include CP modifier')
   assert.ok(patchedAmbient.includes('209 31 161'), 'TB Ambient must have Rubiline RGB vector')
   assert.ok(patchedAmbient.includes('"control_point_number"\t\t"15"'), 'TB Ambient must inject CP 15')
+  assert.ok(patchedAmbient.includes('"control_point_number"\t\t"16"'), 'TB Ambient must inject CP 16')
+  assert.ok(patchedAmbient.includes('"cp_position"\t\t"1 0 0"'), 'TB Ambient must inject CP 16 activation')
   console.log('✔ E2E Terrorblade Arcana Prismatic Gem passed')
 }
 
