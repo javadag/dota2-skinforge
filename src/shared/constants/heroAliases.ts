@@ -33,7 +33,29 @@ export const HERO_ALIASES: Record<string, string> = {
   centaur_warrunner: 'centaur',
   'centaur warrunner': 'centaur',
   'anti-mage': 'antimage',
-  antimage: 'antimage'
+  antimage: 'antimage',
+  music: 'music_packs',
+  music_packs: 'music_packs',
+  official_music_packs: 'music_packs',
+  towers: 'towers',
+  tower: 'towers',
+  creeps: 'creeps',
+  couriers: 'courier',
+  courier: 'courier',
+  ward: 'wards',
+  wards: 'wards',
+  loading: 'loadscreens',
+  loading_screen: 'loadscreens',
+  loadscreens: 'loadscreens',
+  hud: 'huds',
+  huds: 'huds',
+  cursor_pack: 'cursor',
+  cursor: 'cursor',
+  maps: 'terrain',
+  terrain: 'terrain',
+  announcer: 'announcers',
+  announcers: 'announcers',
+  roshan: 'roshan'
 }
 
 export function getCanonicalHero(heroTag?: string): string {

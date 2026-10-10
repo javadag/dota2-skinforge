@@ -17,8 +17,8 @@ export const legionCommanderRule: ModifierRule = {
 
     if (arcanaEquippedInBase || arcanaEquippedInWeapon) {
       const c5810 = cosmetics.find((c) => c.id === '5810')
-      const defBase = defaultItems.find((d) => normalizeSlot(d.slot) === 'hero_base' || d.id === '847')
-      const defWeapon = defaultItems.find((d) => normalizeSlot(d.slot) === 'weapon' || d.id === '434')
+      const defBase = defaultItems.find((d) => d.id === '847' || (d.hero.includes('legion') && normalizeSlot(d.slot) === 'hero_base'))
+      const defWeapon = defaultItems.find((d) => d.id === '434' || (d.hero.includes('legion') && normalizeSlot(d.slot) === 'weapon'))
 
       // Ensure hero_base has Arcana visuals & particles
       if (c5810 && defBase) {
@@ -32,8 +32,11 @@ export const legionCommanderRule: ModifierRule = {
         !normalizeName(slots['weapon']).includes('default')
 
       if (!hasOtherCustomWeapon && defWeapon) {
+        const c37140 = cosmetics.find((c) => c.id === '37140')
+        const weaponModel = c37140?.model || 'models/items/legion_commander/voth_domosh/voth_domosh_polearm.vmdl'
         patchDefaultItem(defWeapon, {
-          model: 'models/heroes/legion_commander/legion_commander_sword_weapon.vmdl'
+          model: weaponModel,
+          particleFolder: c37140?.particleFolder || 'particles/econ/items/legion/legion_weapon_voth_domosh'
         })
       }
     }

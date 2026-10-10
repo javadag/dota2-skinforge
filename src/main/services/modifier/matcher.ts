@@ -87,6 +87,7 @@ export function findDefaultItem(defaultItems: DefaultItemEntry[], heroTag: strin
   matched = heroDefs.find((d) => {
     const n = d.name.toLowerCase()
     if (normSlot === 'weapon') {
+      if (normalizeSlot(d.slot) === 'offhand_weapon') return false
       if (cleanHero === 'tidehunter' && (d.id === '36' || n.includes('anchor'))) return true
       if (
         n.includes('weapon') ||
@@ -106,7 +107,9 @@ export function findDefaultItem(defaultItems: DefaultItemEntry[], heroTag: strin
         n.includes('spear') ||
         n.includes('hammer') ||
         n.includes('totem') ||
-        n.includes('club')
+        n.includes('club') ||
+        n.includes('sickle') ||
+        n.includes('scythe')
       )
         return true
     }
@@ -164,6 +167,7 @@ export function findDefaultItem(defaultItems: DefaultItemEntry[], heroTag: strin
     if (normSlot === 'legs' && (n.includes('legs') || n.includes('boots') || n.includes('feet') || n.includes('hakama'))) return true
     if (normSlot === 'misc' && (n.includes('misc') || n.includes('quiver') || n.includes('special'))) return true
     if (normSlot === 'taunt' && n.includes('taunt')) return true
+    if (normSlot === 'ability2' && n.includes('missile')) return true
     if (normSlot === 'persona_selector' && (n.includes('persona') || n.includes('base'))) return true
     return false
   })
