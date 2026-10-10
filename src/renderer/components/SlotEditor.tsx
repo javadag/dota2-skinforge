@@ -1,10 +1,12 @@
-import { Sparkles, X } from 'lucide-react'
+import { Sparkles, X, Gem } from 'lucide-react'
 import React from 'react'
 import { CATEGORY_META, isCategoryKey } from '../../data/categoryMeta'
 import { useAppStore } from '../state/useAppStore'
 import { getAttrLabel, getHeroAttribute } from '../utils/attributes'
 import { getItemImage, getRarityConfig, getSlotImage, type ItemDescriptor } from '../utils/itemImages'
 import { formatHeroName, getHeroSlotsDefinition } from './slotGenerator'
+import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
+import { getGemByHex } from '../../shared/constants/prismaticGems'
 import { Button } from './ui/Button'
 
 const fallbackHeroSvg =
@@ -16,6 +18,8 @@ const fallbackHeroSvg =
 export const SlotEditor: React.FC = () => {
   const selectedHero = useAppStore((s) => s.selectedHero)
   const heroSlots = useAppStore((s) => s.heroSlots)
+  const heroCustomizations = useAppStore((s) => s.heroCustomizations)
+  const setSlotCustomization = useAppStore((s) => s.setSlotCustomization)
   const resetAllHeroSlots = useAppStore((s) => s.resetAllHeroSlots)
   const resetHeroSlot = useAppStore((s) => s.resetHeroSlot)
   const openSlotModal = useAppStore((s) => s.openSlotModal)
@@ -119,6 +123,13 @@ export const SlotEditor: React.FC = () => {
               const activeItemObj = isEquipped ? equippedItemObj : defaultItemObj
               const itemImg = activeItemObj ? getItemImage(activeItemObj, slot.id, selectedHero.tag, selectedHero) : getSlotImage(slot.id)
 
+              const customInfo =
+                isEquipped && selectedItemName ? getCosmeticCustomizationInfo(selectedHero.tag, slot.id, selectedItemName) : null
+              const currentCust = heroCustomizations[selectedHero.tag]?.[slot.id]
+              const activeStyle = currentCust?.style ?? 0
+              const activeGemColor = currentCust?.gemColor ?? customInfo?.defaultGemColor ?? '#FF3C28'
+              const activeGemObj = getGemByHex(activeGemColor)
+
               return (
                 <div
                   key={slot.id}
@@ -183,6 +194,60 @@ export const SlotEditor: React.FC = () => {
                       <div className="text-[11px] text-slate-400 truncate mt-0.5">
                         {isEquipped ? `${conf.name} Cosmetic` : 'Valve Official Base'}
                       </div>
+
+                      {/* Quick Style Dropdown */}
+                      {isEquipped && customInfo?.hasStyles && (
+                        <div
+                          className="mt-2 pt-2 border-t border-purple-500/20 flex items-center justify-between gap-1.5"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <span className="text-[10px] font-semibold text-purple-300 flex items-center gap-1 shrink-0">
+                            <Sparkles size={11} className="text-purple-400" />
+                            Style:
+                          </span>
+                          <select
+                            value={activeStyle}
+                            onChange={(e) => {
+                              const stIndex = Number(e.target.value)
+                              setSlotCustomization(selectedHero.tag, slot.id, { style: stIndex })
+                            }}
+                            className="bg-purple-950/80 border border-purple-500/40 rounded px-1.5 py-0.5 text-[11px] text-purple-200 cursor-pointer hover:border-purple-300 focus:outline-none focus:ring-1 focus:ring-purple-400 max-w-[130px] truncate"
+                            title="Unlocked Arcana Style"
+                          >
+                            {customInfo.styles.map((s) => (
+                              <option key={s.index} value={s.index} className="bg-slate-900 text-white">
+                                {s.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+
+                      {/* Quick Gem Swatch */}
+                      {isEquipped && customInfo?.hasColorGem && (
+                        <div
+                          className="mt-2 pt-2 border-t border-cyan-500/20 flex items-center justify-between gap-1.5"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            openSlotModal(selectedHero, slot)
+                          }}
+                        >
+                          <span className="text-[10px] font-semibold text-cyan-300 flex items-center gap-1 shrink-0">
+                            <Gem size={11} className="text-cyan-400" />
+                            Flame:
+                          </span>
+                          <div
+                            className="flex items-center gap-1.5 bg-cyan-950/80 border border-cyan-500/40 rounded px-2 py-0.5 text-[11px] text-cyan-200 hover:border-cyan-300 transition-colors cursor-pointer"
+                            title="Click to open Prismatic Gem palette"
+                          >
+                            <span
+                              className="w-2.5 h-2.5 rounded-full border border-white/60 shrink-0"
+                              style={{ backgroundColor: activeGemColor, boxShadow: `0 0 6px ${activeGemColor}` }}
+                            />
+                            <span className="truncate max-w-[100px]">{currentCust?.gemName || activeGemObj?.name || activeGemColor}</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
