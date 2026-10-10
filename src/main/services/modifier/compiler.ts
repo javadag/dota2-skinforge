@@ -8,6 +8,7 @@ import { getCanonicalHero } from '../../../shared/constants/heroAliases'
 import { getCosmeticCustomizationInfo } from '../../../shared/constants/arcanaStyles'
 import type { HeroCustomizationsMap } from '../../../shared/types/customization'
 import { rules, type CosmeticPartial } from './rules'
+import { resolveEquippedArcanasAndPersonas, NULL_MODEL } from './arcanaResolver'
 
 export interface PatchReplacement {
   start: number
@@ -163,7 +164,9 @@ export function applyModModifications(
     })
   }
 
-  for (const [heroTag, slots] of Object.entries(equipped)) {
+  const { resolvedEquipped, slotsToHide } = resolveEquippedArcanasAndPersonas(equipped)
+
+  for (const [heroTag, slots] of Object.entries(resolvedEquipped)) {
     if (!slots || typeof slots !== 'object') continue
 
     for (const [slotId, itemName] of Object.entries(slots)) {
@@ -210,6 +213,17 @@ export function applyModModifications(
       }
 
       patchDefaultItem(defaultItem, patchedCosmetic)
+    }
+
+    // Hide incompatible base slots (e.g. for personas or full body arcanas)
+    const toHide = slotsToHide[heroTag]
+    if (toHide && toHide.size > 0) {
+      for (const hideSlot of toHide) {
+        const defItem = findDefaultItem(defaultItems, heroTag, hideSlot)
+        if (defItem) {
+          patchDefaultItem(defItem, { model: NULL_MODEL })
+        }
+      }
     }
 
     // Execute any registered hero-specific Arcana rules

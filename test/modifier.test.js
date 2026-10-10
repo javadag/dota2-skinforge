@@ -330,4 +330,115 @@ assert.ok(
 )
 assert.ok(wrDefHeadBlock.includes('33.330002'), 'WR Arcana portrait configuration applied to head')
 
+// Test 5: Universal Arcana and Persona set auto-resolution (Spectre Arcana & AM Persona)
+const universalVdf = `
+"items_game"
+{
+	"items"
+	{
+		"323"
+		{
+			"name"		"Spectre's Head"
+			"prefab"	"default_item"
+			"item_slot"	"head"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_spectre"	"1"
+			}
+			"model_player"	"models/heroes/spectre/spectre_hat.vmdl"
+		}
+		"324"
+		{
+			"name"		"Spectre's Dress"
+			"prefab"	"default_item"
+			"item_slot"	"belt"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_spectre"	"1"
+			}
+			"model_player"	"models/heroes/spectre/spectre_dress.vmdl"
+		}
+		"9662"
+		{
+			"name"		"Phantom Advent"
+			"prefab"	"wearable"
+			"item_slot"	"head"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_spectre"	"1"
+			}
+			"model_player"	"models/items/spectre/spectre_arcana/spectre_arcana_head.vmdl"
+		}
+		"12314"
+		{
+			"name"		"Phantom Advent - Belt"
+			"prefab"	"wearable"
+			"item_slot"	"belt"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_spectre"	"1"
+			}
+			"model_player"	"models/items/spectre/spectre_arcana/spectre_arcana_skirt.vmdl"
+		}
+		"1"
+		{
+			"name"		"antimage_weapon"
+			"prefab"	"default_item"
+			"item_slot"	"weapon"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_antimage"	"1"
+			}
+			"model_player"	"models/heroes/antimage/antimage_weapon.vmdl"
+		}
+		"708"
+		{
+			"name"		"Anti-Mage Persona Weapon"
+			"prefab"	"default_item"
+			"item_slot"	"weapon_persona_1"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_antimage"	"1"
+			}
+			"model_player"	"models/heroes/antimage_female/antimage_female_weapon.vmdl"
+		}
+		"13783"
+		{
+			"name"		"The Disciple's Path"
+			"prefab"	"wearable"
+			"item_slot"	"persona_selector"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_antimage"	"1"
+			}
+		}
+	}
+}
+`
+
+const specResult = applyModModifications(universalVdf, {
+  spectre: { head: 'Phantom Advent' },
+  antimage: { persona_selector: "The Disciple's Path" }
+})
+
+// Spectre head and belt replaced by Arcana set pieces
+assert.ok(
+  specResult.modifiedContent.includes('models/items/spectre/spectre_arcana/spectre_arcana_head.vmdl'),
+  'Spectre head replaced with Arcana head'
+)
+assert.ok(
+  specResult.modifiedContent.includes('models/items/spectre/spectre_arcana/spectre_arcana_skirt.vmdl'),
+  'Spectre belt automatically paired with Arcana skirt without showing base dress'
+)
+
+// Anti-Mage adult weapon hidden with prop_null
+const amWeaponBlock = specResult.modifiedContent.substring(
+  specResult.modifiedContent.indexOf('"1"'),
+  specResult.modifiedContent.indexOf('"708"')
+)
+assert.ok(
+  amWeaponBlock.includes('models/props_nature/prop_null.vmdl'),
+  'Adult Anti-Mage default weapon hidden with prop_null when persona is active'
+)
+
 console.log('Modifier engine test passed!')
