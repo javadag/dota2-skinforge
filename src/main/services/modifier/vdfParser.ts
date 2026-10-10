@@ -23,6 +23,7 @@ export interface CosmeticItemEntry {
   slot: string
   particleFolder: string
   visualsBlock: string | null
+  portraitsBlock: string | null
   block: string
 }
 
@@ -112,6 +113,23 @@ export function parseItemsGame(content: string): ParsedItemsGame {
       }
     }
 
+    // Extract portraits block accurately within this item's block
+    let portraitsBlock: string | null = null
+    const pIdx = block.indexOf('"portraits"')
+    if (pIdx !== -1) {
+      const pOpen = block.indexOf('{', pIdx)
+      if (pOpen !== -1) {
+        let pDepth = 1
+        let pPos = pOpen + 1
+        while (pPos < block.length && pDepth > 0) {
+          if (block[pPos] === '{') pDepth++
+          else if (block[pPos] === '}') pDepth--
+          pPos++
+        }
+        if (pDepth === 0) portraitsBlock = block.substring(pIdx, pPos)
+      }
+    }
+
     const prefab = prefabMatch ? prefabMatch[1] : ''
     let model = modelMatch ? modelMatch[1] : ''
     let slot = slotMatch ? slotMatch[1] : ''
@@ -159,7 +177,7 @@ export function parseItemsGame(content: string): ParsedItemsGame {
       })
     }
 
-    if (name && (model || visualsBlock || particleFolder)) {
+    if (name && (model || visualsBlock || particleFolder || portraitsBlock)) {
       cosmetics.push({
         id,
         name,
@@ -169,6 +187,7 @@ export function parseItemsGame(content: string): ParsedItemsGame {
         slot,
         particleFolder,
         visualsBlock,
+        portraitsBlock,
         block
       })
     }

@@ -4,6 +4,7 @@
 
 import { legionCommanderRule } from './legionCommander'
 import { tidehunterRule } from './tidehunter'
+import { windrangerRule } from './windranger'
 import type { DefaultItemEntry, CosmeticItemEntry } from '../vdfParser'
 
 export interface CosmeticPartial {
@@ -11,6 +12,7 @@ export interface CosmeticPartial {
   model?: string
   particleFolder?: string
   visualsBlock?: string | null
+  portraitsBlock?: string | null
 }
 
 export interface RuleApplyParams {
@@ -26,6 +28,6 @@ export interface ModifierRule {
   apply: (params: RuleApplyParams) => void
 }
 
-export const rules: ModifierRule[] = [legionCommanderRule, tidehunterRule]
+export const rules: ModifierRule[] = [legionCommanderRule, tidehunterRule, windrangerRule]
 
 export default rules

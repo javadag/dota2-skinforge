@@ -178,4 +178,156 @@ assert.ok(
 assert.ok(multiResult.modifiedContent.includes('models/props_structures/rock_golem/tower_radiant_rock_golem.vmdl'), 'Tower visuals patched')
 assert.ok(multiResult.modifiedContent.includes('valve_ti4.music.'), 'Music visuals patched')
 
+// Test 3: Lina Arcana portraits block propagation & headflame particles
+const linaVdf = `
+"items_game"
+{
+	"items"
+	{
+		"319"
+		{
+			"name"		"Lina's Hair"
+			"prefab"	"default_item"
+			"item_slot"	"head"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_lina"	"1"
+			}
+			"model_player"	"models/heroes/lina/head.vmdl"
+			"portraits"
+			{
+				"icon"
+				{
+					"PortraitParticle"	"particles/units/heroes/hero_lina/portrait_lina.vpcf"
+				}
+			}
+		}
+		"4794"
+		{
+			"name"		"Fiery Soul of the Slayer"
+			"prefab"	"wearable"
+			"item_slot"	"head"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_lina"	"1"
+			}
+			"model_player"	"models/items/lina/origins_flamehair/origins_flamehair.vmdl"
+			"particle_folder"	"particles/econ/items/lina/lina_head_headflame"
+			"portraits"
+			{
+				"game"
+				{
+					"PortraitParticle"	"particles/econ/items/lina/lina_head_headflame/portrait_lina_alt1.vpcf"
+				}
+			}
+		}
+	}
+}
+`
+
+const linaResult = applyModModifications(linaVdf, {
+  lina: { head: 'Fiery Soul of the Slayer' }
+})
+
+assert.strictEqual(linaResult.patchedCount, 1)
+const linaDefBlock = linaResult.modifiedContent.substring(
+  linaResult.modifiedContent.indexOf('"319"'),
+  linaResult.modifiedContent.indexOf('"4794"')
+)
+assert.ok(linaDefBlock.includes('models/items/lina/origins_flamehair/origins_flamehair.vmdl'), 'Lina hair model patched')
+assert.ok(linaDefBlock.includes('portrait_lina_alt1.vpcf'), 'Lina Arcana HUD portrait particle patched in default item 319')
+
+// Test 4: Windranger Arcana (Compass of the Rising Gale) rule
+const wrVdf = `
+"items_game"
+{
+	"items"
+	{
+		"828"
+		{
+			"name"		"Windranger's Base"
+			"prefab"	"default_item"
+			"item_slot"	"hero_base"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_windrunner"	"1"
+			}
+		}
+		"21"
+		{
+			"name"		"Wind Ranger's Head"
+			"prefab"	"default_item"
+			"item_slot"	"head"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_windrunner"	"1"
+			}
+			"model_player"	"models/heroes/windrunner/windrunner_head.vmdl"
+		}
+		"13806"
+		{
+			"name"		"Compass of the Rising Gale"
+			"prefab"	"wearable"
+			"item_slot"	"hero_base"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_windrunner"	"1"
+			}
+			"portraits"
+			{
+				"icon"
+				{
+					"PortraitLightScale"	"1.750000"
+				}
+			}
+			"visuals"
+			{
+				"asset_modifier"
+				{
+					"type"		"entity_model"
+					"asset"		"npc_dota_hero_windrunner"
+					"modifier"	"models/items/windrunner/windrunner_arcana/wr_arcana_base.vmdl"
+				}
+			}
+		}
+		"32650"
+		{
+			"name"		"Hair of the Rising Gale"
+			"prefab"	"wearable"
+			"item_slot"	"head"
+			"used_by_heroes"
+			{
+				"npc_dota_hero_windrunner"	"1"
+			}
+			"model_player"	"models/items/windrunner/windrunner_arcana/wr_arcana_head.vmdl"
+			"portraits"
+			{
+				"icon"
+				{
+					"PortraitFOV"	"33.330002"
+				}
+			}
+		}
+	}
+}
+`
+
+const wrResult = applyModModifications(wrVdf, {
+  windrunner: { hero_base: 'Compass of the Rising Gale' }
+})
+
+const wrDefHeadBlock = wrResult.modifiedContent.substring(
+  wrResult.modifiedContent.indexOf('"21"'),
+  wrResult.modifiedContent.indexOf('"13806"')
+)
+assert.ok(
+  wrResult.modifiedContent.includes('models/items/windrunner/windrunner_arcana/wr_arcana_base.vmdl'),
+  'WR Arcana base entity_model patched'
+)
+assert.ok(
+  wrDefHeadBlock.includes('models/items/windrunner/windrunner_arcana/wr_arcana_head.vmdl'),
+  'WR Arcana head automatically paired to replace original head'
+)
+assert.ok(wrDefHeadBlock.includes('33.330002'), 'WR Arcana portrait configuration applied to head')
+
 console.log('Modifier engine test passed!')

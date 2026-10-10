@@ -65,6 +65,24 @@ export function applyModModifications(content: string, equipped: Record<string, 
       }
     }
 
+    // Add or merge portraits block
+    if (cosmetic.portraitsBlock) {
+      if (currentBlock.includes('"portraits"')) {
+        const pIdx = currentBlock.indexOf('"portraits"')
+        const pOpen = currentBlock.indexOf('{', pIdx)
+        let depth = 1
+        let pClose = pOpen + 1
+        while (pClose < currentBlock.length && depth > 0) {
+          if (currentBlock[pClose] === '{') depth++
+          else if (currentBlock[pClose] === '}') depth--
+          pClose++
+        }
+        currentBlock = currentBlock.substring(0, pIdx) + cosmetic.portraitsBlock + currentBlock.substring(pClose)
+      } else {
+        currentBlock = currentBlock.replace(/(\t*\}\s*)$/, `\t\t${cosmetic.portraitsBlock}\n$1`)
+      }
+    }
+
     replacementMap.set(defaultItem.id, {
       start: defaultItem.start,
       end: defaultItem.end,
