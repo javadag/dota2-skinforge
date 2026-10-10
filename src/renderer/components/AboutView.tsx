@@ -3,7 +3,7 @@ import React from 'react'
 export const AboutView: React.FC = () => {
   const appInfo = (typeof window !== 'undefined' && window.appInfo) || {
     name: 'Dota 2 SkinForge',
-    displayVersion: 'v1.0'
+    displayVersion: 'v1.1'
   }
 
   return (

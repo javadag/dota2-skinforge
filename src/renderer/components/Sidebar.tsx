@@ -11,7 +11,7 @@ export const Sidebar: React.FC = () => {
 
   const appInfo = (typeof window !== 'undefined' && window.appInfo) || {
     name: 'Dota 2 SkinForge',
-    displayVersion: 'v1.0',
+    displayVersion: 'v1.1',
     tagline: 'Cosmetic Suite'
   }
 
