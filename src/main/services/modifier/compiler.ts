@@ -5,6 +5,8 @@
 import { parseItemsGame, type DefaultItemEntry } from './vdfParser'
 import { findBestCosmetic, findDefaultItem } from './matcher'
 import { getCanonicalHero } from '../../../shared/constants/heroAliases'
+import { getCosmeticCustomizationInfo } from '../../../shared/constants/arcanaStyles'
+import type { HeroCustomizationsMap } from '../../../shared/types/customization'
 import { rules, type CosmeticPartial } from './rules'
 
 export interface PatchReplacement {
@@ -18,7 +20,78 @@ export interface CompilerResult {
   patchedCount: number
 }
 
-export function applyModModifications(content: string, equipped: Record<string, Record<string, string>> = {}): CompilerResult {
+export function unrollVisualsBlock(
+  visualsBlock: string,
+  targetStyle: number
+): { block: string; modelOverride?: string; skinOverride?: number } {
+  const vIdx = visualsBlock.indexOf('"visuals"')
+  if (vIdx === -1) return { block: visualsBlock }
+
+  const vOpen = visualsBlock.indexOf('{', vIdx)
+  if (vOpen === -1) return { block: visualsBlock }
+
+  const inside = visualsBlock.substring(vOpen + 1, visualsBlock.lastIndexOf('}'))
+  let modelOverride: string | undefined
+  let skinOverride: number | undefined
+
+  const chunks: string[] = []
+  let pos = 0
+  while (pos < inside.length) {
+    const modIdx = inside.indexOf('"asset_modifier', pos)
+    if (modIdx === -1) {
+      const rem = inside.substring(pos).trim()
+      if (rem) chunks.push(rem)
+      break
+    }
+
+    const before = inside.substring(pos, modIdx).trim()
+    if (before) chunks.push(before)
+
+    const braceOpen = inside.indexOf('{', modIdx)
+    if (braceOpen === -1) break
+
+    let depth = 1
+    let cur = braceOpen + 1
+    while (cur < inside.length && depth > 0) {
+      if (inside[cur] === '{') depth++
+      else if (inside[cur] === '}') depth--
+      cur++
+    }
+
+    const modBlock = inside.substring(modIdx, cur)
+    pos = cur
+
+    const styleMatch = modBlock.match(/"style"\s*"(\d+)"/)
+    if (styleMatch) {
+      const modStyle = parseInt(styleMatch[1], 10)
+      if (modStyle === targetStyle) {
+        // Strip the style property to make it unconditional in Source 2
+        const stripped = modBlock.replace(/"style"\s*"(\d+)"\s*/, '').trim()
+        const modelMatch = stripped.match(/"type"\s*"entity_model"[\s\S]*?"modifier"\s*"([^"]+)"/)
+        if (modelMatch) {
+          modelOverride = modelMatch[1]
+        }
+        const skinMatch = stripped.match(/"type"\s*"model_skin"[\s\S]*?"skin"\s*"(\d+)"/)
+        if (skinMatch) {
+          skinOverride = parseInt(skinMatch[1], 10)
+        }
+        chunks.push(stripped)
+      }
+    } else {
+      // Common modifier
+      chunks.push(modBlock.trim())
+    }
+  }
+
+  const newVisuals = `\t\t"visuals"\n\t\t{\n\t\t\t${chunks.join('\n\t\t\t')}\n\t\t}`
+  return { block: newVisuals, modelOverride, skinOverride }
+}
+
+export function applyModModifications(
+  content: string,
+  equipped: Record<string, Record<string, string>> = {},
+  customizations: HeroCustomizationsMap = {}
+): CompilerResult {
   const { defaultItems, cosmetics } = parseItemsGame(content)
   let modifiedContent = content
 
@@ -109,7 +182,34 @@ export function applyModModifications(content: string, equipped: Record<string, 
       }
       if (!defaultItem) continue
 
-      patchDefaultItem(defaultItem, cosmetic)
+      // Process customizations (e.g. style unrolling)
+      const customization = customizations[heroTag]?.[slotId]
+      const patchedCosmetic: CosmeticPartial = { ...cosmetic }
+
+      if (customization && customization.style !== undefined && cosmetic.visualsBlock) {
+        const targetStyle = customization.style
+        const { block, modelOverride, skinOverride } = unrollVisualsBlock(cosmetic.visualsBlock, targetStyle)
+        patchedCosmetic.visualsBlock = block
+
+        // Check registry metadata as fallback for models and skins
+        const regInfo = getCosmeticCustomizationInfo(heroTag, slotId, cleanItemName)
+        const chosenStyle = regInfo?.styles?.[targetStyle]
+
+        const effectiveModel = modelOverride || chosenStyle?.model
+        if (effectiveModel) {
+          patchedCosmetic.model = effectiveModel
+        }
+
+        const effectiveSkin = skinOverride !== undefined ? skinOverride : chosenStyle?.skin
+        if (effectiveSkin !== undefined) {
+          const skinSnippet = `\t\t\t"asset_modifier"\n\t\t\t{\n\t\t\t\t"type"\t\t"model_skin"\n\t\t\t\t"skin"\t\t"${effectiveSkin}"\n\t\t\t}\n`
+          if (patchedCosmetic.visualsBlock.includes('{')) {
+            patchedCosmetic.visualsBlock = patchedCosmetic.visualsBlock.replace(/(\t*\}\s*)$/, `${skinSnippet}$1`)
+          }
+        }
+      }
+
+      patchDefaultItem(defaultItem, patchedCosmetic)
     }
 
     // Execute any registered hero-specific Arcana rules
@@ -123,7 +223,8 @@ export function applyModModifications(content: string, equipped: Record<string, 
           slots,
           cosmetics,
           defaultItems,
-          patchDefaultItem
+          patchDefaultItem,
+          customizations
         })
       }
     }

@@ -21,6 +21,7 @@ export interface RuleApplyParams {
   cosmetics: CosmeticItemEntry[]
   defaultItems: DefaultItemEntry[]
   patchDefaultItem: (defaultItem: DefaultItemEntry, cosmetic: CosmeticPartial) => void
+  customizations?: import('../../../../shared/types/customization').HeroCustomizationsMap
 }
 
 export interface ModifierRule {
