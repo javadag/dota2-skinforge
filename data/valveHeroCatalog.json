@@ -5534,6 +5534,22 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/juggernaut/jugg_healing_ward_npc_dota_juggernaut_healing_ward"
+        },
+        {
+          "id": "7593",
+          "name": "Fortune's Tout",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/juggernaut/ward/fortunes_tout/fortunes_tout_npc_dota_juggernaut_healing_ward",
+          "best": true
+        },
+        {
+          "id": "18369",
+          "name": "Provocation of Ruin Ward",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/juggernaut/ward/fall20_juggernaut_katz_ward/fall20_juggernaut_katz_ward_npc_dota_juggernaut_healing_ward",
+          "best": true
         }
       ],
       "voice": [
@@ -39667,6 +39683,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/sand_king/sand_king_head"
+        },
+        {
+          "id": "19183",
+          "name": "Serket of the Black Sands - Head",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/sand_king/king_of_egypt_body_head/king_of_egypt_body_head",
+          "best": true
         }
       ],
       "shoulder": [
@@ -47084,6 +47108,14 @@
           "tag": "Seasonal",
           "isDefault": false,
           "img": "econ/heroes/treant_protector/head1"
+        },
+        {
+          "id": "14991",
+          "name": "Stuntwood Symbiont",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/treant/treant_ti10_immortal_head/treant_ti10_immortal_head",
+          "best": true
         }
       ],
       "shoulder": [
@@ -47234,6 +47266,22 @@
           "tag": "Seasonal",
           "isDefault": false,
           "img": "econ/items/treant/immortal_shoulder/treant_ti7_immortal_shoulder2"
+        },
+        {
+          "id": "9196",
+          "name": "Stuntwood Sanctuary",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/treant/immortal_shoulder/treant_ti7_immortal_shoulder",
+          "best": true
+        },
+        {
+          "id": "9452",
+          "name": "Stuntwood Sanctuary of the Crimson Witness",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/treant/immortal_shoulder/treant_ti7_immortal_shoulder1",
+          "best": true
         }
       ],
       "arms": [
@@ -50181,6 +50229,30 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/shadowshaman/helmet"
+        },
+        {
+          "id": "13757",
+          "name": "Lash of the Lizard Kin",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/shadowshaman/ss_fall20_immortal_head/ss_fall20_immortal_head",
+          "best": true
+        },
+        {
+          "id": "22269",
+          "name": "Lash of the Lizard Kin of the Crimson Witness",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/shadowshaman/ss_fall20_immortal_head/ss_fall20_immortal_head1",
+          "best": true
+        },
+        {
+          "id": "35386",
+          "name": "Tyrian Lash of the Lizard Kin",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/shadowshaman/ss_fall20_immortal_head/ss_fall20_immortal_head2",
+          "best": true
         }
       ],
       "arms": [
@@ -56492,6 +56564,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/beastmaster/beastmaster_weapon"
+        },
+        {
+          "id": "35761",
+          "name": "Prismatic Blood-drinker Chainblade",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/beastmaster/mh_beastmaster_odogaron/mh_beastmaster_odogaron_weapon_rainbow",
+          "best": true
         }
       ],
       "head": [
@@ -57032,6 +57112,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/beastmaster/beastmaster_beast"
+        },
+        {
+          "id": "34233",
+          "name": "Bullfango",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/beastmaster/mh_beastmaster_bone/mh_beastmaster_beast_boar",
+          "best": true
         }
       ],
       "ability2": [
@@ -62452,6 +62540,22 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/dark_seer/dark_seer_head"
+        },
+        {
+          "id": "23191",
+          "name": "Insight of Forlorn Precipice",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/dark_seer/ds_2022_immortal_head/ds_2022_immortal_head",
+          "best": true
+        },
+        {
+          "id": "29569",
+          "name": "Insight of Forlorn Precipice of the Crimson Witness",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/dark_seer/ds_2022_immortal_head/ds_2022_immortal_head1",
+          "best": true
         }
       ],
       "arms": [
@@ -64549,6 +64653,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/lion/lion_head"
+        },
+        {
+          "id": "13474",
+          "name": "Horns of the Betrayer",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/lion/lion_ti9_immortal_head/lion_ti9_immortal_head",
+          "best": true
         }
       ],
       "taunt": [
@@ -68003,6 +68115,30 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/undying/undying_tower"
+        },
+        {
+          "id": "6616",
+          "name": "Pale Mausoleum",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/undying/idol_of_ruination/idol_tower_npc_dota_unit_tombstone1",
+          "best": true
+        },
+        {
+          "id": "6860",
+          "name": "Golden Pale Mausoleum",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/undying/idol_of_ruination/idol_tower_gold_npc_dota_unit_tombstone1",
+          "best": true
+        },
+        {
+          "id": "14994",
+          "name": "The Hallows Within Tombstone",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/undying/undying_fall20_immortal_head/undying_fall20_immortal_tombstone_npc_dota_unit_tombstone1",
+          "best": true
         }
       ],
       "taunt": [
@@ -74802,6 +74938,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/vengeful/vengeful_upperbody"
+        },
+        {
+          "id": "22718",
+          "name": "The Resurrection of Shen - Wings",
+          "tag": "Arcana",
+          "isDefault": false,
+          "img": "econ/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_shoulders",
+          "best": true
         }
       ],
       "legs": [
@@ -80269,6 +80413,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/tiny/tiny_03/tiny_03"
+        },
+        {
+          "id": "13565",
+          "name": "Majesty Of The Colossus - Boulder",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/tiny/tiny_prestige/tiny_prestige_lvl_03_npc_dota_hero_tiny_variant_2",
+          "best": true
         }
       ],
       "back": [
@@ -80920,6 +81072,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/bane/bane_head"
+        },
+        {
+          "id": "14964",
+          "name": "Origin of the Unmaking",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/bane/bane_fall20_immortal_head/bane_fall20_immortal_head",
+          "best": true
         }
       ],
       "shoulder": [
@@ -82459,6 +82619,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/visage/visage_familiar"
+        },
+        {
+          "id": "7463",
+          "name": "Tolling Shadows",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/visage/immortal_familiar/immortal_familiar_tolling",
+          "best": true
         }
       ],
       "head": [
@@ -84898,6 +85066,14 @@
           "tag": "Common",
           "isDefault": true,
           "img": "econ/heroes/jakiro/jakiro_head_left"
+        },
+        {
+          "id": "9745",
+          "name": "Pyrexaec Flux",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/jakiro/jakiro_ti8_immortal_left_head/jakiro_ti8_immortal_left_head",
+          "best": true
         }
       ],
       "back": [
@@ -85042,6 +85218,14 @@
           "tag": "Mythical",
           "isDefault": false,
           "img": "econ/items/jakiro/jakiro_avilliva/jakiro_avilliva_ice_head",
+          "best": true
+        },
+        {
+          "id": "7820",
+          "name": "Pyrexaec Floe",
+          "tag": "Immortal",
+          "isDefault": false,
+          "img": "econ/items/jakiro/jakiro_ti7_immortal_head/jakiro_ti7_immortal_head_ice",
           "best": true
         }
       ]

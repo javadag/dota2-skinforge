@@ -3,7 +3,7 @@
   "productName": "Dota 2 SkinForge",
   "shortName": "SkinForge",
   "modFolder": "skinforge",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "tagline": "Cosmetic Suite",
   "description": "Local Dota 2 cosmetic suite via VPK modding",
   "main": "out/main/index.js",

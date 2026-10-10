@@ -31,6 +31,25 @@ export interface ParsedItemsGame {
   cosmetics: CosmeticItemEntry[]
 }
 
+export const NON_HERO_DEFAULT_ITEMS: Record<string, { hero: string; slot: string }> = {
+  '588': { hero: 'music_packs', slot: 'music_pack' },
+  '660': { hero: 'creeps', slot: 'radiant_creeps' },
+  '661': { hero: 'creeps', slot: 'dire_creeps' },
+  '34462': { hero: 'creeps', slot: 'radiant_siege' },
+  '34463': { hero: 'creeps', slot: 'dire_siege' },
+  '677': { hero: 'towers', slot: 'radiant_tower' },
+  '678': { hero: 'towers', slot: 'dire_tower' },
+  '595': { hero: 'courier', slot: 'courier' },
+  '596': { hero: 'wards', slot: 'ward' },
+  '555': { hero: 'weather', slot: 'weather_effect' },
+  '590': { hero: 'terrain', slot: 'map_terrain' },
+  '202': { hero: 'cursor', slot: 'cursor_pack' },
+  '587': { hero: 'huds', slot: 'hud_skin' },
+  '597': { hero: 'loadscreens', slot: 'loading_screen' },
+  '586': { hero: 'announcers', slot: 'announcer' },
+  '801': { hero: 'roshan', slot: 'roshan_model' }
+}
+
 export function parseItemsGame(content: string): ParsedItemsGame {
   const itemsIdx = content.indexOf('"items"')
   if (itemsIdx === -1) {
@@ -100,7 +119,7 @@ export function parseItemsGame(content: string): ParsedItemsGame {
     const particleFolder = particleMatch ? particleMatch[1] : ''
 
     if (!slot) {
-      if (prefab === 'wearable') slot = 'weapon'
+      if (prefab === 'wearable' || prefab === 'default_item') slot = 'weapon'
       else if (prefab === 'taunt') slot = 'taunt'
     }
 
@@ -115,7 +134,19 @@ export function parseItemsGame(content: string): ParsedItemsGame {
       .replace(/[^a-z0-9]/g, '')
       .trim()
 
-    if (prefab === 'default_item' && hero) {
+    const nonHeroDef = NON_HERO_DEFAULT_ITEMS[id]
+    if (nonHeroDef) {
+      defaultItems.push({
+        id,
+        hero: nonHeroDef.hero,
+        slot: nonHeroDef.slot,
+        name,
+        model,
+        start,
+        end,
+        block
+      })
+    } else if (prefab === 'default_item' && hero) {
       defaultItems.push({
         id,
         hero,

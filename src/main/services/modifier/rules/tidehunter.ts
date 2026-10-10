@@ -16,11 +16,11 @@ export const tidehunterRule: ModifierRule = {
 
     if (arcanaEquippedInBase || anyArcanaEquipped) {
       const c37143 = cosmetics.find((c) => c.id === '37143')
-      const defBase = defaultItems.find((d) => normalizeSlot(d.slot) === 'hero_base' || d.id === '904')
-      const defWeapon = defaultItems.find((d) => d.id === '36' || normalizeSlot(d.slot) === 'weapon')
-      const defArms = defaultItems.find((d) => d.id === '34' || normalizeSlot(d.slot) === 'arms')
-      const defBelt = defaultItems.find((d) => d.id === '35' || normalizeSlot(d.slot) === 'belt')
-      const defOffhand = defaultItems.find((d) => d.id === '37' || normalizeSlot(d.slot) === 'offhand_weapon')
+      const defBase = defaultItems.find((d) => d.id === '904' || (d.hero.includes('tide') && normalizeSlot(d.slot) === 'hero_base'))
+      const defWeapon = defaultItems.find((d) => d.id === '36' || (d.hero.includes('tide') && normalizeSlot(d.slot) === 'weapon'))
+      const defArms = defaultItems.find((d) => d.id === '34' || (d.hero.includes('tide') && normalizeSlot(d.slot) === 'arms'))
+      const defBelt = defaultItems.find((d) => d.id === '35' || (d.hero.includes('tide') && normalizeSlot(d.slot) === 'belt'))
+      const defOffhand = defaultItems.find((d) => d.id === '37' || (d.hero.includes('tide') && normalizeSlot(d.slot) === 'offhand_weapon'))
 
       if (c37143 && defBase) {
         patchDefaultItem(defBase, c37143)
