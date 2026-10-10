@@ -1,10 +1,10 @@
-import { Search, Sparkles, Gem } from 'lucide-react'
+import { Gem, Search, Sparkles } from 'lucide-react'
 import { useEffect } from 'react'
+import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
+import { PRISMATIC_GEMS, getGemByHex } from '../../shared/constants/prismaticGems'
 import { useAppStore } from '../state/useAppStore'
 import { generateItemSvg, getCategorySvg, getItemImage, getItemRarityKey, getRarityConfig } from '../utils/itemImages'
 import { formatHeroName } from './slotGenerator'
-import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
-import { PRISMATIC_GEMS, getGemByHex } from '../../shared/constants/prismaticGems'
 
 export const ItemSelectModal = () => {
   const selectedHero = useAppStore((s) => s.selectedHero)
@@ -293,7 +293,7 @@ export const ItemSelectModal = () => {
                             }}
                             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                               isStyleActive
-                                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)] border border-purple-400/50 scale-[1.02]'
+                                ? 'bg-linear-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)] border border-purple-400/50 scale-[1.02]'
                                 : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white border border-white/10'
                             }`}
                           >
@@ -321,7 +321,7 @@ export const ItemSelectModal = () => {
                           className="w-3.5 h-3.5 rounded-full border border-white/60 shrink-0"
                           style={{ backgroundColor: activeGemColor, boxShadow: `0 0 10px ${activeGemColor}` }}
                         />
-                        <span className="text-xs text-cyan-200 font-semibold truncate max-w-[140px]">
+                        <span className="text-xs text-cyan-200 font-semibold truncate max-w-35">
                           {activeGemObj?.name || activeGemColor}
                         </span>
                       </div>

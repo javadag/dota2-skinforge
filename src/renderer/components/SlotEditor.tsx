@@ -1,12 +1,12 @@
-import { Sparkles, X, Gem } from 'lucide-react'
+import { Gem, Sparkles, X } from 'lucide-react'
 import React from 'react'
 import { CATEGORY_META, isCategoryKey } from '../../data/categoryMeta'
+import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
+import { getGemByHex } from '../../shared/constants/prismaticGems'
 import { useAppStore } from '../state/useAppStore'
 import { getAttrLabel, getHeroAttribute } from '../utils/attributes'
 import { getItemImage, getRarityConfig, getSlotImage, type ItemDescriptor } from '../utils/itemImages'
 import { formatHeroName, getHeroSlotsDefinition } from './slotGenerator'
-import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
-import { getGemByHex } from '../../shared/constants/prismaticGems'
 import { Button } from './ui/Button'
 
 const fallbackHeroSvg =
@@ -211,7 +211,7 @@ export const SlotEditor: React.FC = () => {
                               const stIndex = Number(e.target.value)
                               setSlotCustomization(selectedHero.tag, slot.id, { style: stIndex })
                             }}
-                            className="bg-purple-950/80 border border-purple-500/40 rounded px-1.5 py-0.5 text-[11px] text-purple-200 cursor-pointer hover:border-purple-300 focus:outline-none focus:ring-1 focus:ring-purple-400 max-w-[130px] truncate"
+                            className="bg-purple-950/80 border border-purple-500/40 rounded px-1.5 py-0.5 text-[11px] text-purple-200 cursor-pointer hover:border-purple-300 focus:outline-none focus:ring-1 focus:ring-purple-400 max-w-32.5 truncate"
                             title="Unlocked Arcana Style"
                           >
                             {customInfo.styles.map((s) => (
@@ -244,7 +244,7 @@ export const SlotEditor: React.FC = () => {
                               className="w-2.5 h-2.5 rounded-full border border-white/60 shrink-0"
                               style={{ backgroundColor: activeGemColor, boxShadow: `0 0 6px ${activeGemColor}` }}
                             />
-                            <span className="truncate max-w-[100px]">{currentCust?.gemName || activeGemObj?.name || activeGemColor}</span>
+                            <span className="truncate max-w-25">{currentCust?.gemName || activeGemObj?.name || activeGemColor}</span>
                           </div>
                         </div>
                       )}
