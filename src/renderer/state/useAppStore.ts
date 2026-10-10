@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import type { ItemCustomization, HeroCustomizationsMap } from '../../shared/types/customization'
 import type { CategoryKey } from '../../data/categoryMeta'
 import type { HeroAttribute } from '../../shared/constants/attributes'
 import {
@@ -55,6 +56,7 @@ export interface AppStoreState {
   categories: HeroEntry[]
   selectedHero: HeroEntry | null
   heroSlots: Record<string, Record<string, string>>
+  heroCustomizations: HeroCustomizationsMap
   activeCatalog: HeroSlotsCatalogEntry | null
 
   // Modals & Panels
@@ -82,6 +84,7 @@ export interface AppStoreState {
   setSearchQuery: (query: string) => void
   setSelectedHero: (hero: HeroEntry | null) => void
   setHeroSlot: (heroTag: string, slotId: string, itemName: string) => void
+  setSlotCustomization: (heroTag: string, slotId: string, customization: Partial<ItemCustomization>) => void
   resetHeroSlot: (heroTag: string, slotId: string) => void
   resetAllHeroSlots: (heroTag: string) => void
   unlockBestSet: (hero: HeroEntry) => void
@@ -138,6 +141,15 @@ function getStoredHeroSlots(): Record<string, Record<string, string>> {
   }
 }
 
+function getStoredHeroCustomizations(): HeroCustomizationsMap {
+  try {
+    const data = localStorage.getItem('skinforge_hero_customizations')
+    return data ? (JSON.parse(data) as HeroCustomizationsMap) : {}
+  } catch {
+    return {}
+  }
+}
+
 export const useAppStore = create<AppStoreState>((set, get) => ({
   activeTab: 'heroes',
   activeCategoryGroup: 'hero',
@@ -148,6 +160,7 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
   categories: [],
   selectedHero: null,
   heroSlots: getStoredHeroSlots(),
+  heroCustomizations: getStoredHeroCustomizations(),
   activeCatalog: null,
 
   activeModalSlot: null,
@@ -221,34 +234,67 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
     })
   },
 
+  setSlotCustomization: (heroTag, slotId, update) => {
+    set((state) => {
+      const heroCurrent = state.heroCustomizations[heroTag] || {}
+      const slotCurrent = heroCurrent[slotId] || {}
+      const updated = {
+        ...state.heroCustomizations,
+        [heroTag]: {
+          ...heroCurrent,
+          [slotId]: { ...slotCurrent, ...update }
+        }
+      }
+      try {
+        localStorage.setItem('skinforge_hero_customizations', JSON.stringify(updated))
+      } catch {
+        // ignore
+      }
+      return { heroCustomizations: updated }
+    })
+  },
+
   resetHeroSlot: (heroTag, slotId) => {
     set((state) => {
       if (!state.heroSlots[heroTag]) return state
       const currentSlots = { ...state.heroSlots[heroTag] }
       delete currentSlots[slotId]
-      const updated = {
+      const updatedSlots = {
         ...state.heroSlots,
         [heroTag]: currentSlots
       }
+
+      const updatedCust = { ...state.heroCustomizations }
+      if (updatedCust[heroTag]) {
+        const curCust = { ...updatedCust[heroTag] }
+        delete curCust[slotId]
+        updatedCust[heroTag] = curCust
+      }
+
       try {
-        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updated))
+        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedSlots))
+        localStorage.setItem('skinforge_hero_customizations', JSON.stringify(updatedCust))
       } catch {
         // ignore
       }
-      return { heroSlots: updated }
+      return { heroSlots: updatedSlots, heroCustomizations: updatedCust }
     })
   },
 
   resetAllHeroSlots: (heroTag) => {
     set((state) => {
-      const updated = { ...state.heroSlots }
-      delete updated[heroTag]
+      const updatedSlots = { ...state.heroSlots }
+      delete updatedSlots[heroTag]
+      const updatedCust = { ...state.heroCustomizations }
+      delete updatedCust[heroTag]
+
       try {
-        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updated))
+        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedSlots))
+        localStorage.setItem('skinforge_hero_customizations', JSON.stringify(updatedCust))
       } catch {
         // ignore
       }
-      return { heroSlots: updated }
+      return { heroSlots: updatedSlots, heroCustomizations: updatedCust }
     })
     get().addLog(`Reset all slots for ${formatHeroName(heroTag)} to default.`, 'info')
   },
@@ -449,7 +495,7 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
     state.addLog(`Compiling ${totalSelected} equipped cosmetic slot(s) into Dota 2 items schema...`, 'info')
 
     try {
-      const res = await window.skinforge.installMods(state.dotaPath, equipped)
+      const res = await window.skinforge.installMods(state.dotaPath, equipped, state.heroCustomizations)
       if (res && res.success) {
         const count = res.patchedCount || 0
         if (count === 0) {

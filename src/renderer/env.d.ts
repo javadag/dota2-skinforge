@@ -59,7 +59,11 @@ export interface SkinforgeBridge {
   getInitialData: () => Promise<InitialDataPayload>
   checkStatus: (customPath?: string) => Promise<PipelineStatus>
   selectDirectory: () => Promise<SelectDirectoryResult | null>
-  installMods: (customPath?: string, equipped?: Record<string, Record<string, string>>) => Promise<ModInstallResult>
+  installMods: (
+    customPath?: string,
+    equipped?: Record<string, Record<string, string>>,
+    customizations?: import('../shared/types/customization').HeroCustomizationsMap
+  ) => Promise<ModInstallResult>
   uninstallMods: (customPath?: string) => Promise<ModUninstallResult>
   openExternal: (url: string) => Promise<void>
   readSettings: () => Promise<AppSettingsPayload>
