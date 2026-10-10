@@ -5,6 +5,7 @@
 import { legionCommanderRule } from './legionCommander'
 import { tidehunterRule } from './tidehunter'
 import { windrangerRule } from './windranger'
+import { terrorbladeRule } from './terrorblade'
 import type { DefaultItemEntry, CosmeticItemEntry } from '../vdfParser'
 
 export interface CosmeticPartial {
@@ -29,6 +30,6 @@ export interface ModifierRule {
   apply: (params: RuleApplyParams) => void
 }
 
-export const rules: ModifierRule[] = [legionCommanderRule, tidehunterRule, windrangerRule]
+export const rules: ModifierRule[] = [legionCommanderRule, tidehunterRule, windrangerRule, terrorbladeRule]
 
 export default rules
