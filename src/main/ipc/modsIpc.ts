@@ -18,15 +18,23 @@ export function registerModsIpc(getMainWindow: () => BrowserWindow | null) {
     return pipeline.checkStatus(dotaPath)
   })
 
-  ipcMain.handle('install-mods', async (_event, customPath?: string, equipped?: Record<string, Record<string, string>>) => {
-    const dotaPath = customPath || dotaPathModule.detectDotaPath()
-    const mainWindow = getMainWindow()
-    return await pipeline.installMods(dotaPath, equipped || {}, (progress: ProgressInfo) => {
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        mainWindow.webContents.send('install-progress', progress)
-      }
-    })
-  })
+  ipcMain.handle(
+    'install-mods',
+    async (
+      _event,
+      customPath?: string,
+      equipped?: Record<string, Record<string, string>>,
+      customizations?: import('../../shared/types/customization').HeroCustomizationsMap
+    ) => {
+      const dotaPath = customPath || dotaPathModule.detectDotaPath()
+      const mainWindow = getMainWindow()
+      return await pipeline.installMods(dotaPath, equipped || {}, customizations || {}, (progress: ProgressInfo) => {
+        if (mainWindow && !mainWindow.isDestroyed()) {
+          mainWindow.webContents.send('install-progress', progress)
+        }
+      })
+    }
+  )
 
   ipcMain.handle('uninstall-mods', async (_event, customPath?: string) => {
     const dotaPath = customPath || dotaPathModule.detectDotaPath()
