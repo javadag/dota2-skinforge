@@ -1,18 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 144" width="256" height="144">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f2b48"/><stop offset="100%" stop-color="#051329"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="256" height="144" fill="url(#bg)"/>
-  <rect width="256" height="144" fill="url(#glow)"/>
-  <g transform="translate(128, 62)">
-    <path d="M-24 -4 A18 18 0 0 1 12 -14 A24 24 0 0 1 28 8 A16 16 0 0 1 16 24 L-20 24 A20 20 0 0 1 -24 -4 Z" fill="#38bdf8"/>
-     <path d="M-10 32 L-14 44 M0 32 L-4 44 M10 32 L6 44" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"/>
-  </g>
-  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">WEATHER EFFECTS</text>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1038_1798)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 0C15.712 0 19.184 2.989 19.892 7.08C22.225 7.501 24 9.547 24 12C24 14.757 21.757 17 19 17H18.996H15.4545L8.75124 22.8989C8.37887 23.2266 7.80803 22.8705 7.93855 22.392L9.40909 17H5C2.243 17 0 14.757 0 12C0 9.946 1.253 8.099 3.067 7.353C3.634 3.239 7.277 0 11.5 0ZM17 4L14.75 12H19L10 20L12.25 12H8L17 4Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1038_1798">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
 </svg>

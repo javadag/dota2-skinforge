@@ -86,8 +86,11 @@ const trueImmortal = { name: 'Immortal Pantheon', tag: 'Immortal' }
 assert.strictEqual(getItemRarityKey(trueImmortal), 'immortal', 'Immortal Pantheon must be immortal')
 
 // 9. Non-hero category base items must return category vector SVGs, not broken hero portraits
-const courierBase = getItemImage({ isDefault: true, name: 'Default Base' }, 'courier_ground', 'courier')
+const courierBase = getItemImage({ isDefault: true, name: 'Default Base' }, 'courier', 'courier')
 assert.strictEqual(courierBase, '../assets/categories/courier.svg', 'Courier base must return category SVG')
+
+const wardBase = getItemImage(null, 'ward', 'wards')
+assert.strictEqual(wardBase, '../assets/categories/wards.svg', 'Ward base must return category SVG')
 
 const weatherBase = getItemImage(null, 'weather_effect', 'weather')
 assert.strictEqual(weatherBase, '../assets/categories/weather.svg', 'Weather base must return category SVG')
@@ -95,7 +98,7 @@ assert.strictEqual(weatherBase, '../assets/categories/weather.svg', 'Weather bas
 const creepsBase = getItemImage({ isDefault: true, name: 'Default Base' }, 'radiant_creeps', 'creeps')
 assert.strictEqual(creepsBase, '../assets/categories/creeps.svg', 'Creeps base must return category SVG')
 
-const musicBase = getItemImage(null, 'soundtrack', 'music_packs')
+const musicBase = getItemImage(null, 'music_pack', 'music_packs')
 assert.strictEqual(musicBase, '../assets/categories/music.svg', 'Music packs base must return category SVG')
 
 // 10. Non-hero items with authentic econ paths route through skinforge-icon:// protocol

@@ -1,0 +1,142 @@
+{
+  "categories": [
+    {
+      "tag": "courier",
+      "name": "Couriers",
+      "mods": 217,
+      "available": 217,
+      "img": "../assets/categories/courier.svg",
+      "g": "world"
+    },
+    {
+      "tag": "wards",
+      "name": "Wards",
+      "mods": 85,
+      "available": 85,
+      "img": "../assets/categories/wards.svg",
+      "g": "world"
+    },
+    {
+      "tag": "terrain",
+      "name": "Terrain",
+      "mods": 12,
+      "available": 12,
+      "img": "../assets/categories/terrain.svg",
+      "g": "world"
+    },
+    {
+      "tag": "creeps",
+      "name": "Creeps",
+      "mods": 22,
+      "available": 22,
+      "img": "../assets/categories/creeps.svg",
+      "g": "world"
+    },
+    {
+      "tag": "towers",
+      "name": "Towers",
+      "mods": 12,
+      "available": 12,
+      "img": "../assets/categories/tower.svg",
+      "g": "world"
+    },
+    {
+      "tag": "ancient",
+      "name": "Ancient Structures",
+      "mods": 2,
+      "available": 2,
+      "img": "../assets/categories/ancient.svg",
+      "g": "world"
+    },
+    {
+      "tag": "roshan",
+      "name": "Roshan",
+      "mods": 5,
+      "available": 5,
+      "img": "../assets/categories/roshan.svg",
+      "g": "world"
+    },
+    {
+      "tag": "tormentor",
+      "name": "Tormentor",
+      "mods": 3,
+      "available": 3,
+      "img": "../assets/categories/tormentor.svg",
+      "g": "world"
+    },
+    {
+      "tag": "weather",
+      "name": "Weather Effects",
+      "mods": 10,
+      "available": 10,
+      "img": "../assets/categories/weather.svg",
+      "g": "world"
+    },
+    {
+      "tag": "music_packs",
+      "name": "Music Packs",
+      "mods": 25,
+      "available": 25,
+      "img": "../assets/categories/music.svg",
+      "g": "interface"
+    },
+    {
+      "tag": "announcers",
+      "name": "Announcers",
+      "mods": 61,
+      "available": 61,
+      "img": "../assets/categories/announcers.svg",
+      "g": "interface"
+    },
+    {
+      "tag": "loadscreens",
+      "name": "Loading Screens",
+      "mods": 2166,
+      "available": 2166,
+      "img": "../assets/categories/loadscreens.svg",
+      "g": "interface"
+    },
+    {
+      "tag": "versus_screen",
+      "name": "Versus Screens",
+      "mods": 11,
+      "available": 11,
+      "img": "../assets/categories/versus_screen.svg",
+      "g": "interface"
+    },
+    {
+      "tag": "huds",
+      "name": "HUD Skins",
+      "mods": 95,
+      "available": 95,
+      "img": "../assets/categories/huds.svg",
+      "g": "interface"
+    },
+    {
+      "tag": "kill_streak",
+      "name": "Kill Streak Effects",
+      "mods": 5,
+      "available": 5,
+      "img": "../assets/categories/kill_streak.svg",
+      "g": "interface"
+    },
+    {
+      "tag": "cursor",
+      "name": "Cursor Packs",
+      "mods": 22,
+      "available": 22,
+      "img": "../assets/categories/cursor.svg",
+      "g": "interface"
+    }
+  ],
+  "groups": [
+    {
+      "key": "world",
+      "title": "World"
+    },
+    {
+      "key": "interface",
+      "title": "Interface"
+    }
+  ]
+}

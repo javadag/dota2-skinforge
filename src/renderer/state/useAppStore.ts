@@ -52,6 +52,7 @@ export interface AppStoreState {
 
   // Hero & Equipment State
   heroes: HeroEntry[]
+  categories: HeroEntry[]
   selectedHero: HeroEntry | null
   heroSlots: Record<string, Record<string, string>>
   activeCatalog: HeroSlotsCatalogEntry | null
@@ -144,6 +145,7 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
   searchQuery: '',
 
   heroes: [],
+  categories: [],
   selectedHero: null,
   heroSlots: getStoredHeroSlots(),
   activeCatalog: null,
@@ -566,7 +568,8 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
       const initial = await window.skinforge.getInitialData()
       const dotaPath = initial.dotaPath || ''
       const heroes = initial.heroes || []
-      setCatalogHeroes(heroes)
+      const categories = initial.categories || []
+      setCatalogHeroes([...heroes, ...categories])
       const status = initial.status
 
       let savedSettings: Partial<AppSettings> = {}
@@ -586,6 +589,7 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
       set((state) => ({
         dotaPath,
         heroes,
+        categories,
         status,
         cacheStats,
         settings: {

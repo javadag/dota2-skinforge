@@ -198,25 +198,26 @@ export const CATEGORY_SVG_MAP: Record<string, string> = {
   tower: '../assets/categories/tower.svg',
   towers: '../assets/categories/tower.svg',
   river: '../assets/categories/river.svg',
-  cursor: '../assets/categories/interface.svg',
-  huds: '../assets/categories/interface.svg',
-  hud: '../assets/categories/interface.svg',
-  loadscreens: '../assets/categories/interface.svg',
-  loading: '../assets/categories/interface.svg',
-  loading_screen: '../assets/categories/interface.svg',
-  versus_screen: '../assets/categories/interface.svg',
-  versus: '../assets/categories/interface.svg',
-  tormentor: '../assets/categories/maps.svg',
-  ancient: '../assets/categories/maps.svg',
-  kill_streak: '../assets/categories/effects.svg',
-  streak_effect: '../assets/categories/effects.svg',
+  cursor: '../assets/categories/cursor.svg',
+  huds: '../assets/categories/huds.svg',
+  hud: '../assets/categories/huds.svg',
+  loadscreens: '../assets/categories/loadscreens.svg',
+  loading: '../assets/categories/loadscreens.svg',
+  loading_screen: '../assets/categories/loadscreens.svg',
+  versus_screen: '../assets/categories/versus_screen.svg',
+  versus: '../assets/categories/versus_screen.svg',
+  tormentor: '../assets/categories/tormentor.svg',
+  ancient: '../assets/categories/ancient.svg',
+  kill_streak: '../assets/categories/kill_streak.svg',
+  streak_effect: '../assets/categories/kill_streak.svg',
   shader: '../assets/categories/interface.svg',
-  emblem: '../assets/categories/effects.svg',
+  emblem: '../assets/categories/emblem.svg',
   interface: '../assets/categories/interface.svg',
   teleport: '../assets/categories/effects.svg',
   blink: '../assets/categories/effects.svg',
   effects: '../assets/categories/effects.svg',
   maps: '../assets/categories/maps.svg',
+  terrain: '../assets/categories/terrain.svg',
   world: '../assets/categories/maps.svg',
   default: '../assets/categories/default.svg'
 }
@@ -229,6 +230,38 @@ export function getCategorySvg(tagOrSlot?: string | null): string | null {
     if (key.includes(k)) return v
   }
   return null
+}
+
+export function getSlotImage(slotId?: string | null): string {
+  if (!slotId) return '../assets/slots/weapon.svg'
+  const cleanSlot = slotId
+    .toLowerCase()
+    .replace(/_persona_\d+$/, '')
+    .replace(/\d+$/, '')
+  const aliasMap: Record<string, string> = {
+    gloves: 'arms',
+    neck: 'shoulder',
+    body_head: 'head',
+    costume: 'armor',
+    shapeshift: 'hero_base',
+    voice: 'announcer',
+    ability1: 'ambient_effects',
+    ability2: 'ambient_effects',
+    ability3: 'ambient_effects',
+    ability4: 'ambient_effects',
+    ability_ultimate: 'ambient_effects',
+    courier_ground: 'courier',
+    courier_flying: 'courier',
+    courier_fx: 'courier',
+    observer_ward: 'ward',
+    sentry_ward: 'ward',
+    soundtrack: 'music_pack',
+    combat_music: 'music_pack',
+    respawn_music: 'music_pack',
+    music: 'music_pack'
+  }
+  const resolved = aliasMap[cleanSlot] || cleanSlot
+  return `../assets/slots/${resolved}.svg`
 }
 
 function getSlotSvgIcon(slotId: string, color: string): string {
@@ -398,20 +431,7 @@ export function generateItemSvg(item: ItemDescriptor, slotId = 'weapon', _heroTa
 }
 
 export function getItemImage(item?: ItemDescriptor | null, slotId = 'weapon', heroTag = '', heroObj?: HeroImageTarget | null): string {
-  if (!item || item.isDefault || (item.name && item.name.toLowerCase().includes('official base'))) {
-    if (heroObj && heroObj.img) {
-      return heroObj.img
-    }
-    if (heroTag) {
-      const catSvg = getCategorySvg(heroTag)
-      if (catSvg) return catSvg
-      const cleanTag = heroTag.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_')
-      return `../assets/heroes/${cleanTag}.png`
-    }
-    return generateItemSvg({ name: 'Default Base', tag: 'default', isDefault: true }, slotId, heroTag)
-  }
-
-  // Tier 1: Official Valve econ cosmetic asset -> skinforge-icon protocol
+  // Tier 1: Official Valve econ cosmetic asset -> skinforge-icon protocol (including default items with textures)
   if (
     item &&
     item.img &&
@@ -434,6 +454,20 @@ export function getItemImage(item?: ItemDescriptor | null, slotId = 'weapon', he
     return item.img
   }
 
-  // Tier 3: Procedural SVG Fallback
+  // Tier 3: Default item without individual texture fallback to hero portrait or category SVG
+  if (!item || item.isDefault || (item.name && item.name.toLowerCase().includes('official base'))) {
+    if (heroObj && heroObj.img) {
+      return heroObj.img
+    }
+    if (heroTag) {
+      const catSvg = getCategorySvg(heroTag)
+      if (catSvg) return catSvg
+      const cleanTag = heroTag.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_')
+      return `../assets/heroes/${cleanTag}.png`
+    }
+    return generateItemSvg({ name: 'Default Base', tag: 'default', isDefault: true }, slotId, heroTag)
+  }
+
+  // Tier 4: Procedural SVG Fallback
   return generateItemSvg(item, slotId, heroTag)
 }

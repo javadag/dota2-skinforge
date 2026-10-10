@@ -91,7 +91,7 @@ export function updateSignaturesForGameinfo(dotaGameDir: string, backupDir: stri
 export type SignatureRestoreResult =
   | {
       success: true
-      status: 'restored_from_backup' | 'restored_from_d2c_backup'
+      status: 'restored_from_backup'
     }
   | {
       success: false
@@ -107,14 +107,6 @@ export function restoreSignatures(dotaGameDir: string, backupDir: string | null 
       fs.copyFileSync(primaryBackup, sigPath)
       return { success: true, status: 'restored_from_backup' }
     }
-  }
-
-  // Check Dota2Changer backup if available
-  const userProfile = process.env.USERPROFILE || ''
-  const d2cBackup = path.join(userProfile, 'AppData', 'Roaming', 'Dota2ChangerLauncher', 'gameinfo_replaced', 'dota.signatures')
-  if (fs.existsSync(d2cBackup)) {
-    fs.copyFileSync(d2cBackup, sigPath)
-    return { success: true, status: 'restored_from_d2c_backup' }
   }
 
   // Fallback: strip any custom entries appended after the official DIGEST line

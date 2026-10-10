@@ -1,19 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 144" width="256" height="144">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#450a0a"/><stop offset="100%" stop-color="#200505"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="256" height="144" fill="url(#bg)"/>
-  <rect width="256" height="144" fill="url(#glow)"/>
-  <g transform="translate(128, 62)">
-    <polygon points="0,-24 20,-12 20,12 0,26 -20,12 -20,-12" fill="none" stroke="#ef4444" stroke-width="3"/>
-     <line x1="0" y1="-14" x2="0" y2="16" stroke="#ef4444" stroke-width="3"/>
-     <line x1="-12" y1="-2" x2="12" y2="-2" stroke="#ef4444" stroke-width="3"/>
-  </g>
-  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">CREEPS &amp; UNITS</text>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1038_1794)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7.27639 0.861834C7.10699 0.94653 6.99999 1.11966 6.99999 1.30905V11C5.89542 12.1046 5.89542 13.8955 6.99999 15L7.49999 15.5L9.0294 22L9.40929 23.6145C9.46243 23.8404 9.66397 24 9.896 24H11V22V17.5C11 17.2239 11.2239 17 11.5 17H12.5C12.7761 17 13 17.2239 13 17.5V22V24H14.104C14.336 24 14.5376 23.8404 14.5907 23.6145L14.9706 22L16.5 15.5L17 15C18.1046 13.8955 18.1046 12.1046 17 11V1.30905C17 1.11966 16.893 0.94653 16.7236 0.861834L15.6489 0.324497C15.3357 0.167878 14.9626 0.373487 14.9278 0.721959L14.5 5.00003H12H9.49999L9.07219 0.721959C9.03734 0.373487 8.6643 0.167878 8.35106 0.324497L7.27639 0.861834ZM8.24333 12.1956L7.5 12L7.38813 12.6712C7.18495 13.8903 8.12504 15 9.36092 15H10L9.67912 13.663C9.50723 12.9468 8.95562 12.3831 8.24333 12.1956ZM16.5 12L15.7567 12.1956C15.0444 12.3831 14.4928 12.9468 14.3209 13.663L14 15H14.6391C15.875 15 16.815 13.8903 16.6119 12.6712L16.5 12ZM4.35407 17C3.53626 17 2.80084 17.4979 2.49711 18.2572L1 22H7.5L6.5 17H4.35407ZM17.5 17L16.5 22H23L21.5029 18.2572C21.1992 17.4979 20.4637 17 19.6459 17H17.5Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1038_1794">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
 </svg>

@@ -3,7 +3,7 @@ import React from 'react'
 import { CATEGORY_META, isCategoryKey } from '../../data/categoryMeta'
 import { useAppStore } from '../state/useAppStore'
 import { getAttrLabel, getHeroAttribute } from '../utils/attributes'
-import { generateItemSvg, getItemImage, getRarityConfig, type ItemDescriptor } from '../utils/itemImages'
+import { getItemImage, getRarityConfig, getSlotImage, type ItemDescriptor } from '../utils/itemImages'
 import { formatHeroName, getHeroSlotsDefinition } from './slotGenerator'
 import { Button } from './ui/Button'
 
@@ -108,21 +108,22 @@ export const SlotEditor: React.FC = () => {
                   }
                 : null
 
+              const defaultItemObj: ItemDescriptor | null =
+                (catalog.items[slot.id] || []).find(
+                  (it) => it.isDefault || it.tag === 'Default' || it.name.toLowerCase().includes('default')
+                ) ||
+                (catalog.items[slot.id] && catalog.items[slot.id][0]) ||
+                null
+
               const conf = getRarityConfig(equippedItemObj)
-              const itemImg = getItemImage(equippedItemObj, slot.id, selectedHero.tag, selectedHero)
-              const fallbackSvg = generateItemSvg(
-                equippedItemObj || { name: slot.name, tag: 'default', isDefault: true },
-                slot.id,
-                selectedHero.tag
-              )
+              const activeItemObj = isEquipped ? equippedItemObj : defaultItemObj
+              const itemImg = activeItemObj ? getItemImage(activeItemObj, slot.id, selectedHero.tag, selectedHero) : getSlotImage(slot.id)
 
               return (
                 <div
                   key={slot.id}
                   className={`slot-card p-3 rounded-xl border transition-all cursor-pointer bg-[#121826]/70 hover:bg-[#1c263c]/90 flex flex-col justify-between ${
-                    isEquipped
-                      ? 'border-purple-500/40 shadow-[0_0_12px_rgba(139,92,246,0.15)]'
-                      : 'border-white/5 hover:border-white/15'
+                    isEquipped ? 'border-purple-500/40 shadow-[0_0_12px_rgba(139,92,246,0.15)]' : 'border-white/5 hover:border-white/15'
                   }`}
                   data-slot-id={slot.id}
                   onClick={() => openSlotModal(selectedHero, slot)}
@@ -154,33 +155,32 @@ export const SlotEditor: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="flex flex-col items-center gap-3">
+                  <div className="flex flex-col gap-2.5">
                     <div
-                      className="w-full rounded-lg border flex items-center justify-center relative shrink-0 overflow-hidden"
+                      className="w-full aspect-4/3 rounded-lg border flex items-center justify-center relative shrink-0 overflow-hidden bg-[#0a0e18]"
                       style={{
                         borderColor: isEquipped ? conf.color : 'rgba(255,255,255,0.1)',
                         boxShadow: `0 0 14px ${isEquipped ? conf.glow : 'transparent'}`
                       }}
                     >
                       <img
-                        className="slot-thumb-img size-full object-cover"
+                        className={`slot-thumb-img size-full object-cover transition-all duration-300 ${
+                          isEquipped ? 'grayscale-0' : 'grayscale opacity-70 group-hover:opacity-85'
+                        }`}
                         src={itemImg}
-                        alt={selectedItemName || slot.name}
-                        onError={(e) => {
-                          e.currentTarget.onerror = null
-                          e.currentTarget.src = fallbackSvg
-                        }}
+                        alt={isEquipped ? selectedItemName : defaultItemObj?.name || slot.name}
                       />
                     </div>
 
-                    <div className="flex-1 min-w-0">
+                    <div className="w-full min-w-0">
                       <div
-                        className="text-xs font-semibold"
+                        className="text-xs font-semibold truncate"
                         style={{ color: isEquipped ? conf.color : 'var(--text-main)' }}
+                        title={isEquipped ? selectedItemName : defaultItemObj?.name || 'Official Base Model'}
                       >
-                        {selectedItemName || 'Official Base Model'}
+                        {isEquipped ? selectedItemName : defaultItemObj?.name || 'Official Base Model'}
                       </div>
-                      <div className="text-[11px] text-slate-400 truncate">
+                      <div className="text-[11px] text-slate-400 truncate mt-0.5">
                         {isEquipped ? `${conf.name} Cosmetic` : 'Valve Official Base'}
                       </div>
                     </div>
