@@ -1,4 +1,4 @@
-import { Compass, Globe, Info, Layers, LayoutGrid, Music, Settings, Sparkles, Terminal } from 'lucide-react'
+import { Globe, Info, Layers, LayoutGrid, Settings, Sparkles, Terminal } from 'lucide-react'
 import React from 'react'
 import { useAppStore } from '../state/useAppStore'
 
@@ -9,11 +9,7 @@ export const Sidebar: React.FC = () => {
   const status = useAppStore((s) => s.status)
   const dotaPath = useAppStore((s) => s.dotaPath)
 
-  const appInfo = (typeof window !== 'undefined' && window.appInfo) || {
-    name: 'Dota 2 SkinForge',
-    displayVersion: 'v1.1',
-    tagline: 'Cosmetic Suite'
-  }
+  const appInfo = typeof window !== 'undefined' ? window.appInfo : null
 
   // Determine status label and dot glow styling
   let statusText = 'Checking...'
@@ -54,10 +50,10 @@ export const Sidebar: React.FC = () => {
             className="text-sm font-extrabold tracking-[0.8px] bg-linear-to-br from-white from-30% to-attr-uni bg-clip-text text-transparent whitespace-nowrap"
             data-app-name
           >
-            {appInfo.name}
+            {appInfo?.name || ''}
           </span>
           <span className="text-[10px] font-medium text-slate-400 tracking-[0.5px]" data-app-tagline>
-            {appInfo.displayVersion} · {appInfo.tagline}
+            {appInfo?.displayVersion || ''} · {appInfo?.tagline || ''}
           </span>
         </div>
       </div>
