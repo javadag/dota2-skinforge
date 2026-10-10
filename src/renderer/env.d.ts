@@ -33,7 +33,7 @@ export interface HeroEntry {
   g?: string
   alias?: string[]
   img?: string
-  mods?: string
+  mods?: number
 }
 
 export interface InitialDataPayload {
@@ -41,7 +41,8 @@ export interface InitialDataPayload {
   dotaPath: string
   status: PipelineStatus
   heroes: HeroEntry[]
-  groups: string[]
+  categories?: HeroEntry[]
+  groups: Array<{ key: string; title: string }> | string[]
 }
 
 export interface AppSettingsPayload {

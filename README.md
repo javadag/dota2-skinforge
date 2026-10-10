@@ -93,26 +93,25 @@ The app will auto-detect your Dota 2 installation and check mod status on startu
 
 ```
 dota2-skinforge/
-├── main.js                     # Entry delegate → src/main/index.js
-├── preload.js                  # Entry delegate → src/preload/index.js
 ├── run.bat                     # 1-click launcher
-├── assets/                     # App icons & offline hero portraits
+├── assets/                     # App icons, category SVGs, slot SVGs & hero portraits
 ├── tools/
 │   └── vpktool.exe             # Standalone VPK pack/unpack utility
 ├── data/
-│   ├── heroes.json             # Complete offline hero catalog
+│   ├── heroes.json             # Official Dota 2 hero catalog (127 heroes)
+│   ├── categories.json         # Non-hero cosmetic categories (World & Interface)
 │   ├── valveHeroCatalog.json   # Authentic Valve loadout catalog
 │   └── mod_template.zip        # Base schema & assets template
 └── src/
-    ├── main/                   # Electron main process (Node.js)
-    │   ├── index.js            # App lifecycle & window manager
+    ├── main/                   # Electron main process (TypeScript)
+    │   ├── index.ts            # App lifecycle & window manager
     │   ├── ipc/                # Domain IPC handlers (mods, settings, system)
     │   └── services/           # Domain services (pipeline, gameinfo, VPK, modifier)
-    ├── preload/                # Secure IPC bridge (window.skinforge)
+    ├── preload/                # Secure IPC bridge (TypeScript)
     └── renderer/               # React UI (TypeScript)
         ├── state/              # Zustand store & EventTarget bus
         ├── components/         # Views: HeroList, SlotEditor, Presets, Settings, Launch, About
-        └── utils/              # DOM helpers, logger, SVG armory card generator
+        └── utils/              # Item images, rarity styling, SVG armory card generator
 ```
 
 ---

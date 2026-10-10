@@ -19,6 +19,7 @@
     "dist": "electron-vite build && electron-builder --win portable",
     "dist:dir": "electron-vite build && electron-builder --dir",
     "sync:icons": "tsx scripts/sync_r2_icons.ts",
+    "update:nonhero": "tsx scripts/build_nonhero_catalog.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{js,ts,css,html}\"",

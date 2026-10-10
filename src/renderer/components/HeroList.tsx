@@ -12,6 +12,7 @@ const fallbackHeroSvg =
 
 export const HeroList: React.FC = () => {
   const heroes = useAppStore((s) => s.heroes)
+  const categories = useAppStore((s) => s.categories)
   const selectedHero = useAppStore((s) => s.selectedHero)
   const setSelectedHero = useAppStore((s) => s.setSelectedHero)
   const activeCategoryGroup = useAppStore((s) => s.activeCategoryGroup)
@@ -23,15 +24,17 @@ export const HeroList: React.FC = () => {
 
   const query = searchQuery.toLowerCase().trim()
 
-  const filtered = heroes.filter((h) => {
-    const itemGroup = h.g || 'hero'
+  const listToFilter =
+    activeCategoryGroup === 'hero'
+      ? heroes
+      : activeCategoryGroup === 'all'
+        ? [...heroes, ...categories]
+        : categories.filter((c) => c.g === activeCategoryGroup)
 
-    if (activeCategoryGroup !== 'all') {
-      if (activeCategoryGroup === 'hero' && itemGroup !== 'hero') return false
-      if (activeCategoryGroup !== 'hero' && itemGroup !== activeCategoryGroup) return false
-    }
+  const filtered = listToFilter.filter((h) => {
+    const isHero = !h.g || h.g === 'hero'
 
-    if (itemGroup === 'hero' && activeCategoryGroup === 'hero') {
+    if (isHero && activeCategoryGroup === 'hero') {
       const heroAttr = getHeroAttribute(h.tag)
       if (attrFilter !== 'all' && heroAttr !== attrFilter) return false
     }
@@ -122,7 +125,7 @@ export const HeroList: React.FC = () => {
               <img
                 src={imgSrc}
                 alt={h.tag}
-                className={`hero-item-thumb w-16 rounded-md object-cover border border-white/10 shrink-0 ${isHero ? '' : 'bg-white/5'}`}
+                className={`hero-item-thumb w-16 h-9 rounded-md ${isHero ? 'object-cover' : 'object-contain p-1.5 bg-[#0f172a]'} border border-white/10 shrink-0`}
                 onError={(e) => {
                   e.currentTarget.onerror = null
                   e.currentTarget.src = fallbackHeroSvg
@@ -137,13 +140,21 @@ export const HeroList: React.FC = () => {
                       <span>{getAttrLabel(heroAttr)}</span>
                     </>
                   ) : (
-                    <></>
+                    <span className="text-[10px] text-purple-400/90 font-medium capitalize">
+                      {h.g ? h.g.replace('_', ' & ') : 'Global'}
+                    </span>
                   )}
                 </div>
               </div>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/10 shrink-0">
-                {heroModCount > 0 ? `${heroModCount} slots` : h.mods || '★'}
-              </span>
+              {heroModCount > 0 ? (
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 shrink-0">
+                  {heroModCount} {heroModCount === 1 ? 'slot' : 'slots'}
+                </span>
+              ) : !isHero && h.mods ? (
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/5 text-slate-400 border border-white/10 shrink-0">
+                  {h.mods}
+                </span>
+              ) : null}
             </div>
           )
         })}

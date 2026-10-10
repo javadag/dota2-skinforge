@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve, extname } from 'path'
 import fs from 'fs'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import commonjs from '@rollup/plugin-commonjs'
@@ -6,6 +6,17 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
 const projectRoot = import.meta.dirname
+
+const STATIC_MIME_TYPES = {
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+  '.json': 'application/json; charset=utf-8',
+  '.ico': 'image/x-icon'
+}
 
 function serveStaticFolder(prefix, folderPath) {
   return {
@@ -18,6 +29,11 @@ function serveStaticFolder(prefix, folderPath) {
           const subPath = decodeURIComponent(match ? match[1] : cleanUrl.slice(prefix.length + 2))
           const filePath = resolve(folderPath, subPath)
           if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+            const ext = extname(filePath).toLowerCase()
+            if (STATIC_MIME_TYPES[ext]) {
+              res.setHeader('Content-Type', STATIC_MIME_TYPES[ext])
+            }
+            res.setHeader('Access-Control-Allow-Origin', '*')
             return fs.createReadStream(filePath).pipe(res)
           }
         }

@@ -18,7 +18,27 @@ export interface HeroItem {
 
 export interface HeroesData {
   heroes: HeroItem[]
-  groups: string[]
+  groups?: Array<{ key: string; title: string }>
+}
+
+export interface CategoryItem {
+  tag: string
+  name?: string
+  mods?: number
+  available?: number
+  img?: string
+  g?: string
+  [key: string]: unknown
+}
+
+export interface CategoryGroupItem {
+  key: string
+  title: string
+}
+
+export interface CategoriesData {
+  categories: CategoryItem[]
+  groups: CategoryGroupItem[]
 }
 
 export function loadHeroesData(): HeroesData {
@@ -33,18 +53,40 @@ export function loadHeroesData(): HeroesData {
   return { heroes: [], groups: [] }
 }
 
+export function loadCategoriesData(): CategoriesData {
+  const categoriesJsonPath = getDataPath('categories.json')
+  if (fs.existsSync(categoriesJsonPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(categoriesJsonPath, 'utf8')) as CategoriesData
+    } catch (e: unknown) {
+      console.error('Failed to read categories.json:', e)
+    }
+  }
+  return { categories: [], groups: [] }
+}
+
 export function registerSystemIpc() {
   ipcMain.handle('get-initial-data', async () => {
     const dotaPath = dotaPathModule.detectDotaPath()
     const status = pipeline.checkStatus(dotaPath)
     const heroesData = loadHeroesData()
+    const categoriesData = loadCategoriesData()
+
+    const groups: CategoryGroupItem[] = [
+      { key: 'hero', title: 'Heroes' },
+      ...(categoriesData.groups || [
+        { key: 'world', title: 'World' },
+        { key: 'interface', title: 'Interface' }
+      ])
+    ]
 
     return {
       appInfo: APP_CONFIG,
       dotaPath,
       status,
       heroes: heroesData.heroes || [],
-      groups: heroesData.groups || []
+      categories: categoriesData.categories || [],
+      groups
     }
   })
 
@@ -56,5 +98,5 @@ export function registerSystemIpc() {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { registerSystemIpc, loadHeroesData }
+  module.exports = { registerSystemIpc, loadHeroesData, loadCategoriesData }
 }

@@ -119,11 +119,11 @@ export const ItemSelectModal = () => {
         </div>
 
         {/* Rarity Filters Bar */}
-        <div className="flex items-center gap-1.5 px-4 py-6 border-b border-white/5 overflow-x-auto bg-black/10" id="modalRarityFilters">
+        <div className="flex items-center gap-1.5 px-4 py-1.5 border-b border-white/5">
           {rarities.map((r) => (
             <button
               key={r}
-              className={`mrf-btn px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-all cursor-pointer whitespace-nowrap ${
                 modalRarityFilter === r
                   ? 'active bg-purple-500/25 text-white border-purple-500/50 shadow-[0_0_8px_rgba(139,92,246,0.3)]'
                   : 'bg-white/5 text-slate-400 border-white/5 hover:text-white hover:bg-white/10'
@@ -149,11 +149,11 @@ export const ItemSelectModal = () => {
                 addLog(`Reset ${formatHeroName(selectedHero.tag)} [${activeModalSlot.name}] to Official Base.`, 'info')
               }}
             >
-              <div className="w-full rounded-lg border border-white/10 bg-white/5 flex items-center justify-center shrink-0 overflow-hidden">
+              <div className="w-full h-44 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center shrink-0 overflow-hidden">
                 <img
                   src={baseThumbSrc}
                   alt="Official Base Model"
-                  className="sio-thumb-img w-full h-full object-contain"
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     e.currentTarget.onerror = null
                     e.currentTarget.src = '../assets/categories/default.svg'
@@ -201,7 +201,7 @@ export const ItemSelectModal = () => {
                   <img
                     src={itemImg}
                     alt={it.name}
-                    className="sio-thumb-img size-full object-contain"
+                    className="size-full object-contain"
                     onError={(e) => {
                       e.currentTarget.onerror = null
                       e.currentTarget.src = generateItemSvg(it, activeModalSlot.id, selectedHero.tag)
@@ -226,9 +226,7 @@ export const ItemSelectModal = () => {
           })}
 
           {!showDefaultItem && filteredItems.length === 0 && (
-            <div className="col-span-2 text-center py-8 text-xs text-slate-400">
-              No cosmetics found matching your filter.
-            </div>
+            <div className="col-span-2 text-center py-8 text-xs text-slate-400">No cosmetics found matching your filter.</div>
           )}
         </div>
       </div>

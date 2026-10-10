@@ -1,4 +1,4 @@
-import { Globe, Info, Layers, LayoutGrid, Music, Settings, Sparkles, Terminal, Zap } from 'lucide-react'
+import { Compass, Globe, Info, Layers, LayoutGrid, Music, Settings, Sparkles, Terminal } from 'lucide-react'
 import React from 'react'
 import { useAppStore } from '../state/useAppStore'
 
@@ -80,45 +80,23 @@ export const Sidebar: React.FC = () => {
         <button
           id="navWorld"
           data-tab="heroes"
-          data-category="maps"
-          className={`${navBtnBase} ${activeTab === 'heroes' && activeCategoryGroup === 'maps' ? navBtnActive : ''}`}
-          onClick={() => setTab('heroes', 'maps')}
+          data-category="world"
+          className={`${navBtnBase} ${activeTab === 'heroes' && activeCategoryGroup === 'world' ? navBtnActive : ''}`}
+          onClick={() => setTab('heroes', 'world')}
         >
           <Globe className="size-4.25 shrink-0" />
-          <span>Creeps & World</span>
-        </button>
-
-        <button
-          id="navAudio"
-          data-tab="heroes"
-          data-category="icons"
-          className={`${navBtnBase} ${activeTab === 'heroes' && activeCategoryGroup === 'icons' ? navBtnActive : ''}`}
-          onClick={() => setTab('heroes', 'icons')}
-        >
-          <Music className="size-4.25 shrink-0" />
-          <span>Music & Sounds</span>
-        </button>
-
-        <button
-          id="navEffects"
-          data-tab="heroes"
-          data-category="ranged attack"
-          className={`${navBtnBase} ${activeTab === 'heroes' && activeCategoryGroup === 'ranged attack' ? navBtnActive : ''}`}
-          onClick={() => setTab('heroes', 'ranged attack')}
-        >
-          <Zap className="size-4.25 shrink-0" />
-          <span>Effects & Items</span>
+          <span>World</span>
         </button>
 
         <button
           id="navInterface"
           data-tab="heroes"
-          data-category="cursor"
-          className={`${navBtnBase} ${activeTab === 'heroes' && activeCategoryGroup === 'cursor' ? navBtnActive : ''}`}
-          onClick={() => setTab('heroes', 'cursor')}
+          data-category="interface"
+          className={`${navBtnBase} ${activeTab === 'heroes' && activeCategoryGroup === 'interface' ? navBtnActive : ''}`}
+          onClick={() => setTab('heroes', 'interface')}
         >
           <LayoutGrid className="size-4.25 shrink-0" />
-          <span>Interface & HUD</span>
+          <span>Interface</span>
         </button>
 
         <div className="h-px bg-white/5 my-1.5 mx-2.5" />

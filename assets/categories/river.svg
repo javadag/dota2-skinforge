@@ -1,21 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 144" width="256" height="144">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#064e3b"/><stop offset="100%" stop-color="#022c22"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="256" height="144" fill="url(#bg)"/>
-  <rect width="256" height="144" fill="url(#glow)"/>
-  <g transform="translate(128, 62)">
-    <circle cx="0" cy="0" r="28" fill="none" stroke="#10b981" stroke-width="3"/>
-     <ellipse cx="0" cy="0" rx="14" ry="28" fill="none" stroke="#10b981" stroke-width="2"/>
-     <line x1="-28" y1="0" x2="28" y2="0" stroke="#10b981" stroke-width="2"/>
-     <line x1="-22" y1="-14" x2="22" y2="-14" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3,3"/>
-     <line x1="-22" y1="14" x2="22" y2="14" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3,3"/>
-  </g>
-  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">CUSTOM TERRAINS</text>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 3C1.22386 3 1 3.22386 1 3.5V20.5C1 20.7761 1.22386 21 1.5 21H3.00003L10.3636 11.0001L13.4318 15.1667L10.3636 19.3334H12.4091C13.7918 17.4584 16.0909 14.3334 16.0909 14.3334L20.9999 21H22.5C22.7761 21 23 20.7761 23 20.5V3.5C23 3.22386 22.7761 3 22.5 3H1.5ZM17.9744 4.42295C17.8224 3.9671 17.1777 3.9671 17.0257 4.42295L16.2041 6.88775C16.1543 7.03706 16.0372 7.15421 15.8879 7.20398L13.4231 8.02558C12.9672 8.17753 12.9672 8.82232 13.4231 8.97427L15.8879 9.79587C16.0372 9.84563 16.1543 9.96279 16.2041 10.1121L17.0257 12.5769C17.1777 13.0327 17.8224 13.0327 17.9744 12.5769L18.796 10.1121C18.8458 9.96279 18.9629 9.84563 19.1122 9.79587L21.577 8.97427C22.0329 8.82232 22.0329 8.17753 21.577 8.02558L19.1122 7.20398C18.9629 7.15421 18.8458 7.03706 18.796 6.88775L17.9744 4.42295ZM4.02568 9.42315C4.17763 8.9673 4.82242 8.9673 4.97437 9.42315L5.29597 10.3879C5.34573 10.5373 5.46289 10.6544 5.61219 10.7042L6.577 11.0258C7.03285 11.1777 7.03285 11.8225 6.577 11.9745L5.61219 12.2961C5.46289 12.3458 5.34573 12.463 5.29597 12.6123L4.97437 13.5771C4.82242 14.0329 4.17763 14.0329 4.02568 13.5771L3.70408 12.6123C3.65431 12.463 3.53716 12.3458 3.38785 12.2961L2.42305 11.9745C1.9672 11.8225 1.9672 11.1777 2.42305 11.0258L3.38785 10.7042C3.53715 10.6544 3.65431 10.5373 3.70408 10.3879L4.02568 9.42315Z" fill="white"/>
 </svg>

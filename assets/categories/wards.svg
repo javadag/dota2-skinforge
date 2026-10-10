@@ -1,20 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 144" width="256" height="144">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#083344"/><stop offset="100%" stop-color="#021620"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="256" height="144" fill="url(#bg)"/>
-  <rect width="256" height="144" fill="url(#glow)"/>
-  <g transform="translate(128, 62)">
-    <circle cx="0" cy="-6" r="22" fill="none" stroke="#00dafe" stroke-width="3"/>
-     <circle cx="0" cy="-6" r="10" fill="#00dafe"/>
-     <path d="M-28 -6 Q0 24 28 -6 Q0 -36 -28 -6" fill="none" stroke="#38bdf8" stroke-width="2"/>
-     <line x1="0" y1="16" x2="0" y2="30" stroke="#00dafe" stroke-width="3"/>
-  </g>
-  <text x="128" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="700" font-size="13" fill="#e2e8f0" letter-spacing="1">WARDS</text>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1038_1791)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M18 6C18 7.79201 17.2144 9.40052 15.9688 10.4999H16L15.753 10.8087C14.6182 12.2272 14 13.9897 14 15.8062V19C14 20.1046 13.1046 21 12 21C10.8954 21 10 20.1046 10 19V15.8062C10 13.9897 9.38178 12.2272 8.24701 10.8087L8 10.4999H8.03119C6.7856 9.40052 6 7.79201 6 6C6 2.68629 8.68629 0 12 0C15.3137 0 18 2.68629 18 6ZM16 6C16 8.20914 14.2091 10 12 10C9.79086 10 8 8.20914 8 6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6ZM12 7C12.5523 7 13 6.55228 13 6C13 5.44772 12.5523 5 12 5C11.4477 5 11 5.44772 11 6C11 6.55228 11.4477 7 12 7ZM12 23C14.0973 23 15.8177 21.3858 15.9864 19.332C18.3851 19.7637 20 20.5729 20 21.5C20 22.8807 16.4183 24 12 24C7.58172 24 4 22.8807 4 21.5C4 20.5729 5.61489 19.7637 8.01358 19.332C8.18233 21.3858 9.90266 23 12 23Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1038_1791">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
 </svg>

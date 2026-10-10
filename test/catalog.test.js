@@ -33,12 +33,25 @@ assert.ok(NON_HERO_SLOTS_CATALOG.weather, 'Weather category must exist')
 assert.ok(NON_HERO_SLOTS_CATALOG.creeps, 'Creeps category must exist')
 assert.ok(NON_HERO_SLOTS_CATALOG.music_packs, 'Music packs category must exist')
 
-const courierItems = NON_HERO_SLOTS_CATALOG.courier.items.courier_ground
-assert.ok(courierItems && courierItems.length > 0, 'Courier ground items must exist')
+// Verify 1-slot modern game client parity for Courier, Wards, and Music Packs
+assert.strictEqual(NON_HERO_SLOTS_CATALOG.courier.slots.length, 1, 'Courier must have exactly 1 slot (matching modern game client)')
+assert.strictEqual(NON_HERO_SLOTS_CATALOG.courier.slots[0].id, 'courier', 'Courier slot id must be courier')
+const courierItems = NON_HERO_SLOTS_CATALOG.courier.items.courier
+assert.ok(courierItems && courierItems.length > 0, 'Courier items must exist in courier slot')
 assert.ok(
   courierItems.every((it) => typeof it.img === 'string' && it.img.startsWith('econ/')),
   'All courier items must have authentic econ img paths'
 )
+
+assert.strictEqual(NON_HERO_SLOTS_CATALOG.wards.slots.length, 1, 'Wards must have exactly 1 slot (matching modern game client)')
+assert.strictEqual(NON_HERO_SLOTS_CATALOG.wards.slots[0].id, 'ward', 'Wards slot id must be ward')
+const wardItems = NON_HERO_SLOTS_CATALOG.wards.items.ward
+assert.ok(wardItems && wardItems.length > 0, 'Ward items must exist in ward slot')
+
+assert.strictEqual(NON_HERO_SLOTS_CATALOG.music_packs.slots.length, 1, 'Music packs must have exactly 1 slot (matching modern game client)')
+assert.strictEqual(NON_HERO_SLOTS_CATALOG.music_packs.slots[0].id, 'music_pack', 'Music pack slot id must be music_pack')
+const musicItems = NON_HERO_SLOTS_CATALOG.music_packs.items.music_pack
+assert.ok(musicItems && musicItems.length > 0, 'Music items must exist in music_pack slot')
 
 const weatherItems = NON_HERO_SLOTS_CATALOG.weather.items.weather_effect
 assert.ok(weatherItems && weatherItems.length > 0, 'Weather items must exist')

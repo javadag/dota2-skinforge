@@ -19,6 +19,7 @@ export interface SlotItem {
   rarity?: string
   img?: string
   best?: boolean
+  isDefault?: boolean
 }
 
 export interface HeroSlot {
@@ -41,45 +42,36 @@ export async function initCatalog(): Promise<Record<string, HeroSlotsCatalogEntr
   return valveCatalog
 }
 
+const SPECIAL_NAMES: Record<string, string> = {
+  loadscreens: 'Loading Screens',
+  huds: 'HUD Skins',
+  cursor: 'Cursor Packs',
+  versus_screen: 'Versus Screens',
+  kill_streak: 'Kill Streak Effects',
+  music_packs: 'Music Packs',
+  announcers: 'Announcers',
+  tormentor: 'Tormentor',
+  ancient: 'Ancient Structures',
+  river: 'River Vials',
+  weather: 'Weather Effects',
+  roshan: 'Roshan',
+  creeps: 'Creeps',
+  towers: 'Towers',
+  wards: 'Wards',
+  courier: 'Couriers',
+  emblem: 'Emblems'
+}
+
 export function formatHeroName(tag?: string | null): string {
   if (!tag) return ''
+  const lower = tag.toLowerCase().trim()
+  if (SPECIAL_NAMES[lower]) {
+    return SPECIAL_NAMES[lower]
+  }
   return tag
     .split(/[_\s-]+/)
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
-}
-
-export function getGenericCategorySlotDefinition(item: HeroEntry): HeroSlotsCatalogEntry {
-  const name = formatHeroName(item.tag)
-  const slotType = 'Cosmetic Skin'
-
-  const fallbackImg = item.img || `../assets/categories/default.svg`
-
-  return {
-    slots: [
-      { id: 'primary', name: `${name} — ${slotType}` },
-      { id: 'variant', name: `${name} — Deluxe Variant` },
-      { id: 'ambient', name: `${name} — Special FX` }
-    ],
-    items: {
-      primary: [
-        { name: `The International Deluxe ${name}`, tag: 'Immortal', img: fallbackImg, best: true },
-        { name: `Mythical Enhanced ${name}`, tag: 'Mythical', img: fallbackImg },
-        { name: `Collector's Cache ${name}`, tag: 'Mythical', img: fallbackImg },
-        { name: `Classic Vintage ${name}`, tag: 'Rare', img: fallbackImg }
-      ],
-      variant: [
-        { name: `Golden Edition ${name}`, tag: 'Immortal', img: fallbackImg, best: true },
-        { name: `Crimson Witness Variant ${name}`, tag: 'Immortal', img: fallbackImg },
-        { name: `Celestial Astral ${name}`, tag: 'Mythical', img: fallbackImg }
-      ],
-      ambient: [
-        { name: 'Crimson Witness Ambient Aura', tag: 'Immortal', img: fallbackImg, best: true },
-        { name: 'Golden Particle Aura', tag: 'Immortal', img: fallbackImg },
-        { name: 'Ethereal Flame Infusion', tag: 'Mythical', img: fallbackImg }
-      ]
-    }
-  }
 }
 
 export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEntry | null): HeroSlotsCatalogEntry {
@@ -109,18 +101,18 @@ export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEn
     return NON_HERO_SLOTS_CATALOG[rawKey]
   }
 
-  // 3. Check if non-hero item from state
+  // 3. Fallback for heroes only: base armament
   const obj = heroObj || catalogHeroes.find((h) => h.tag.toLowerCase() === rawKey || h.tag.toLowerCase() === normalized)
-  if (obj && obj.g && obj.g !== 'hero') {
-    return getGenericCategorySlotDefinition(obj)
-  }
-
-  // 4. Default fallback: only base weapon
-  const name = formatHeroName(heroTag)
-  return {
-    slots: [{ id: 'weapon', name: 'Weapon / Armament' }],
-    items: {
-      weapon: [{ name: `Official Base Armament — ${name}`, tag: 'Common', best: true }]
+  if (!obj || !obj.g || obj.g === 'hero') {
+    const name = formatHeroName(heroTag)
+    return {
+      slots: [{ id: 'weapon', name: 'Weapon / Armament' }],
+      items: {
+        weapon: [{ name: `Official Base Armament — ${name}`, tag: 'Common', best: true }]
+      }
     }
   }
+
+  // 4. Non-hero with no catalog entry: return empty slots (no fake items)
+  return { slots: [], items: {} }
 }

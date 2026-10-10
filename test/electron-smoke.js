@@ -56,8 +56,8 @@ app.whenReady().then(async () => {
     console.log('Electron smoke test: window loaded without crash!')
 
     setTimeout(async () => {
-      if (heroesLoadedCount !== 187) {
-        console.error(`Expected 187 heroes loaded in smoke test, but got ${heroesLoadedCount}`)
+      if (heroesLoadedCount !== 127) {
+        console.error(`Expected 127 entries loaded in smoke test, but got ${heroesLoadedCount}`)
         process.exit(1)
       }
       console.log(`Smoke test passed cleanly: verified ${heroesLoadedCount} heroes loaded.`)
@@ -142,7 +142,7 @@ app.whenReady().then(async () => {
           process.exit(1)
         }
 
-        // Test Non-Hero Category: Creeps & World -> Courier
+        // Test Non-Hero Category: World -> Courier
         const nonHeroStats = await win.webContents.executeJavaScript(`
           (async () => {
             const closeBtn = document.getElementById('slotModalClose');
@@ -160,12 +160,14 @@ app.whenReady().then(async () => {
 
             const slotCards = Array.from(document.querySelectorAll('.slot-card'));
             const slotImgs = Array.from(document.querySelectorAll('.slot-thumb-img'));
+            await Promise.all(slotImgs.map(img => img.complete && img.naturalWidth > 0 ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; setTimeout(r, 800); })));
             const slotLoaded = slotImgs.filter(img => img.naturalWidth > 0).length;
 
             if (slotCards.length > 0) slotCards[0].click();
             await new Promise(r => setTimeout(r, 600));
 
             const modalImgs = Array.from(document.querySelectorAll('.sio-thumb-img'));
+            await Promise.all(modalImgs.map(img => img.complete ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; setTimeout(r, 1200); })));
             const modalLoaded = modalImgs.filter(img => img.naturalWidth > 0).length;
 
             return {
@@ -201,7 +203,9 @@ app.whenReady().then(async () => {
           (async () => {
             const closeBtn = document.getElementById('slotModalClose');
             if (closeBtn) closeBtn.click();
-            await new Promise(r => setTimeout(r, 200));
+            const navWorld = document.getElementById('navWorld');
+            if (navWorld) navWorld.click();
+            await new Promise(r => setTimeout(r, 300));
 
             const listItems = Array.from(document.querySelectorAll('.hero-list-item'));
             const creepsItem = listItems.find(it => it.textContent.toLowerCase().includes('creeps'));
@@ -210,12 +214,14 @@ app.whenReady().then(async () => {
 
             const slotCards = Array.from(document.querySelectorAll('.slot-card'));
             const slotImgs = Array.from(document.querySelectorAll('.slot-thumb-img'));
+            await Promise.all(slotImgs.map(img => img.complete && img.naturalWidth > 0 ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; setTimeout(r, 800); })));
             const slotLoaded = slotImgs.filter(img => img.naturalWidth > 0).length;
 
             if (slotCards.length > 0) slotCards[0].click();
             await new Promise(r => setTimeout(r, 600));
 
             const modalImgs = Array.from(document.querySelectorAll('.sio-thumb-img'));
+            await Promise.all(modalImgs.map(img => img.complete ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; setTimeout(r, 1200); })));
             const modalLoaded = modalImgs.filter(img => img.naturalWidth > 0).length;
 
             return {
@@ -253,7 +259,7 @@ app.whenReady().then(async () => {
             const listItems = Array.from(document.querySelectorAll('.hero-list-item'));
             const hudItem = listItems.find(it => {
               const name = it.querySelector('.hero-item-name')?.textContent.toLowerCase() || '';
-              return name === 'huds' || name === 'hud';
+              return name.includes('hud');
             });
             if (hudItem) hudItem.click();
             await new Promise(r => setTimeout(r, 400));
