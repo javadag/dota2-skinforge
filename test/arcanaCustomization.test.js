@@ -225,28 +225,14 @@ function extractItem(vdf, itemId) {
   console.log('✔ E2E Wraith King Arcana (Malignant Monster) passed')
 }
 
-// 4. Terrorblade: Prismatic Gem Rubiline (#D11FA1 -> RGB "209 31 161")
+// 4. Terrorblade: Arcana default item replacement
 {
-  const res = applyModModifications(
-    sampleVdf,
-    { terrorblade: { hero_base: 'Fractal Horns of Inner Abysm' } },
-    { terrorblade: { hero_base: { gemColor: '#D11FA1', gemName: 'Rubiline' } } }
-  )
+  const res = applyModModifications(sampleVdf, { terrorblade: { hero_base: 'Fractal Horns of Inner Abysm' } })
   const patchedBase = extractItem(res.modifiedContent, '913')
-  const patchedAmbient = extractItem(res.modifiedContent, '540')
 
-  assert.ok(patchedBase.includes('particle_control_point'), 'TB Base must include CP modifier')
-  assert.ok(patchedBase.includes('209 31 161'), 'TB Base must have Rubiline RGB vector')
-  assert.ok(patchedBase.includes('"control_point_number"\t\t"15"'), 'TB Base must inject CP 15')
-  assert.ok(patchedBase.includes('"control_point_number"\t\t"16"'), 'TB Base must inject CP 16')
-  assert.ok(patchedBase.includes('"cp_position"\t\t"1 0 0"'), 'TB Base must inject CP 16 activation')
-
-  assert.ok(patchedAmbient.includes('particle_control_point'), 'TB Ambient must include CP modifier')
-  assert.ok(patchedAmbient.includes('209 31 161'), 'TB Ambient must have Rubiline RGB vector')
-  assert.ok(patchedAmbient.includes('"control_point_number"\t\t"15"'), 'TB Ambient must inject CP 15')
-  assert.ok(patchedAmbient.includes('"control_point_number"\t\t"16"'), 'TB Ambient must inject CP 16')
-  assert.ok(patchedAmbient.includes('"cp_position"\t\t"1 0 0"'), 'TB Ambient must inject CP 16 activation')
-  console.log('✔ E2E Terrorblade Arcana Prismatic Gem passed')
+  assert.ok(patchedBase.includes('models/heroes/terrorblade/terrorblade_arcana.vmdl'), 'TB Base must equip Arcana model')
+  assert.ok(!patchedBase.includes('particle_control_point'), 'TB Base must not have CP injections')
+  console.log('✔ E2E Terrorblade Arcana Equipping passed')
 }
 
 // 5. Default item with no customizations backward compatibility check

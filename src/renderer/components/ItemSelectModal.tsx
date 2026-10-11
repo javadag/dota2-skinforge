@@ -1,7 +1,6 @@
-import { Gem, Search, Sparkles } from 'lucide-react'
+import { Search, Sparkles } from 'lucide-react'
 import { useEffect } from 'react'
 import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
-import { PRISMATIC_GEMS, getGemByHex } from '../../shared/constants/prismaticGems'
 import { useAppStore } from '../state/useAppStore'
 import { generateItemSvg, getCategorySvg, getItemImage, getItemRarityKey, getRarityConfig } from '../utils/itemImages'
 import { formatHeroName } from './slotGenerator'
@@ -186,9 +185,7 @@ export const ItemSelectModal = () => {
             const customInfo = getCosmeticCustomizationInfo(selectedHero.tag, activeModalSlot.id, it.name)
 
             const activeStyle = currentSlotCustomization?.style ?? 0
-            const activeGemColor = currentSlotCustomization?.gemColor ?? customInfo?.defaultGemColor ?? '#FF3C28'
-            const activeGemObj = getGemByHex(activeGemColor)
-            const hasCustomOptions = !!(customInfo && (customInfo.hasStyles || customInfo.hasColorGem))
+            const hasCustomOptions = !!(customInfo && customInfo.hasStyles)
 
             return (
               <div
@@ -201,9 +198,7 @@ export const ItemSelectModal = () => {
                   if (hasCustomOptions) {
                     if (!currentSlotCustomization) {
                       setSlotCustomization(selectedHero.tag, activeModalSlot.id, {
-                        style: 0,
-                        gemColor: customInfo?.defaultGemColor || '#FF3C28',
-                        gemName: customInfo?.defaultGemColor ? getGemByHex(customInfo.defaultGemColor)?.name : undefined
+                        style: 0
                       })
                     }
                     addLog(
@@ -248,12 +243,6 @@ export const ItemSelectModal = () => {
                       <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
                         <Sparkles className="size-2.5" />
                         {customInfo.styles.length} Styles
-                      </span>
-                    )}
-                    {customInfo?.hasColorGem && !isSelected && (
-                      <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                        <Gem className="size-2.5" />
-                        Gem Ready
                       </span>
                     )}
                   </div>
@@ -301,90 +290,6 @@ export const ItemSelectModal = () => {
                           </button>
                         )
                       })}
-                    </div>
-                  </div>
-                )}
-
-                {/* Prismatic Gem Customization Box */}
-                {isSelected && customInfo?.hasColorGem && (
-                  <div
-                    className="w-full mt-2 p-3 bg-cyan-950/30 border border-cyan-500/30 rounded-xl flex flex-col gap-2 text-left"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-1.5 text-xs font-bold text-cyan-300 uppercase tracking-wider">
-                        <Gem className="size-3.5 text-cyan-400" />
-                        Prismatic Gem Flame Color
-                      </span>
-                      <div className="flex items-center gap-2">
-                        <span
-                          className="w-3.5 h-3.5 rounded-full border border-white/60 shrink-0"
-                          style={{ backgroundColor: activeGemColor, boxShadow: `0 0 10px ${activeGemColor}` }}
-                        />
-                        <span className="text-xs text-cyan-200 font-semibold truncate max-w-35">
-                          {activeGemObj?.name || activeGemColor}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Palette Swatches */}
-                    <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto p-1.5 bg-black/40 rounded-lg border border-white/5">
-                      {PRISMATIC_GEMS.map((gem) => {
-                        const isGemActive = activeGemColor.toLowerCase() === gem.hex.toLowerCase()
-                        return (
-                          <button
-                            key={gem.id}
-                            type="button"
-                            title={`${gem.name} (${gem.hex})`}
-                            onClick={() => {
-                              setSlotCustomization(selectedHero.tag, activeModalSlot.id, {
-                                gemColor: gem.hex,
-                                gemName: gem.name
-                              })
-                              addLog(`Set Prismatic Gem to "${gem.name}" (${gem.hex}).`, 'info')
-                            }}
-                            className={`w-5 h-5 rounded-full border transition-all duration-150 cursor-pointer hover:scale-125 ${
-                              isGemActive
-                                ? 'border-white ring-2 ring-cyan-400 ring-offset-1 ring-offset-black scale-110 shadow-[0_0_8px_currentColor]'
-                                : 'border-black/50 hover:border-white/80'
-                            }`}
-                            style={{ backgroundColor: gem.hex }}
-                          />
-                        )
-                      })}
-                    </div>
-
-                    {/* Custom Color Input */}
-                    <div className="flex items-center justify-between gap-2 pt-1 border-t border-white/5">
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="color"
-                          value={activeGemColor}
-                          onChange={(e) => {
-                            const val = e.target.value.toUpperCase()
-                            setSlotCustomization(selectedHero.tag, activeModalSlot.id, {
-                              gemColor: val,
-                              gemName: getGemByHex(val)?.name || 'Custom'
-                            })
-                          }}
-                          className="w-6 h-6 rounded cursor-pointer border border-white/20 bg-transparent"
-                          title="Custom Color Picker"
-                        />
-                        <input
-                          type="text"
-                          value={activeGemColor}
-                          onChange={(e) => {
-                            const val = e.target.value.trim()
-                            setSlotCustomization(selectedHero.tag, activeModalSlot.id, {
-                              gemColor: val,
-                              gemName: getGemByHex(val)?.name || 'Custom'
-                            })
-                          }}
-                          className="bg-black/50 border border-white/10 rounded px-2 py-0.5 text-xs text-white uppercase w-24 font-mono tracking-wider focus:outline-none focus:border-cyan-400"
-                          maxLength={7}
-                        />
-                      </div>
-                      <span className="text-[11px] text-slate-400 font-medium">Custom Hex / RGB</span>
                     </div>
                   </div>
                 )}
