@@ -15,9 +15,14 @@ assert.strictEqual(qopInfo.hasStyles, true)
 assert.strictEqual(qopInfo.styles.length, 2)
 assert.strictEqual(qopInfo.styles[1].name, 'Royal Decree')
 
-// Terrorblade Arcana check
+// Terrorblade Arcana check (no style customization, returns null)
 const tbInfo = getCosmeticCustomizationInfo('terrorblade', 'hero_base', 'Fractal Horns of Inner Abysm')
-assert.ok(tbInfo, 'Terrorblade Arcana should have customization info')
-assert.strictEqual(tbInfo.hasColorGem, true)
+assert.strictEqual(tbInfo, null)
 
-console.log('✔ Task 2 Arcana Registry tests passed')
+// Wraith King Arcana check
+const wkInfo = getCosmeticCustomizationInfo('skeleton king', 'head', 'The One True King')
+assert.ok(wkInfo, 'WK Arcana should have customization info')
+assert.strictEqual(wkInfo.hasStyles, true)
+assert.strictEqual(wkInfo.styles.length, 2)
+
+console.log('✔ Arcana Registry tests passed')

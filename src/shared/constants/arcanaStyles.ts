@@ -11,8 +11,6 @@ export interface StyleOption {
 export interface CosmeticCustomizationInfo {
   hasStyles: boolean
   styles: StyleOption[]
-  hasColorGem: boolean
-  defaultGemColor?: string
 }
 
 export interface ArcanaRegistryEntry {
@@ -20,8 +18,6 @@ export interface ArcanaRegistryEntry {
   slot: string
   matchKeywords: string[]
   styles?: StyleOption[]
-  hasColorGem?: boolean
-  defaultGemColor?: string
 }
 
 export const ARCANA_REGISTRY: ArcanaRegistryEntry[] = [
@@ -161,27 +157,6 @@ export const ARCANA_REGISTRY: ArcanaRegistryEntry[] = [
       { index: 0, name: 'The Devotions of Dragonus', skin: 0 },
       { index: 1, name: 'Servants of Scree’Auk', skin: 1 }
     ]
-  },
-  {
-    hero: 'terrorblade',
-    slot: 'hero_base',
-    matchKeywords: ['fractal horns', 'abysm'],
-    hasColorGem: true,
-    defaultGemColor: '#FF3C28'
-  },
-  {
-    hero: 'terrorblade',
-    slot: 'head',
-    matchKeywords: ['fractal horns', 'abysm'],
-    hasColorGem: true,
-    defaultGemColor: '#FF3C28'
-  },
-  {
-    hero: 'techies',
-    slot: 'hero_base',
-    matchKeywords: ['sunken galley', 'swine'],
-    hasColorGem: true,
-    defaultGemColor: '#FFAF00'
   }
 ]
 
@@ -197,12 +172,10 @@ export function getCosmeticCustomizationInfo(heroTag?: string, slotId?: string, 
     return e.matchKeywords.some((kw) => normItem.includes(kw.replace(/[^a-z0-9]/g, '')))
   })
 
-  if (!entry) return null
+  if (!entry || !entry.styles || entry.styles.length === 0) return null
 
   return {
-    hasStyles: !!(entry.styles && entry.styles.length > 0),
-    styles: entry.styles || [],
-    hasColorGem: !!entry.hasColorGem,
-    defaultGemColor: entry.defaultGemColor
+    hasStyles: true,
+    styles: entry.styles
   }
 }

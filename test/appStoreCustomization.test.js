@@ -18,8 +18,7 @@ function setSlotCustomization(state, heroTag, slotId, update) {
 let state = setSlotCustomization(heroCustomizations, 'vengeful spirit', 'shoulder', { style: 2 })
 assert.strictEqual(state['vengeful spirit'].shoulder.style, 2)
 
-state = setSlotCustomization(state, 'terrorblade', 'hero_base', { gemColor: '#D11FA1', gemName: 'Rubiline' })
-assert.strictEqual(state['terrorblade'].hero_base.gemColor, '#D11FA1')
-assert.strictEqual(state['terrorblade'].hero_base.gemName, 'Rubiline')
+state = setSlotCustomization(state, 'queen of pain', 'back', { style: 1 })
+assert.strictEqual(state['queen of pain'].back.style, 1)
 
-console.log('✔ Task 3 Store action logic verified')
+console.log('✔ Store action logic verified')

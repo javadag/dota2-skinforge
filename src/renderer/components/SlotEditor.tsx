@@ -1,8 +1,7 @@
-import { Gem, Sparkles, X } from 'lucide-react'
+import { Sparkles, X } from 'lucide-react'
 import React from 'react'
 import { CATEGORY_META, isCategoryKey } from '../../data/categoryMeta'
 import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
-import { getGemByHex } from '../../shared/constants/prismaticGems'
 import { useAppStore } from '../state/useAppStore'
 import { getAttrLabel, getHeroAttribute } from '../utils/attributes'
 import { getItemImage, getRarityConfig, getSlotImage, type ItemDescriptor } from '../utils/itemImages'
@@ -127,8 +126,6 @@ export const SlotEditor: React.FC = () => {
                 isEquipped && selectedItemName ? getCosmeticCustomizationInfo(selectedHero.tag, slot.id, selectedItemName) : null
               const currentCust = heroCustomizations[selectedHero.tag]?.[slot.id]
               const activeStyle = currentCust?.style ?? 0
-              const activeGemColor = currentCust?.gemColor ?? customInfo?.defaultGemColor ?? '#FF3C28'
-              const activeGemObj = getGemByHex(activeGemColor)
 
               return (
                 <div
@@ -220,32 +217,6 @@ export const SlotEditor: React.FC = () => {
                               </option>
                             ))}
                           </select>
-                        </div>
-                      )}
-
-                      {/* Quick Gem Swatch */}
-                      {isEquipped && customInfo?.hasColorGem && (
-                        <div
-                          className="mt-2 pt-2 border-t border-cyan-500/20 flex items-center justify-between gap-1.5"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            openSlotModal(selectedHero, slot)
-                          }}
-                        >
-                          <span className="text-[10px] font-semibold text-cyan-300 flex items-center gap-1 shrink-0">
-                            <Gem size={11} className="text-cyan-400" />
-                            Flame:
-                          </span>
-                          <div
-                            className="flex items-center gap-1.5 bg-cyan-950/80 border border-cyan-500/40 rounded px-2 py-0.5 text-[11px] text-cyan-200 hover:border-cyan-300 transition-colors cursor-pointer"
-                            title="Click to open Prismatic Gem palette"
-                          >
-                            <span
-                              className="w-2.5 h-2.5 rounded-full border border-white/60 shrink-0"
-                              style={{ backgroundColor: activeGemColor, boxShadow: `0 0 6px ${activeGemColor}` }}
-                            />
-                            <span className="truncate max-w-25">{currentCust?.gemName || activeGemObj?.name || activeGemColor}</span>
-                          </div>
                         </div>
                       )}
                     </div>
