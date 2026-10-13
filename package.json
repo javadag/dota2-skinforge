@@ -20,12 +20,16 @@
     "dist:dir": "electron-vite build && electron-builder --dir",
     "sync:icons": "tsx scripts/sync_r2_icons.ts",
     "update:nonhero": "tsx scripts/build_nonhero_catalog.ts",
+    "build:styles": "tsx scripts/build_item_styles.ts",
+    "build:catalog": "tsx scripts/build_hero_catalog.ts",
+    "check:catalog": "tsx scripts/check_hero_catalog.ts",
+    "fix:catalog": "tsx scripts/check_hero_catalog.ts --fix",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{js,ts,css,html}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,css,html}\"",
     "typecheck": "tsc -b --noEmit",
-    "test": "tsx test/services.test.js && tsx test/appPaths.test.js && tsx test/systemIpc.test.js && tsx test/modifier.test.js && tsx test/catalog.test.js && tsx test/shared.test.js && tsx test/iconCache.test.js && tsx test/itemImages.test.js && tsx test/settingsIpc.test.js && tsx test/syncCli.test.js && tsx test/arcanaCustomization.test.js && electron -r tsx/cjs test/electron-smoke.js",
+    "test": "tsx test/vdf.test.js && tsx test/modifierEngine.test.js && tsx test/itemStyles.test.js && tsx test/heroCatalog.test.js && tsx test/services.test.js && tsx test/appPaths.test.js && tsx test/systemIpc.test.js && tsx test/catalog.test.js && tsx test/shared.test.js && tsx test/iconCache.test.js && tsx test/itemImages.test.js && tsx test/settingsIpc.test.js && tsx test/syncCli.test.js && tsx test/realSchema.test.js && electron -r tsx/cjs test/electron-smoke.js",
     "prepare": "husky"
   },
   "keywords": [

@@ -1,6 +1,6 @@
 import { Search, Sparkles } from 'lucide-react'
 import { useEffect } from 'react'
-import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
+import { getItemStyleOptions } from '../../shared/constants/itemStyles'
 import { useAppStore } from '../state/useAppStore'
 import { generateItemSvg, getCategorySvg, getItemImage, getItemRarityKey, getRarityConfig } from '../utils/itemImages'
 import { formatHeroName } from './slotGenerator'
@@ -182,7 +182,7 @@ export const ItemSelectModal = () => {
             const conf = getRarityConfig(it)
             const isSelected = currentEquippedName === it.name
             const itemImg = getItemImage(it, activeModalSlot.id, selectedHero.tag, selectedHero)
-            const customInfo = getCosmeticCustomizationInfo(selectedHero.tag, activeModalSlot.id, it.name)
+            const customInfo = getItemStyleOptions(selectedHero.tag, activeModalSlot.id, it.name)
 
             const activeStyle = currentSlotCustomization?.style ?? 0
             const hasCustomOptions = !!(customInfo && customInfo.hasStyles)
@@ -254,7 +254,7 @@ export const ItemSelectModal = () => {
                   </span>
                 )}
 
-                {/* Arcana Styles Customization Box */}
+                {/* Styles Customization Box */}
                 {isSelected && customInfo?.hasStyles && (
                   <div
                     className="w-full mt-2 p-3 bg-purple-950/30 border border-purple-500/30 rounded-xl flex flex-col gap-2 text-left"
@@ -263,7 +263,7 @@ export const ItemSelectModal = () => {
                     <div className="flex items-center justify-between">
                       <span className="flex items-center gap-1.5 text-xs font-bold text-purple-300 uppercase tracking-wider">
                         <Sparkles className="size-3.5 text-purple-400" />
-                        Unlocked Arcana Styles
+                        Unlocked Styles
                       </span>
                       <span className="text-[11px] text-purple-200/90 font-medium">
                         {customInfo.styles.find((s) => s.index === activeStyle)?.name || `Style ${activeStyle + 1}`}

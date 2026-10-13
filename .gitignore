@@ -13,6 +13,10 @@ release/
 # Mod Generation Staging & Runtime Backups
 .staging_pack/
 .staging_icons/
+.staging_styles/
+.staging_schema-*/
+scratch*
+scratch_*.txt
 # Standalone Binaries
 tools/Source2Viewer-CLI.exe
 tools/*.dll

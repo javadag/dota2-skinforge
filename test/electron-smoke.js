@@ -97,7 +97,7 @@ app.whenReady().then(async () => {
             const firstSlot = document.querySelector('.slot-card');
             if (firstSlot) firstSlot.click();
             await new Promise(r => setTimeout(r, 600));
-            const modalImgs = Array.from(document.querySelectorAll('.sio-thumb-img'));
+            const modalImgs = Array.from(document.querySelectorAll('.slot-item-option img'));
             const loadedModalImgs = modalImgs.filter(img => img.naturalWidth > 0).length;
             return { totalModalImgs: modalImgs.length, loadedModalImgs };
           })()
@@ -116,13 +116,13 @@ app.whenReady().then(async () => {
             const gridCols = window.getComputedStyle(list).gridTemplateColumns.split(' ').length;
             const allCount = document.querySelectorAll('.slot-item-option').length;
 
-            const mythBtn = document.querySelector('.mrf-btn[data-rarity="mythical"]');
+            const mythBtn = document.querySelector('button[data-rarity="mythical"]');
             if (mythBtn) mythBtn.click();
             await new Promise(r => setTimeout(r, 100));
             const mythCount = document.querySelectorAll('.slot-item-option').length;
             const mythActive = mythBtn ? mythBtn.classList.contains('active') : false;
 
-            const allBtn = document.querySelector('.mrf-btn[data-rarity="all"]');
+            const allBtn = document.querySelector('button[data-rarity="all"]');
             if (allBtn) allBtn.click();
             await new Promise(r => setTimeout(r, 100));
             const resetCount = document.querySelectorAll('.slot-item-option').length;
@@ -166,7 +166,7 @@ app.whenReady().then(async () => {
             if (slotCards.length > 0) slotCards[0].click();
             await new Promise(r => setTimeout(r, 600));
 
-            const modalImgs = Array.from(document.querySelectorAll('.sio-thumb-img'));
+            const modalImgs = Array.from(document.querySelectorAll('.slot-item-option img'));
             await Promise.all(modalImgs.map(img => img.complete ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; setTimeout(r, 1200); })));
             const modalLoaded = modalImgs.filter(img => img.naturalWidth > 0).length;
 
@@ -220,7 +220,7 @@ app.whenReady().then(async () => {
             if (slotCards.length > 0) slotCards[0].click();
             await new Promise(r => setTimeout(r, 600));
 
-            const modalImgs = Array.from(document.querySelectorAll('.sio-thumb-img'));
+            const modalImgs = Array.from(document.querySelectorAll('.slot-item-option img'));
             await Promise.all(modalImgs.map(img => img.complete ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; setTimeout(r, 1200); })));
             const modalLoaded = modalImgs.filter(img => img.naturalWidth > 0).length;
 
@@ -268,7 +268,7 @@ app.whenReady().then(async () => {
             if (slotCards.length > 0) slotCards[0].click();
             await new Promise(r => setTimeout(r, 600));
 
-            const modalImgs = Array.from(document.querySelectorAll('.sio-thumb-img'));
+            const modalImgs = Array.from(document.querySelectorAll('.slot-item-option img'));
             const modalLoaded = modalImgs.filter(img => img.naturalWidth > 0).length;
 
             return {
@@ -306,7 +306,7 @@ app.whenReady().then(async () => {
             if (slotCards.length > 0) slotCards[0].click();
             await new Promise(r => setTimeout(r, 800));
 
-            const modalImgs = Array.from(document.querySelectorAll('.sio-thumb-img'));
+            const modalImgs = Array.from(document.querySelectorAll('.slot-item-option img'));
             const modalLoaded = modalImgs.filter(img => img.naturalWidth > 0).length;
 
             return {

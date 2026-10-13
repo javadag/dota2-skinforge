@@ -92,7 +92,8 @@ export interface ProgressCallbackData {
 
 export type ProgressCallback = (progress: ProgressCallbackData) => void
 
-export type InstallResult = { success: true; patchedCount: number } | { success: false; error: string; patchedCount?: number }
+export type InstallResult =
+  { success: true; patchedCount: number; report?: itemModifier.CompileReport } | { success: false; error: string; patchedCount?: number }
 
 export type UninstallResult = { success: true } | { success: false; error: string }
 
@@ -168,7 +169,7 @@ export async function installMods(
     total: 5,
     message: `Installation complete! (${modResult.patchedCount} cosmetics active)`
   })
-  return { success: true, patchedCount: modResult.patchedCount }
+  return { success: true, patchedCount: modResult.patchedCount, report: modResult.report }
 }
 
 export async function uninstallMods(dotaGameDir?: string | null, onProgress: ProgressCallback = () => {}): Promise<UninstallResult> {

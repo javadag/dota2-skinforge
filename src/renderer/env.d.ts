@@ -17,7 +17,30 @@ export interface PipelineStatus {
 
 export type StatusResult = PipelineStatus
 
-export type ModInstallResult = { success: true; patchedCount: number } | { success: false; error: string; patchedCount?: number }
+export type ModInstallResult =
+  { success: true; patchedCount: number; report?: ModCompileReport } | { success: false; error: string; patchedCount?: number }
+
+/** Mirrors `src/main/services/modifier/plan.ts` and `compile.ts`. */
+export type ModPatchReason = 'requested' | 'set-companion' | 'persona-activation' | 'persona-piece' | 'persona-hide'
+
+export interface ModAppliedPatch {
+  hero: string
+  slot: string
+  itemName: string
+  targetId: string
+  reason: ModPatchReason
+  style: number
+  assumedSlot?: string
+}
+
+export interface ModCompileReport {
+  patchedCount: number
+  itemsTouched: number
+  applied: ModAppliedPatch[]
+  warnings: string[]
+  skipped: Array<{ hero: string; slot: string; itemName: string; reason: string }>
+  validation: { ok: boolean; itemCountBefore: number; itemCountAfter: number; errors: string[] }
+}
 
 export type ModUninstallResult = { success: true } | { success: false; error: string }
 
