@@ -306,7 +306,8 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
 
     catalog.slots.forEach((slot) => {
       const items = catalog.items[slot.id] || []
-      const bestItem = items.find((it) => it.best) || items[0]
+      // The catalog lists each slot rarest-first, so the first entry is the top item.
+      const bestItem = items[0]
       if (bestItem) {
         newHeroSlots[slot.id] = bestItem.name
         count++

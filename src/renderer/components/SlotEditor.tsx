@@ -1,10 +1,10 @@
 import { Sparkles, X } from 'lucide-react'
 import React from 'react'
 import { CATEGORY_META, isCategoryKey } from '../../data/categoryMeta'
-import { getCosmeticCustomizationInfo } from '../../shared/constants/arcanaStyles'
+import { getItemStyleOptions } from '../../shared/constants/itemStyles'
 import { useAppStore } from '../state/useAppStore'
 import { getAttrLabel, getHeroAttribute } from '../utils/attributes'
-import { getItemImage, getRarityConfig, getSlotImage, type ItemDescriptor } from '../utils/itemImages'
+import { generateItemSvg, getItemImage, getRarityConfig, getSlotImage, type ItemDescriptor } from '../utils/itemImages'
 import { formatHeroName, getHeroSlotsDefinition } from './slotGenerator'
 import { Button } from './ui/Button'
 
@@ -122,8 +122,7 @@ export const SlotEditor: React.FC = () => {
               const activeItemObj = isEquipped ? equippedItemObj : defaultItemObj
               const itemImg = activeItemObj ? getItemImage(activeItemObj, slot.id, selectedHero.tag, selectedHero) : getSlotImage(slot.id)
 
-              const customInfo =
-                isEquipped && selectedItemName ? getCosmeticCustomizationInfo(selectedHero.tag, slot.id, selectedItemName) : null
+              const customInfo = isEquipped && selectedItemName ? getItemStyleOptions(selectedHero.tag, slot.id, selectedItemName) : null
               const currentCust = heroCustomizations[selectedHero.tag]?.[slot.id]
               const activeStyle = currentCust?.style ?? 0
 
@@ -177,6 +176,12 @@ export const SlotEditor: React.FC = () => {
                         }`}
                         src={itemImg}
                         alt={isEquipped ? selectedItemName : defaultItemObj?.name || slot.name}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null
+                          e.currentTarget.src = activeItemObj
+                            ? generateItemSvg(activeItemObj, slot.id, selectedHero.tag)
+                            : getSlotImage(slot.id)
+                        }}
                       />
                     </div>
 

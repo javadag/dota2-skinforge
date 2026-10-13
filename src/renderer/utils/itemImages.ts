@@ -133,7 +133,6 @@ export interface ItemDescriptor {
   tag?: string
   rarity?: ItemRarity | string
   isDefault?: boolean
-  best?: boolean
   img?: string
 }
 

@@ -6,9 +6,9 @@ import fs from 'fs'
 import path from 'path'
 import { exec } from 'child_process'
 import util from 'util'
-import { applyModModifications } from './compiler'
+import { compileItemsGame, type CompileReport } from './compile'
 import { getDataPath } from '../appPathService'
-import type { HeroCustomizationsMap } from '../../../shared/types/customization'
+import type { CustomizationsMap } from './plan'
 
 const execPromise = util.promisify(exec)
 
@@ -25,17 +25,18 @@ export interface VpkServiceLike {
 export interface ModPackageResult {
   success: boolean
   patchedCount: number
+  report?: CompileReport
 }
 
 export async function generateModPackage(
   dotaGameDir: string,
   stagingDir: string,
   equipped: Record<string, Record<string, string>> = {},
-  customizationsOrProgress: HeroCustomizationsMap | ((progress: ModProgressData) => void) = {},
+  customizationsOrProgress: CustomizationsMap | ((progress: ModProgressData) => void) = {},
   onProgressOrVpk?: ((progress: ModProgressData) => void) | VpkServiceLike,
   vpkService?: VpkServiceLike
 ): Promise<ModPackageResult> {
-  let customizations: HeroCustomizationsMap
+  let customizations: CustomizationsMap
   let onProgress: (progress: ModProgressData) => void = () => {}
   let activeVpkService: VpkServiceLike | undefined
 
@@ -67,39 +68,44 @@ export async function generateModPackage(
   onProgress({ step: 3, total: 5, message: 'Unpacking base mod template assets...' })
   await execPromise(`tar -xf "${templateZip}" -C "${stagingDir}"`)
 
-  // Try extracting the game's actual up-to-date items_game.txt and localization
+  // Extract the game's actual up-to-date items_game.txt, plus the localization used to
+  // resolve style names, so the compiler reads the same data the client does.
   const dotaVpk = path.join(dotaGameDir, 'dota', 'pak01_dir.vpk')
   const targetItemsGame = path.join(stagingDir, 'scripts', 'items', 'items_game.txt')
-  let baseContent: string
+  const targetLocalization = path.join(stagingDir, 'resource', 'localization', 'dota_english.txt')
+  let localizationText: string | undefined
 
   if (activeVpkService && fs.existsSync(dotaVpk)) {
     try {
       onProgress({ step: 3, total: 5, message: 'Extracting fresh items schema from Dota 2...' })
       await activeVpkService.extract(dotaVpk, 'scripts/items/items_game.txt', targetItemsGame)
 
-      const targetLoc = path.join(stagingDir, 'resource', 'localization', 'dota_english.txt')
       try {
-        await activeVpkService.extract(dotaVpk, 'resource/localization/dota_english.txt', targetLoc)
+        await activeVpkService.extract(dotaVpk, 'resource/localization/dota_english.txt', targetLocalization)
+        localizationText = fs.readFileSync(targetLocalization, 'utf-8')
       } catch {
-        // Localization is optional
+        // Localization is optional: styles then fall back to their schema tokens.
       }
     } catch {
-      // Fallback to template's items_game.txt
+      // Fallback to the template's items_game.txt
     }
   }
 
-  if (fs.existsSync(targetItemsGame)) {
-    baseContent = fs.readFileSync(targetItemsGame, 'utf-8')
-  } else {
+  if (!fs.existsSync(targetItemsGame)) {
     throw new Error('Failed to find base items_game.txt')
   }
+  const baseContent = fs.readFileSync(targetItemsGame, 'utf-8')
 
   onProgress({ step: 3, total: 5, message: 'Compiling custom loadouts into items schema...' })
-  const { modifiedContent, patchedCount } = applyModModifications(baseContent, equipped, customizations)
+  const { content, report } = compileItemsGame(baseContent, equipped, customizations, { localizationText })
 
-  fs.writeFileSync(targetItemsGame, modifiedContent, 'utf-8')
+  if (!report.validation.ok) {
+    throw new Error(`Generated items_game.txt failed validation:\n${report.validation.errors.join('\n')}`)
+  }
 
-  return { success: true, patchedCount }
+  fs.writeFileSync(targetItemsGame, content, 'utf-8')
+
+  return { success: true, patchedCount: report.patchedCount, report }
 }
 
 export default generateModPackage

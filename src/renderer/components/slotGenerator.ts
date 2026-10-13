@@ -18,7 +18,6 @@ export interface SlotItem {
   tag?: string
   rarity?: string
   img?: string
-  best?: boolean
   isDefault?: boolean
 }
 
@@ -108,7 +107,7 @@ export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEn
     return {
       slots: [{ id: 'weapon', name: 'Weapon / Armament' }],
       items: {
-        weapon: [{ name: `Official Base Armament — ${name}`, tag: 'Common', best: true }]
+        weapon: [{ name: `Official Base Armament — ${name}`, tag: 'Common' }]
       }
     }
   }
