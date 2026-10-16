@@ -105,6 +105,33 @@ export async function generateModPackage(
 
   fs.writeFileSync(targetItemsGame, content, 'utf-8')
 
+  // Extract and package root entity models for heroes with Arcanas or Personas.
+  // Overriding the compiled model in the mod VPK ensures the hero spawns with the
+  // full Arcana/Persona model (preventing vanilla face/body clipping) and prevents
+  // detached slots and red ERROR models on reconnect.
+  if (activeVpkService && fs.existsSync(dotaVpk) && report.entityModelOverrides?.length) {
+    for (const override of report.entityModelOverrides) {
+      const srcModel = override.overrideModel.replace(/\.vmdl$/i, '') + '.vmdl_c'
+      const dstRelative = override.baseModel.replace(/\.vmdl$/i, '') + '.vmdl_c'
+      const dstPath = path.join(stagingDir, dstRelative)
+      const dstDir = path.dirname(dstPath)
+      if (!fs.existsSync(dstDir)) {
+        fs.mkdirSync(dstDir, { recursive: true })
+      }
+
+      try {
+        onProgress({
+          step: 3,
+          total: 5,
+          message: `Packaging Arcana/Persona base model for ${override.hero}...`
+        })
+        await activeVpkService.extract(dotaVpk, srcModel, dstPath)
+      } catch (err) {
+        console.warn(`Failed to extract base model ${srcModel} for ${override.hero}:`, err)
+      }
+    }
+  }
+
   return { success: true, patchedCount: report.patchedCount, report }
 }
 

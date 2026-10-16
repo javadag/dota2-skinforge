@@ -259,6 +259,24 @@ async function main() {
   }
   console.log(`✔ real schema: ${nulled.length} persona-hidden slots, all with real geometry`)
 
+  // --- entityModelOverrides must be populated for heroes with Arcanas and Personas ---
+  assert.ok(report.entityModelOverrides && report.entityModelOverrides.length > 0, 'entityModelOverrides must not be empty')
+  const wrOverride = report.entityModelOverrides.find((o) => o.hero === 'windrunner')
+  assert.ok(wrOverride, 'Windranger arcana must have an entityModelOverride')
+  assert.strictEqual(wrOverride.baseModel, 'models/heroes/windrunner/windrunner.vmdl')
+  assert.strictEqual(wrOverride.overrideModel, 'models/items/windrunner/windrunner_arcana/wr_arcana_base.vmdl')
+
+  const ogreOverride = report.entityModelOverrides.find((o) => o.hero === 'ogre_magi')
+  assert.ok(ogreOverride, 'Ogre Magi arcana must have an entityModelOverride')
+  assert.strictEqual(ogreOverride.baseModel, 'models/heroes/ogre_magi/ogre_magi.vmdl')
+  assert.strictEqual(ogreOverride.overrideModel, 'models/items/ogre_magi/ogre_arcana/ogre_magi_arcana.vmdl')
+
+  const amOverride = report.entityModelOverrides.find((o) => o.hero === 'antimage')
+  assert.ok(amOverride, 'Anti-Mage persona must have an entityModelOverride')
+  assert.strictEqual(amOverride.baseModel, 'models/heroes/antimage/antimage.vmdl')
+  assert.strictEqual(amOverride.overrideModel, 'models/heroes/antimage_female/antimage_female.vmdl')
+  console.log(`✔ real schema: entityModelOverrides generated for ${report.entityModelOverrides.length} heroes with Arcanas/Personas`)
+
   // --- the shipped UI catalog must agree with the schema -------------------
   // This is the check that would have caught Legion Commander's arcana being offered twice in the
   // weapon picker after Valve re-slotted it, instead of someone noticing in a real match.

@@ -354,6 +354,13 @@ function serialized(text, id) {
   assert.ok(headJson.includes('entity_model'))
   assert.ok(report.applied.some((a) => a.reason === 'set-companion' && a.slot === 'head'))
   assert.ok(report.applied.some((a) => a.reason === 'hero-model-anchor'))
+  assert.deepStrictEqual(report.entityModelOverrides, [
+    {
+      hero: 'juggernaut',
+      baseModel: 'models/heroes/juggernaut/juggernaut.vmdl',
+      overrideModel: 'models/heroes/juggernaut/juggernaut_arcana.vmdl'
+    }
+  ])
   assert.ok(base)
   console.log('✔ engine: arcana set pairing, style flattening and hero-model anchor')
 }
@@ -490,8 +497,15 @@ function serialized(text, id) {
   assert.ok(assetModifierTypes(itemBlock(content, '502')).includes('persona'))
   // the persona's own piece lands on the slot it re-skins
   assert.strictEqual(modelOf(itemBlock(content, '503')), 'models/heroes/antimage_female/antimage_female_weapon.vmdl')
-  // slots with geometry the persona does not cover are hidden
-  assert.strictEqual(modelOf(itemBlock(content, '504')), 'models/props_nature/prop_null.vmdl')
+  assert.ok(
+    report.entityModelOverrides.some(
+      (o) =>
+        o.hero === 'antimage' &&
+        o.baseModel === 'models/heroes/antimage/antimage.vmdl' &&
+        o.overrideModel === 'models/heroes/antimage_female/antimage_female.vmdl'
+    ),
+    'persona explicit selector must produce entityModelOverride for antimage'
+  )
   console.log('✔ engine: persona activation, piece substitution and hiding')
 }
 
@@ -504,6 +518,15 @@ function serialized(text, id) {
     'selecting a persona piece must activate the persona selector'
   )
   assert.ok(serialized(content, '502').includes('antimage_female.vmdl'))
+  assert.ok(
+    report.entityModelOverrides.some(
+      (o) =>
+        o.hero === 'antimage' &&
+        o.baseModel === 'models/heroes/antimage/antimage.vmdl' &&
+        o.overrideModel === 'models/heroes/antimage_female/antimage_female.vmdl'
+    ),
+    'persona auto-activation must produce entityModelOverride for antimage'
+  )
   // a slot without a model must never be pointed at the null prop
   assert.strictEqual(modelOf(itemBlock(content, '505')), undefined, 'model-less slots are left alone')
   assert.strictEqual(modelOf(itemBlock(content, '506')), undefined, 'hero_base must never be blanked')
