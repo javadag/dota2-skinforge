@@ -40,6 +40,7 @@ export interface ModCompileReport {
   warnings: string[]
   skipped: Array<{ hero: string; slot: string; itemName: string; reason: string }>
   validation: { ok: boolean; itemCountBefore: number; itemCountAfter: number; errors: string[] }
+  entityModelOverrides?: Array<{ hero: string; baseModel: string; overrideModel: string }>
 }
 
 export type ModUninstallResult = { success: true } | { success: false; error: string }

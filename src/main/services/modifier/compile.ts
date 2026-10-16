@@ -26,6 +26,7 @@ import {
 import { buildSchema, defaultFor, defaultSlots, isOpaqueBlock, isPersonaSlot, type SchemaItem } from './schema'
 import { buildPlan, type CustomizationsMap, type PatchReason as PlanPatchReason, type SkippedSelection } from './plan'
 import { applyHide, applyVisuals, assetModifiers, flattenVisuals, mergeAssetModifiers } from './visuals'
+import { baseModelForHero } from './heroBaseModels'
 
 export type PatchReason = PlanPatchReason | 'hero-model-anchor'
 
@@ -40,6 +41,12 @@ export interface AppliedPatch {
   assumedSlot?: string
 }
 
+export interface EntityModelOverride {
+  hero: string
+  baseModel: string
+  overrideModel: string
+}
+
 export interface CompileReport {
   patchedCount: number
   /** Distinct items_game.txt item blocks rewritten. */
@@ -48,6 +55,7 @@ export interface CompileReport {
   warnings: string[]
   skipped: SkippedSelection[]
   validation: ValidationResult
+  entityModelOverrides: EntityModelOverride[]
 }
 
 export interface ValidationResult {
@@ -117,7 +125,7 @@ export function compileItemsGame(
   // deduplicated, so whichever slot the player leaves empty carries the body swap, and
   // slots they have occupied simply ignore it.
   const anchorModifiers = new Map<string, { target: SchemaItem; modifiers: VdfNode[]; hero: string }>()
-  const swapModifiers = new Map<string, VdfNode[]>()
+  const swapModifiers = new Map<string, Array<{ node: VdfNode; reason: PatchReason }>>()
   for (const patch of plan.patches) {
     if (!patch.cosmetic) continue
     const cosmeticNode = patch.cosmetic.entry.value
@@ -136,13 +144,15 @@ export function compileItemsGame(
         (value): value is VdfNode => isNode(value) && getString(value, 'type') === 'entity_model' && getString(value, 'asset') === target
       )
     if (swaps.length === 0) continue
+    const entries = swaps.map((node) => ({ node, reason: patch.reason }))
     const list = swapModifiers.get(patch.hero)
-    if (list) list.push(...swaps)
-    else swapModifiers.set(patch.hero, [...swaps])
+    if (list) list.push(...entries)
+    else swapModifiers.set(patch.hero, entries)
   }
 
-  for (const [hero, modifiers] of swapModifiers) {
+  for (const [hero, entries] of swapModifiers) {
     let anchored = 0
+    const modifiers = entries.map((e) => e.node)
     for (const slot of defaultSlots(schema, hero)) {
       // `hero_base` is the item that already carries the swap and is never resolved;
       // persona slots belong to the persona machinery.
@@ -156,6 +166,25 @@ export function compileItemsGame(
     }
     if (anchored === 0) {
       warnings.push(`${hero}: the body swap could not be anchored to a wearable slot, so the arcana model may not appear.`)
+    }
+  }
+
+  // Build entity model overrides for root entity model packaging in VPK.
+  // When an Arcana or Persona carries an `entity_model` swap, the client engine loads the
+  // hero's root entity model from `models/heroes/<hero>/<hero>.vmdl`. Swapping the actual
+  // compiled `.vmdl_c` in the mod VPK ensures the Arcana/Persona body and face are rendered
+  // seamlessly without vanilla hero face/body clipping, and prevents missing parts/ERROR models on reconnect.
+  const entityModelOverrides: EntityModelOverride[] = []
+  for (const [hero, entries] of swapModifiers) {
+    const personaEntry = entries.find((e) => e.reason === 'persona-activation')
+    const chosen = personaEntry ?? entries[entries.length - 1]
+    const overrideModel = chosen ? getString(chosen.node, 'modifier') : undefined
+    if (overrideModel) {
+      entityModelOverrides.push({
+        hero,
+        baseModel: baseModelForHero(hero),
+        overrideModel
+      })
     }
   }
 
@@ -219,7 +248,8 @@ export function compileItemsGame(
       applied,
       warnings,
       skipped: plan.skipped,
-      validation
+      validation,
+      entityModelOverrides
     }
   }
 }
