@@ -75,7 +75,36 @@ export interface AppSettingsPayload {
   autoDetect?: boolean
   launchAfter?: boolean
   confirmRestore?: boolean
+  autoCheckUpdates?: boolean
   r2CdnUrl?: string
+}
+
+export interface UpdateAsset {
+  name: string
+  size: number
+  browser_download_url: string
+}
+
+export interface UpdateInfo {
+  updateAvailable: boolean
+  version?: string
+  displayVersion?: string
+  currentVersion?: string
+  name?: string
+  releaseNotes?: string
+  publishedAt?: string
+  htmlUrl?: string
+  assets?: UpdateAsset[]
+  portableAsset?: UpdateAsset
+  installerAsset?: UpdateAsset
+  error?: string
+}
+
+export interface UpdateDownloadProgress {
+  percent: number
+  bytesReceived: number
+  totalBytes: number
+  speedBytesPerSec: number
 }
 
 export interface SkinforgeBridge {
@@ -95,6 +124,10 @@ export interface SkinforgeBridge {
   getCacheStats: () => Promise<{ count: number; sizeBytes: number; formattedSize: string }>
   clearIconCache: () => Promise<boolean>
   onInstallProgress: (callback: (progress: InstallProgress) => void) => void
+  checkForUpdates: () => Promise<UpdateInfo>
+  downloadUpdate: (payload: { assetUrl: string; filename: string }) => Promise<{ ok: boolean; filePath?: string; error?: string }>
+  installUpdate: (payload: { filePath: string }) => Promise<{ ok: boolean; error?: string }>
+  onUpdateProgress: (callback: (progress: UpdateDownloadProgress) => void) => () => void
 }
 
 declare global {

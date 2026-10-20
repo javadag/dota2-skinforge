@@ -9,6 +9,7 @@ import { PresetsView } from './components/PresetsView'
 import { SettingsView } from './components/SettingsView'
 import { Sidebar } from './components/Sidebar'
 import { Topbar } from './components/Topbar'
+import { UpdateModal } from './components/UpdateModal'
 import { useAppStore } from './state/useAppStore'
 
 export const App = () => {
@@ -41,6 +42,7 @@ export const App = () => {
       </div>
       <ItemSelectModal />
       <PresetNameModal />
+      <UpdateModal />
     </div>
   )
 }
