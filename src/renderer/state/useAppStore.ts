@@ -29,6 +29,7 @@ export interface AppSettings {
   autoDetect: boolean
   launchAfter: boolean
   confirmRestore: boolean
+  autoCheckUpdates: boolean
 }
 
 export interface LogEntry {
@@ -77,6 +78,13 @@ export interface AppStoreState {
   cacheStats: CacheStats | null
   logs: LogEntry[]
 
+  // Update State
+  updateStatus: 'idle' | 'checking' | 'available' | 'up-to-date' | 'downloading' | 'downloaded' | 'error'
+  updateInfo: import('../env').UpdateInfo | null
+  updateProgress: import('../env').UpdateDownloadProgress | null
+  downloadedUpdatePath: string | null
+  isUpdateModalOpen: boolean
+
   // Actions
   setTab: (tab: AppTab, category?: CategoryGroup | null) => void
   setCategoryGroup: (group: CategoryGroup) => void
@@ -115,6 +123,12 @@ export interface AppStoreState {
   restoreMods: () => Promise<void>
   refreshStatus: () => Promise<void>
   launchDota: () => void
+
+  // Update Actions
+  checkForUpdates: (manual?: boolean) => Promise<void>
+  downloadUpdate: (assetUrl: string, filename: string) => Promise<void>
+  installUpdate: () => Promise<void>
+  setUpdateModalOpen: (open: boolean) => void
 
   // UI Utilities
   addLog: (message: string, type?: 'info' | 'warn' | 'error' | 'success') => void
@@ -180,9 +194,15 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
     modFolder: 'skinforge',
     autoDetect: true,
     launchAfter: false,
-    confirmRestore: true
+    confirmRestore: true,
+    autoCheckUpdates: true
   },
   cacheStats: null,
+  updateStatus: 'idle',
+  updateInfo: null,
+  updateProgress: null,
+  downloadedUpdatePath: null,
+  isUpdateModalOpen: false,
   logs: [
     {
       id: 'init',
@@ -433,7 +453,8 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
       modFolder: 'skinforge',
       autoDetect: true,
       launchAfter: false,
-      confirmRestore: true
+      confirmRestore: true,
+      autoCheckUpdates: true
     }
     set({ settings: defaults })
     get().saveSettings()
@@ -645,7 +666,8 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
           modFolder: typeof savedSettings.modFolder === 'string' ? savedSettings.modFolder : 'skinforge',
           autoDetect: typeof savedSettings.autoDetect === 'boolean' ? savedSettings.autoDetect : true,
           launchAfter: typeof savedSettings.launchAfter === 'boolean' ? savedSettings.launchAfter : false,
-          confirmRestore: typeof savedSettings.confirmRestore === 'boolean' ? savedSettings.confirmRestore : true
+          confirmRestore: typeof savedSettings.confirmRestore === 'boolean' ? savedSettings.confirmRestore : true,
+          autoCheckUpdates: typeof savedSettings.autoCheckUpdates === 'boolean' ? savedSettings.autoCheckUpdates : true
         }
       }))
 
@@ -656,9 +678,97 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
       } else {
         addLog('Dota 2 directory not automatically found. Please set it in Settings.', 'warn')
       }
+
+      // Check for updates automatically in background if enabled
+      const currentSettings = get().settings
+      if (currentSettings.autoCheckUpdates) {
+        setTimeout(() => {
+          get().checkForUpdates(false)
+        }, 1500)
+      }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err)
       addLog(`Initialization error: ${msg}`, 'error')
     }
+  },
+
+  setUpdateModalOpen: (open: boolean) => {
+    set({ isUpdateModalOpen: open })
+  },
+
+  checkForUpdates: async (manual: boolean = false) => {
+    if (!window.skinforge || typeof window.skinforge.checkForUpdates !== 'function') return
+
+    set({ updateStatus: 'checking' })
+    if (manual) {
+      get().addLog('Checking for updates...', 'info')
+    }
+
+    try {
+      const info = await window.skinforge.checkForUpdates()
+      if (info.error) {
+        set({ updateStatus: 'error', updateInfo: info })
+        if (manual) {
+          get().addLog(`Update check failed: ${info.error}`, 'error')
+        }
+        return
+      }
+
+      if (info.updateAvailable) {
+        set({ updateStatus: 'available', updateInfo: info, isUpdateModalOpen: true })
+        get().addLog(`A new version of SkinForge is available: ${info.displayVersion}!`, 'success')
+      } else {
+        set({ updateStatus: 'up-to-date', updateInfo: info })
+        if (manual) {
+          get().addLog(`SkinForge is up to date (${info.currentVersion || 'current'}).`, 'info')
+        }
+      }
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : String(err)
+      set({ updateStatus: 'error' })
+      if (manual) {
+        get().addLog(`Update check error: ${errMsg}`, 'error')
+      }
+    }
+  },
+
+  downloadUpdate: async (assetUrl: string, filename: string) => {
+    if (!window.skinforge || typeof window.skinforge.downloadUpdate !== 'function') return
+
+    set({ updateStatus: 'downloading', updateProgress: null })
+    get().addLog(`Downloading update: ${filename}...`, 'info')
+
+    let cleanup: (() => void) | undefined
+    if (typeof window.skinforge.onUpdateProgress === 'function') {
+      cleanup = window.skinforge.onUpdateProgress((progress) => {
+        set({ updateProgress: progress })
+      })
+    }
+
+    try {
+      const res = await window.skinforge.downloadUpdate({ assetUrl, filename })
+      if (cleanup) cleanup()
+
+      if (res && res.ok && res.filePath) {
+        set({ updateStatus: 'downloaded', downloadedUpdatePath: res.filePath })
+        get().addLog(`Update downloaded successfully to ${res.filePath}`, 'success')
+      } else {
+        set({ updateStatus: 'error' })
+        get().addLog(`Failed to download update: ${res?.error || 'Unknown error'}`, 'error')
+      }
+    } catch (err: unknown) {
+      if (cleanup) cleanup()
+      const msg = err instanceof Error ? err.message : String(err)
+      set({ updateStatus: 'error' })
+      get().addLog(`Download failed: ${msg}`, 'error')
+    }
+  },
+
+  installUpdate: async () => {
+    const { downloadedUpdatePath } = get()
+    if (!downloadedUpdatePath || !window.skinforge || typeof window.skinforge.installUpdate !== 'function') return
+
+    get().addLog('Launching update installer...', 'info')
+    await window.skinforge.installUpdate({ filePath: downloadedUpdatePath })
   }
 }))

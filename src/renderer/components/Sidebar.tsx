@@ -8,6 +8,7 @@ export const Sidebar: React.FC = () => {
   const setTab = useAppStore((s) => s.setTab)
   const status = useAppStore((s) => s.status)
   const dotaPath = useAppStore((s) => s.dotaPath)
+  const updateStatus = useAppStore((s) => s.updateStatus)
 
   const appInfo = typeof window !== 'undefined' ? window.appInfo : null
 
@@ -121,11 +122,16 @@ export const Sidebar: React.FC = () => {
         <button
           id="navSettings"
           data-tab="settings"
-          className={`${navBtnBase} ${activeTab === 'settings' ? navBtnActive : ''}`}
+          className={`${navBtnBase} ${activeTab === 'settings' ? navBtnActive : ''} justify-between`}
           onClick={() => setTab('settings')}
         >
-          <Settings className="size-4.25 shrink-0" />
-          <span>Settings</span>
+          <div className="flex items-center gap-3">
+            <Settings className="size-4.25 shrink-0" />
+            <span>Settings</span>
+          </div>
+          {updateStatus === 'available' && (
+            <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#c084fc] animate-pulse" />
+          )}
         </button>
 
         <button

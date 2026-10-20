@@ -138,5 +138,5 @@ export const HERO_BASE_MODELS: Record<string, string> = {
  * Get the base model path for a hero, defaulting to models/heroes/<hero>/<hero>.vmdl
  */
 export function baseModelForHero(hero: string): string {
-  return HERO_BASE_MODELS[hero] ?? models / heroes //.vmdl
+  return HERO_BASE_MODELS[hero] ?? `models/heroes/${hero}/${hero}.vmdl`
 }

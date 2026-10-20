@@ -13,6 +13,12 @@ export const SettingsView: React.FC = () => {
   const selectDotaDirectory = useAppStore((s) => s.selectDotaDirectory)
   const clearIconCache = useAppStore((s) => s.clearIconCache)
   const clearAllPresets = useAppStore((s) => s.clearAllPresets)
+  const checkForUpdates = useAppStore((s) => s.checkForUpdates)
+  const updateStatus = useAppStore((s) => s.updateStatus)
+  const updateInfo = useAppStore((s) => s.updateInfo)
+  const setUpdateModalOpen = useAppStore((s) => s.setUpdateModalOpen)
+
+  const appInfo = typeof window !== 'undefined' ? window.appInfo : null
 
   const [savedSuccess, setSavedSuccess] = useState(false)
 
@@ -113,7 +119,7 @@ export const SettingsView: React.FC = () => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-between gap-4 py-2">
+          <div className="flex items-center justify-between gap-4 py-2 border-b border-white/5">
             <div>
               <div className="text-xs font-semibold text-white">Confirm before restore</div>
               <span className="text-[11px] text-slate-400 block mt-0.5">Ask for confirmation before removing mods</span>
@@ -123,6 +129,19 @@ export const SettingsView: React.FC = () => {
                 id="settingConfirmRestore"
                 checked={settings.confirmRestore}
                 onChange={(val) => updateSettings({ confirmRestore: val })}
+              />
+            </div>
+          </div>
+          <div className="flex items-center justify-between gap-4 py-2">
+            <div>
+              <div className="text-xs font-semibold text-white">Auto-check for app updates</div>
+              <span className="text-[11px] text-slate-400 block mt-0.5">Check for new releases of SkinForge at launch</span>
+            </div>
+            <div>
+              <ToggleSwitch
+                id="settingAutoCheckUpdates"
+                checked={settings.autoCheckUpdates}
+                onChange={(val) => updateSettings({ autoCheckUpdates: val })}
               />
             </div>
           </div>
@@ -141,6 +160,59 @@ export const SettingsView: React.FC = () => {
             <div>
               <Button id="btnClearIconCache" variant="secondary" size="sm" onClick={handleClearCache}>
                 Clear Cache
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Updates */}
+        <div className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-4">
+          <div className="text-xs font-bold uppercase tracking-wider text-purple-400">Application Updates</div>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-2">
+            <div>
+              <div className="text-xs font-semibold text-white flex items-center gap-2">
+                <span>SkinForge Version</span>
+                <span className="font-mono text-purple-300 font-bold">{appInfo?.displayVersion || 'v1.3.1'}</span>
+                {updateStatus === 'up-to-date' && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-semibold">
+                    Up to date
+                  </span>
+                )}
+                {updateStatus === 'available' && updateInfo?.displayVersion && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-300 font-semibold">
+                    New: {updateInfo.displayVersion}
+                  </span>
+                )}
+              </div>
+              <span className="text-[11px] text-slate-400 block mt-0.5">
+                {updateStatus === 'checking'
+                  ? 'Checking GitHub for new releases...'
+                  : updateStatus === 'available'
+                  ? `A newer version (${updateInfo?.displayVersion}) is ready to download.`
+                  : updateStatus === 'error'
+                  ? 'Could not connect to GitHub releases.'
+                  : 'Checks the official GitHub repository for new releases.'}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              {updateStatus === 'available' && (
+                <Button
+                  id="btnViewUpdate"
+                  variant="primary"
+                  size="sm"
+                  onClick={() => setUpdateModalOpen(true)}
+                >
+                  View Update
+                </Button>
+              )}
+              <Button
+                id="btnCheckUpdates"
+                variant="secondary"
+                size="sm"
+                onClick={() => checkForUpdates(true)}
+                disabled={updateStatus === 'checking'}
+              >
+                {updateStatus === 'checking' ? 'Checking...' : 'Check for Updates'}
               </Button>
             </div>
           </div>

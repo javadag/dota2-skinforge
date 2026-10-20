@@ -1,22 +1,67 @@
+import { useAppStore } from '../state/useAppStore'
+import { Button } from './ui/Button'
+import { ArrowDownToLine, Check, RefreshCw } from 'lucide-react'
+
 export const AboutView = () => {
   const appInfo = typeof window !== 'undefined' ? window.appInfo : null
+  const checkForUpdates = useAppStore((s) => s.checkForUpdates)
+  const updateStatus = useAppStore((s) => s.updateStatus)
+  const updateInfo = useAppStore((s) => s.updateInfo)
+  const setUpdateModalOpen = useAppStore((s) => s.setUpdateModalOpen)
 
   return (
     <section id="tabAbout" className="flex-1 h-full overflow-y-auto p-8">
       <div className="max-w-4xl mx-auto flex flex-col gap-8">
-        <div className="flex items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-          <img
-            className="w-16 h-16 rounded-2xl object-cover border-2 border-white/15 shadow-2xl shrink-0"
-            src="assets/icon.png"
-            alt="Dota 2 SkinForge Logo"
-          />
-          <div>
-            <div className="text-2xl font-extrabold text-white tracking-tight" data-app-name>
-              {appInfo?.name}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div className="flex items-center gap-6">
+            <img
+              className="w-16 h-16 rounded-2xl object-cover border-2 border-white/15 shadow-2xl shrink-0"
+              src="assets/icon.png"
+              alt="Dota 2 SkinForge Logo"
+            />
+            <div>
+              <div className="text-2xl font-extrabold text-white tracking-tight" data-app-name>
+                {appInfo?.name}
+              </div>
+              <div className="text-xs text-slate-400 mt-1 font-medium flex items-center gap-2" data-app-version-sub>
+                <span>{appInfo?.displayVersion} — Local Cosmetic Suite</span>
+                {updateStatus === 'up-to-date' && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-semibold flex items-center gap-1">
+                    <Check className="size-2.5" /> Latest
+                  </span>
+                )}
+                {updateStatus === 'available' && updateInfo?.displayVersion && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-300 font-semibold">
+                    New: {updateInfo.displayVersion}
+                  </span>
+                )}
+              </div>
             </div>
-            <div className="text-xs text-slate-400 mt-1 font-medium" data-app-version-sub>
-              {appInfo?.displayVersion} — Local Cosmetic Suite
-            </div>
+          </div>
+
+          <div className="flex items-center gap-2 sm:self-center">
+            {updateStatus === 'available' ? (
+              <Button
+                id="btnAboutViewUpdate"
+                variant="primary"
+                size="sm"
+                onClick={() => setUpdateModalOpen(true)}
+              >
+                <ArrowDownToLine className="size-3.5 mr-1.5" />
+                Update to {updateInfo?.displayVersion}
+              </Button>
+            ) : (
+              <Button
+                id="btnAboutCheckUpdate"
+                variant="secondary"
+                size="sm"
+                onClick={() => checkForUpdates(true)}
+                disabled={updateStatus === 'checking'}
+              >
+                <RefreshCw className={`size-3.5 mr-1.5 ${updateStatus === 'checking' ? 'animate-spin' : ''}`} />
+                {updateStatus === 'checking' ? 'Checking...' : 'Check for Updates'}
+              </Button>
+            )}
           </div>
         </div>
 

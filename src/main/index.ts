@@ -9,6 +9,10 @@ import { APP_CONFIG } from '../shared/constants/appConfig'
 import { registerIpcHandlers } from './ipc'
 import { registerIconScheme, registerIconProtocol } from './services/iconCacheService'
 import { getAssetsPath } from './services/appPathService'
+import { migrateLegacySettings } from './services/updateService'
+
+// Explicitly ensure consistent userData path between dev (terminal) and packaged exe
+app.setName(APP_CONFIG.name)
 
 // Register skinforge-icon scheme as standard and privileged
 registerIconScheme()
@@ -86,6 +90,7 @@ if (!gotTheLock) {
   })
 
   app.whenReady().then(() => {
+    migrateLegacySettings()
     const settingsFile = path.join(app.getPath('userData'), 'skinforge_settings.json')
     registerIconProtocol(() => {
       try {

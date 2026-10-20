@@ -12,6 +12,13 @@ interface ProgressPayload {
   message: string
 }
 
+interface UpdateProgressPayload {
+  percent: number
+  bytesReceived: number
+  totalBytes: number
+  speedBytesPerSec: number
+}
+
 const api = {
   appInfo: APP_CONFIG,
   getInitialData: () => ipcRenderer.invoke('get-initial-data'),
@@ -26,7 +33,17 @@ const api = {
   getCacheStats: () => ipcRenderer.invoke('get-cache-stats'),
   clearIconCache: () => ipcRenderer.invoke('clear-icon-cache'),
   onInstallProgress: (cb: (progress: ProgressPayload) => void) =>
-    ipcRenderer.on('install-progress', (_e, data: ProgressPayload) => cb(data))
+    ipcRenderer.on('install-progress', (_e, data: ProgressPayload) => cb(data)),
+  checkForUpdates: () => ipcRenderer.invoke('check-for-updates'),
+  downloadUpdate: (payload: { assetUrl: string; filename: string }) => ipcRenderer.invoke('download-update', payload),
+  installUpdate: (payload: { filePath: string }) => ipcRenderer.invoke('install-update', payload),
+  onUpdateProgress: (cb: (progress: UpdateProgressPayload) => void) => {
+    const listener = (_e: Electron.IpcRendererEvent, data: UpdateProgressPayload) => cb(data)
+    ipcRenderer.on('update-download-progress', listener)
+    return () => {
+      ipcRenderer.removeListener('update-download-progress', listener)
+    }
+  }
 }
 
 contextBridge.exposeInMainWorld('appInfo', APP_CONFIG)
