@@ -79,7 +79,12 @@ export function styleOptions(schema: SchemaIndex, visuals: VdfNode | undefined):
 export function flattenVisuals(schema: SchemaIndex, visuals: VdfNode, targetStyle: number): VdfNode {
   const out = cloneNode(visuals)
 
-  out.entries = out.entries.filter((entry) => !entry.key.toLowerCase().startsWith('styles'))
+  // `styles` and `alternate_icons` describe how the *shop* presents an item's style
+  // variants; a default item has no style picker, so they carry no meaning there.
+  out.entries = out.entries.filter((entry) => {
+    const key = entry.key.toLowerCase()
+    return !key.startsWith('styles') && key !== 'alternate_icons'
+  })
   out.entries = out.entries.filter((entry) => {
     if (!isAssetModifierKey(entry.key)) return true
     const index = styleIndexOf(entry)
@@ -98,14 +103,22 @@ export function flattenVisuals(schema: SchemaIndex, visuals: VdfNode, targetStyl
 
   for (const entry of out.entries) {
     if (!isAssetModifierKey(entry.key) || !isNode(entry.value)) continue
-    entry.value.entries = entry.value.entries.filter((child) => child.key.toLowerCase() !== 'style')
+    entry.value.entries = entry.value.entries.filter((child) => {
+      const key = child.key.toLowerCase()
+      // `style` only means something on an item that has styles; `apply_when_equipped_*`
+      // only means something on an item that is equipped in that slot. A default item is
+      // neither, so both would gate the modifier on a condition that never comes true.
+      return key !== 'style' && !key.startsWith('apply_when_equipped')
+    })
   }
 
-  // If the style declares a skin but no model_skin modifier survived, add one.
+  // If the style declares a skin but no model_skin modifier survived, add one. Skin 0 is
+  // what the model draws by default, so carrying it over would rewrite the block for
+  // nothing.
   const hasModelSkin = assetModifiers(out).some((entry) => isNode(entry.value) && getString(entry.value, 'type') === 'model_skin')
   if (!hasModelSkin) {
     const option = styleOptions(schema, visuals).find((style) => style.index === targetStyle)
-    if (option?.skin !== undefined) {
+    if (option?.skin !== undefined && option.skin !== 0) {
       out.entries.push({
         key: 'asset_modifier',
         value: {

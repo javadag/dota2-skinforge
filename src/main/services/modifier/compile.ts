@@ -19,11 +19,12 @@ import {
   isNode,
   materializeDeep,
   parseVdf,
+  setEntry,
   spliceNode,
   type VdfDocument,
   type VdfNode
 } from './vdf'
-import { buildSchema, defaultFor, defaultSlots, isOpaqueBlock, isPersonaSlot, type SchemaIndex, type SchemaItem } from './schema'
+import { buildSchema, defaultFor, defaultSlots, isOpaqueBlock, isPersonaSlot, type SchemaItem } from './schema'
 import { buildPlan, type CustomizationsMap, type PatchReason as PlanPatchReason, type SkippedSelection } from './plan'
 import { applyHide, applyVisuals, assetModifiers, flattenVisuals, mergeAssetModifiers } from './visuals'
 import { baseModelForHero } from './heroBaseModels'
@@ -100,26 +101,6 @@ export interface CompileOptions {
 function countItemBlocks(doc: VdfDocument): number {
   const items = getNode(doc.root, 'items')
   return items && !items.opaque ? items.entries.length : 0
-}
-
-/**
- * The `model_skin` selectors a cosmetic declares for one style.
- *
- * Everything else in a cosmetic's `visuals` block describes an equipped item instance.
- * The model itself arrives by file replacement (see `ModelSwap`), so the only thing the
- * block still has to carry is which skin inside that model file to draw.
- */
-function skinSelectors(schema: SchemaIndex, cosmetic: VdfNode, style: number): VdfNode[] {
-  const visuals = getNode(cosmetic, 'visuals')
-  if (!visuals || visuals.opaque) return []
-  return (
-    assetModifiers(flattenVisuals(schema, visuals, style))
-      .map((entry) => entry.value)
-      .filter((value): value is VdfNode => isNode(value) && getString(value, 'type') === 'model_skin')
-      // Skin 0 is what a model draws by default, so carrying it over would only rewrite the
-      // block for nothing.
-      .filter((value) => (getString(value, 'skin') ?? '0') !== '0')
-  )
 }
 
 /**
@@ -243,8 +224,8 @@ export function compileItemsGame(
     materializeDeep(source, targetNode)
     const clone = cloneNode(targetNode)
     const vanillaModel = getString(targetNode, 'model_player')
-    // Nothing is written for a pure model swap, so the block stays byte-identical to
-    // Valve's. Only a skin selector or an anchor/hide gives a reason to splice at all.
+    // A pick that carries no effects leaves the block byte-identical to Valve's; only
+    // effects, an anchor or a hide give a reason to splice at all.
     let touched = false
 
     for (const patch of patches) {
@@ -269,10 +250,17 @@ export function compileItemsGame(
               sourceModel: cosmeticModel
             })
           }
-          const skins = skinSelectors(schema, cosmeticNode, patch.style)
-          if (skins.length) {
-            mergeAssetModifiers(clone, skins)
-            touched = true
+          // Carry the cosmetic's effects onto the vanilla block the way Valve's own default
+          // items carry theirs. `skip_model_combine` in particular has to survive: without
+          // it the client merges a standalone model into the hero's combined body, and the
+          // body fails to load on the next reconnect (ERROR model at the hero's feet).
+          const visuals = getNode(cosmeticNode, 'visuals')
+          if (visuals && !visuals.opaque) {
+            const flattened = flattenVisuals(schema, visuals, patch.style)
+            if (flattened.entries.length) {
+              setEntry(clone, 'visuals', flattened)
+              touched = true
+            }
           }
           expectedModel.set(targetId, vanillaModel)
         } else {
