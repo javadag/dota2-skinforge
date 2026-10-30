@@ -1,0 +1,4987 @@
+{
+  "courier": {
+    "tag": "courier",
+    "slots": [
+      {
+        "slot": "courier",
+        "title": "Courier",
+        "mods": [
+          {
+            "name": "10th Anniversary Dolfrat and Roshinante",
+            "title": "10th Anniversary Dolfrat and Roshinante",
+            "rarity": "mythical",
+            "img": "econ/courier/sw_donkey/sw_donkey_10th_anniversary",
+            "id": 27298
+          },
+          {
+            "name": "10th Anniversary Filmtail",
+            "title": "10th Anniversary Filmtail",
+            "rarity": "mythical",
+            "img": "econ/courier/f2p_courier/f2p_courier1",
+            "id": 23755
+          },
+          {
+            "name": "Ageless Apothecary",
+            "title": "Ageless Apothecary",
+            "rarity": "mythical",
+            "img": "econ/courier/ageless_apothecary/ageless_apothecary",
+            "id": 23336
+          },
+          {
+            "name": "Aghanim the Wisest",
+            "title": "Aghanim the Wisest",
+            "rarity": "legendary",
+            "img": "econ/courier/aghanim_the_wisest/aghanim_the_wisest",
+            "id": 18531
+          },
+          {
+            "name": "Aghanim's Interdimensional Baby Roshan",
+            "title": "Aghanim's Interdimensional Baby Roshan",
+            "rarity": "legendary",
+            "img": "econ/courier/baby_rosh/babyroshan_ti10",
+            "id": 14951
+          },
+          {
+            "name": "Alphid of Lecaciida",
+            "title": "Alphid of Lecaciida",
+            "rarity": "mythical",
+            "img": "econ/items/courier/alphid_of_lecaciida/alphid_of_lecaciida",
+            "id": 10281
+          },
+          {
+            "name": "Amaterasu",
+            "title": "Amaterasu",
+            "rarity": "mythical",
+            "img": "econ/items/courier/amaterasu/amaterasu",
+            "id": 17257
+          },
+          {
+            "name": "Amphibian Kid",
+            "title": "Amphibian Kid",
+            "rarity": "mythical",
+            "img": "econ/items/courier/amphibian_kid/amphibian_kid",
+            "id": 10407
+          },
+          {
+            "name": "Antipode Couriers",
+            "title": "Antipode Couriers",
+            "rarity": "rare",
+            "img": "econ/loading_screens/dc_angel_demon_ls",
+            "id": 10888
+          },
+          {
+            "name": "Arnabus the Fairy Rabbit",
+            "title": "Arnabus the Fairy Rabbit",
+            "rarity": "mythical",
+            "img": "econ/items/courier/arneyb_rabbit/arneyb_rabbit",
+            "id": 10318
+          },
+          {
+            "name": "Atrophic Skitterwing",
+            "title": "Atrophic Skitterwing",
+            "rarity": "mythical",
+            "img": "econ/items/courier/atrophic_skitterwing/atrophic_skitterwing",
+            "id": 11553
+          },
+          {
+            "name": "Axolotl",
+            "title": "Axolotl",
+            "rarity": "mythical",
+            "img": "econ/items/courier/axolotl/axolotl",
+            "id": 10920
+          },
+          {
+            "name": "Azuremir",
+            "title": "Azuremir",
+            "rarity": "mythical",
+            "img": "econ/items/courier/azuremircourierfinal/azuremircourierfinal",
+            "id": 10338
+          },
+          {
+            "name": "Babka the Bewitcher",
+            "title": "Babka the Bewitcher",
+            "rarity": "mythical",
+            "img": "econ/items/courier/babka_bewitcher/babka_bewitcher",
+            "id": 10936
+          },
+          {
+            "name": "Baby R'shan the Eternal",
+            "title": "Baby R'shan the Eternal",
+            "rarity": "legendary",
+            "img": "econ/items/courier/monster_roshan/monster_roshan_courier",
+            "id": 37159
+          },
+          {
+            "name": "Baby Roshan",
+            "title": "Baby Roshan",
+            "rarity": "legendary",
+            "img": "econ/courier/baby_rosh/babyroshan",
+            "id": 10091
+          },
+          {
+            "name": "Baekho",
+            "title": "Baekho",
+            "rarity": "legendary",
+            "img": "econ/items/courier/baekho/baekho",
+            "id": 10347
+          },
+          {
+            "name": "Bajie the Silken Swineling",
+            "title": "Bajie the Silken Swineling",
+            "rarity": "legendary",
+            "img": "econ/items/courier/bajie_pig/bajie_pig2",
+            "id": 11111
+          },
+          {
+            "name": "Basim",
+            "title": "Basim",
+            "rarity": "rare",
+            "img": "econ/loading_screens/basim",
+            "id": 10828
+          },
+          {
+            "name": "Bearzky",
+            "title": "Bearzky",
+            "rarity": "rare",
+            "img": "econ/items/courier/bearzky/bearzky",
+            "id": 10746
+          },
+          {
+            "name": "Bearzky Style 1",
+            "title": "Bearzky Style 1",
+            "rarity": "common",
+            "img": "econ/items/courier/bearzky/bearzky",
+            "id": 10746
+          },
+          {
+            "name": "Beaver Knight",
+            "title": "Beaver Knight",
+            "rarity": "mythical",
+            "img": "econ/items/courier/beaverknight/beaverknight",
+            "id": 10524
+          },
+          {
+            "name": "Beaver Knight Style 1",
+            "title": "Beaver Knight Style 1",
+            "rarity": "common",
+            "img": "econ/items/courier/beaverknight/beaverknight",
+            "id": 10524
+          },
+          {
+            "name": "Beaver Knight Style 2",
+            "title": "Beaver Knight Style 2",
+            "rarity": "common",
+            "img": "econ/items/courier/beaverknight/beaverknight",
+            "id": 10524
+          },
+          {
+            "name": "Beetlebark and Plod",
+            "title": "Beetlebark and Plod",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
+            "id": 12962
+          },
+          {
+            "name": "Beetlebark and Plod Style 1",
+            "title": "Beetlebark and Plod Style 1",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
+            "id": 12962
+          },
+          {
+            "name": "Beetlebark and Plod Style 2",
+            "title": "Beetlebark and Plod Style 2",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
+            "id": 12962
+          },
+          {
+            "name": "Beetlebark and Plod Style 3",
+            "title": "Beetlebark and Plod Style 3",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
+            "id": 12962
+          },
+          {
+            "name": "Beetlebark and Plod Style 4",
+            "title": "Beetlebark and Plod Style 4",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
+            "id": 12962
+          },
+          {
+            "name": "Beetlebark and Plod Style 5",
+            "title": "Beetlebark and Plod Style 5",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
+            "id": 12962
+          },
+          {
+            "name": "Beetlebark and Plod Style 6",
+            "title": "Beetlebark and Plod Style 6",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
+            "id": 12962
+          },
+          {
+            "name": "Beetlejaws the Boxhound",
+            "title": "Beetlejaws the Boxhound",
+            "rarity": "immortal",
+            "img": "econ/courier/beetlejaws/mesh/beetlejaws",
+            "id": 11642
+          },
+          {
+            "name": "Billingsley Loftwright",
+            "title": "Billingsley Loftwright",
+            "rarity": "mythical",
+            "img": "econ/items/courier/owl_courier/owl_courier",
+            "id": 18850
+          },
+          {
+            "name": "Billy Bounceback",
+            "title": "Billy Bounceback",
+            "rarity": "rare",
+            "img": "econ/items/courier/billy_bounceback/billy_bounceback",
+            "id": 10460
+          },
+          {
+            "name": "Bionic Birdie",
+            "title": "Bionic Birdie",
+            "rarity": "mythical",
+            "img": "econ/items/courier/clockwerks_orange/clockwerks_orange",
+            "id": 14219
+          },
+          {
+            "name": "Blazing Hatchling",
+            "title": "Blazing Hatchling",
+            "rarity": "mythical",
+            "img": "econ/items/courier/blazing_hatchling_the_fortune_bringer_courier/blazing_hatchling_the_fortune_bringer_courier",
+            "id": 17774
+          },
+          {
+            "name": "Blotto and Stick",
+            "title": "Blotto and Stick",
+            "rarity": "legendary",
+            "img": "econ/items/courier/blotto_and_stick/blotto",
+            "id": 10297
+          },
+          {
+            "name": "Blue Lightning",
+            "title": "Blue Lightning",
+            "rarity": "rare",
+            "img": "econ/items/courier/blue_lightning_horse/blue_lightning_horse",
+            "id": 10434
+          },
+          {
+            "name": "Bone Palico Courier",
+            "title": "Bone Palico Courier",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mh_palico_courier/mh_palico_courier_bone",
+            "id": 35996
+          },
+          {
+            "name": "Boooofus",
+            "title": "Boooofus",
+            "rarity": "rare",
+            "img": "econ/items/courier/boooofus_courier/boooofus_courier",
+            "id": 10750
+          },
+          {
+            "name": "Boris Baumhauer",
+            "title": "Boris Baumhauer",
+            "rarity": "legendary",
+            "img": "econ/items/courier/boris_baumhauer/boris_baumhauer",
+            "id": 10360
+          },
+          {
+            "name": "Braze the Zonkey",
+            "title": "Braze the Zonkey",
+            "rarity": "mythical",
+            "img": "econ/props_gameplay/donkey1",
+            "id": 10019
+          },
+          {
+            "name": "Brightskye",
+            "title": "Brightskye",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti10/courier_ti10_lvl1/courier_ti10_lvl1",
+            "id": 13775
+          },
+          {
+            "name": "Brightskye Style 1",
+            "title": "Brightskye Style 1",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti10/courier_ti10_lvl1/courier_ti10_lvl1",
+            "id": 13775
+          },
+          {
+            "name": "Brightskye Style 2",
+            "title": "Brightskye Style 2",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti10/courier_ti10_lvl1/courier_ti10_lvl1",
+            "id": 13775
+          },
+          {
+            "name": "Brightskye Style 3",
+            "title": "Brightskye Style 3",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti10/courier_ti10_lvl1/courier_ti10_lvl1",
+            "id": 13775
+          },
+          {
+            "name": "Brightskye Style 4",
+            "title": "Brightskye Style 4",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti10/courier_ti10_lvl1/courier_ti10_lvl1",
+            "id": 13775
+          },
+          {
+            "name": "Brightskye Style 5",
+            "title": "Brightskye Style 5",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti10/courier_ti10_lvl1/courier_ti10_lvl1",
+            "id": 13775
+          },
+          {
+            "name": "Brightskye Style 6",
+            "title": "Brightskye Style 6",
+            "rarity": "immortal",
+            "img": "econ/items/courier/courier_ti10/courier_ti10_lvl1/courier_ti10_lvl1",
+            "id": 13775
+          },
+          {
+            "name": "Butch",
+            "title": "Butch",
+            "rarity": "legendary",
+            "img": "econ/items/courier/butch_pudge_dog/butch_pudge_dog",
+            "id": 10386
+          },
+          {
+            "name": "Butter Blunder",
+            "title": "Butter Blunder",
+            "rarity": "rare",
+            "img": "econ/items/courier/sltv_10_courier/sltv_10_courier",
+            "id": 11130
+          },
+          {
+            "name": "Captain Bamboo",
+            "title": "Captain Bamboo",
+            "rarity": "mythical",
+            "img": "econ/items/courier/captain_bamboo/captain_bamboo",
+            "id": 10167
+          },
+          {
+            "name": "Carty",
+            "title": "Carty",
+            "rarity": "mythical",
+            "img": "econ/items/courier/carty/carty",
+            "id": 10709
+          },
+          {
+            "name": "Chirpy",
+            "title": "Chirpy",
+            "rarity": "mythical",
+            "img": "econ/items/courier/bts_chirpy/bts_chirpy2",
+            "id": 11195
+          },
+          {
+            "name": "Cluckles the Brave",
+            "title": "Cluckles the Brave",
+            "rarity": "legendary",
+            "img": "econ/items/courier/mighty_chicken/mighty_chicken",
+            "id": 10147
+          },
+          {
+            "name": "Coco the Courageous",
+            "title": "Coco the Courageous",
+            "rarity": "mythical",
+            "img": "econ/items/courier/coco_the_courageous/coco_the_courageous",
+            "id": 10375
+          },
+          {
+            "name": "Collector's Baby Roshan 2017",
+            "title": "Collector's Baby Roshan 2017",
+            "rarity": "legendary",
+            "img": "econ/courier/baby_rosh/babyroshan_alt1",
+            "id": 13475
+          },
+          {
+            "name": "Collector's Baby Roshan 2018",
+            "title": "Collector's Baby Roshan 2018",
+            "rarity": "legendary",
+            "img": "econ/courier/baby_rosh/babyroshan_alt2",
+            "id": 13481
+          },
+          {
+            "name": "Coral the Furryfish",
+            "title": "Coral the Furryfish",
+            "rarity": "mythical",
+            "img": "econ/items/courier/coral_furryfish/coral_furryfish",
+            "id": 11383
+          },
+          {
+            "name": "Cotton Dandy",
+            "title": "Cotton Dandy",
+            "rarity": "legendary",
+            "img": "econ/courier/winter2022/cotton_donkey_courier",
+            "id": 24901
+          },
+          {
+            "name": "Cyril the Syrmeleon",
+            "title": "Cyril the Syrmeleon",
+            "rarity": "rare",
+            "img": "econ/items/courier/defense4_radiant/defense4_radiant",
+            "id": 10200
+          },
+          {
+            "name": "Dark Moon Baby Roshan",
+            "title": "Dark Moon Baby Roshan",
+            "rarity": "immortal",
+            "img": "econ/courier/baby_rosh/babyroshan3",
+            "id": 11647
+          },
+          {
+            "name": "Deathripper",
+            "title": "Deathripper",
+            "rarity": "mythical",
+            "img": "econ/items/courier/deathripper/deathripper",
+            "id": 10144
+          },
+          {
+            "name": "Default Courier",
+            "title": "Default Courier",
+            "rarity": "common",
+            "img": "econ/courier/donkey_radiant_default",
+            "id": 595
+          },
+          {
+            "name": "Defense Season 2 War Dog",
+            "title": "Defense Season 2 War Dog",
+            "rarity": "ancient",
+            "img": "econ/courier/juggernaut_dog/juggernaut_dog1",
+            "id": 10033
+          },
+          {
+            "name": "Desert Sands Baby Roshan",
+            "title": "Desert Sands Baby Roshan",
+            "rarity": "immortal",
+            "img": "econ/courier/baby_rosh/babyroshan4",
+            "id": 12007
+          },
+          {
+            "name": "Devourling",
+            "title": "Devourling",
+            "rarity": "mythical",
+            "img": "econ/items/courier/devourling/devourling",
+            "id": 11760
+          },
+          {
+            "name": "Diretide Courier Hermid",
+            "title": "Diretide Courier Hermid",
+            "rarity": "common",
+            "img": "econ/items/courier/hermid/hermid",
+            "id": 18410
+          },
+          {
+            "name": "Dolfrat and Roshinante",
+            "title": "Dolfrat and Roshinante",
+            "rarity": "mythical",
+            "img": "econ/courier/sw_donkey/sw_donkey",
+            "id": 10018
+          },
+          {
+            "name": "Dolfrat and Roshinante Scholar Edition",
+            "title": "Dolfrat and Roshinante Scholar Edition",
+            "rarity": "mythical",
+            "img": "econ/courier/sw_donkey/sw_donkey",
+            "id": 13122
+          },
+          {
+            "name": "Doomling",
+            "title": "Doomling",
+            "rarity": "immortal",
+            "img": "econ/courier/doom_demihero_courier/doom_demihero_courier",
+            "id": 10670
+          },
+          {
+            "name": "Drodo the Druffin",
+            "title": "Drodo the Druffin",
+            "rarity": "immortal",
+            "img": "econ/courier/drodo/drodo",
+            "id": 10003
+          },
+          {
+            "name": "Duskie",
+            "title": "Duskie",
+            "rarity": "rare",
+            "img": "econ/loading_screens/duskie",
+            "id": 10833
+          },
+          {
+            "name": "Eager Drocsnozzle",
+            "title": "Eager Drocsnozzle",
+            "rarity": "mythical",
+            "img": "econ/items/courier/loco_the_crocodile_courier/loco_the_crocodile_courier",
+            "id": 23519
+          },
+          {
+            "name": "Eager Drocsnozzle Style 1",
+            "title": "Eager Drocsnozzle Style 1",
+            "rarity": "common",
+            "img": "econ/items/courier/loco_the_crocodile_courier/loco_the_crocodile_courier",
+            "id": 23519
+          },
+          {
+            "name": "Eimer Hillburrow",
+            "title": "Eimer Hillburrow",
+            "rarity": "immortal",
+            "img": "econ/items/courier/mole_messenger/mole_messenger",
+            "id": 12191
+          },
+          {
+            "name": "Eimer Hillburrow Style 1",
+            "title": "Eimer Hillburrow Style 1",
+            "rarity": "rare",
+            "img": "econ/items/courier/mole_messenger/mole_messenger",
+            "id": 12191
+          },
+          {
+            "name": "Eimer Hillburrow Style 2",
+            "title": "Eimer Hillburrow Style 2",
+            "rarity": "rare",
+            "img": "econ/items/courier/mole_messenger/mole_messenger",
+            "id": 12191
+          },
+          {
+            "name": "Eimer Hillburrow Style 3",
+            "title": "Eimer Hillburrow Style 3",
+            "rarity": "rare",
+            "img": "econ/items/courier/mole_messenger/mole_messenger",
+            "id": 12191
+          },
+          {
+            "name": "Eimer Hillburrow Style 4",
+            "title": "Eimer Hillburrow Style 4",
+            "rarity": "rare",
+            "img": "econ/items/courier/mole_messenger/mole_messenger",
+            "id": 12191
+          },
+          {
+            "name": "Eimer Hillburrow Style 5",
+            "title": "Eimer Hillburrow Style 5",
+            "rarity": "rare",
+            "img": "econ/items/courier/mole_messenger/mole_messenger",
+            "id": 12191
+          },
+          {
+            "name": "Eimer Hillburrow Style 6",
+            "title": "Eimer Hillburrow Style 6",
+            "rarity": "rare",
+            "img": "econ/items/courier/mole_messenger/mole_messenger",
+            "id": 12191
+          },
+          {
+            "name": "El Gato",
+            "title": "El Gato",
+            "rarity": "mythical",
+            "img": "econ/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying",
+            "id": 10194
+          },
+          {
+            "name": "El Gato Style 1",
+            "title": "El Gato Style 1",
+            "rarity": "common",
+            "img": "econ/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying",
+            "id": 10194
+          },
+          {
+            "name": "El Gato Style 2",
+            "title": "El Gato Style 2",
+            "rarity": "common",
+            "img": "econ/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying",
+            "id": 10194
+          },
+          {
+            "name": "Enduring War Dog",
+            "title": "Enduring War Dog",
+            "rarity": "mythical",
+            "img": "econ/courier/juggernaut_dog/juggernaut_dog",
+            "id": 10009
+          },
+          {
+            "name": "Faceless Rex",
+            "title": "Faceless Rex",
+            "rarity": "immortal",
+            "img": "econ/items/courier/faceless_rex/faceless_rex",
+            "id": 10919
+          },
+          {
+            "name": "Fezzle-Feez the Magic Carpet Smeevil",
+            "title": "Fezzle-Feez the Magic Carpet Smeevil",
+            "rarity": "immortal",
+            "img": "econ/courier/smeevil_magic_carpet/smeevil_magic_carpet",
+            "id": 10188
+          },
+          {
+            "name": "Filmtail",
+            "title": "Filmtail",
+            "rarity": "mythical",
+            "img": "econ/courier/f2p_courier/f2p_courier",
+            "id": 10424
+          },
+          {
+            "name": "Flightless Dod",
+            "title": "Flightless Dod",
+            "rarity": "mythical",
+            "img": "econ/items/courier/flightless_dod/flightless_dod",
+            "id": 10992
+          },
+          {
+            "name": "Flopjaw the Boxhound",
+            "title": "Flopjaw the Boxhound",
+            "rarity": "legendary",
+            "img": "econ/courier/flopjaw/flopjaw2",
+            "id": 10972
+          },
+          {
+            "name": "Forest Faun",
+            "title": "Forest Faun",
+            "rarity": "rare",
+            "img": "econ/items/courier/courier_faun/courier_faun",
+            "id": 10404
+          },
+          {
+            "name": "Fraidy Jack",
+            "title": "Fraidy Jack",
+            "rarity": "mythical",
+            "img": "econ/items/courier/little_fraid_the_courier_of_simons_retribution/little_fraid_the_courier_of_simons_retribution",
+            "id": 11425
+          },
+          {
+            "name": "Frosty the Seadragon",
+            "title": "Frosty the Seadragon",
+            "rarity": "mythical",
+            "img": "econ/items/courier/frosty_the_courier/frosty_the_courier",
+            "id": 18411
+          },
+          {
+            "name": "Frull",
+            "title": "Frull",
+            "rarity": "mythical",
+            "img": "econ/courier/frull/frull_courier",
+            "id": 10527
+          },
+          {
+            "name": "Garran Drywiz and Garactacus",
+            "title": "Garran Drywiz and Garactacus",
+            "rarity": "mythical",
+            "img": "econ/courier/donkey_unicorn/donkey_unicorn",
+            "id": 10287
+          },
+          {
+            "name": "Genuine Snapjaw",
+            "title": "Genuine Snapjaw",
+            "rarity": "mythical",
+            "img": "econ/items/courier/snapjaw/snapjaw",
+            "id": 10663
+          },
+          {
+            "name": "Gingerbread Baby Roshan",
+            "title": "Gingerbread Baby Roshan",
+            "rarity": "immortal",
+            "img": "econ/courier/baby_rosh/babyroshan_winter18",
+            "id": 12320
+          },
+          {
+            "name": "Golden Baby Roshan",
+            "title": "Golden Baby Roshan",
+            "rarity": "immortal",
+            "img": "econ/courier/baby_rosh/babyroshan1",
+            "id": 10096
+          },
+          {
+            "name": "Golden Beetlejaws the Boxhound",
+            "title": "Golden Beetlejaws the Boxhound",
+            "rarity": "immortal",
+            "img": "econ/courier/beetlejaws/mesh/beetlejaws1",
+            "id": 11643
+          },
+          {
+            "name": "Golden Devourling",
+            "title": "Golden Devourling",
+            "rarity": "mythical",
+            "img": "econ/items/courier/devourling/devourling1",
+            "id": 11764
+          },
+          {
+            "name": "Golden Doomling",
+            "title": "Golden Doomling",
+            "rarity": "immortal",
+            "img": "econ/courier/doom_demihero_courier/doom_demihero_courier1",
+            "id": 10702
+          },
+          {
+            "name": "Golden Flopjaw the Boxhound",
+            "title": "Golden Flopjaw the Boxhound",
+            "rarity": "legendary",
+            "img": "econ/courier/flopjaw/flopjaw_gold",
+            "id": 10993
+          },
+          {
+            "name": "Golden Greevil",
+            "title": "Golden Greevil",
+            "rarity": "immortal",
+            "img": "econ/courier/greevil/gold_greevil",
+            "id": 10143
+          },
+          {
+            "name": "Golden Huntling",
+            "title": "Golden Huntling",
+            "rarity": "immortal",
+            "img": "econ/courier/huntling/huntling_gold",
+            "id": 11522
+          },
+          {
+            "name": "Golden Krobeling",
+            "title": "Golden Krobeling",
+            "rarity": "immortal",
+            "img": "econ/items/courier/krobeling_gold/krobeling_gold",
+            "id": 11865
+          },
+          {
+            "name": "Golden Seekling",
+            "title": "Golden Seekling",
+            "rarity": "mythical",
+            "img": "econ/courier/seekling_gold/seekling_gold",
+            "id": 11740
+          },
+          {
+            "name": "Golden Venoling",
+            "title": "Golden Venoling",
+            "rarity": "immortal",
+            "img": "econ/courier/venoling/venoling_gold",
+            "id": 11092
+          },
+          {
+            "name": "Goldhorn",
+            "title": "Goldhorn",
+            "rarity": "legendary",
+            "img": "econ/courier/ram/ram2",
+            "id": 11127
+          },
+          {
+            "name": "Greevil",
+            "title": "Greevil",
+            "rarity": "mythical",
+            "img": "econ/courier/greevil/greevil_red",
+            "id": 10070
+          },
+          {
+            "name": "Greevilhorn",
+            "title": "Greevilhorn",
+            "rarity": "legendary",
+            "img": "econ/courier/winter2022/greevil_donkey_courier",
+            "id": 24899
+          },
+          {
+            "name": "Grimoire The Book Wyrm",
+            "title": "Grimoire The Book Wyrm",
+            "rarity": "mythical",
+            "img": "econ/items/courier/bookwyrm/bookwyrm",
+            "id": 10721
+          },
+          {
+            "name": "Grimsneer",
+            "title": "Grimsneer",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mlg_courier_wraith/mlg_courier_wraith",
+            "id": 11192
+          },
+          {
+            "name": "Hakobi and Tenneko",
+            "title": "Hakobi and Tenneko",
+            "rarity": "immortal",
+            "img": "econ/items/courier/shibe_dog_cat/shibe_dog_cat",
+            "id": 11368
+          },
+          {
+            "name": "Hermes the Hermit Crab",
+            "title": "Hermes the Hermit Crab",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 1",
+            "title": "Hermes the Hermit Crab Style 1",
+            "rarity": "common",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 2",
+            "title": "Hermes the Hermit Crab Style 2",
+            "rarity": "common",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 3",
+            "title": "Hermes the Hermit Crab Style 3",
+            "rarity": "rare",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 4",
+            "title": "Hermes the Hermit Crab Style 4",
+            "rarity": "rare",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 5",
+            "title": "Hermes the Hermit Crab Style 5",
+            "rarity": "rare",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 6",
+            "title": "Hermes the Hermit Crab Style 6",
+            "rarity": "rare",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 7",
+            "title": "Hermes the Hermit Crab Style 7",
+            "rarity": "rare",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 8",
+            "title": "Hermes the Hermit Crab Style 8",
+            "rarity": "rare",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hermes the Hermit Crab Style 9",
+            "title": "Hermes the Hermit Crab Style 9",
+            "rarity": "common",
+            "img": "econ/items/courier/hermit_crab/hermit_crab_style0",
+            "id": 11997
+          },
+          {
+            "name": "Hexgill the Lane Shark",
+            "title": "Hexgill the Lane Shark",
+            "rarity": "mythical",
+            "img": "econ/items/courier/kanyu_shark/kanyu_shark",
+            "id": 10896
+          },
+          {
+            "name": "Hollow Jack",
+            "title": "Hollow Jack",
+            "rarity": "legendary",
+            "img": "econ/items/courier/pumpkin_courier/pumpkin_courier",
+            "id": 10365
+          },
+          {
+            "name": "Honey Heist Baby Roshan",
+            "title": "Honey Heist Baby Roshan",
+            "rarity": "legendary",
+            "img": "econ/courier/baby_rosh/babyroshan_ti96",
+            "id": 12994
+          },
+          {
+            "name": "Huntling",
+            "title": "Huntling",
+            "rarity": "immortal",
+            "img": "econ/courier/huntling/huntling",
+            "id": 11521
+          },
+          {
+            "name": "Hwytty and Shyzzyrd",
+            "title": "Hwytty and Shyzzyrd",
+            "rarity": "mythical",
+            "img": "econ/courier/donkey_crummy_wizard_2014/donkey_crummy_wizard_2014",
+            "id": 10691
+          },
+          {
+            "name": "Hyeonmu",
+            "title": "Hyeonmu",
+            "rarity": "legendary",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 1",
+            "title": "Hyeonmu Style 1",
+            "rarity": "common",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 10",
+            "title": "Hyeonmu Style 10",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 11",
+            "title": "Hyeonmu Style 11",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 12",
+            "title": "Hyeonmu Style 12",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 13",
+            "title": "Hyeonmu Style 13",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 14",
+            "title": "Hyeonmu Style 14",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 15",
+            "title": "Hyeonmu Style 15",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 16",
+            "title": "Hyeonmu Style 16",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 2",
+            "title": "Hyeonmu Style 2",
+            "rarity": "common",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 3",
+            "title": "Hyeonmu Style 3",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 4",
+            "title": "Hyeonmu Style 4",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 5",
+            "title": "Hyeonmu Style 5",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 6",
+            "title": "Hyeonmu Style 6",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 7",
+            "title": "Hyeonmu Style 7",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 8",
+            "title": "Hyeonmu Style 8",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Hyeonmu Style 9",
+            "title": "Hyeonmu Style 9",
+            "rarity": "rare",
+            "img": "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+            "id": 10918
+          },
+          {
+            "name": "Ice Baby Roshan",
+            "title": "Ice Baby Roshan",
+            "rarity": "immortal",
+            "img": "econ/courier/baby_rosh/babyroshan_elemental2",
+            "id": 10479
+          },
+          {
+            "name": "Inky the Hexapus",
+            "title": "Inky the Hexapus",
+            "rarity": "mythical",
+            "img": "econ/items/courier/g1_courier/g1_courier",
+            "id": 10170
+          },
+          {
+            "name": "Itsy",
+            "title": "Itsy",
+            "rarity": "legendary",
+            "img": "econ/items/courier/itsy/itsy",
+            "id": 10195
+          },
+          {
+            "name": "Jade Baby Roshan",
+            "title": "Jade Baby Roshan",
+            "rarity": "legendary",
+            "img": "econ/courier/baby_rosh/babyroshan5",
+            "id": 12202
+          },
+          {
+            "name": "Jadehoof",
+            "title": "Jadehoof",
+            "rarity": "legendary",
+            "img": "econ/courier/godhorse/godhorse1",
+            "id": 10432
+          },
+          {
+            "name": "Jadehorn",
+            "title": "Jadehorn",
+            "rarity": "legendary",
+            "img": "econ/courier/ram/ram1",
+            "id": 11126
+          },
+          {
+            "name": "JanJou",
+            "title": "JanJou",
+            "rarity": "mythical",
+            "img": "econ/items/courier/courier_janjou/courier_janjou",
+            "id": 10435
+          },
+          {
+            "name": "Jin and Yin Fox Spirits",
+            "title": "Jin and Yin Fox Spirits",
+            "rarity": "mythical",
+            "img": "econ/items/courier/jin_yin_white_fox/jin_yin_white_fox",
+            "id": 10703
+          },
+          {
+            "name": "Jin and Yin Fox Spirits Default",
+            "title": "Jin and Yin Fox Spirits Default",
+            "rarity": "common",
+            "img": "econ/items/courier/jin_yin_white_fox/jin_yin_white_fox",
+            "id": 10703
+          },
+          {
+            "name": "Jin and Yin Fox Spirits Only Black",
+            "title": "Jin and Yin Fox Spirits Only Black",
+            "rarity": "common",
+            "img": "econ/items/courier/jin_yin_white_fox/jin_yin_white_fox",
+            "id": 10703
+          },
+          {
+            "name": "Jin and Yin Fox Spirits Only White",
+            "title": "Jin and Yin Fox Spirits Only White",
+            "rarity": "common",
+            "img": "econ/items/courier/jin_yin_white_fox/jin_yin_white_fox",
+            "id": 10703
+          },
+          {
+            "name": "Jujak the Fiery Rebirth",
+            "title": "Jujak the Fiery Rebirth",
+            "rarity": "rare",
+            "img": "econ/items/courier/courier_mvp_redkita/courier_mvp_redkita",
+            "id": 10837
+          },
+          {
+            "name": "Jumo",
+            "title": "Jumo",
+            "rarity": "rare",
+            "img": "econ/items/courier/jumo/jumo",
+            "id": 10758
+          },
+          {
+            "name": "Kangdae the Dokkaebi",
+            "title": "Kangdae the Dokkaebi",
+            "rarity": "mythical",
+            "img": "econ/items/courier/dokkaebi_nexon_courier/dokkaebi_nexon_courier",
+            "id": 10398
+          },
+          {
+            "name": "Kirin Palico Courier",
+            "title": "Kirin Palico Courier",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mh_palico_courier/mh_palico_courier_kirin",
+            "id": 36024
+          },
+          {
+            "name": "Krane the Enlightened",
+            "title": "Krane the Enlightened",
+            "rarity": "legendary",
+            "img": "econ/items/courier/xianhe_stork/xianhe_stork",
+            "id": 10938
+          },
+          {
+            "name": "Krane the Enlightened Style 1",
+            "title": "Krane the Enlightened Style 1",
+            "rarity": "rare",
+            "img": "econ/items/courier/xianhe_stork/xianhe_stork",
+            "id": 10938
+          },
+          {
+            "name": "Krobeling",
+            "title": "Krobeling",
+            "rarity": "immortal",
+            "img": "econ/items/courier/krobeling/krobeling",
+            "id": 11866
+          },
+          {
+            "name": "Kupu the Metamorpher",
+            "title": "Kupu the Metamorpher",
+            "rarity": "mythical",
+            "img": "econ/items/courier/kupu_courier/kupu_courier",
+            "id": 10172
+          },
+          {
+            "name": "LGD's Golden Skipper",
+            "title": "LGD's Golden Skipper",
+            "rarity": "legendary",
+            "img": "econ/items/courier/lgd_golden_skipper/lgd_golden_skipper",
+            "id": 10314
+          },
+          {
+            "name": "Lava Baby Roshan",
+            "title": "Lava Baby Roshan",
+            "rarity": "immortal",
+            "img": "econ/courier/baby_rosh/babyroshan_elemental1",
+            "id": 10478
+          },
+          {
+            "name": "Leafy the Seadragon",
+            "title": "Leafy the Seadragon",
+            "rarity": "mythical",
+            "img": "econ/items/courier/leafy_the_sea_dragon_courier_courier/leafy_the_sea_dragon_courier_courier",
+            "id": 14434
+          },
+          {
+            "name": "Lefty",
+            "title": "Lefty",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty - Aegis of the Immortal",
+            "title": "Lefty - Aegis of the Immortal",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty - Gem of Truesight",
+            "title": "Lefty - Gem of Truesight",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty - Linkens Sphere",
+            "title": "Lefty - Linkens Sphere",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty - Octarine Core",
+            "title": "Lefty - Octarine Core",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty - Refresher Orb",
+            "title": "Lefty - Refresher Orb",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty - Ultimate Orb",
+            "title": "Lefty - Ultimate Orb",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty Style 1",
+            "title": "Lefty Style 1",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty Style 2",
+            "title": "Lefty Style 2",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty Style 3",
+            "title": "Lefty Style 3",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty Style 4",
+            "title": "Lefty Style 4",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty Style 5",
+            "title": "Lefty Style 5",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lefty Style 6",
+            "title": "Lefty Style 6",
+            "rarity": "rare",
+            "img": "econ/items/courier/hand_courier/hand_courier_radiant_lv1",
+            "id": 19328
+          },
+          {
+            "name": "Lieutenant Squawkins",
+            "title": "Lieutenant Squawkins",
+            "rarity": "legendary",
+            "img": "econ/courier/skippy_parrot/skippy_parrot",
+            "id": 10450
+          },
+          {
+            "name": "Lieutenant Squawkins Style 1",
+            "title": "Lieutenant Squawkins Style 1",
+            "rarity": "rare",
+            "img": "econ/courier/skippy_parrot/skippy_parrot",
+            "id": 10450
+          },
+          {
+            "name": "Lieutenant Squawkins Style 2",
+            "title": "Lieutenant Squawkins Style 2",
+            "rarity": "rare",
+            "img": "econ/courier/skippy_parrot/skippy_parrot",
+            "id": 10450
+          },
+          {
+            "name": "Lil' Nova",
+            "title": "Lil' Nova",
+            "rarity": "mythical",
+            "img": "econ/items/courier/lilnova/lilnova",
+            "id": 10872
+          },
+          {
+            "name": "Little Green Jade Dragon",
+            "title": "Little Green Jade Dragon",
+            "rarity": "rare",
+            "img": "econ/items/courier/green_jade_dragon/green_jade_dragon",
+            "id": 10344
+          },
+          {
+            "name": "MLG Scalehound",
+            "title": "MLG Scalehound",
+            "rarity": "mythical",
+            "img": "econ/items/courier/deathbringer/deathbringer",
+            "id": 10357
+          },
+          {
+            "name": "Mango the Newt",
+            "title": "Mango the Newt",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mango_the_courier/mango_the_courier",
+            "id": 18408
+          },
+          {
+            "name": "Master Chocobo",
+            "title": "Master Chocobo",
+            "rarity": "mythical",
+            "img": "econ/items/courier/chocobo/chocobo",
+            "id": 11459
+          },
+          {
+            "name": "Maximilian the Beetlebear",
+            "title": "Maximilian the Beetlebear",
+            "rarity": "mythical",
+            "img": "econ/items/courier/d2l_steambear/d2l_steambear",
+            "id": 10191
+          },
+          {
+            "name": "Mechjaw the Boxhound",
+            "title": "Mechjaw the Boxhound",
+            "rarity": "mythical",
+            "img": "econ/courier/mechjaw/mechjaw",
+            "id": 10692
+          },
+          {
+            "name": "Mega Greevil Courier",
+            "title": "Mega Greevil Courier",
+            "rarity": "mythical",
+            "img": "econ/courier/mega_greevil_courier/mega_greevil_courier",
+            "id": 11140
+          },
+          {
+            "name": "Mei Nei the Jade Rabbit",
+            "title": "Mei Nei the Jade Rabbit",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mei_nei_rabbit/mei_nei_rabbit",
+            "id": 10834
+          },
+          {
+            "name": "Mighty Boar",
+            "title": "Mighty Boar",
+            "rarity": "mythical",
+            "img": "econ/courier/mighty_boar/mighty_boar",
+            "id": 10025
+          },
+          {
+            "name": "Moil the Fetter",
+            "title": "Moil the Fetter",
+            "rarity": "immortal",
+            "img": "econ/items/courier/rayth_the_roaming_shade/rayth_the_roaming_shade",
+            "id": 28113
+          },
+          {
+            "name": "Moil the Fettered",
+            "title": "Moil the Fettered",
+            "rarity": "immortal",
+            "img": "econ/items/courier/rayth_the_roaming_shade/rayth_the_roaming_shade",
+            "id": 28113
+          },
+          {
+            "name": "Mok",
+            "title": "Mok",
+            "rarity": "legendary",
+            "img": "econ/items/courier/mok/mok",
+            "id": 10041
+          },
+          {
+            "name": "Morok's Mechanical Mediary",
+            "title": "Morok's Mechanical Mediary",
+            "rarity": "mythical",
+            "img": "econ/courier/courier_mech/courier_mech",
+            "id": 10026
+          },
+          {
+            "name": "Murrissey the Smeevil",
+            "title": "Murrissey the Smeevil",
+            "rarity": "immortal",
+            "img": "econ/courier/turtle_rider/turtle_rider",
+            "id": 10004
+          },
+          {
+            "name": "Na'Vi's Weaselcrow",
+            "title": "Na'Vi's Weaselcrow",
+            "rarity": "legendary",
+            "img": "econ/courier/navi_courier/navi_courier",
+            "id": 10132
+          },
+          {
+            "name": "Nian Courier",
+            "title": "Nian Courier",
+            "rarity": "immortal",
+            "img": "econ/items/courier/nian_courier/nian_courier",
+            "id": 12919
+          },
+          {
+            "name": "Nibbles the Wartoise",
+            "title": "Nibbles the Wartoise",
+            "rarity": "mythical",
+            "img": "econ/items/courier/raidcall_ems_one_turtle/raidcall_ems_one_turtle",
+            "id": 10313
+          },
+          {
+            "name": "Nilbog the Mad",
+            "title": "Nilbog the Mad",
+            "rarity": "mythical",
+            "img": "econ/items/courier/nilbog/nilbog",
+            "id": 10845
+          },
+          {
+            "name": "Nimble Ben",
+            "title": "Nimble Ben",
+            "rarity": "legendary",
+            "img": "econ/items/courier/jilling_ben_courier/jilling_ben_courier",
+            "id": 10162
+          },
+          {
+            "name": "Noble and Imperial Pride",
+            "title": "Noble and Imperial Pride",
+            "rarity": "mythical",
+            "img": "econ/items/courier/guardians_of_justice/guardians_of_justice",
+            "id": 10933
+          },
+          {
+            "name": "Oculopus",
+            "title": "Oculopus",
+            "rarity": "mythical",
+            "img": "econ/courier/octopus/octopus",
+            "id": 10693
+          },
+          {
+            "name": "Odogaron Palico Courier",
+            "title": "Odogaron Palico Courier",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mh_palico_courier/mh_palico_courier_odogaron",
+            "id": 35205
+          },
+          {
+            "name": "Ol' Joe",
+            "title": "Ol' Joe",
+            "rarity": "mythical",
+            "img": "econ/items/courier/happy_koala/happy_koala",
+            "id": 14218
+          },
+          {
+            "name": "Onibi",
+            "title": "Onibi",
+            "rarity": "immortal",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 1",
+            "title": "Onibi Style 1",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 10",
+            "title": "Onibi Style 10",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 11",
+            "title": "Onibi Style 11",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 12",
+            "title": "Onibi Style 12",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 13",
+            "title": "Onibi Style 13",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 14",
+            "title": "Onibi Style 14",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 15",
+            "title": "Onibi Style 15",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 16",
+            "title": "Onibi Style 16",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 17",
+            "title": "Onibi Style 17",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 18",
+            "title": "Onibi Style 18",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 19",
+            "title": "Onibi Style 19",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 2",
+            "title": "Onibi Style 2",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 20",
+            "title": "Onibi Style 20",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 21",
+            "title": "Onibi Style 21",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 3",
+            "title": "Onibi Style 3",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 4",
+            "title": "Onibi Style 4",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 5",
+            "title": "Onibi Style 5",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 6",
+            "title": "Onibi Style 6",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 7",
+            "title": "Onibi Style 7",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 8",
+            "title": "Onibi Style 8",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Onibi Style 9",
+            "title": "Onibi Style 9",
+            "rarity": "rare",
+            "img": "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+            "id": 11461
+          },
+          {
+            "name": "Osky the Ottragon",
+            "title": "Osky the Ottragon",
+            "rarity": "immortal",
+            "img": "econ/courier/otter_dragon/otter_dragon",
+            "id": 10300
+          },
+          {
+            "name": "Palico Courier",
+            "title": "Palico Courier",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mh_palico_courier/mh_palico_courier_leather",
+            "id": 34129
+          },
+          {
+            "name": "Patchwork Protector Courier",
+            "title": "Patchwork Protector Courier",
+            "rarity": "mythical",
+            "img": "econ/items/courier/boltheart_brawler/boltheart_brawler_courier",
+            "id": 37156
+          },
+          {
+            "name": "Pholi the Squire",
+            "title": "Pholi the Squire",
+            "rarity": "immortal",
+            "img": "econ/items/courier/pangolier_squire/pangolier_squire",
+            "id": 11469
+          },
+          {
+            "name": "Platinum Baby Roshan",
+            "title": "Platinum Baby Roshan",
+            "rarity": "immortal",
+            "img": "econ/courier/baby_rosh/babyroshan2",
+            "id": 10374
+          },
+          {
+            "name": "Porcine Princess Penelope",
+            "title": "Porcine Princess Penelope",
+            "rarity": "mythical",
+            "img": "econ/items/courier/gnomepig/gnomepig",
+            "id": 10163
+          },
+          {
+            "name": "Pouches",
+            "title": "Pouches",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hamster_courier/hamster_courier",
+            "id": 19004
+          },
+          {
+            "name": "Pouches Style 1",
+            "title": "Pouches Style 1",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hamster_courier/hamster_courier",
+            "id": 19004
+          },
+          {
+            "name": "Pouches Style 2",
+            "title": "Pouches Style 2",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hamster_courier/hamster_courier",
+            "id": 19004
+          },
+          {
+            "name": "Pouches Style 3",
+            "title": "Pouches Style 3",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hamster_courier/hamster_courier",
+            "id": 19004
+          },
+          {
+            "name": "Pouches Style 4",
+            "title": "Pouches Style 4",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hamster_courier/hamster_courier",
+            "id": 19004
+          },
+          {
+            "name": "Pouches Style 5",
+            "title": "Pouches Style 5",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hamster_courier/hamster_courier",
+            "id": 19004
+          },
+          {
+            "name": "Pouches Style 6",
+            "title": "Pouches Style 6",
+            "rarity": "mythical",
+            "img": "econ/items/courier/hamster_courier/hamster_courier",
+            "id": 19004
+          },
+          {
+            "name": "Prismatic Drake",
+            "title": "Prismatic Drake",
+            "rarity": "mythical",
+            "img": "econ/courier/sillydragon/sillydragon",
+            "id": 10133
+          },
+          {
+            "name": "Promo Bluepaw",
+            "title": "Promo Bluepaw",
+            "rarity": "mythical",
+            "img": "econ/items/courier/snaggletooth_red_panda/snaggletooth_blue_panda",
+            "id": 10989
+          },
+          {
+            "name": "Promo Bluepaw Style 1",
+            "title": "Promo Bluepaw Style 1",
+            "rarity": "mythical",
+            "img": "econ/items/courier/snaggletooth_red_panda/snaggletooth_blue_panda",
+            "id": 10989
+          },
+          {
+            "name": "Promo Redpaw",
+            "title": "Promo Redpaw",
+            "rarity": "mythical",
+            "img": "econ/items/courier/snaggletooth_red_panda/snaggletooth_red_panda",
+            "id": 10664
+          },
+          {
+            "name": "Pudgling",
+            "title": "Pudgling",
+            "rarity": "legendary",
+            "img": "econ/courier/minipudge/minipudge",
+            "id": 10653
+          },
+          {
+            "name": "Pudgling Style 1",
+            "title": "Pudgling Style 1",
+            "rarity": "rare",
+            "img": "econ/courier/minipudge/minipudge",
+            "id": 10653
+          },
+          {
+            "name": "Raiq",
+            "title": "Raiq",
+            "rarity": "rare",
+            "img": "econ/items/courier/raiq/raiq",
+            "id": 10551
+          },
+          {
+            "name": "Ramnaught of Underwool",
+            "title": "Ramnaught of Underwool",
+            "rarity": "mythical",
+            "img": "econ/courier/defense3_sheep/defense3_sheep",
+            "id": 10007
+          },
+          {
+            "name": "Rathalos Palico Courier",
+            "title": "Rathalos Palico Courier",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mh_palico_courier/mh_palico_courier_rathalos",
+            "id": 34975
+          },
+          {
+            "name": "Redhoof",
+            "title": "Redhoof",
+            "rarity": "mythical",
+            "img": "econ/courier/godhorse/godhorse",
+            "id": 10415
+          },
+          {
+            "name": "Redhorn",
+            "title": "Redhorn",
+            "rarity": "mythical",
+            "img": "econ/courier/ram/ram",
+            "id": 11125
+          },
+          {
+            "name": "Redpaw",
+            "title": "Redpaw",
+            "rarity": "mythical",
+            "img": "econ/items/courier/snaggletooth_red_panda/snaggletooth_red_panda",
+            "id": 10724
+          },
+          {
+            "name": "Royal Griffin Cub",
+            "title": "Royal Griffin Cub",
+            "rarity": "mythical",
+            "img": "econ/items/courier/royal_griffin_cub/royal_griffin_cub",
+            "id": 10599
+          },
+          {
+            "name": "Ruddy and Rannoff",
+            "title": "Ruddy and Rannoff",
+            "rarity": "mythical",
+            "img": "econ/courier/sw_donkey_frostivus2024/sw_donkey_frostivus2024",
+            "id": 32648
+          },
+          {
+            "name": "Scatterbrains",
+            "title": "Scatterbrains",
+            "rarity": "rare",
+            "img": "econ/items/courier/calabaxa_courier/calabaxa_courier",
+            "id": 17626
+          },
+          {
+            "name": "Scribbins the Scarab",
+            "title": "Scribbins the Scarab",
+            "rarity": "mythical",
+            "img": "econ/items/courier/scribbinsthescarab/scribbinsthescarab",
+            "id": 10687
+          },
+          {
+            "name": "Scuttling Scotty",
+            "title": "Scuttling Scotty",
+            "rarity": "rare",
+            "img": "econ/items/courier/scuttling_scotty_penguin/scuttling_scotty_penguin",
+            "id": 10350
+          },
+          {
+            "name": "Seekling",
+            "title": "Seekling",
+            "rarity": "mythical",
+            "img": "econ/courier/seekling/seekling",
+            "id": 11735
+          },
+          {
+            "name": "Serac the Seal",
+            "title": "Serac the Seal",
+            "rarity": "mythical",
+            "img": "econ/items/courier/frostivus2018_courier_serac_the_seal/frostivus2018_courier_serac_the_seal",
+            "id": 12866
+          },
+          {
+            "name": "Servant of Scree'Auk Baby Roshan",
+            "title": "Servant of Scree'Auk Baby Roshan",
+            "rarity": "legendary",
+            "img": "econ/courier/baby_rosh/babyroshan_crownfall",
+            "id": 25614
+          },
+          {
+            "name": "Shagbark",
+            "title": "Shagbark",
+            "rarity": "legendary",
+            "img": "econ/items/courier/shagbark/shagbark",
+            "id": 10192
+          },
+          {
+            "name": "Shagbark the Plush",
+            "title": "Shagbark the Plush",
+            "rarity": "legendary",
+            "img": "econ/items/courier/shagbark/shagbark",
+            "id": 10475
+          },
+          {
+            "name": "Shroomy",
+            "title": "Shroomy",
+            "rarity": "rare",
+            "img": "econ/items/courier/shroomy/shroomy",
+            "id": 10433
+          },
+          {
+            "name": "Sir Molestach Irondrill",
+            "title": "Sir Molestach Irondrill",
+            "rarity": "mythical",
+            "img": "econ/items/courier/sir_molestach_irondrill/sir_molestach_irondrill",
+            "id": 27468
+          },
+          {
+            "name": "Skip the Delivery Frog",
+            "title": "Skip the Delivery Frog",
+            "rarity": "legendary",
+            "img": "econ/courier/frog/frog",
+            "id": 10028
+          },
+          {
+            "name": "Slobbering Strong Boxhound",
+            "title": "Slobbering Strong Boxhound",
+            "rarity": "mythical",
+            "img": "econ/items/courier/primal_cheast/primal_cheast_courier",
+            "id": 34478
+          },
+          {
+            "name": "Smeevil",
+            "title": "Smeevil",
+            "rarity": "legendary",
+            "img": "econ/courier/smeevil/smeevil",
+            "id": 10174
+          },
+          {
+            "name": "Smeevil Style 1",
+            "title": "Smeevil Style 1",
+            "rarity": "immortal",
+            "img": "econ/courier/smeevil/smeevil",
+            "id": 10174
+          },
+          {
+            "name": "Smeevil Style 2",
+            "title": "Smeevil Style 2",
+            "rarity": "immortal",
+            "img": "econ/courier/smeevil/smeevil",
+            "id": 10174
+          },
+          {
+            "name": "Smeevil Style 3",
+            "title": "Smeevil Style 3",
+            "rarity": "immortal",
+            "img": "econ/courier/smeevil/smeevil",
+            "id": 10174
+          },
+          {
+            "name": "Smeevil Style 4",
+            "title": "Smeevil Style 4",
+            "rarity": "immortal",
+            "img": "econ/courier/smeevil/smeevil",
+            "id": 10174
+          },
+          {
+            "name": "Smeevil Style 5",
+            "title": "Smeevil Style 5",
+            "rarity": "immortal",
+            "img": "econ/courier/smeevil/smeevil",
+            "id": 10174
+          },
+          {
+            "name": "Smeevil Style 6",
+            "title": "Smeevil Style 6",
+            "rarity": "immortal",
+            "img": "econ/courier/smeevil/smeevil",
+            "id": 10174
+          },
+          {
+            "name": "Smeevil Style 7",
+            "title": "Smeevil Style 7",
+            "rarity": "immortal",
+            "img": "econ/courier/smeevil/smeevil",
+            "id": 10174
+          },
+          {
+            "name": "Snaggletooth Jerry",
+            "title": "Snaggletooth Jerry",
+            "rarity": "mythical",
+            "img": "econ/items/courier/bucktooth_jerry/bucktooth_jerry",
+            "id": 10382
+          },
+          {
+            "name": "Snapjaw",
+            "title": "Snapjaw",
+            "rarity": "mythical",
+            "img": "econ/items/courier/snapjaw/snapjaw",
+            "id": 10690
+          },
+          {
+            "name": "Snelfret the Snail",
+            "title": "Snelfret the Snail",
+            "rarity": "mythical",
+            "img": "econ/items/courier/snail/courier_snail",
+            "id": 10169
+          },
+          {
+            "name": "Snowl",
+            "title": "Snowl",
+            "rarity": "mythical",
+            "img": "econ/items/courier/snowl/snowl",
+            "id": 10164
+          },
+          {
+            "name": "Speed Demon",
+            "title": "Speed Demon",
+            "rarity": "legendary",
+            "img": "econ/courier/imp/imp",
+            "id": 10027
+          },
+          {
+            "name": "Spooly",
+            "title": "Spooly",
+            "rarity": "mythical",
+            "img": "econ/items/courier/courier_fall20/courier_fall20",
+            "id": 17664
+          },
+          {
+            "name": "Staglift",
+            "title": "Staglift",
+            "rarity": "mythical",
+            "img": "econ/courier/mech_donkey/mech_donkey",
+            "id": 11400
+          },
+          {
+            "name": "Star Ladder Grillhound",
+            "title": "Star Ladder Grillhound",
+            "rarity": "mythical",
+            "img": "econ/items/courier/starladder_grillhound/starladder_grillhound",
+            "id": 10159
+          },
+          {
+            "name": "Strongback the Swift",
+            "title": "Strongback the Swift",
+            "rarity": "mythical",
+            "img": "econ/courier/donkey_ti7/donkey_ti7",
+            "id": 12147
+          },
+          {
+            "name": "Stumpy - Nature's Attendant",
+            "title": "Stumpy - Nature's Attendant",
+            "rarity": "immortal",
+            "img": "econ/courier/stump/stump",
+            "id": 10017
+          },
+          {
+            "name": "Taffied Transport",
+            "title": "Taffied Transport",
+            "rarity": "legendary",
+            "img": "econ/courier/winter2022/taffy_donkey_courier",
+            "id": 24900
+          },
+          {
+            "name": "Teron",
+            "title": "Teron",
+            "rarity": "rare",
+            "img": "econ/items/courier/teron/teron",
+            "id": 10600
+          },
+          {
+            "name": "The Gama Brothers",
+            "title": "The Gama Brothers",
+            "rarity": "mythical",
+            "img": "econ/items/courier/gama_brothers/gama_brothers",
+            "id": 10389
+          },
+          {
+            "name": "The Llama Llama",
+            "title": "The Llama Llama",
+            "rarity": "mythical",
+            "img": "econ/items/courier/livery_llama_courier/livery_llama_courier",
+            "id": 10171
+          },
+          {
+            "name": "The Wonderously Encumbered Travelling Automaton",
+            "title": "The Wonderously Encumbered Travelling Automaton",
+            "rarity": "mythical",
+            "img": "econ/items/courier/weta_automaton/weta_automaton",
+            "id": 11438
+          },
+          {
+            "name": "Throe",
+            "title": "Throe",
+            "rarity": "mythical",
+            "img": "econ/items/courier/throe/throe",
+            "id": 10345
+          },
+          {
+            "name": "Tickled Tegu",
+            "title": "Tickled Tegu",
+            "rarity": "mythical",
+            "img": "econ/courier/tegu/tegu",
+            "id": 10024
+          },
+          {
+            "name": "Tinkbot",
+            "title": "Tinkbot",
+            "rarity": "mythical",
+            "img": "econ/items/courier/tinkbot/tinkbot",
+            "id": 10295
+          },
+          {
+            "name": "Tory the Sky Guardian",
+            "title": "Tory the Sky Guardian",
+            "rarity": "mythical",
+            "img": "econ/items/courier/tory_the_sky_guardian/tory_the_sky_guardian",
+            "id": 10376
+          },
+          {
+            "name": "Trapjaw the Boxhound",
+            "title": "Trapjaw the Boxhound",
+            "rarity": "immortal",
+            "img": "econ/courier/trapjaw/trapjaw",
+            "id": 10294
+          },
+          {
+            "name": "Trusty Mountain Yak",
+            "title": "Trusty Mountain Yak",
+            "rarity": "immortal",
+            "img": "econ/courier/yak/yak",
+            "id": 10011
+          },
+          {
+            "name": "Vaal the Animated Construct",
+            "title": "Vaal the Animated Construct",
+            "rarity": "rare",
+            "img": "econ/items/courier/vaal_the_animated_constructradiant/vaal_the_animated_constructradiant",
+            "id": 10395
+          },
+          {
+            "name": "Venoling",
+            "title": "Venoling",
+            "rarity": "immortal",
+            "img": "econ/courier/venoling/venoling2",
+            "id": 11091
+          },
+          {
+            "name": "Vigilante Fox",
+            "title": "Vigilante Fox",
+            "rarity": "mythical",
+            "img": "econ/items/courier/vigilante_fox/vigilante_fox",
+            "id": 10725
+          },
+          {
+            "name": "Virtus Werebear",
+            "title": "Virtus Werebear",
+            "rarity": "mythical",
+            "img": "econ/items/courier/virtus_werebear_t1/virtus_werebear_t1",
+            "id": 10737
+          },
+          {
+            "name": "Virtus Werebear Style 1",
+            "title": "Virtus Werebear Style 1",
+            "rarity": "common",
+            "img": "econ/items/courier/virtus_werebear_t1/virtus_werebear_t1",
+            "id": 10737
+          },
+          {
+            "name": "Virtus Werebear Style 2",
+            "title": "Virtus Werebear Style 2",
+            "rarity": "common",
+            "img": "econ/items/courier/virtus_werebear_t1/virtus_werebear_t1",
+            "id": 10737
+          },
+          {
+            "name": "Waldi the Faithful",
+            "title": "Waldi the Faithful",
+            "rarity": "legendary",
+            "img": "econ/items/courier/waldi_the_faithful/waldi_the_faithful",
+            "id": 10298
+          },
+          {
+            "name": "Warbler and Snikt",
+            "title": "Warbler and Snikt",
+            "rarity": "mythical",
+            "img": "econ/items/courier/serpent_warbler/serpent_warbler",
+            "id": 11382
+          },
+          {
+            "name": "White the Blueheart",
+            "title": "White the Blueheart",
+            "rarity": "rare",
+            "img": "econ/items/courier/white_the_crystal_courier/white_the_crystal_courier",
+            "id": 11278
+          },
+          {
+            "name": "Wibbley",
+            "title": "Wibbley",
+            "rarity": "rare",
+            "img": "econ/items/courier/wabbit/wabbit",
+            "id": 11899
+          },
+          {
+            "name": "Wibbley Style 1",
+            "title": "Wibbley Style 1",
+            "rarity": "rare",
+            "img": "econ/items/courier/wabbit/wabbit",
+            "id": 11899
+          },
+          {
+            "name": "Wibbley Style 2",
+            "title": "Wibbley Style 2",
+            "rarity": "rare",
+            "img": "econ/items/courier/wabbit/wabbit",
+            "id": 11899
+          },
+          {
+            "name": "Wibbley Style 3",
+            "title": "Wibbley Style 3",
+            "rarity": "rare",
+            "img": "econ/items/courier/wabbit/wabbit",
+            "id": 11899
+          },
+          {
+            "name": "Woodchopper",
+            "title": "Woodchopper",
+            "rarity": "mythical",
+            "img": "econ/items/courier/weplay_beaver/weplay_beaver",
+            "id": 10323
+          },
+          {
+            "name": "Wynchell the Wyrmeleon",
+            "title": "Wynchell the Wyrmeleon",
+            "rarity": "mythical",
+            "img": "econ/items/courier/premier_league_wyrmeleon/premier_league_wyrmeleon",
+            "id": 10158
+          },
+          {
+            "name": "Wyvern Hatchling",
+            "title": "Wyvern Hatchling",
+            "rarity": "legendary",
+            "img": "econ/courier/baby_winter_wyvern/baby_winter_wyvern",
+            "id": 11321
+          },
+          {
+            "name": "Wyvern Hatchling Style 1",
+            "title": "Wyvern Hatchling Style 1",
+            "rarity": "rare",
+            "img": "econ/courier/baby_winter_wyvern/baby_winter_wyvern",
+            "id": 11321
+          },
+          {
+            "name": "Wyvern Hatchling Style 2",
+            "title": "Wyvern Hatchling Style 2",
+            "rarity": "rare",
+            "img": "econ/courier/baby_winter_wyvern/baby_winter_wyvern",
+            "id": 11321
+          },
+          {
+            "name": "Yonex's Rage",
+            "title": "Yonex's Rage",
+            "rarity": "legendary",
+            "img": "econ/items/courier/ig_dragon/ig_dragon",
+            "id": 10193
+          },
+          {
+            "name": "Zinogre Palico Courier",
+            "title": "Zinogre Palico Courier",
+            "rarity": "mythical",
+            "img": "econ/items/courier/mh_palico_courier/mh_palico_courier_zinogre",
+            "id": 35885
+          },
+          {
+            "name": "Zombie Hopper",
+            "title": "Zombie Hopper",
+            "rarity": "mythical",
+            "img": "econ/items/courier/pw_zombie/pw_zombie",
+            "id": 10456
+          }
+        ]
+      }
+    ]
+  },
+  "wards": {
+    "tag": "wards",
+    "slots": [
+      {
+        "slot": "ward",
+        "title": "Ward",
+        "mods": [
+          {
+            "name": "2012 Polycount Ward",
+            "title": "2012 Polycount Ward",
+            "rarity": "legendary",
+            "img": "econ/items/wards/polycount_ward/polycount_ward_npc_dota_observer_wards",
+            "id": 10142
+          },
+          {
+            "name": "A Dire Gaze",
+            "title": "A Dire Gaze",
+            "rarity": "rare",
+            "img": "econ/items/wards/dire_ward_eye/dire_ward_eye_npc_dota_observer_wards",
+            "id": 10184
+          },
+          {
+            "name": "All-Seeing Eye Dogs",
+            "title": "All-Seeing Eye Dogs",
+            "rarity": "mythical",
+            "img": "econ/items/wards/rod_ward_2021/rod_ward_2021_npc_dota_observer_wards",
+            "id": 18684
+          },
+          {
+            "name": "Aperture Science Wardcore",
+            "title": "Aperture Science Wardcore",
+            "rarity": "mythical",
+            "img": "econ/items/wards/portal_ward/portal_ward_npc_dota_observer_wards",
+            "id": 10310
+          },
+          {
+            "name": "Arctic Watchtower",
+            "title": "Arctic Watchtower",
+            "rarity": "rare",
+            "img": "econ/items/wards/arcticwatchtower/arcticwatchtower_npc_dota_observer_wards",
+            "id": 10878
+          },
+          {
+            "name": "Augury's Guardian",
+            "title": "Augury's Guardian",
+            "rarity": "mythical",
+            "img": "econ/items/wards/augurys_guardian/augurys_guardian_npc_dota_observer_wards",
+            "id": 10134
+          },
+          {
+            "name": "Beaks n' Bubbles",
+            "title": "Beaks n' Bubbles",
+            "rarity": "mythical",
+            "img": "econ/items/wards/fall20_cauldron_ward/fall20_cauldron_ward_npc_dota_observer_wards",
+            "id": 17661
+          },
+          {
+            "name": "Black Pool Watcher",
+            "title": "Black Pool Watcher",
+            "rarity": "rare",
+            "img": "econ/items/wards/lich_black_pool_watcher/lich_black_pool_watcher_npc_dota_observer_wards",
+            "id": 10146
+          },
+          {
+            "name": "Blueheart Spotter",
+            "title": "Blueheart Spotter",
+            "rarity": "common",
+            "img": "econ/items/wards/crystal_maiden_ward/crystal_maiden_ward_npc_dota_observer_wards",
+            "id": 10098
+          },
+          {
+            "name": "Bottom Watcher",
+            "title": "Bottom Watcher",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/tide_bottom_watcher/tide_bottom_watcher_npc_dota_observer_wards",
+            "id": 10156
+          },
+          {
+            "name": "Bramble Watch",
+            "title": "Bramble Watch",
+            "rarity": "rare",
+            "img": "econ/items/wards/ward_bramble_snatch/ward_bramble_snatch_npc_dota_observer_wards",
+            "id": 10427
+          },
+          {
+            "name": "Celestial Observatory",
+            "title": "Celestial Observatory",
+            "rarity": "rare",
+            "img": "econ/items/wards/celestial_observatory/celestial_observatory_npc_dota_observer_wards",
+            "id": 10349
+          },
+          {
+            "name": "Class Zero Moogle",
+            "title": "Class Zero Moogle",
+            "rarity": "mythical",
+            "img": "econ/items/wards/moogle_ward/moogle_ward_npc_dota_observer_wards",
+            "id": 11085
+          },
+          {
+            "name": "Clockwerk Watcher",
+            "title": "Clockwerk Watcher",
+            "rarity": "rare",
+            "img": "econ/items/wards/ward_clockwerk_watcher/ward_clockwerk_watcher_npc_dota_observer_wards",
+            "id": 10449
+          },
+          {
+            "name": "Curious Snaptrap",
+            "title": "Curious Snaptrap",
+            "rarity": "immortal",
+            "img": "econ/items/wards/sylph_ward/sylph_ward_npc_dota_observer_wards",
+            "id": 12162
+          },
+          {
+            "name": "Dead Watch",
+            "title": "Dead Watch",
+            "rarity": "rare",
+            "img": "econ/items/wards/deadwatch_ward/deadwatch_ward_npc_dota_observer_wards",
+            "id": 10474
+          },
+          {
+            "name": "Deep Observer",
+            "title": "Deep Observer",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/deep_observer/deep_observer_npc_dota_observer_wards",
+            "id": 10482
+          },
+          {
+            "name": "Double Vision",
+            "title": "Double Vision",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/jakiro_pyrexae_ward/jakiro_pyrexae_ward_npc_dota_observer_wards",
+            "id": 10157
+          },
+          {
+            "name": "Dragon Ward",
+            "title": "Dragon Ward",
+            "rarity": "rare",
+            "img": "econ/items/wards/dragon_ward/dragon_ward_npc_dota_observer_wards",
+            "id": 10572
+          },
+          {
+            "name": "ESL One Jagged Vision Ward",
+            "title": "ESL One Jagged Vision Ward",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/esl_one_jagged_vision/esl_one_jagged_vision_npc_dota_observer_wards",
+            "id": 10546
+          },
+          {
+            "name": "Echo the Locator",
+            "title": "Echo the Locator",
+            "rarity": "mythical",
+            "img": "econ/items/wards/echo_bat_ward/echo_bat_ward_npc_dota_observer_wards",
+            "id": 10898
+          },
+          {
+            "name": "Enchanted Vision",
+            "title": "Enchanted Vision",
+            "rarity": "rare",
+            "img": "econ/items/wards/enchantedvision_ward/enchantedvision_ward_npc_dota_observer_wards",
+            "id": 10698
+          },
+          {
+            "name": "Eye of Avernus",
+            "title": "Eye of Avernus",
+            "rarity": "mythical",
+            "img": "econ/items/wards/eye_of_avernus_ward/eye_of_avernus_ward_npc_dota_observer_wards",
+            "id": 10383
+          },
+          {
+            "name": "Eye of Foresight",
+            "title": "Eye of Foresight",
+            "rarity": "rare",
+            "img": "econ/items/wards/eyeofforesight/eyeofforesight_npc_dota_observer_wards",
+            "id": 10757
+          },
+          {
+            "name": "Eye of Lyralei",
+            "title": "Eye of Lyralei",
+            "rarity": "rare",
+            "img": "econ/items/wards/eye_of_lyralei/eye_of_lyralei_npc_dota_observer_wards",
+            "id": 10400
+          },
+          {
+            "name": "Eye of Thunderkeg",
+            "title": "Eye of Thunderkeg",
+            "rarity": "rare",
+            "img": "econ/items/wards/esp_eye_of_thunderkeg/esp_eye_of_thunderkeg_npc_dota_observer_wards",
+            "id": 10402
+          },
+          {
+            "name": "Eye of the Ozkavosh",
+            "title": "Eye of the Ozkavosh",
+            "rarity": "common",
+            "img": "econ/items/wards/shadow_demon_ward/shadowdemon_ward_npc_dota_observer_wards",
+            "id": 10097
+          },
+          {
+            "name": "Eyeball Fetish",
+            "title": "Eyeball Fetish",
+            "rarity": "common",
+            "img": "econ/items/wards/witchdoctor_ward/witchdoctor_ward_npc_dota_observer_wards",
+            "id": 10067
+          },
+          {
+            "name": "Eyes of the Watchroot",
+            "title": "Eyes of the Watchroot",
+            "rarity": "rare",
+            "img": "econ/items/wards/weta_eyes_of_the_watchroot/weta_eyes_of_the_watchroot_npc_dota_observer_wards",
+            "id": 11426
+          },
+          {
+            "name": "Faithful Followers",
+            "title": "Faithful Followers",
+            "rarity": "immortal",
+            "img": "econ/items/wards/ti10_ward/ti10_ward_npc_dota_observer_wards",
+            "id": 13772
+          },
+          {
+            "name": "Fallen Sight",
+            "title": "Fallen Sight",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/esl_wardchest_living_overgrowth/esl_wardchest_living_overgrowth_npc_dota_observer_wards",
+            "id": 11338
+          },
+          {
+            "name": "Feather Sentinel",
+            "title": "Feather Sentinel",
+            "rarity": "rare",
+            "img": "econ/items/wards/jimoward_omij/jimoward_omij_npc_dota_observer_wards",
+            "id": 11421
+          },
+          {
+            "name": "Featherhutch",
+            "title": "Featherhutch",
+            "rarity": "mythical",
+            "img": "econ/items/wards/chicken_hut_ward/chicken_hut_ward_npc_dota_observer_wards",
+            "id": 10935
+          },
+          {
+            "name": "Floes Tower Ward",
+            "title": "Floes Tower Ward",
+            "rarity": "common",
+            "img": "econ/items/wards/frostivus2018_ward_floes_tower_ward/frostivus2018_ward_floes_tower_ward_npc_dota_observer_wards",
+            "id": 12900
+          },
+          {
+            "name": "Franglerfish Watcher",
+            "title": "Franglerfish Watcher",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/esl_wardchest_franglerfish_ward/esl_wardchest_franglerfish_ward_npc_dota_observer_wards",
+            "id": 11347
+          },
+          {
+            "name": "Frozen Formation",
+            "title": "Frozen Formation",
+            "rarity": "mythical",
+            "img": "econ/items/wards/frozen_formation/frozen_formation_npc_dota_observer_wards",
+            "id": 10381
+          },
+          {
+            "name": "Gazing Idol",
+            "title": "Gazing Idol",
+            "rarity": "mythical",
+            "img": "econ/items/wards/gazing_idol_ward/gazing_idol_ward_npc_dota_observer_wards",
+            "id": 11183
+          },
+          {
+            "name": "Glaring Greevils",
+            "title": "Glaring Greevils",
+            "rarity": "legendary",
+            "img": "econ/items/wards/greevil_ward/greevil_ward_npc_dota_observer_wards",
+            "id": 24675
+          },
+          {
+            "name": "Hellgazer",
+            "title": "Hellgazer",
+            "rarity": "rare",
+            "img": "econ/items/wards/warlock_hells_sight/warlock_hells_sight_npc_dota_observer_wards",
+            "id": 10148
+          },
+          {
+            "name": "Jungleworm Sentinel",
+            "title": "Jungleworm Sentinel",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/esl_wardchest_jungleworm/esl_wardchest_jungleworm_npc_dota_observer_wards",
+            "id": 11340
+          },
+          {
+            "name": "Jungleworm Sentinel Ward",
+            "title": "Jungleworm Sentinel Ward",
+            "rarity": "common",
+            "img": "econ/items/wards/esl_wardchest_jungleworm/esl_wardchest_jungleworm_npc_dota_observer_wards",
+            "id": 11340
+          },
+          {
+            "name": "Knight Statue",
+            "title": "Knight Statue",
+            "rarity": "common",
+            "img": "econ/items/wards/knightstatue_ward/knightstatue_ward_npc_dota_observer_wards",
+            "id": 10521
+          },
+          {
+            "name": "Loft Watcher",
+            "title": "Loft Watcher",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/winged_watcher/winged_watcher_npc_dota_observer_wards",
+            "id": 11084
+          },
+          {
+            "name": "MLG Tethered Sentinel",
+            "title": "MLG Tethered Sentinel",
+            "rarity": "rare",
+            "img": "econ/items/wards/mlgward_yeah5/mlgward_yeah5_npc_dota_observer_wards",
+            "id": 10370
+          },
+          {
+            "name": "Mega Greevil Ward",
+            "title": "Mega Greevil Ward",
+            "rarity": "mythical",
+            "img": "econ/items/wards/megagreevil_ward/megagreevil_ward_npc_dota_observer_wards",
+            "id": 11142
+          },
+          {
+            "name": "Monty Ward",
+            "title": "Monty Ward",
+            "rarity": "common",
+            "img": "econ/items/wards/monty_ward/monty_ward_npc_dota_observer_wards",
+            "id": 10570
+          },
+          {
+            "name": "Neokin Faierie Ward",
+            "title": "Neokin Faierie Ward",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/fairy_dragon/fairy_dragon_npc_dota_observer_wards",
+            "id": 10899
+          },
+          {
+            "name": "Nightmare Beacon",
+            "title": "Nightmare Beacon",
+            "rarity": "common",
+            "img": "econ/items/wards/bane_ward/bane_ward_npc_dota_observer_wards",
+            "id": 10010
+          },
+          {
+            "name": "Obelisk of Foresight",
+            "title": "Obelisk of Foresight",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/esl_wardchest_ward_of_foresight/esl_wardchest_ward_of_foresight_npc_dota_observer_wards",
+            "id": 11346
+          },
+          {
+            "name": "Ocula the Observer",
+            "title": "Ocula the Observer",
+            "rarity": "rare",
+            "img": "econ/items/wards/ocula/ocula_npc_dota_observer_wards",
+            "id": 10304
+          },
+          {
+            "name": "Overseer's Burden",
+            "title": "Overseer's Burden",
+            "rarity": "rare",
+            "img": "econ/items/wards/atlas_burden_ward/atlas_burden_ward_npc_dota_observer_wards",
+            "id": 11367
+          },
+          {
+            "name": "Rockshell Scout",
+            "title": "Rockshell Scout",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/esl_wardchest_rockshell_terrapin/esl_wardchest_rockshell_terrapin_npc_dota_observer_wards",
+            "id": 11341
+          },
+          {
+            "name": "Rotzo's Peepers",
+            "title": "Rotzo's Peepers",
+            "rarity": "mythical",
+            "img": "econ/items/wards/pudge_hungry_clown_ward/pudge_hungry_clown_ward_npc_dota_observer_wards",
+            "id": 33524
+          },
+          {
+            "name": "Savvy Tarsus",
+            "title": "Savvy Tarsus",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/mothers_eye/mothers_eye_npc_dota_observer_wards",
+            "id": 10905
+          },
+          {
+            "name": "Schnapp and Spyfly",
+            "title": "Schnapp and Spyfly",
+            "rarity": "common",
+            "img": "econ/items/wards/esl_wardchest_schnapp_the_flytrap/esl_wardchest_schnapp_the_flytrap_npc_dota_observer_wards",
+            "id": 11345
+          },
+          {
+            "name": "Scientific Curiousity",
+            "title": "Scientific Curiousity",
+            "rarity": "mythical",
+            "img": "econ/items/wards/tink/tink_npc_dota_observer_wards",
+            "id": 10688
+          },
+          {
+            "name": "Sentinels of Ruin",
+            "title": "Sentinels of Ruin",
+            "rarity": "immortal",
+            "img": "econ/items/wards/ti9_totem_ward/ti9_totem_ward_npc_dota_observer_wards",
+            "id": 12947
+          },
+          {
+            "name": "Shifty Minnow",
+            "title": "Shifty Minnow",
+            "rarity": "mythical",
+            "img": "econ/items/wards/ti7_lure_ward/ti7_lure_ward_npc_dota_observer_wards",
+            "id": 11998
+          },
+          {
+            "name": "Shifty Minnow Style 1",
+            "title": "Shifty Minnow Style 1",
+            "rarity": "common",
+            "img": "econ/items/wards/ti7_lure_ward/ti7_lure_ward_npc_dota_observer_wards",
+            "id": 11998
+          },
+          {
+            "name": "Shifty Minnow Style 2",
+            "title": "Shifty Minnow Style 2",
+            "rarity": "common",
+            "img": "econ/items/wards/ti7_lure_ward/ti7_lure_ward_npc_dota_observer_wards",
+            "id": 11998
+          },
+          {
+            "name": "Shifty Minnow Style 3",
+            "title": "Shifty Minnow Style 3",
+            "rarity": "common",
+            "img": "econ/items/wards/ti7_lure_ward/ti7_lure_ward_npc_dota_observer_wards",
+            "id": 11998
+          },
+          {
+            "name": "Shifty Minnow Style 4",
+            "title": "Shifty Minnow Style 4",
+            "rarity": "common",
+            "img": "econ/items/wards/ti7_lure_ward/ti7_lure_ward_npc_dota_observer_wards",
+            "id": 11998
+          },
+          {
+            "name": "Silkwing Spotters",
+            "title": "Silkwing Spotters",
+            "rarity": "mythical",
+            "img": "econ/items/wards/chrysalis_ward/chrysalis_ward_npc_dota_observer_wards",
+            "id": 19266
+          },
+          {
+            "name": "Skywrath Sentinel",
+            "title": "Skywrath Sentinel",
+            "rarity": "rare",
+            "img": "econ/items/wards/skywrath_sentinel/skywrath_sentinel_npc_dota_observer_wards",
+            "id": 10069
+          },
+          {
+            "name": "Slayer's Glare",
+            "title": "Slayer's Glare",
+            "rarity": "common",
+            "img": "econ/items/wards/lina_ward/lina_ward_npc_dota_observer_wards",
+            "id": 10006
+          },
+          {
+            "name": "Slobbering Strongbox - Gold Hoard Ward",
+            "title": "Slobbering Strongbox - Gold Hoard Ward",
+            "rarity": "mythical",
+            "img": "econ/items/wards/primal_cheast/primal_cheast_ward_npc_dota_observer_wards",
+            "id": 34481
+          },
+          {
+            "name": "Smeevil's Penance",
+            "title": "Smeevil's Penance",
+            "rarity": "immortal",
+            "img": "econ/items/wards/smeevil_ward/smeevil_ward_npc_dota_observer_wards",
+            "id": 11384
+          },
+          {
+            "name": "Smeevil's Penance Style 1",
+            "title": "Smeevil's Penance Style 1",
+            "rarity": "immortal",
+            "img": "econ/items/wards/smeevil_ward/smeevil_ward_npc_dota_observer_wards",
+            "id": 11384
+          },
+          {
+            "name": "Smeevil's Penance Style 2",
+            "title": "Smeevil's Penance Style 2",
+            "rarity": "immortal",
+            "img": "econ/items/wards/smeevil_ward/smeevil_ward_npc_dota_observer_wards",
+            "id": 11384
+          },
+          {
+            "name": "Smeevil's Penance Style 3",
+            "title": "Smeevil's Penance Style 3",
+            "rarity": "immortal",
+            "img": "econ/items/wards/smeevil_ward/smeevil_ward_npc_dota_observer_wards",
+            "id": 11384
+          },
+          {
+            "name": "Smeevil's Penance Style 4",
+            "title": "Smeevil's Penance Style 4",
+            "rarity": "immortal",
+            "img": "econ/items/wards/smeevil_ward/smeevil_ward_npc_dota_observer_wards",
+            "id": 11384
+          },
+          {
+            "name": "Spell Surveyor",
+            "title": "Spell Surveyor",
+            "rarity": "rare",
+            "img": "econ/items/wards/spell_surveyor/spell_surveyor_npc_dota_observer_wards",
+            "id": 10296
+          },
+          {
+            "name": "Spring Ward",
+            "title": "Spring Ward",
+            "rarity": "rare",
+            "img": "econ/items/wards/chinese_ward/chinese_ward_npc_dota_observer_wards",
+            "id": 10406
+          },
+          {
+            "name": "Spying Toadstool",
+            "title": "Spying Toadstool",
+            "rarity": "rare",
+            "img": "econ/items/wards/esl_wardchest_toadstool/esl_wardchest_toadstool_npc_dota_observer_wards",
+            "id": 11336
+          },
+          {
+            "name": "Staff of Faith",
+            "title": "Staff of Faith",
+            "rarity": "common",
+            "img": "econ/items/wards/chen_ward/chen_ward_npc_dota_observer_wards",
+            "id": 10068
+          },
+          {
+            "name": "Starecrow",
+            "title": "Starecrow",
+            "rarity": "rare",
+            "img": "econ/items/wards/relentless_warden_ward/relentless_warden_ward_npc_dota_observer_wards",
+            "id": 11903
+          },
+          {
+            "name": "Stone Bound Watcher",
+            "title": "Stone Bound Watcher",
+            "rarity": "rare",
+            "img": "econ/items/wards/stonebound_ward/stonebound_ward_npc_dota_observer_wards",
+            "id": 10699
+          },
+          {
+            "name": "Stone Seer",
+            "title": "Stone Seer",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/esl_wardchest_radling_ward/esl_wardchest_radling_ward_npc_dota_observer_wards",
+            "id": 11344
+          },
+          {
+            "name": "The Eye Fountain",
+            "title": "The Eye Fountain",
+            "rarity": "rare",
+            "img": "econ/items/wards/d2lp_4_ward/d2lp_4_ward_npc_dota_observer_wards",
+            "id": 11154
+          },
+          {
+            "name": "The Eyes of the King",
+            "title": "The Eyes of the King",
+            "rarity": "rare",
+            "img": "econ/items/wards/the_monkey_sentinel/the_monkey_sentinel_npc_dota_observer_wards",
+            "id": 11993
+          },
+          {
+            "name": "The Reading Palms",
+            "title": "The Reading Palms",
+            "rarity": "mythical",
+            "img": "econ/items/wards/hand_2021_ward/hand_2021_ward_npc_dota_observer_wards",
+            "id": 12465
+          },
+          {
+            "name": "Toxic Gaze",
+            "title": "Toxic Gaze",
+            "rarity": "common",
+            "img": "econ/items/wards/venomancer_ward/venomancer_ward_npc_dota_observer_wards",
+            "id": 10002
+          },
+          {
+            "name": "Trailgazer",
+            "title": "Trailgazer",
+            "rarity": "immortal",
+            "img": "econ/items/wards/ti8_snail_ward/ti8_snail_ward_npc_dota_observer_wards",
+            "id": 12190
+          },
+          {
+            "name": "Ward of the Eternal Alliance",
+            "title": "Ward of the Eternal Alliance",
+            "rarity": "rare",
+            "img": "econ/items/wards/alliance_ward/alliance_ward_npc_dota_observer_wards",
+            "id": 10729
+          },
+          {
+            "name": "Ward of the Phoenix",
+            "title": "Ward of the Phoenix",
+            "rarity": "mythical",
+            "img": "econ/items/wards/phoenix_ward/phoenix_ward_npc_dota_observer_wards",
+            "id": 11771
+          },
+          {
+            "name": "Wardfish",
+            "title": "Wardfish",
+            "rarity": "uncommon",
+            "img": "econ/items/wards/jinnie_v2/jinnie_v2_npc_dota_observer_wards",
+            "id": 10417
+          },
+          {
+            "name": "Warding Guise",
+            "title": "Warding Guise",
+            "rarity": "rare",
+            "img": "econ/items/wards/warding_guise/warding_guise_npc_dota_observer_wards",
+            "id": 10330
+          },
+          {
+            "name": "Wards of Dolfrat",
+            "title": "Wards of Dolfrat",
+            "rarity": "mythical",
+            "img": "econ/items/wards/sw_ward/sw_ward_npc_dota_observer_wards",
+            "id": 13123
+          },
+          {
+            "name": "Watcher Below",
+            "title": "Watcher Below",
+            "rarity": "common",
+            "img": "econ/items/wards/watcher_below_ward/watcher_below_ward_npc_dota_observer_wards",
+            "id": 11266
+          },
+          {
+            "name": "Watchful Sotdae",
+            "title": "Watchful Sotdae",
+            "rarity": "rare",
+            "img": "econ/items/wards/nexon_sotdaeward/nexon_sotdaeward_npc_dota_observer_wards",
+            "id": 10368
+          },
+          {
+            "name": "Watchful Wyrm",
+            "title": "Watchful Wyrm",
+            "rarity": "rare",
+            "img": "econ/items/wards/dragon_watcher/dragon_watcher_npc_dota_observer_wards",
+            "id": 11968
+          },
+          {
+            "name": "Wide Angle",
+            "title": "Wide Angle",
+            "rarity": "mythical",
+            "img": "econ/items/wards/f2p_ward/f2p_ward_npc_dota_observer_wards",
+            "id": 10423
+          }
+        ]
+      }
+    ]
+  },
+  "terrain": {
+    "tag": "terrain",
+    "slots": [
+      {
+        "slot": "map",
+        "title": "Terrain",
+        "mods": [
+          {
+            "name": "Terrain - Autumn",
+            "title": "Terrain - Autumn",
+            "rarity": "common",
+            "img": "econ/terrain/autumn_terrain",
+            "id": 11904
+          },
+          {
+            "name": "Terrain - Desert",
+            "title": "Terrain - Desert",
+            "rarity": "mythical",
+            "img": "econ/terrain/desert_terrain",
+            "id": 11339
+          },
+          {
+            "name": "Terrain - Immortal Gardens",
+            "title": "Terrain - Immortal Gardens",
+            "rarity": "immortal",
+            "img": "econ/terrain/colosseum_terrain",
+            "id": 11316
+          },
+          {
+            "name": "Terrain - Overgrown Empire",
+            "title": "Terrain - Overgrown Empire",
+            "rarity": "immortal",
+            "img": "econ/terrain/ti9_terrain",
+            "id": 12921
+          },
+          {
+            "name": "Terrain - Reefs Edge",
+            "title": "Terrain - Reefs Edge",
+            "rarity": "immortal",
+            "img": "econ/terrain/reef_terrain",
+            "id": 11946
+          },
+          {
+            "name": "Terrain - Sanctums of the Divine",
+            "title": "Terrain - Sanctums of the Divine",
+            "rarity": "immortal",
+            "img": "econ/terrain/ti10_terrain",
+            "id": 21441
+          },
+          {
+            "name": "Terrain - Spring",
+            "title": "Terrain - Spring",
+            "rarity": "common",
+            "img": "econ/terrain/spring_terrain",
+            "id": 11171
+          },
+          {
+            "name": "Terrain - Summer",
+            "title": "Terrain - Summer",
+            "rarity": "common",
+            "img": "econ/terrain/summer_terrain",
+            "id": 12289
+          },
+          {
+            "name": "Terrain - The Emerald Abyss",
+            "title": "Terrain - The Emerald Abyss",
+            "rarity": "immortal",
+            "img": "econ/terrain/cavern_terrain",
+            "id": 12022
+          },
+          {
+            "name": "Terrain - The Kings New Journey",
+            "title": "Terrain - The Kings New Journey",
+            "rarity": "mythical",
+            "img": "econ/terrain/journey_terrain",
+            "id": 11476
+          },
+          {
+            "name": "Terrain - Winter",
+            "title": "Terrain - Winter",
+            "rarity": "common",
+            "img": "econ/terrain/winter_terrain",
+            "id": 11444
+          }
+        ]
+      }
+    ]
+  },
+  "creeps": {
+    "tag": "creeps",
+    "slots": [
+      {
+        "slot": "dire",
+        "title": "Dire Creeps",
+        "mods": [
+          {
+            "name": "Cavernite Dire Creeps",
+            "title": "Cavernite Dire Creeps",
+            "rarity": "legendary",
+            "img": "econ/tools/ti8_dire_creeps",
+            "id": 12187
+          },
+          {
+            "name": "Crownfall - Dire Creeps",
+            "title": "Crownfall - Dire Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_2024_crownfall_dire/dire_2024_crownfall_dire_creeps",
+            "id": 27124
+          },
+          {
+            "name": "Dark Carnival Dire Creeps",
+            "title": "Dark Carnival Dire Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_dc_dire/creep_dc_dire",
+            "id": 34429
+          },
+          {
+            "name": "Dire Nemestice Creeps",
+            "title": "Dire Nemestice Creeps",
+            "rarity": "legendary",
+            "img": "econ/tools/nemestice_dire_creeps",
+            "id": 19014
+          },
+          {
+            "name": "Reptilian Refuge Dire Creeps",
+            "title": "Reptilian Refuge Dire Creeps",
+            "rarity": "legendary",
+            "img": "econ/tools/reptilian_refuge_dire_creeps",
+            "id": 12979
+          },
+          {
+            "name": "Woodland Warbands - Dire Creeps",
+            "title": "Woodland Warbands - Dire Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_2021_dire/dire_2021_radiant_creeps",
+            "id": 18839
+          }
+        ]
+      },
+      {
+        "slot": "radiant",
+        "title": "Radiant Creeps",
+        "mods": [
+          {
+            "name": "Cavernite Radiant Creeps",
+            "title": "Cavernite Radiant Creeps",
+            "rarity": "legendary",
+            "img": "econ/tools/ti8_radiant_creeps",
+            "id": 12188
+          },
+          {
+            "name": "Crownfall - Radiant Creeps",
+            "title": "Crownfall - Radiant Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_2024_crownfall_radiant/dire_2024_crownfall_radiant_creeps",
+            "id": 27125
+          },
+          {
+            "name": "Dark Carnival Radiant Creeps",
+            "title": "Dark Carnival Radiant Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_dc_radiant/creep_dc_radiant",
+            "id": 34430
+          },
+          {
+            "name": "Radiant Nemestice Creeps",
+            "title": "Radiant Nemestice Creeps",
+            "rarity": "legendary",
+            "img": "econ/tools/nemestice_radiant_creeps",
+            "id": 19015
+          },
+          {
+            "name": "Reptilian Refuge Radiant Creeps",
+            "title": "Reptilian Refuge Radiant Creeps",
+            "rarity": "legendary",
+            "img": "econ/tools/reptilian_refuge_radiant_creeps",
+            "id": 12978
+          },
+          {
+            "name": "Woodland Warbands - Radiant Creeps",
+            "title": "Woodland Warbands - Radiant Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_2021_radiant/creep_2021_radiant_creeps",
+            "id": 18876
+          }
+        ]
+      },
+      {
+        "slot": "siegedire",
+        "title": "Dire Siege Creeps",
+        "mods": [
+          {
+            "name": "Crownfall - Dire Siege Creeps",
+            "title": "Crownfall - Dire Siege Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_2024_crownfall_dire/creep_2024_crownfall_dire_siege",
+            "id": 30286
+          },
+          {
+            "name": "Dark Carnival - Dire Siege Creeps",
+            "title": "Dark Carnival - Dire Siege Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_dc_dire/creep_dc_dire_siege",
+            "id": 34448
+          },
+          {
+            "name": "Woodland Warbands - Dire Siege Creeps",
+            "title": "Woodland Warbands - Dire Siege Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_2021_dire/dire_2021_radiant_siege",
+            "id": 12464
+          }
+        ]
+      },
+      {
+        "slot": "siegeradiant",
+        "title": "Radiant Siege Creeps",
+        "mods": [
+          {
+            "name": "Crownfall - Radiant Siege Creeps",
+            "title": "Crownfall - Radiant Siege Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_2024_crownfall_radiant/creep_2024_crownfall_radiant_siege",
+            "id": 30302
+          },
+          {
+            "name": "Dark Carnival - Radiant Siege Creeps",
+            "title": "Dark Carnival - Radiant Siege Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_dc_radiant/creep_dc_radiant_siege",
+            "id": 34431
+          },
+          {
+            "name": "Woodland Warbands - Radiant Siege Creeps",
+            "title": "Woodland Warbands - Radiant Siege Creeps",
+            "rarity": "legendary",
+            "img": "econ/creeps/lane_creeps/creep_2021_radiant/creep_2021_radiant_siege",
+            "id": 12463
+          }
+        ]
+      },
+      {
+        "slot": "effect",
+        "title": "Mega Creeps",
+        "mods": []
+      }
+    ]
+  },
+  "towers": {
+    "tag": "towers",
+    "slots": [
+      {
+        "slot": "dire",
+        "title": "Dire Towers",
+        "mods": [
+          {
+            "name": "Declaration of the Divine Shadow Dire Towers",
+            "title": "Declaration of the Divine Shadow Dire Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/ti10_dire_tower",
+            "id": 13782
+          },
+          {
+            "name": "Grasp of the Elder Gods - Dire Towers",
+            "title": "Grasp of the Elder Gods - Dire Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/dire_tower_2021",
+            "id": 18566
+          },
+          {
+            "name": "Guardians of the Lost Path Dire Towers",
+            "title": "Guardians of the Lost Path Dire Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/ti9_dire_tower",
+            "id": 12937
+          },
+          {
+            "name": "Stoneclaw Scavengers Dire Towers",
+            "title": "Stoneclaw Scavengers Dire Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/dire_tower_2022",
+            "id": 23712
+          },
+          {
+            "name": "The Gaze of Scree'Auk - Dire Towers",
+            "title": "The Gaze of Scree'Auk - Dire Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/dire_tower_crownfall",
+            "id": 32620
+          }
+        ]
+      },
+      {
+        "slot": "radiant",
+        "title": "Radiant Towers",
+        "mods": [
+          {
+            "name": "Declaration of the Divine Light Radiant Towers",
+            "title": "Declaration of the Divine Light Radiant Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/ti10_radiant_tower",
+            "id": 13781
+          },
+          {
+            "name": "Grasp of the Elder Gods - Radiant Towers",
+            "title": "Grasp of the Elder Gods - Radiant Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/radiant_tower_2021",
+            "id": 18565
+          },
+          {
+            "name": "Guardians of the Lost Path Radiant Towers",
+            "title": "Guardians of the Lost Path Radiant Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/ti9_radiant_tower",
+            "id": 12936
+          },
+          {
+            "name": "Stoneclaw Scavengers Radiant Towers",
+            "title": "Stoneclaw Scavengers Radiant Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/radiant_tower_2022",
+            "id": 23195
+          },
+          {
+            "name": "The Eyes of Avilliva - Radiant Towers",
+            "title": "The Eyes of Avilliva - Radiant Towers",
+            "rarity": "legendary",
+            "img": "econ/tools/radiant_tower_crownfall",
+            "id": 32619
+          }
+        ]
+      }
+    ]
+  },
+  "ancient": {
+    "tag": "ancient",
+    "slots": [
+      {
+        "slot": "effect",
+        "title": "Ancient",
+        "mods": [
+          {
+            "name": "Ancient Dragon King",
+            "title": "Ancient Dragon King",
+            "rarity": "mythical",
+            "img": "econ/props_gameplay/new_bloom_dragon/new_bloom_dragon",
+            "id": 24119
+          }
+        ]
+      }
+    ]
+  },
+  "roshan": {
+    "tag": "roshan",
+    "slots": [
+      {
+        "slot": "effect",
+        "title": "Roshan",
+        "mods": [
+          {
+            "name": "Aghanim Roshan",
+            "title": "Aghanim Roshan",
+            "rarity": "common",
+            "img": "econ/courier/baby_rosh/babyroshan_ti10",
+            "id": 14951
+          },
+          {
+            "name": "Cosmic 2025 Roshan",
+            "title": "Cosmic 2025 Roshan",
+            "rarity": "legendary",
+            "img": "econ/roshan/dota_item_roshan_cosmic",
+            "id": 36238
+          },
+          {
+            "name": "Desert Roshan",
+            "title": "Desert Roshan",
+            "rarity": "common",
+            "img": "econ/courier/baby_rosh/babyroshan4",
+            "id": 12007
+          },
+          {
+            "name": "Greevil Grief Roshan",
+            "title": "Greevil Grief Roshan",
+            "rarity": "legendary",
+            "img": "econ/roshan/dota_item_roshan_greevils",
+            "id": 24876
+          },
+          {
+            "name": "R'shan the Eternal",
+            "title": "R'shan the Eternal",
+            "rarity": "legendary",
+            "img": "econ/creeps/roshan_monster/roshan_monster",
+            "id": 34488
+          },
+          {
+            "name": "Roshan Halloween Angel Skin",
+            "title": "Roshan Halloween Angel Skin",
+            "rarity": "common",
+            "id": 10094
+          },
+          {
+            "name": "Roshan Halloween Dracula Skin",
+            "title": "Roshan Halloween Dracula Skin",
+            "rarity": "common",
+            "id": 10093
+          },
+          {
+            "name": "Roshan Halloween Frankenstein Skin",
+            "title": "Roshan Halloween Frankenstein Skin",
+            "rarity": "common",
+            "id": 10092
+          }
+        ]
+      }
+    ]
+  },
+  "tormentor": {
+    "tag": "tormentor",
+    "slots": [
+      {
+        "slot": "effect",
+        "title": "Tormentor",
+        "mods": [
+          {
+            "name": "10th Anniversary Tormentor",
+            "title": "10th Anniversary Tormentor",
+            "rarity": "common",
+            "img": "econ/tormentor/dota_item_tormentor_anniversary",
+            "id": 29339
+          },
+          {
+            "name": "Frostivus 2024 Tormentor",
+            "title": "Frostivus 2024 Tormentor",
+            "rarity": "common",
+            "img": "econ/tormentor/dota_item_tormentor_frostivus_2024",
+            "id": 29588
+          },
+          {
+            "name": "Obscene Eye Ball",
+            "title": "Obscene Eye Ball",
+            "rarity": "mythical",
+            "img": "econ/props_gameplay/divine_sentinel/divine_sentinel_monster",
+            "id": 34576
+          }
+        ]
+      }
+    ]
+  },
+  "weather": {
+    "tag": "weather",
+    "slots": [
+      {
+        "slot": "weather",
+        "title": "Weather Effect",
+        "mods": [
+          {
+            "name": "Weather Ash",
+            "title": "Weather Ash",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_burning",
+            "id": 11549
+          },
+          {
+            "name": "Weather Aurora",
+            "title": "Weather Aurora",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_aurora",
+            "id": 11550
+          },
+          {
+            "name": "Weather Harvest",
+            "title": "Weather Harvest",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_harvest",
+            "id": 11454
+          },
+          {
+            "name": "Weather Moonbeam",
+            "title": "Weather Moonbeam",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_moonbeam",
+            "id": 10707
+          },
+          {
+            "name": "Weather Pestilence",
+            "title": "Weather Pestilence",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_pestilence",
+            "id": 11083
+          },
+          {
+            "name": "Weather Rain",
+            "title": "Weather Rain",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_rain",
+            "id": 10706
+          },
+          {
+            "name": "Weather Sirocco",
+            "title": "Weather Sirocco",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_sandstorm",
+            "id": 11414
+          },
+          {
+            "name": "Weather Snow",
+            "title": "Weather Snow",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_snow",
+            "id": 10704
+          },
+          {
+            "name": "Weather Spring",
+            "title": "Weather Spring",
+            "rarity": "mythical",
+            "img": "econ/tools/weather_spring",
+            "id": 11551
+          }
+        ]
+      }
+    ]
+  },
+  "music_packs": {
+    "tag": "music_packs",
+    "slots": [
+      {
+        "slot": "sound",
+        "title": "Music Packs",
+        "mods": [
+          {
+            "name": "TheFatRat - Warrior Songs Music Pack",
+            "title": "TheFatRat - Warrior Songs Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/fatrack_music_pack",
+            "id": 12431
+          },
+          {
+            "name": "Dark Carnival Music Pack",
+            "title": "Dark Carnival Music Pack",
+            "rarity": "mythical",
+            "img": "econ/tools/dark_carnival_music_pack",
+            "id": 34473
+          },
+          {
+            "name": "AWOLNATION - Magic Sticks of Dynamite Music Pack",
+            "title": "AWOLNATION - Magic Sticks of Dynamite Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/an_music_pack",
+            "id": 11475
+          },
+          {
+            "name": "Battle Pass 2022 Music Pack",
+            "title": "Battle Pass 2022 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/ti11_music_pack",
+            "id": 23643
+          },
+          {
+            "name": "Desert Music Pack",
+            "title": "Desert Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/desert_music_pack",
+            "id": 11373
+          },
+          {
+            "name": "Dire Shred Cover Pack",
+            "title": "Dire Shred Cover Pack",
+            "rarity": "mythical",
+            "img": "econ/music/dire_shred_metal_music_pack",
+            "id": 11356
+          },
+          {
+            "name": "Elemental Fury Music Pack",
+            "title": "Elemental Fury Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/elemental_fury_music_pack",
+            "id": 11467
+          },
+          {
+            "name": "Harmonies of New Bloom Music Pack",
+            "title": "Harmonies of New Bloom Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/nb15_music_pack",
+            "id": 11129
+          },
+          {
+            "name": "Heroes Within Music Pack",
+            "title": "Heroes Within Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/heroes_within_music_pack",
+            "id": 11277
+          },
+          {
+            "name": "Humanitys Last Breath - Void Music Pack",
+            "title": "Humanitys Last Breath - Void Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/void_pack_music_pack",
+            "id": 18602
+          },
+          {
+            "name": "JJ Lin's Timekeeper Music Pack",
+            "title": "JJ Lin's Timekeeper Music Pack",
+            "rarity": "legendary",
+            "img": "econ/music/jjlin_music_pack",
+            "id": 11160
+          },
+          {
+            "name": "Matt Lange Abstraction Music Pack",
+            "title": "Matt Lange Abstraction Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/matt_lange_abstraction_music_pack",
+            "id": 11178
+          },
+          {
+            "name": "Nemestice 2021 Music Pack",
+            "title": "Nemestice 2021 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/tools/nemestice2021_music_pack",
+            "id": 18581
+          },
+          {
+            "name": "Northern Winds - Music Pack",
+            "title": "Northern Winds - Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/northern_winds_music_pack",
+            "id": 11432
+          },
+          {
+            "name": "Northern Winds Music Pack",
+            "title": "Northern Winds Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/northern_winds_music_pack",
+            "id": 11432
+          },
+          {
+            "name": "The FatRat Warrior Songs Music Pack",
+            "title": "The FatRat Warrior Songs Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/fatrack_music_pack",
+            "id": 12431
+          },
+          {
+            "name": "The International 10 Music Pack",
+            "title": "The International 10 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/ti10_music_pack",
+            "id": 13797
+          },
+          {
+            "name": "The International 2014 Music Pack",
+            "title": "The International 2014 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/ti4_music_pack",
+            "id": 10850
+          },
+          {
+            "name": "The International 2015 Music Pack",
+            "title": "The International 2015 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/ti5_music_pack",
+            "id": 10990
+          },
+          {
+            "name": "The International 2016 Music Pack",
+            "title": "The International 2016 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/ti6_music_pack",
+            "id": 11348
+          },
+          {
+            "name": "The International 2017 Music Pack",
+            "title": "The International 2017 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/ti7_music_pack",
+            "id": 11999
+          },
+          {
+            "name": "The International 2018 Music Pack",
+            "title": "The International 2018 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/ti8_music_pack",
+            "id": 12192
+          },
+          {
+            "name": "The International 2019 Music Pack",
+            "title": "The International 2019 Music Pack",
+            "rarity": "mythical",
+            "img": "econ/music/ti9_music_pack",
+            "id": 12961
+          },
+          {
+            "name": "deadmau5 dieback music pack",
+            "title": "deadmau5 dieback music pack",
+            "rarity": "legendary",
+            "img": "econ/music/deadmau5_dieback_music_pack",
+            "id": 11456
+          }
+        ]
+      }
+    ]
+  },
+  "announcers": {
+    "tag": "announcers",
+    "slots": [
+      {
+        "slot": "announcer",
+        "title": "Announcer",
+        "mods": [
+          {
+            "name": "Death Prophet Announcer",
+            "title": "Death Prophet Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_death_prophet",
+            "id": 10131
+          },
+          {
+            "name": "Tuskar Announcer",
+            "title": "Tuskar Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_tuskar",
+            "id": 10160
+          },
+          {
+            "name": "Ringmaster Announcer",
+            "title": "Ringmaster Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_ring_master",
+            "id": 34538
+          },
+          {
+            "name": "Cave Johnson Announcer",
+            "title": "Cave Johnson Announcer",
+            "rarity": "mythical",
+            "img": "econ/announcer/cave_johnson_ti11",
+            "id": 24911
+          },
+          {
+            "name": "Voice of The International Announcer",
+            "title": "Voice of The International Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_ti10",
+            "id": 14996
+          },
+          {
+            "name": "GLaDOS Announcer",
+            "title": "GLaDOS Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_portal",
+            "id": 10315
+          },
+          {
+            "name": "The Pirate Capn Announcer",
+            "title": "The Pirate Capn Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_workshop_pirate",
+            "id": 10030
+          },
+          {
+            "name": "Trine Announcer",
+            "title": "Trine Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_trine",
+            "id": 10348
+          },
+          {
+            "name": "Techies Announcer",
+            "title": "Techies Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_techies",
+            "id": 10843
+          },
+          {
+            "name": "Storm Spirit Announcer",
+            "title": "Storm Spirit Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_stormspirit",
+            "id": 10029
+          },
+          {
+            "name": "Monkey King Announcer",
+            "title": "Monkey King Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_monkey_king",
+            "id": 11486
+          },
+          {
+            "name": "Fallout 4 Announcer",
+            "title": "Fallout 4 Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_fallout4",
+            "id": 11736
+          },
+          {
+            "name": "Dr. Kleiner Announcer",
+            "title": "Dr. Kleiner Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_kleiner",
+            "id": 10008
+          },
+          {
+            "name": "Deus Ex Announcer",
+            "title": "Deus Ex Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_deus_ex",
+            "id": 11089
+          },
+          {
+            "name": "Crystal Maiden Announcer",
+            "title": "Crystal Maiden Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_crystal_maiden",
+            "id": 11463
+          },
+          {
+            "name": "Bristleback Announcer",
+            "title": "Bristleback Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_bristleback",
+            "id": 11279
+          },
+          {
+            "name": "Dark Willow Announcer",
+            "title": "Dark Willow Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_darkwillow",
+            "id": 13231
+          },
+          {
+            "name": "Meepo Announcer",
+            "title": "Meepo Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_meepo",
+            "id": 12315
+          },
+          {
+            "name": "Darkest Dungeon Announcer",
+            "title": "Darkest Dungeon Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_darkest_dungeon",
+            "id": 12586
+          },
+          {
+            "name": "The Stanley Parable Announcer",
+            "title": "The Stanley Parable Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_stanleyparable",
+            "id": 10547
+          },
+          {
+            "name": "Natures Prophet Announcer",
+            "title": "Natures Prophet Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_furion",
+            "id": 10015
+          },
+          {
+            "name": "Juggernaut Announcer",
+            "title": "Juggernaut Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_juggernaut",
+            "id": 10013
+          },
+          {
+            "name": "Axe Announcer",
+            "title": "Axe Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_axe",
+            "id": 10061
+          },
+          {
+            "name": "Defense Grid Announcer",
+            "title": "Defense Grid Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_dgrid",
+            "id": 10307
+          },
+          {
+            "name": "Clockwerk Announcer",
+            "title": "Clockwerk Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_clockwerk",
+            "id": 10457
+          },
+          {
+            "name": "Bastion Announcer",
+            "title": "Bastion Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_bastion",
+            "id": 10140
+          },
+          {
+            "name": "Lina Announcer",
+            "title": "Lina Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_lina",
+            "id": 10373
+          },
+          {
+            "name": "Pyrion Flax Announcer",
+            "title": "Pyrion Flax Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_pflax",
+            "id": 10185
+          },
+          {
+            "name": "Rick and Morty Announcer",
+            "title": "Rick and Morty Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_rickmorty",
+            "id": 11145
+          },
+          {
+            "name": "Kunkka and Tidehunter Announcer",
+            "title": "Kunkka and Tidehunter Announcer",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_kunkka_tide",
+            "id": 12001
+          }
+        ]
+      },
+      {
+        "slot": "megakills",
+        "title": "Mega Kill Announcers",
+        "mods": [
+          {
+            "name": "Ringmaster Mega-Kills",
+            "title": "Ringmaster Mega-Kills",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_ring_master_megakill",
+            "id": 34539
+          },
+          {
+            "name": "Cave Johnson Mega-Kills",
+            "title": "Cave Johnson Mega-Kills",
+            "rarity": "mythical",
+            "img": "econ/announcer/cave_johnson_ti11_megakill",
+            "id": 24912
+          },
+          {
+            "name": "Mega-Kills Diretide",
+            "title": "Mega-Kills Diretide",
+            "rarity": "mythical",
+            "img": "econ/announcer/megakill_diretide20",
+            "id": 18381
+          },
+          {
+            "name": "Voice of The International Mega-Kill",
+            "title": "Voice of The International Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_ti10",
+            "id": 14997
+          },
+          {
+            "name": "Monkey King Mega-Kills",
+            "title": "Monkey King Mega-Kills",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_monkey_king_megakill",
+            "id": 11494
+          },
+          {
+            "name": "Deus Ex Mega-Kills",
+            "title": "Deus Ex Mega-Kills",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_deus_ex_megakill",
+            "id": 11869
+          },
+          {
+            "name": "Crystal Maiden Mega-Kills",
+            "title": "Crystal Maiden Mega-Kills",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_crystal_maiden_megakill",
+            "id": 11385
+          },
+          {
+            "name": "Dark Willow Mega-Kill",
+            "title": "Dark Willow Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_darkwillow_megakill",
+            "id": 13232
+          },
+          {
+            "name": "Meepo Mega-Kill",
+            "title": "Meepo Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_meepo",
+            "id": 12316
+          },
+          {
+            "name": "Gabe Newell Mega-Kill",
+            "title": "Gabe Newell Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_gaben_megakill",
+            "id": 12425
+          },
+          {
+            "name": "Darkest Dungeon Mega-kills",
+            "title": "Darkest Dungeon Mega-kills",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_darkest_dungeon_megakill",
+            "id": 12587
+          },
+          {
+            "name": "Darkest Dungeon Mega Kill",
+            "title": "Darkest Dungeon Mega Kill",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_darkest_dungeon_megakill",
+            "id": 12587
+          },
+          {
+            "name": "Trine Mega-Kill",
+            "title": "Trine Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_trine",
+            "id": 10351
+          },
+          {
+            "name": "Storm Spirit Mega-Kill",
+            "title": "Storm Spirit Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_stormspirit",
+            "id": 10038
+          },
+          {
+            "name": "Techies Mega-Kill",
+            "title": "Techies Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_techies",
+            "id": 10844
+          },
+          {
+            "name": "Pirate Captain Mega-Kill",
+            "title": "Pirate Captain Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_announcer_workshop_pirate",
+            "id": 10031
+          },
+          {
+            "name": "Juggernaut Mega-Kill",
+            "title": "Juggernaut Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_juggernaut",
+            "id": 10014
+          },
+          {
+            "name": "GLaDOS Mega-Kill",
+            "title": "GLaDOS Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_portal",
+            "id": 10316
+          },
+          {
+            "name": "Natures Prophet Mega-Kill",
+            "title": "Natures Prophet Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_furion",
+            "id": 10016
+          },
+          {
+            "name": "Defense Grid Mega-Kill",
+            "title": "Defense Grid Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_dgrid",
+            "id": 10308
+          },
+          {
+            "name": "Clockwerk Mega-Kill",
+            "title": "Clockwerk Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_clockwerk",
+            "id": 10458
+          },
+          {
+            "name": "Bristleback Mega-Kill",
+            "title": "Bristleback Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_bristleback",
+            "id": 11280
+          },
+          {
+            "name": "Axe Mega-Kill",
+            "title": "Axe Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_axe",
+            "id": 10062
+          },
+          {
+            "name": "The Stanley Parable Mega-Kill",
+            "title": "The Stanley Parable Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_stanleyparable",
+            "id": 10548
+          },
+          {
+            "name": "Fallout 4 Mega-Kill",
+            "title": "Fallout 4 Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_fallout4",
+            "id": 11737
+          },
+          {
+            "name": "Lina Mega-Kills",
+            "title": "Lina Mega-Kills",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_lina",
+            "id": 10387
+          },
+          {
+            "name": "Pyrion Flax Megakill",
+            "title": "Pyrion Flax Megakill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_pflax",
+            "id": 10178
+          },
+          {
+            "name": "Bastion Mega-Kill",
+            "title": "Bastion Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_bastion",
+            "id": 10141
+          },
+          {
+            "name": "Rick and Morty Mega-Kill",
+            "title": "Rick and Morty Mega-Kill",
+            "rarity": "common",
+            "img": "econ/announcer/megakill_rickmorty",
+            "id": 11144
+          },
+          {
+            "name": "Kunkka and Tidehunter Mega-Kills",
+            "title": "Kunkka and Tidehunter Mega-Kills",
+            "rarity": "common",
+            "img": "econ/announcer/announcer_kunkka_tide_megakill",
+            "id": 12008
+          }
+        ]
+      }
+    ]
+  },
+  "versus_screen": {
+    "tag": "versus_screen",
+    "slots": [
+      {
+        "slot": "effect",
+        "title": "Versus Screen",
+        "mods": [
+          {
+            "name": "Battle Pass 2022 Diretide Versus Screen",
+            "title": "Battle Pass 2022 Diretide Versus Screen",
+            "rarity": "mythical",
+            "img": "econ/tools/ti11_versus_screen1",
+            "id": 23713
+          },
+          {
+            "name": "Battle Pass 2022 Nemestice Versus Screen",
+            "title": "Battle Pass 2022 Nemestice Versus Screen",
+            "rarity": "mythical",
+            "img": "econ/tools/ti11_versus_screen3",
+            "id": 23517
+          },
+          {
+            "name": "International 2024 Versus Screen",
+            "title": "International 2024 Versus Screen",
+            "rarity": "mythical",
+            "img": "econ/tools/ti2024_versus_screen",
+            "id": 30323
+          },
+          {
+            "name": "The International 10 VersusScreen",
+            "title": "The International 10 VersusScreen",
+            "rarity": "common",
+            "img": "econ/tools/ti10_versus_screen2",
+            "id": 13766
+          },
+          {
+            "name": "The International 2019 Versus Screen I",
+            "title": "The International 2019 Versus Screen I",
+            "rarity": "mythical",
+            "img": "econ/tools/versus_screen_1",
+            "id": 12971
+          },
+          {
+            "name": "The International 2019 Versus Screen II",
+            "title": "The International 2019 Versus Screen II",
+            "rarity": "mythical",
+            "img": "econ/tools/versus_screen_2",
+            "id": 12972
+          },
+          {
+            "name": "Winter Versus Screen",
+            "title": "Winter Versus Screen",
+            "rarity": "common",
+            "img": "econ/tools/vs_screen_winter",
+            "id": 12535
+          }
+        ]
+      }
+    ]
+  },
+  "huds": {
+    "tag": "huds",
+    "slots": [
+      {
+        "slot": "hud",
+        "title": "HUD Skin",
+        "mods": [
+          {
+            "name": "Aghanims Labryinth 2021 HUD",
+            "title": "Aghanims Labryinth 2021 HUD",
+            "rarity": "rare",
+            "img": "econ/huds/aghanims_labyrinth_2021/aghanims_labyrinth_2021",
+            "id": 18714
+          },
+          {
+            "name": "Alliance HUD",
+            "title": "Alliance HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_alliance",
+            "id": 10522
+          },
+          {
+            "name": "Antiquity HUD",
+            "title": "Antiquity HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_antiquity",
+            "id": 10439
+          },
+          {
+            "name": "Azure Constellation HUD",
+            "title": "Azure Constellation HUD",
+            "rarity": "immortal",
+            "img": "econ/huds/hud_zodiac_hud",
+            "id": 10957
+          },
+          {
+            "name": "Battle Pass 2022 HUD",
+            "title": "Battle Pass 2022 HUD",
+            "rarity": "rare",
+            "img": "econ/huds/the_international_2022/hud_the_international_2022",
+            "id": 22774
+          },
+          {
+            "name": "Beyond the Summit HUD",
+            "title": "Beyond the Summit HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_bts_summit",
+            "id": 10832
+          },
+          {
+            "name": "Black Monolith HUD",
+            "title": "Black Monolith HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_black_monolith",
+            "id": 10492
+          },
+          {
+            "name": "Brawl Basher HUD",
+            "title": "Brawl Basher HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_brawl_basher",
+            "id": 10903
+          },
+          {
+            "name": "Brewery HUD",
+            "title": "Brewery HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_brewery",
+            "id": 10722
+          },
+          {
+            "name": "Brood Hunter HUD",
+            "title": "Brood Hunter HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_tarantula",
+            "id": 10975
+          },
+          {
+            "name": "Cruel Diretide",
+            "title": "Cruel Diretide",
+            "rarity": "rare",
+            "img": "econ/huds/hud_diretide",
+            "id": 10137
+          },
+          {
+            "name": "Crystallized Mana",
+            "title": "Crystallized Mana",
+            "rarity": "rare",
+            "img": "econ/huds/hud_crystalmana",
+            "id": 10438
+          },
+          {
+            "name": "Curiosity HUD",
+            "title": "Curiosity HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_curiosity_hud",
+            "id": 10306
+          },
+          {
+            "name": "D2CL Season 5 HUD",
+            "title": "D2CL Season 5 HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/d2cls5_hud/hud_d2cls5_hud",
+            "id": 11163
+          },
+          {
+            "name": "Deepest Depths HUD",
+            "title": "Deepest Depths HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_cold_depths",
+            "id": 10173
+          },
+          {
+            "name": "Demonic Essence HUD",
+            "title": "Demonic Essence HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_demonichud",
+            "id": 10879
+          },
+          {
+            "name": "Depth of Field",
+            "title": "Depth of Field",
+            "rarity": "rare",
+            "img": "econ/huds/hud_free_to_play_hud",
+            "id": 10426
+          },
+          {
+            "name": "Detonation HUD",
+            "title": "Detonation HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_detonation",
+            "id": 10836
+          },
+          {
+            "name": "Dim Forest HUD",
+            "title": "Dim Forest HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_weplay",
+            "id": 10322
+          },
+          {
+            "name": "Direstone",
+            "title": "Direstone",
+            "rarity": "mythical",
+            "img": "econ/huds/hud_dire",
+            "id": 10150
+          },
+          {
+            "name": "Donbass Cup HUD",
+            "title": "Donbass Cup HUD",
+            "rarity": "common",
+            "img": "econ/huds/_hud_skin__donbass_cup/hud__hud_skin__donbass_cup",
+            "id": 11197
+          },
+          {
+            "name": "Dota 2 Asia Championship HUD",
+            "title": "Dota 2 Asia Championship HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_dac_2015_2",
+            "id": 11137
+          },
+          {
+            "name": "DotaCinema Bright HUD",
+            "title": "DotaCinema Bright HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_dc_dayhud",
+            "id": 10876
+          },
+          {
+            "name": "DotaCinema Dark HUD",
+            "title": "DotaCinema Dark HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_dc_dayhud",
+            "id": 10876
+          },
+          {
+            "name": "Dragon Scale",
+            "title": "Dragon Scale",
+            "rarity": "rare",
+            "img": "econ/huds/hud_dragon_scale",
+            "id": 10309
+          },
+          {
+            "name": "Dreamleague HUD",
+            "title": "Dreamleague HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_Dreamleague",
+            "id": 10480
+          },
+          {
+            "name": "Driftwood HUD",
+            "title": "Driftwood HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_driftwood",
+            "id": 10182
+          },
+          {
+            "name": "ESL One Fortress HUD",
+            "title": "ESL One Fortress HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_esl_one_hud_fortress",
+            "id": 10493
+          },
+          {
+            "name": "ESWC Diamond",
+            "title": "ESWC Diamond",
+            "rarity": "rare",
+            "img": "econ/huds/hud_eswc_diamond",
+            "id": 10305
+          },
+          {
+            "name": "Elder Bark HUD",
+            "title": "Elder Bark HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_dark_forest",
+            "id": 10198
+          },
+          {
+            "name": "Empowered",
+            "title": "Empowered",
+            "rarity": "rare",
+            "img": "econ/huds/hud_empower",
+            "id": 10176
+          },
+          {
+            "name": "Evil Geniuses HUD",
+            "title": "Evil Geniuses HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_evil_genius_hud",
+            "id": 10751
+          },
+          {
+            "name": "Familiar Woods",
+            "title": "Familiar Woods",
+            "rarity": "rare",
+            "img": "econ/huds/hud_familiar_woods",
+            "id": 10364
+          },
+          {
+            "name": "Force of Spirit HUD",
+            "title": "Force of Spirit HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_force_of_spirit",
+            "id": 10490
+          },
+          {
+            "name": "Frozen Touch",
+            "title": "Frozen Touch",
+            "rarity": "rare",
+            "img": "econ/huds/hud_frozen_touch",
+            "id": 10179
+          },
+          {
+            "name": "Furnace",
+            "title": "Furnace",
+            "rarity": "rare",
+            "img": "econ/huds/hud_ferocious",
+            "id": 10203
+          },
+          {
+            "name": "Gear Tooth",
+            "title": "Gear Tooth",
+            "rarity": "rare",
+            "img": "econ/huds/hud_gear_tooth",
+            "id": 10183
+          },
+          {
+            "name": "Ghostly Silence HUD",
+            "title": "Ghostly Silence HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_ghostly_silence",
+            "id": 10971
+          },
+          {
+            "name": "Golden Treasures",
+            "title": "Golden Treasures",
+            "rarity": "rare",
+            "img": "econ/huds/hud_golden_treasures",
+            "id": 10327
+          },
+          {
+            "name": "Green Ural HUD",
+            "title": "Green Ural HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_green_ural",
+            "id": 10459
+          },
+          {
+            "name": "HUD of the Burning Scale",
+            "title": "HUD of the Burning Scale",
+            "rarity": "uncommon",
+            "img": "econ/huds/fireborn_hud/hud_fireborn_hud",
+            "id": 11406
+          },
+          {
+            "name": "HUD of the Burning Scale Fire",
+            "title": "HUD of the Burning Scale Fire",
+            "rarity": "uncommon",
+            "img": "econ/huds/fireborn_hud/hud_fireborn_hud",
+            "id": 11406
+          },
+          {
+            "name": "HUD of the Burning Scale Ice",
+            "title": "HUD of the Burning Scale Ice",
+            "rarity": "uncommon",
+            "img": "econ/huds/fireborn_hud/hud_fireborn_hud",
+            "id": 11406
+          },
+          {
+            "name": "HUD of the Burning Scale Poison",
+            "title": "HUD of the Burning Scale Poison",
+            "rarity": "uncommon",
+            "img": "econ/huds/fireborn_hud/hud_fireborn_hud",
+            "id": 11406
+          },
+          {
+            "name": "Hearth of the Pit HUD",
+            "title": "Hearth of the Pit HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_dotapit_s3_hud",
+            "id": 11106
+          },
+          {
+            "name": "Hellfire",
+            "title": "Hellfire",
+            "rarity": "rare",
+            "img": "econ/huds/hud_hellfire",
+            "id": 10494
+          },
+          {
+            "name": "Imbued Stone HUD",
+            "title": "Imbued Stone HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_spirit_stones",
+            "id": 10420
+          },
+          {
+            "name": "Iron Cage HUD",
+            "title": "Iron Cage HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_iron_cage",
+            "id": 10299
+          },
+          {
+            "name": "Iron Thorn HUD",
+            "title": "Iron Thorn HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_iron_thorn",
+            "id": 10974
+          },
+          {
+            "name": "Jolly Roger HUD Davy Jones Style",
+            "title": "Jolly Roger HUD Davy Jones Style",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_jollyroger",
+            "id": 10437
+          },
+          {
+            "name": "Jolly Roger HUD Landlubber Style",
+            "title": "Jolly Roger HUD Landlubber Style",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_jollyroger",
+            "id": 10437
+          },
+          {
+            "name": "Jungle Ruin HUD",
+            "title": "Jungle Ruin HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_jungle_ruin",
+            "id": 10201
+          },
+          {
+            "name": "Living in Darkness",
+            "title": "Living in Darkness",
+            "rarity": "rare",
+            "img": "econ/huds/hud_livingindarkness",
+            "id": 10586
+          },
+          {
+            "name": "MLG Stronghold HUD",
+            "title": "MLG Stronghold HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_stronghold",
+            "id": 10356
+          },
+          {
+            "name": "Malice",
+            "title": "Malice",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_menace",
+            "id": 10180
+          },
+          {
+            "name": "Mana Pool HUD",
+            "title": "Mana Pool HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_mana_pool",
+            "id": 10346
+          },
+          {
+            "name": "Midnight Terror HUD",
+            "title": "Midnight Terror HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_midnight_terror",
+            "id": 10887
+          },
+          {
+            "name": "Nature HUD",
+            "title": "Nature HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_nature",
+            "id": 10181
+          },
+          {
+            "name": "Necropolis",
+            "title": "Necropolis",
+            "rarity": "rare",
+            "img": "econ/huds/hud_necropolis",
+            "id": 10343
+          },
+          {
+            "name": "Omen",
+            "title": "Omen",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_od",
+            "id": 10336
+          },
+          {
+            "name": "Portal",
+            "title": "Portal",
+            "rarity": "mythical",
+            "img": "econ/huds/hud_portal",
+            "id": 10324
+          },
+          {
+            "name": "Powered Star",
+            "title": "Powered Star",
+            "rarity": "rare",
+            "img": "econ/huds/hud_starladder",
+            "id": 10187
+          },
+          {
+            "name": "Radiant Entity",
+            "title": "Radiant Entity",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_radiantentity",
+            "id": 10436
+          },
+          {
+            "name": "Radiant Ore",
+            "title": "Radiant Ore",
+            "rarity": "mythical",
+            "img": "econ/huds/hud_radiant",
+            "id": 10149
+          },
+          {
+            "name": "Red Warrior HUD",
+            "title": "Red Warrior HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_redwarrior_hud",
+            "id": 10689
+          },
+          {
+            "name": "Rei da Mesa",
+            "title": "Rei da Mesa",
+            "rarity": "rare",
+            "img": "econ/huds/hud_eslbrazil_hud",
+            "id": 10489
+          },
+          {
+            "name": "Reign of Maelrawn",
+            "title": "Reign of Maelrawn",
+            "rarity": "rare",
+            "img": "econ/huds/hud_Reign_of_Maelrawn_HUD_FGCL",
+            "id": 10385
+          },
+          {
+            "name": "Royal Crypt",
+            "title": "Royal Crypt",
+            "rarity": "rare",
+            "img": "econ/huds/hud_royal_crypt_hud",
+            "id": 10429
+          },
+          {
+            "name": "SLTV Star Series X HUD",
+            "title": "SLTV Star Series X HUD",
+            "rarity": "mythical",
+            "img": "econ/huds/hud_sltvx",
+            "id": 10848
+          },
+          {
+            "name": "Sands of Luxor HUD",
+            "title": "Sands of Luxor HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_hud_sandsofluxor",
+            "id": 10467
+          },
+          {
+            "name": "Snows of Frostivus",
+            "title": "Snows of Frostivus",
+            "rarity": "rare",
+            "img": "econ/huds/hud_frostivus",
+            "id": 10151
+          },
+          {
+            "name": "Spring Essence",
+            "title": "Spring Essence",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_hud_springessence",
+            "id": 10453
+          },
+          {
+            "name": "Stone Ruin",
+            "title": "Stone Ruin",
+            "rarity": "rare",
+            "img": "econ/huds/hud_premier_league",
+            "id": 10186
+          },
+          {
+            "name": "Surge",
+            "title": "Surge",
+            "rarity": "rare",
+            "img": "econ/huds/hud_esp_surge_hud",
+            "id": 10399
+          },
+          {
+            "name": "Team Empire HUD",
+            "title": "Team Empire HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_team_empire_hud",
+            "id": 10730
+          },
+          {
+            "name": "Techlabs Moscow Cup 2014 HUD",
+            "title": "Techlabs Moscow Cup 2014 HUD",
+            "rarity": "rare",
+            "img": "econ/huds/hud_techlabs2014",
+            "id": 10485
+          },
+          {
+            "name": "Tempest Wing",
+            "title": "Tempest Wing",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_crystal_wings",
+            "id": 10177
+          },
+          {
+            "name": "Temple",
+            "title": "Temple",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_temple_wall",
+            "id": 10421
+          },
+          {
+            "name": "Temple of the Sacred Memories HUD",
+            "title": "Temple of the Sacred Memories HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_sacredmemories_hud",
+            "id": 10484
+          },
+          {
+            "name": "The International 2015 HUD",
+            "title": "The International 2015 HUD",
+            "rarity": "rare",
+            "img": "econ/huds/the_international_2015/hud_the_international_2015",
+            "id": 11349
+          },
+          {
+            "name": "The International 2016 HUD",
+            "title": "The International 2016 HUD",
+            "rarity": "rare",
+            "img": "econ/huds/the_international_2016/hud_ti6",
+            "id": 11544
+          },
+          {
+            "name": "The International 2021 HUD",
+            "title": "The International 2021 HUD",
+            "rarity": "rare",
+            "img": "econ/huds/the_international_2021/hud_the_international_2021",
+            "id": 22075
+          },
+          {
+            "name": "The International 2023 HUD",
+            "title": "The International 2023 HUD",
+            "rarity": "rare",
+            "img": "econ/huds/the_international_2023/hud_the_international_2023",
+            "id": 29351
+          },
+          {
+            "name": "The International 2024 HUD",
+            "title": "The International 2024 HUD",
+            "rarity": "rare",
+            "img": "econ/huds/the_international_2024/hud_the_international_2024",
+            "id": 30324
+          },
+          {
+            "name": "The Summit 3 HUD",
+            "title": "The Summit 3 HUD",
+            "rarity": "uncommon",
+            "img": "econ/huds/bts3_hud/hud_bts3_hud",
+            "id": 11186
+          },
+          {
+            "name": "Three Virtues",
+            "title": "Three Virtues",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_three_virtues",
+            "id": 10422
+          },
+          {
+            "name": "Thunder Spirit",
+            "title": "Thunder Spirit",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_thunder_spirit",
+            "id": 10392
+          },
+          {
+            "name": "Timber Fury",
+            "title": "Timber Fury",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_timber_fury",
+            "id": 10393
+          },
+          {
+            "name": "Titan",
+            "title": "Titan",
+            "rarity": "rare",
+            "img": "econ/huds/hud_titan_hud",
+            "id": 10755
+          },
+          {
+            "name": "Tombstone",
+            "title": "Tombstone",
+            "rarity": "common",
+            "img": "econ/huds/hud_undying_hud",
+            "id": 10472
+          },
+          {
+            "name": "Tombstone HUD",
+            "title": "Tombstone HUD",
+            "rarity": "common",
+            "img": "econ/huds/hud_undying_hud",
+            "id": 10472
+          },
+          {
+            "name": "Tremor",
+            "title": "Tremor",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_quake",
+            "id": 10333
+          },
+          {
+            "name": "Triumph",
+            "title": "Triumph",
+            "rarity": "mythical",
+            "img": "econ/huds/hud_ti4",
+            "id": 10523
+          },
+          {
+            "name": "Underwater",
+            "title": "Underwater",
+            "rarity": "rare",
+            "img": "econ/huds/hud_underwater",
+            "id": 10317
+          },
+          {
+            "name": "Valor",
+            "title": "Valor",
+            "rarity": "mythical",
+            "img": "econ/huds/hud_valor",
+            "id": 10190
+          },
+          {
+            "name": "Vermilion",
+            "title": "Vermilion",
+            "rarity": "rare",
+            "img": "econ/huds/hud_steelseries_bamboo",
+            "id": 10342
+          },
+          {
+            "name": "ViCi Gaming Hud Skin",
+            "title": "ViCi Gaming Hud Skin",
+            "rarity": "rare",
+            "img": "econ/huds/vici_gaming/hud_vici_gaming",
+            "id": 11335
+          },
+          {
+            "name": "Virtus.Pro HUD Skin",
+            "title": "Virtus.Pro HUD Skin",
+            "rarity": "rare",
+            "img": "econ/huds/virtus_pro/hud_virtus_pro",
+            "id": 11370
+          },
+          {
+            "name": "Winged Guardian",
+            "title": "Winged Guardian",
+            "rarity": "uncommon",
+            "img": "econ/huds/hud_guardian_angel",
+            "id": 10973
+          },
+          {
+            "name": "i-League Season 2 HUD",
+            "title": "i-League Season 2 HUD",
+            "rarity": "common",
+            "img": "econ/leagues/subscriptions_i_league_season_2",
+            "id": 20689
+          }
+        ]
+      }
+    ]
+  },
+  "kill_streak": {
+    "tag": "kill_streak",
+    "slots": [
+      {
+        "slot": "effect",
+        "title": "Kill Streak Effect",
+        "mods": [
+          {
+            "name": "Diretide Kill Streak Effect",
+            "title": "Diretide Kill Streak Effect",
+            "rarity": "common",
+            "img": "econ/tools/diretide20_kill_streak",
+            "id": 18376
+          },
+          {
+            "name": "Fire Kill Streak Effect",
+            "title": "Fire Kill Streak Effect",
+            "rarity": "mythical",
+            "img": "econ/tools/ti10_kill_streak_fire",
+            "id": 13816
+          },
+          {
+            "name": "Gold Kill Streak Effect",
+            "title": "Gold Kill Streak Effect",
+            "rarity": "mythical",
+            "img": "econ/tools/ti10_kill_streak_gold",
+            "id": 13817
+          },
+          {
+            "name": "Ice Kill Streak Effect",
+            "title": "Ice Kill Streak Effect",
+            "rarity": "mythical",
+            "img": "econ/tools/ti10_kill_streak_blue",
+            "id": 13810
+          }
+        ]
+      }
+    ]
+  },
+  "cursor": {
+    "tag": "cursor",
+    "slots": [
+      {
+        "slot": "cursor",
+        "title": "Cursor Pack",
+        "mods": [
+          {
+            "name": "Acid Hydra Cursor Pack",
+            "title": "Acid Hydra Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/dcveno_cursor",
+            "id": 10890
+          },
+          {
+            "name": "DAC 2015 Chaos Knight Cursor Pack",
+            "title": "DAC 2015 Chaos Knight Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/pw_chaos_cursors",
+            "id": 10968
+          },
+          {
+            "name": "DAC 2015 Crystal Maiden Cursor Pack",
+            "title": "DAC 2015 Crystal Maiden Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/pw_crystal_maiden_cursors",
+            "id": 10985
+          },
+          {
+            "name": "DAC 2015 Mirana Cursor Pack",
+            "title": "DAC 2015 Mirana Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/pw_mirana_cursors",
+            "id": 10969
+          },
+          {
+            "name": "Emerald Sea Cursor Pack",
+            "title": "Emerald Sea Cursor Pack",
+            "rarity": "rare",
+            "img": "econ/cursor_pack/emerald_ocean_cursor_pack",
+            "id": 11378
+          },
+          {
+            "name": "Maw of the Megalodon - Cursor",
+            "title": "Maw of the Megalodon - Cursor",
+            "rarity": "legendary",
+            "img": "econ/cursor_pack/tidehunter_arcana_cursor_pack",
+            "id": 37157
+          },
+          {
+            "name": "Sepulchral Stalker - Arrowhead Cursor",
+            "title": "Sepulchral Stalker - Arrowhead Cursor",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/drow_monster_arrowhead_cursor_pack",
+            "id": 37158
+          },
+          {
+            "name": "Steam Chopper Cursor Pack",
+            "title": "Steam Chopper Cursor Pack",
+            "rarity": "rare",
+            "img": "econ/cursor_pack/dctimber_fancy",
+            "id": 10885
+          },
+          {
+            "name": "The International 2015 Cursor Pack",
+            "title": "The International 2015 Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/ti5_cursor_pack",
+            "id": 11320
+          },
+          {
+            "name": "The International 2016 Cursor Pack",
+            "title": "The International 2016 Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/ti6_cursor_pack",
+            "id": 11543
+          },
+          {
+            "name": "The International 2017 Cursor Pack",
+            "title": "The International 2017 Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/ti7_cursor_pack",
+            "id": 12000
+          },
+          {
+            "name": "The International 2018 Cursor Pack",
+            "title": "The International 2018 Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/ti8_cursor_pack",
+            "id": 12198
+          },
+          {
+            "name": "The International 2019 Cursor Pack",
+            "title": "The International 2019 Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/ti9_cursor_pack",
+            "id": 12963
+          },
+          {
+            "name": "The Summit 3 Cursor Pack",
+            "title": "The Summit 3 Cursor Pack",
+            "rarity": "rare",
+            "img": "econ/cursor_pack/bts3_cursor_pack",
+            "id": 11194
+          },
+          {
+            "name": "Unbroken Stallion Cursor Pack",
+            "title": "Unbroken Stallion Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/berserker_centaur",
+            "id": 10540
+          },
+          {
+            "name": "Warcog Cursor Pack",
+            "title": "Warcog Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/war_machine_clockwork",
+            "id": 10906
+          },
+          {
+            "name": "Wrath of Ka Cursor Pack",
+            "title": "Wrath of Ka Cursor Pack",
+            "rarity": "mythical",
+            "img": "econ/cursor_pack/necronub",
+            "id": 10892
+          },
+          {
+            "name": "Tine of the Behemoth Cursor Pack",
+            "title": "Tine of the Behemoth Cursor Pack",
+            "rarity": "rare",
+            "img": "econ/cursor_pack/sltv_shaker_cursor_pack",
+            "id": 11298
+          }
+        ]
+      }
+    ]
+  }
+}

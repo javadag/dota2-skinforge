@@ -8,6 +8,7 @@ import { APP_CONFIG } from '../../shared/constants/appConfig'
 import { getDataPath } from '../services/appPathService'
 import * as dotaPathModule from '../services/dotaPathService'
 import * as pipeline from '../services/pipelineService'
+import { storedModFolder } from '../services/settingsStore'
 
 export interface HeroItem {
   id?: number | string
@@ -68,7 +69,7 @@ export function loadCategoriesData(): CategoriesData {
 export function registerSystemIpc() {
   ipcMain.handle('get-initial-data', async () => {
     const dotaPath = dotaPathModule.detectDotaPath()
-    const status = pipeline.checkStatus(dotaPath)
+    const status = pipeline.checkStatus(dotaPath, storedModFolder())
     const heroesData = loadHeroesData()
     const categoriesData = loadCategoriesData()
 

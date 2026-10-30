@@ -3,9 +3,9 @@
  *
  * Turns the user's slot selections into a concrete, explainable list of edits: which
  * default item each cosmetic lands on, why, and what was skipped. Nothing here is
- * hero-specific — arcana companions come from `item_sets`, persona pieces from
- * `*_persona_N` default items, and every decision is recorded as a `PatchReason` so the
- * UI can show what the mod will actually do.
+ * hero-specific — persona pieces come from `*_persona_N` default items, and every
+ * decision is recorded as a `PatchReason` so the UI can show what the mod will
+ * actually do. Only explicitly selected slots are touched; no set auto-fill.
  */
 
 import {
@@ -15,7 +15,6 @@ import {
   isPersonaSlot,
   itemByName,
   personaVariantSlots,
-  primarySetFor,
   type SchemaIndex,
   type SchemaItem
 } from './schema'
@@ -24,8 +23,6 @@ import { getCanonicalHero } from '../../../shared/constants/heroAliases'
 export type PatchReason =
   /** The user picked this item for this slot. */
   | 'requested'
-  /** Auto-paired from the picked item's set, e.g. the rest of an arcana. */
-  | 'set-companion'
   /** The persona selector itself, which swaps the hero's body. */
   | 'persona-activation'
   /** A persona's own piece, applied to the slot it re-skins. */
@@ -100,9 +97,10 @@ interface Claim {
 /**
  * Build the edits for every hero the user has customised.
  *
- * Order matters: explicit selections are claimed first and never overwritten, then set
- * companions fill the gaps, then persona pieces and hides. Anything that cannot be
- * resolved exactly is reported in `skipped`/`warnings` rather than guessed at.
+ * Order matters: explicit selections are claimed first and never overwritten, then
+ * persona pieces and hides, then forced-default conflicts are dropped, then
+ * persona-shadowed picks are reported. Anything that cannot be resolved exactly is
+ * reported in `skipped`/`warnings` rather than guessed at.
  */
 export function buildPlan(
   schema: SchemaIndex,
@@ -159,61 +157,26 @@ export function buildPlan(
       claims.set(targetSlot, { item, style: styleOf(customizations, heroTag, slot), reason: 'requested' })
     }
 
-    // 2. Arcana / set companions — derived from item_sets, never a hardcoded list.
-    for (const claim of [...claims.values()]) {
-      const choice = primarySetFor(schema, claim.item)
-      if (!choice) continue
-      if (choice.ambiguous) {
-        warnings.push(`${claim.item.name}: could not tell which set it belongs to, so companion pieces were not paired.`)
-        continue
-      }
-      // An item may declare that a slot must keep its *default* when it is equipped. Legion
-      // Commander's arcana relies on this: it rewrites the default weapon into its dual swords
-      // via its own `type model` remaps and lists the alternate weapons as exceptions. Pairing
-      // the set's weapon piece into that slot replaces the default model with the legacy
-      // single-weapon look and leaves the arcana's dual-wield activity without a matching
-      // model, which is what produced a one-weapon hero and an ERROR model after a reconnect.
-      const keepsDefault = new Set(claim.item.forcesDefaultSlots)
-      for (const memberName of choice.set.members) {
-        if (memberName === claim.item.name) continue
-        const member = itemByName(schema, memberName)
-        if (!member?.resolvedSlot) continue
-        if (keepsDefault.has(member.resolvedSlot)) {
-          skipped.push({
-            hero,
-            slot: member.resolvedSlot,
-            itemName: member.name,
-            reason: `${claim.item.name} keeps the default item in this slot, so the set piece was not paired`
-          })
-          continue
-        }
-        if (claims.has(member.resolvedSlot)) continue
-        if (!defaultFor(schema, hero, member.resolvedSlot)) {
-          warnings.push(`${hero}: "${member.name}" has no matching default item for slot "${member.resolvedSlot}".`)
-          continue
-        }
-        claims.set(member.resolvedSlot, { item: member, style: DEFAULT_STYLE, reason: 'set-companion' })
-      }
-    }
-
-    // 3. Persona handling.
+    // 2. Persona handling.
     const personaRequested = [...claims.keys()].some((slot) => isPersonaSlot(slot))
+    const shadowedByPersona = new Map<string, SchemaItem>()
     if (personaRequested) {
       const persona = personaItemFor(schema, hero)
       if (!persona) {
         warnings.push(`${hero}: a persona slot was selected but the schema defines no persona for this hero.`)
       } else {
-        // 3a. Activate the persona on its own selector: this carries `type persona`
+        // 2a. Activate the persona on its own selector: this carries `type persona`
         //     and the `entity_model` that swaps the hero's body.
         if (!claims.has('persona_selector') && defaultFor(schema, hero, 'persona_selector')) {
           claims.set('persona_selector', { item: persona, style: DEFAULT_STYLE, reason: 'persona-activation' })
         }
 
-        // 3b. Apply each persona piece to the slot it re-skins, so the persona renders
+        // 2b. Apply each persona piece to the slot it re-skins, so the persona renders
         //     even when the client's own loadout does not switch to `_persona_N` slots.
         //     When a hero has no base default for the slot, the `_persona_N` default item
         //     already carries the piece and there is nothing to substitute.
         const variants = personaVariantSlots(schema, hero)
+        for (const [baseSlot, variantItem] of variants) shadowedByPersona.set(baseSlot, variantItem)
         for (const [baseSlot, variantItem] of variants) {
           if (claims.has(baseSlot)) continue
           if (!defaultFor(schema, hero, baseSlot)) {
@@ -228,7 +191,7 @@ export function buildPlan(
           claims.set(baseSlot, { item: variantItem, style: DEFAULT_STYLE, reason: 'persona-piece' })
         }
 
-        // 3c. Hide base slots the persona does not cover, so adult geometry cannot clip
+        // 2c. Hide base slots the persona does not cover, so adult geometry cannot clip
         //     through the persona body. Only slots that actually render a model are
         //     hidden — default items without `model_player` (voice, pet summons, and the
         //     `hero_base` body slots some heroes have) must never be pointed at the null
@@ -241,6 +204,46 @@ export function buildPlan(
           if (!target?.model) continue
           claims.set(slot, { item: target, style: DEFAULT_STYLE, reason: 'persona-hide' })
         }
+      }
+    }
+
+    // 3. Forced-default slots win over anything else claimed there. Some items
+    // declare that a slot must keep its default while they are equipped (Legion
+    // Commander's arcana rewrites the default weapon itself). A cosmetic claimed
+    // for such a slot renders on first load but fails on reconnect, so drop it
+    // loudly — unless it is one of the declared exception items.
+    const forced = new Map<string, SchemaItem>()
+    for (const claim of claims.values()) {
+      for (const slot of claim.item.forcesDefaultSlots) {
+        if (!forced.has(slot)) forced.set(slot, claim.item)
+      }
+    }
+    for (const [slot, forcer] of forced) {
+      const claim = claims.get(slot)
+      if (!claim || claim.item.id === forcer.id) continue
+      if (forcer.forcesDefaultExceptions.includes(claim.item.id)) continue
+      claims.delete(slot)
+      skipped.push({
+        hero,
+        slot,
+        itemName: claim.item.name,
+        reason: `${forcer.name} forces the default item in this slot, so "${claim.item.name}" was not applied (they show together on first load but ERROR on reconnect)`
+      })
+    }
+
+    // 4. Persona bodies render their own variant pieces; an explicit non-persona
+    // pick for a covered base slot is ignored by the client, so say so instead of
+    // silently shipping an invisible cosmetic. The pick stays applied — removing the
+    // persona (or the item) is His call.
+    if (personaRequested) {
+      for (const [slot, variantItem] of shadowedByPersona) {
+        const claim = claims.get(slot)
+        if (!claim || claim.reason !== 'requested') continue
+        if (claim.item.id === variantItem.id) continue
+        if (isPersonaSlot(claim.item.resolvedSlot)) continue
+        warnings.push(
+          `${hero}: "${claim.item.name}" won't show while the persona is active (the persona shows "${variantItem.name}" on this slot instead)`
+        )
       }
     }
 

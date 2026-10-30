@@ -1,10 +1,18 @@
+import { getCanonicalHero } from '../../shared/constants/heroAliases'
 import { Sparkles, X } from 'lucide-react'
 import React from 'react'
 import { CATEGORY_META, isCategoryKey } from '../../data/categoryMeta'
 import { getItemStyleOptions } from '../../shared/constants/itemStyles'
 import { useAppStore } from '../state/useAppStore'
 import { getAttrLabel, getHeroAttribute } from '../utils/attributes'
-import { generateItemSvg, getItemImage, getRarityConfig, getSlotImage, type ItemDescriptor } from '../utils/itemImages'
+import {
+  generateItemSvg,
+  getItemImage,
+  getRarityConfig,
+  getSlotImage,
+  resolveEmptySlotImage,
+  type ItemDescriptor
+} from '../utils/itemImages'
 import { formatHeroName, getHeroSlotsDefinition } from './slotGenerator'
 import { Button } from './ui/Button'
 
@@ -45,15 +53,16 @@ export const SlotEditor: React.FC = () => {
   const isHero = !selectedHero.g || selectedHero.g === 'hero'
   const heroAttr = getHeroAttribute(selectedHero.tag)
   const heroImg =
-    selectedHero.img || (isHero ? `../assets/heroes/${selectedHero.tag.replace(/\s+/g, '_')}.png` : '../assets/categories/default.svg')
+    selectedHero.img || (isHero ? `../assets/heroes/${getCanonicalHero(selectedHero.tag)}.png` : '../assets/categories/default.svg')
   const catMeta = selectedHero.g && isCategoryKey(selectedHero.g) ? CATEGORY_META[selectedHero.g] : null
 
   const catalog = getHeroSlotsDefinition(selectedHero.tag, selectedHero)
   const currentSlots = heroSlots[selectedHero.tag] || {}
+  const catalogSlots = catalog?.slots ?? []
 
   let modifiedCount = 0
-  catalog.slots.forEach((s) => {
-    if (currentSlots[s.id]) modifiedCount++
+  catalogSlots.forEach((s) => {
+    if (currentSlots[s.slot]) modifiedCount++
   })
 
   return (
@@ -100,43 +109,37 @@ export const SlotEditor: React.FC = () => {
         <div className="flex flex-col gap-3">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Equipment Slots</h4>
           <div id="slotsGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {catalog.slots.map((slot) => {
-              const selectedItemName = currentSlots[slot.id]
+            {catalogSlots.map((slot) => {
+              const selectedItemName = currentSlots[slot.slot]
               const isEquipped = !!selectedItemName
 
               const equippedItemObj: ItemDescriptor | null = isEquipped
-                ? (catalog.items[slot.id] || []).find((it) => it.name === selectedItemName) || {
+                ? slot.mods.find((it) => it.name === selectedItemName) || {
                     name: selectedItemName,
                     tag: 'Custom'
                   }
                 : null
 
-              const defaultItemObj: ItemDescriptor | null =
-                (catalog.items[slot.id] || []).find(
-                  (it) => it.isDefault || it.tag === 'Default' || it.name.toLowerCase().includes('default')
-                ) ||
-                (catalog.items[slot.id] && catalog.items[slot.id][0]) ||
-                null
-
               const conf = getRarityConfig(equippedItemObj)
-              const activeItemObj = isEquipped ? equippedItemObj : defaultItemObj
-              const itemImg = activeItemObj ? getItemImage(activeItemObj, slot.id, selectedHero.tag, selectedHero) : getSlotImage(slot.id)
+              const itemImg = isEquipped
+                ? getItemImage(equippedItemObj, slot.slot, selectedHero.tag, selectedHero)
+                : resolveEmptySlotImage(slot.empty_img, slot.slot)
 
-              const customInfo = isEquipped && selectedItemName ? getItemStyleOptions(selectedHero.tag, slot.id, selectedItemName) : null
-              const currentCust = heroCustomizations[selectedHero.tag]?.[slot.id]
+              const customInfo = isEquipped && selectedItemName ? getItemStyleOptions(selectedHero.tag, slot.slot, selectedItemName) : null
+              const currentCust = heroCustomizations[selectedHero.tag]?.[slot.slot]
               const activeStyle = currentCust?.style ?? 0
 
               return (
                 <div
-                  key={slot.id}
+                  key={slot.slot}
                   className={`slot-card p-3 rounded-xl border transition-all cursor-pointer bg-[#121826]/70 hover:bg-[#1c263c]/90 flex flex-col justify-between ${
                     isEquipped ? 'border-purple-500/40 shadow-[0_0_12px_rgba(139,92,246,0.15)]' : 'border-white/5 hover:border-white/15'
                   }`}
-                  data-slot-id={slot.id}
+                  data-slot-id={slot.slot}
                   onClick={() => openSlotModal(selectedHero, slot)}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="slot-name text-xs font-bold text-white truncate">{slot.name}</span>
+                    <span className="slot-name text-xs font-bold text-white truncate">{slot.title}</span>
                     <span
                       className="text-[10px] font-semibold px-2 py-0.5 rounded-full border truncate shrink-0"
                       style={{
@@ -151,10 +154,10 @@ export const SlotEditor: React.FC = () => {
                       <button
                         className="p-1 ml-auto mr-0 text-slate-400 hover:text-white rounded hover:bg-white/10 transition-colors shrink-0"
                         title="Reset to default Base"
-                        data-reset-slot={slot.id}
+                        data-reset-slot={slot.slot}
                         onClick={(e) => {
                           e.stopPropagation()
-                          resetHeroSlot(selectedHero.tag, slot.id)
+                          resetHeroSlot(selectedHero.tag, slot.slot)
                         }}
                       >
                         <X size={14} />
@@ -175,12 +178,12 @@ export const SlotEditor: React.FC = () => {
                           isEquipped ? 'grayscale-0' : 'grayscale opacity-70 group-hover:opacity-85'
                         }`}
                         src={itemImg}
-                        alt={isEquipped ? selectedItemName : defaultItemObj?.name || slot.name}
+                        alt={isEquipped ? selectedItemName : slot.title}
                         onError={(e) => {
                           e.currentTarget.onerror = null
-                          e.currentTarget.src = activeItemObj
-                            ? generateItemSvg(activeItemObj, slot.id, selectedHero.tag)
-                            : getSlotImage(slot.id)
+                          e.currentTarget.src = equippedItemObj
+                            ? generateItemSvg(equippedItemObj, slot.slot, selectedHero.tag)
+                            : getSlotImage(slot.slot)
                         }}
                       />
                     </div>
@@ -189,9 +192,9 @@ export const SlotEditor: React.FC = () => {
                       <div
                         className="text-xs font-semibold truncate"
                         style={{ color: isEquipped ? conf.color : 'var(--text-main)' }}
-                        title={isEquipped ? selectedItemName : defaultItemObj?.name || 'Official Base Model'}
+                        title={isEquipped ? selectedItemName : 'Official Base Model'}
                       >
-                        {isEquipped ? selectedItemName : defaultItemObj?.name || 'Official Base Model'}
+                        {isEquipped ? selectedItemName : 'Official Base Model'}
                       </div>
                       <div className="text-[11px] text-slate-400 truncate mt-0.5">
                         {isEquipped ? `${conf.name} Cosmetic` : 'Valve Official Base'}
@@ -211,7 +214,7 @@ export const SlotEditor: React.FC = () => {
                             value={activeStyle}
                             onChange={(e) => {
                               const stIndex = Number(e.target.value)
-                              setSlotCustomization(selectedHero.tag, slot.id, { style: stIndex })
+                              setSlotCustomization(selectedHero.tag, slot.slot, { style: stIndex })
                             }}
                             className="bg-purple-950/80 border border-purple-500/40 rounded px-1.5 py-0.5 text-[11px] text-purple-200 cursor-pointer hover:border-purple-300 focus:outline-none focus:ring-1 focus:ring-purple-400 max-w-32.5 truncate"
                             title="Unlocked Arcana Style"
@@ -237,7 +240,7 @@ export const SlotEditor: React.FC = () => {
           <div className="flex items-center gap-2 text-xs">
             <span className="text-slate-400">Active cosmetic set:</span>
             <span id="asbSetName" className="font-semibold text-purple-300">
-              {modifiedCount > 0 ? `Custom Loadout (${modifiedCount}/${catalog.slots.length} modified)` : 'Default Equipment Loadout'}
+              {modifiedCount > 0 ? `Custom Loadout (${modifiedCount}/${catalogSlots.length} modified)` : 'Default Equipment Loadout'}
             </span>
           </div>
           <Button id="btnSaveAsPreset" variant="ghost" size="sm" onClick={openPresetModal}>

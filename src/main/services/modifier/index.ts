@@ -23,7 +23,6 @@ export {
   type ValidationResult
 } from './compile'
 export { HERO_BASE_MODELS, baseModelForHero } from './heroBaseModels'
-export { generateModPackage, type ModPackageResult, type ModProgressData, type VpkServiceLike } from './modPackager'
 export {
   buildPlan,
   ownerFor,

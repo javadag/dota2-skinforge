@@ -1,3 +1,4 @@
+import { getCanonicalHero } from '../../shared/constants/heroAliases'
 import { Search } from 'lucide-react'
 import React from 'react'
 import { useAppStore, type AttributeFilter } from '../state/useAppStore'
@@ -108,7 +109,7 @@ export const HeroList: React.FC = () => {
           const heroAttr = getHeroAttribute(h.tag)
           const isSelected = selectedHero?.tag === h.tag
           const heroModCount = Object.keys(heroSlots[h.tag] || {}).length
-          const imgSrc = h.img || (isHero ? `../assets/heroes/${h.tag.replace(/\s+/g, '_')}.png` : '../assets/categories/default.svg')
+          const imgSrc = h.img || (isHero ? `../assets/heroes/${getCanonicalHero(h.tag)}.png` : '../assets/categories/default.svg')
 
           return (
             <div

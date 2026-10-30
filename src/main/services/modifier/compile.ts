@@ -23,12 +23,32 @@ import {
   type VdfDocument,
   type VdfNode
 } from './vdf'
-import { buildSchema, defaultFor, defaultSlots, isOpaqueBlock, isPersonaSlot, type SchemaItem } from './schema'
+import { buildSchema, defaultFor, defaultSlots, isOpaqueBlock, isPersonaSlot, type SchemaIndex, type SchemaItem } from './schema'
 import { buildPlan, type CustomizationsMap, type PatchReason as PlanPatchReason, type SkippedSelection } from './plan'
 import { applyHide, applyVisuals, assetModifiers, flattenVisuals, mergeAssetModifiers } from './visuals'
 import { baseModelForHero } from './heroBaseModels'
 
-export type PatchReason = PlanPatchReason | 'hero-model-anchor'
+export type PatchReason = PlanPatchReason | 'hero-model-anchor' | 'model-swap'
+
+/**
+ * A cosmetic whose model is delivered by replacing a file the client already loads,
+ * instead of by pointing an item block at a new model path.
+ *
+ * `items_game` cannot be trusted to introduce a model path for a slot the player does
+ * not really own: the client only precaches the hero's own default model paths, so a
+ * remapped `model_player` renders on the first spawn and falls back to the ERROR model
+ * once the match is reloaded. Writing the cosmetic's bytes to the vanilla path keeps the
+ * schema untouched and always resolves.
+ */
+export interface ModelSwap {
+  hero: string
+  slot: string
+  itemName: string
+  /** Vanilla model path from the target default item — the path the client precaches. */
+  destModel: string
+  /** Valve's model file to place at `destModel`. */
+  sourceModel: string
+}
 
 export interface AppliedPatch {
   hero: string
@@ -56,6 +76,8 @@ export interface CompileReport {
   skipped: SkippedSelection[]
   validation: ValidationResult
   entityModelOverrides: EntityModelOverride[]
+  /** Cosmetic models that must be copied onto a vanilla model path in the pack. */
+  modelSwaps: ModelSwap[]
 }
 
 export interface ValidationResult {
@@ -78,6 +100,26 @@ export interface CompileOptions {
 function countItemBlocks(doc: VdfDocument): number {
   const items = getNode(doc.root, 'items')
   return items && !items.opaque ? items.entries.length : 0
+}
+
+/**
+ * The `model_skin` selectors a cosmetic declares for one style.
+ *
+ * Everything else in a cosmetic's `visuals` block describes an equipped item instance.
+ * The model itself arrives by file replacement (see `ModelSwap`), so the only thing the
+ * block still has to carry is which skin inside that model file to draw.
+ */
+function skinSelectors(schema: SchemaIndex, cosmetic: VdfNode, style: number): VdfNode[] {
+  const visuals = getNode(cosmetic, 'visuals')
+  if (!visuals || visuals.opaque) return []
+  return (
+    assetModifiers(flattenVisuals(schema, visuals, style))
+      .map((entry) => entry.value)
+      .filter((value): value is VdfNode => isNode(value) && getString(value, 'type') === 'model_skin')
+      // Skin 0 is what a model draws by default, so carrying it over would only rewrite the
+      // block for nothing.
+      .filter((value) => (getString(value, 'skin') ?? '0') !== '0')
+  )
 }
 
 /**
@@ -192,30 +234,64 @@ export function compileItemsGame(
     if (!byTarget.has(targetId)) byTarget.set(targetId, [])
   }
 
+  const modelSwaps: ModelSwap[] = []
+
   for (const [targetId, patches] of byTarget) {
     const target = patches[0]?.defaultItem ?? anchorModifiers.get(targetId)!.target
     const targetNode = target.entry.value
     if (typeof targetNode === 'string') continue
     materializeDeep(source, targetNode)
     const clone = cloneNode(targetNode)
+    const vanillaModel = getString(targetNode, 'model_player')
+    // Nothing is written for a pure model swap, so the block stays byte-identical to
+    // Valve's. Only a skin selector or an anchor/hide gives a reason to splice at all.
+    let touched = false
 
     for (const patch of patches) {
       if (patch.cosmetic === null) {
         applyHide(clone)
         expectedModel.set(targetId, 'models/props_nature/prop_null.vmdl')
+        touched = true
       } else {
         const cosmeticNode = patch.cosmetic.entry.value
         if (typeof cosmeticNode === 'string') continue
         materializeDeep(source, cosmeticNode)
-        applyVisuals(schema, clone, cosmeticNode, patch.style)
-        expectedModel.set(targetId, patch.cosmetic.model || null)
+        const cosmeticModel = patch.cosmetic.model
+        if (patch.reason === 'requested' && vanillaModel && cosmeticModel) {
+          // Deliver the model by replacing the vanilla file (see ModelSwap). The block
+          // keeps Valve's `model_player`, so the client never has to load a new path.
+          if (vanillaModel.toLowerCase() !== cosmeticModel.toLowerCase()) {
+            modelSwaps.push({
+              hero: patch.hero,
+              slot: patch.slot,
+              itemName: patch.cosmetic.name,
+              destModel: vanillaModel,
+              sourceModel: cosmeticModel
+            })
+          }
+          const skins = skinSelectors(schema, cosmeticNode, patch.style)
+          if (skins.length) {
+            mergeAssetModifiers(clone, skins)
+            touched = true
+          }
+          expectedModel.set(targetId, vanillaModel)
+        } else {
+          applyVisuals(schema, clone, cosmeticNode, patch.style)
+          expectedModel.set(targetId, patch.cosmetic.model || null)
+          touched = true
+          if (patch.reason === 'requested' && !cosmeticModel) {
+            warnings.push(
+              `${patch.hero}/${patch.slot}: "${patch.cosmetic.name}" has no model of its own, so it is applied as item data only.`
+            )
+          }
+        }
       }
       applied.push({
         hero: patch.hero,
         slot: patch.slot,
         itemName: patch.cosmetic ? patch.cosmetic.name : '(hidden)',
         targetId,
-        reason: patch.reason,
+        reason: patch.reason === 'requested' && vanillaModel ? 'model-swap' : patch.reason,
         style: patch.style,
         assumedSlot: patch.cosmetic && patch.cosmetic.slotSource === 'fallback' ? patch.cosmetic.name : undefined
       })
@@ -232,9 +308,10 @@ export function compileItemsGame(
         reason: 'hero-model-anchor',
         style: 0
       })
+      touched = true
     }
 
-    splices.push(spliceNode(clone, detectEol(source), 2))
+    if (touched) splices.push(spliceNode(clone, detectEol(source), 2))
   }
 
   const content = applySplices(source, splices)
@@ -244,12 +321,13 @@ export function compileItemsGame(
     content,
     report: {
       patchedCount: applied.filter((entry) => entry.reason !== 'hero-model-anchor').length,
-      itemsTouched: byTarget.size,
+      itemsTouched: splices.length,
       applied,
       warnings,
       skipped: plan.skipped,
       validation,
-      entityModelOverrides
+      entityModelOverrides,
+      modelSwaps
     }
   }
 }

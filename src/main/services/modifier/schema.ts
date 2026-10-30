@@ -35,10 +35,11 @@ export interface SchemaItem {
    * Slots this item forces back to their default when it is equipped, declared through
    * `force_default_item_into_slot_index_when_equipped`. Two arcanas work by rewriting the
    * *default* weapon with their own `type model` remaps — Legion Commander's dual swords and
-   * Drow's bow — and list the alternate weapon itemdefs as exceptions. Auto-pairing a set
-   * piece into such a slot fights that mechanism, so companion pairing must skip them.
+   * Drow's bow — and list the alternate weapon itemdefs as exceptions.
    */
   forcesDefaultSlots: string[]
+  /** Item ids allowed in the forced slots despite the above (the `_exception_itemdef`s). */
+  forcesDefaultExceptions: string[]
   /** The `items/<id>` entry, for span access. */
   entry: VdfEntry
 }
@@ -125,7 +126,7 @@ function readHeroes(node: VdfNode | undefined): string[] {
   return node.entries.map((entry) => (entry.key.startsWith(HERO_PREFIX) ? entry.key.slice(HERO_PREFIX.length) : entry.key))
 }
 
-interface RawItem extends Omit<SchemaItem, 'resolvedSlot' | 'slotSource' | 'forcesDefaultSlots'> {
+interface RawItem extends Omit<SchemaItem, 'resolvedSlot' | 'slotSource' | 'forcesDefaultSlots' | 'forcesDefaultExceptions'> {
   itemType: string
   baseItem: boolean
 }
@@ -139,8 +140,8 @@ interface RawItem extends Omit<SchemaItem, 'resolvedSlot' | 'slotSource' | 'forc
  */
 const FORCE_DEFAULT_MARKER = 'force_default_item_into_slot_index_when_equipped'
 
-function readForcedDefaultSlots(text: string, items: Map<string, SchemaItem>): Map<string, string[]> {
-  const result = new Map<string, string[]>()
+function readForcedDefaultSlots(text: string, items: Map<string, SchemaItem>): Map<string, { slots: string[]; except: string[] }> {
+  const result = new Map<string, { slots: string[]; except: string[] }>()
   const owners = new Set<string>()
 
   for (let offset = text.indexOf(FORCE_DEFAULT_MARKER); offset !== -1; offset = text.indexOf(FORCE_DEFAULT_MARKER, offset + 1)) {
@@ -169,17 +170,19 @@ function readForcedDefaultSlots(text: string, items: Map<string, SchemaItem>): M
     const forces = named.some((value) => getString(value, 'asset') === FORCE_DEFAULT_MARKER)
     if (!forces) continue
 
+    const exceptionIds = named
+      .filter((value) => getString(value, 'asset') === `${FORCE_DEFAULT_MARKER}_exception_itemdef`)
+      .map((value) => getString(value, 'value') ?? '')
+      .filter((value) => value !== '' && items.has(value))
     // The exception itemdefs are items in the forced slot, which names that slot for us
     // without needing an index -> slot table.
     const exceptionSlots = [
-      ...new Set(
-        named
-          .filter((value) => getString(value, 'asset') === `${FORCE_DEFAULT_MARKER}_exception_itemdef`)
-          .map((value) => items.get(getString(value, 'value') ?? '')?.resolvedSlot)
-          .filter((slot): slot is string => Boolean(slot))
-      )
+      ...new Set(exceptionIds.map((value) => items.get(value)?.resolvedSlot).filter((slot): slot is string => Boolean(slot)))
     ]
-    result.set(id, exceptionSlots.length === 1 ? exceptionSlots : [])
+    result.set(id, {
+      slots: exceptionSlots.length === 1 ? exceptionSlots : [],
+      except: exceptionIds
+    })
   }
 
   return result
@@ -271,7 +274,13 @@ export function buildSchema(text: string, options: BuildSchemaOptions = {}): Sch
 
   for (const item of raw) {
     const resolved = resolveSlot(item)
-    const full: SchemaItem = { ...item, resolvedSlot: resolved.slot, slotSource: resolved.source, forcesDefaultSlots: [] }
+    const full: SchemaItem = {
+      ...item,
+      resolvedSlot: resolved.slot,
+      slotSource: resolved.source,
+      forcesDefaultSlots: [],
+      forcesDefaultExceptions: []
+    }
     items.set(full.id, full)
 
     if (byName.has(full.name)) ambiguousNames.add(full.name)
@@ -333,9 +342,12 @@ export function buildSchema(text: string, options: BuildSchemaOptions = {}): Sch
   const localization = options.localizationText ? buildLocalization(options.localizationText) : new Map<string, string>()
 
   // Fill in the forced-default slots for the handful of items that declare them.
-  for (const [id, slots] of readForcedDefaultSlots(text, items)) {
+  for (const [id, forced] of readForcedDefaultSlots(text, items)) {
     const item = items.get(id)
-    if (item) item.forcesDefaultSlots = slots
+    if (item) {
+      item.forcesDefaultSlots = forced.slots
+      item.forcesDefaultExceptions = forced.except
+    }
   }
 
   return { items, byName, sets, setsForItem, bundleMembers, defaults, localization, ambiguousNames, personaSelectors }

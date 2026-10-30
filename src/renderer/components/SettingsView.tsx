@@ -11,6 +11,8 @@ export const SettingsView: React.FC = () => {
   const saveSettings = useAppStore((s) => s.saveSettings)
   const resetSettings = useAppStore((s) => s.resetSettings)
   const selectDotaDirectory = useAppStore((s) => s.selectDotaDirectory)
+  const installBundle = useAppStore((s) => s.installBundle)
+  const isBusy = useAppStore((s) => s.isBusy)
   const clearIconCache = useAppStore((s) => s.clearIconCache)
   const clearAllPresets = useAppStore((s) => s.clearAllPresets)
   const checkForUpdates = useAppStore((s) => s.checkForUpdates)
@@ -147,6 +149,22 @@ export const SettingsView: React.FC = () => {
           </div>
         </div>
 
+        {/* Pack Import */}
+        <div className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-4">
+          <div className="text-xs font-bold uppercase tracking-wider text-purple-400">Pack Folder</div>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-2">
+            <div>
+              <div className="text-xs font-semibold text-white">Install from a pack folder</div>
+              <span className="text-[11px] text-slate-400 block mt-0.5">
+                Stages the folder&apos;s assets, merges its items_game patches and mounts it as the active pack.
+              </span>
+            </div>
+            <Button id="btnInstallBundle" variant="secondary" size="sm" onClick={installBundle} disabled={isBusy}>
+              Import &amp; Install
+            </Button>
+          </div>
+        </div>
+
         {/* Assets & Cache */}
         <div className="p-5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-4">
           <div className="text-xs font-bold uppercase tracking-wider text-purple-400">Assets & Icon Cache</div>
@@ -188,20 +206,15 @@ export const SettingsView: React.FC = () => {
                 {updateStatus === 'checking'
                   ? 'Checking GitHub for new releases...'
                   : updateStatus === 'available'
-                  ? `A newer version (${updateInfo?.displayVersion}) is ready to download.`
-                  : updateStatus === 'error'
-                  ? 'Could not connect to GitHub releases.'
-                  : 'Checks the official GitHub repository for new releases.'}
+                    ? `A newer version (${updateInfo?.displayVersion}) is ready to download.`
+                    : updateStatus === 'error'
+                      ? 'Could not connect to GitHub releases.'
+                      : 'Checks the official GitHub repository for new releases.'}
               </span>
             </div>
             <div className="flex items-center gap-2">
               {updateStatus === 'available' && (
-                <Button
-                  id="btnViewUpdate"
-                  variant="primary"
-                  size="sm"
-                  onClick={() => setUpdateModalOpen(true)}
-                >
+                <Button id="btnViewUpdate" variant="primary" size="sm" onClick={() => setUpdateModalOpen(true)}>
                   View Update
                 </Button>
               )}
@@ -244,10 +257,7 @@ export const SettingsView: React.FC = () => {
           <Button id="btnSaveSettings" variant="primary" onClick={handleSave}>
             Save Settings
           </Button>
-          <span
-            id="settingsSavedMsg"
-            className={`text-xs font-semibold text-emerald-400 ${savedSuccess ? '' : 'hidden'}`}
-          >
+          <span id="settingsSavedMsg" className={`text-xs font-semibold text-emerald-400 ${savedSuccess ? '' : 'hidden'}`}>
             ✅ Saved!
           </span>
         </div>

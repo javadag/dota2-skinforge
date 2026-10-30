@@ -1,3 +1,4 @@
+import { getCanonicalHero } from '../../shared/constants/heroAliases'
 import { Search, Sparkles } from 'lucide-react'
 import { useEffect } from 'react'
 import { getItemStyleOptions } from '../../shared/constants/itemStyles'
@@ -38,9 +39,9 @@ export const ItemSelectModal = () => {
 
   const query = modalSearchQuery.toLowerCase().trim()
   const currentSlots = heroSlots[selectedHero.tag] || {}
-  const currentEquippedName = currentSlots[activeModalSlot.id]
-  const currentSlotCustomization = heroCustomizations[selectedHero.tag]?.[activeModalSlot.id]
-  const items = activeCatalog.items[activeModalSlot.id] || []
+  const currentEquippedName = currentSlots[activeModalSlot.slot]
+  const currentSlotCustomization = heroCustomizations[selectedHero.tag]?.[activeModalSlot.slot]
+  const items = activeModalSlot.mods || []
 
   // Check default item visibility
   const isDefaultSelected = !currentEquippedName
@@ -48,8 +49,7 @@ export const ItemSelectModal = () => {
   const matchesDefaultQuery = !query || 'official base model'.includes(query) || 'default'.includes(query)
   const showDefaultItem = matchesDefaultFilter && matchesDefaultQuery
 
-  const baseThumbSrc =
-    selectedHero.img || getCategorySvg(selectedHero.tag) || `../assets/heroes/${selectedHero.tag.replace(/\s+/g, '_')}.png`
+  const baseThumbSrc = selectedHero.img || getCategorySvg(selectedHero.tag) || `../assets/heroes/${getCanonicalHero(selectedHero.tag)}.png`
 
   // Filter items
   const filteredItems = items.filter((it) => {
@@ -69,7 +69,7 @@ export const ItemSelectModal = () => {
     if (
       query &&
       !it.name.toLowerCase().includes(query) &&
-      !(it.tag && it.tag.toLowerCase().includes(query)) &&
+      !(it.rarity && it.rarity.toLowerCase().includes(query)) &&
       !conf.name.toLowerCase().includes(query)
     ) {
       return false
@@ -96,7 +96,7 @@ export const ItemSelectModal = () => {
               {formatHeroName(selectedHero.tag)} Equipment
             </h3>
             <div id="slotModalSlotName" className="text-[11px] font-semibold text-cyan-400 uppercase tracking-wider mt-0.5">
-              {activeModalSlot.name}
+              {activeModalSlot.title}
             </div>
           </div>
           <button
@@ -148,9 +148,9 @@ export const ItemSelectModal = () => {
                 isDefaultSelected ? 'border-purple-500/50 bg-purple-500/10' : 'border-white/5'
               }`}
               onClick={() => {
-                resetHeroSlot(selectedHero.tag, activeModalSlot.id)
+                resetHeroSlot(selectedHero.tag, activeModalSlot.slot)
                 closeSlotModal()
-                addLog(`Reset ${formatHeroName(selectedHero.tag)} [${activeModalSlot.name}] to Official Base.`, 'info')
+                addLog(`Reset ${formatHeroName(selectedHero.tag)} [${activeModalSlot.title}] to Official Base.`, 'info')
               }}
             >
               <div className="w-full h-44 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center shrink-0 overflow-hidden">
@@ -181,8 +181,8 @@ export const ItemSelectModal = () => {
           {filteredItems.map((it) => {
             const conf = getRarityConfig(it)
             const isSelected = currentEquippedName === it.name
-            const itemImg = getItemImage(it, activeModalSlot.id, selectedHero.tag, selectedHero)
-            const customInfo = getItemStyleOptions(selectedHero.tag, activeModalSlot.id, it.name)
+            const itemImg = getItemImage(it, activeModalSlot.slot, selectedHero.tag, selectedHero)
+            const customInfo = getItemStyleOptions(selectedHero.tag, activeModalSlot.slot, it.name)
 
             const activeStyle = currentSlotCustomization?.style ?? 0
             const hasCustomOptions = !!(customInfo && customInfo.hasStyles)
@@ -194,20 +194,20 @@ export const ItemSelectModal = () => {
                   isSelected ? 'border-purple-500/50 bg-purple-500/10' : 'border-white/5'
                 } ${isSelected && hasCustomOptions ? 'col-span-2' : ''}`}
                 onClick={() => {
-                  setHeroSlot(selectedHero.tag, activeModalSlot.id, it.name)
+                  setHeroSlot(selectedHero.tag, activeModalSlot.slot, it.name)
                   if (hasCustomOptions) {
                     if (!currentSlotCustomization) {
-                      setSlotCustomization(selectedHero.tag, activeModalSlot.id, {
+                      setSlotCustomization(selectedHero.tag, activeModalSlot.slot, {
                         style: 0
                       })
                     }
                     addLog(
-                      `Equipped ${it.name} on ${formatHeroName(selectedHero.tag)} [${activeModalSlot.name}]. Customize styles below.`,
+                      `Equipped ${it.name} on ${formatHeroName(selectedHero.tag)} [${activeModalSlot.title}]. Customize styles below.`,
                       'success'
                     )
                   } else {
                     closeSlotModal()
-                    addLog(`Equipped ${it.name} on ${formatHeroName(selectedHero.tag)} [${activeModalSlot.name}].`, 'success')
+                    addLog(`Equipped ${it.name} on ${formatHeroName(selectedHero.tag)} [${activeModalSlot.title}].`, 'success')
                   }
                 }}
               >
@@ -226,7 +226,7 @@ export const ItemSelectModal = () => {
                     className="size-full object-contain"
                     onError={(e) => {
                       e.currentTarget.onerror = null
-                      e.currentTarget.src = generateItemSvg(it, activeModalSlot.id, selectedHero.tag)
+                      e.currentTarget.src = generateItemSvg(it, activeModalSlot.slot, selectedHero.tag)
                     }}
                   />
                 </div>
@@ -277,7 +277,7 @@ export const ItemSelectModal = () => {
                             key={s.index}
                             type="button"
                             onClick={() => {
-                              setSlotCustomization(selectedHero.tag, activeModalSlot.id, { style: s.index })
+                              setSlotCustomization(selectedHero.tag, activeModalSlot.slot, { style: s.index })
                               addLog(`Selected style "${s.name}" for ${it.name}.`, 'info')
                             }}
                             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${

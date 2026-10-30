@@ -1,14 +1,11 @@
 /**
  * Dota 2 SkinForge — per-item style options for the UI.
  *
- * Sourced from `data/itemStyles.json`, which `scripts/build_item_styles.ts` generates
- * from the game's own `items_game.txt` and localization. This replaces the previous
- * hand-written `ARCANA_REGISTRY` (15 items, several already out of date) with the 1,188
- * items the live schema actually gives styles to.
+ * The generated `data/itemStyles.json` catalog was removed together with the old
+ * modifier schema pipeline, so style options are currently unavailable. The API is
+ * kept intact so the editor can start offering styles again as soon as the catalog
+ * is regenerated from `items_game.txt`.
  */
-
-import itemStylesData from '../../../data/itemStyles.json'
-import { getCanonicalHero } from './heroAliases'
 
 export interface StyleOption {
   index: number
@@ -29,14 +26,7 @@ interface StylesEntry {
   styles: StyleOption[]
 }
 
-interface ItemStylesFile {
-  generatedFrom: string
-  itemCount: number
-  items: Record<string, StylesEntry>
-}
-
-const catalog = itemStylesData as unknown as ItemStylesFile
-const items: Record<string, StylesEntry> = catalog?.items ?? {}
+const items: Record<string, StylesEntry> = {}
 
 /** Every item the schema gives styles to (used by tests and diagnostics). */
 export function styledItemNames(): string[] {
@@ -52,10 +42,7 @@ export function getItemStyleOptions(heroTag?: string, slotId?: string, itemName?
   const entry = items[itemName]
   if (!entry || entry.styles.length === 0) return null
 
-  if (heroTag) {
-    const canonical = getCanonicalHero(heroTag)
-    if (entry.hero && entry.hero !== canonical && entry.hero !== heroTag.toLowerCase()) return null
-  }
+  if (heroTag && entry.hero && entry.hero !== heroTag.toLowerCase()) return null
   if (slotId && entry.slot && entry.slot !== slotId) return null
 
   return { hasStyles: true, styles: entry.styles }

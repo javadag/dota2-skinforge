@@ -17,11 +17,24 @@ export interface PipelineStatus {
 
 export type StatusResult = PipelineStatus
 
+export interface InstallReportPayload {
+  patchedCount: number
+  itemsTouched?: number
+  warnings?: string[]
+  skipped?: Array<{ hero: string; slot: string; itemName?: string; reason: string }>
+  modelOverrides?: number
+  modelSwaps?: number
+  overlays?: Array<{ id: string; name: string; hero: string }>
+  overlayFiles?: number
+  overlayBytes?: number
+  overlayMissing?: string[]
+}
+
 export type ModInstallResult =
-  { success: true; patchedCount: number; report?: ModCompileReport } | { success: false; error: string; patchedCount?: number }
+  { success: true; patchedCount: number; report?: InstallReportPayload } | { success: false; error: string; patchedCount?: number }
 
 /** Mirrors `src/main/services/modifier/plan.ts` and `compile.ts`. */
-export type ModPatchReason = 'requested' | 'set-companion' | 'persona-activation' | 'persona-piece' | 'persona-hide'
+export type ModPatchReason = 'requested' | 'persona-activation' | 'persona-piece' | 'persona-hide' | 'model-swap'
 
 export interface ModAppliedPatch {
   hero: string
@@ -44,6 +57,13 @@ export interface ModCompileReport {
 }
 
 export type ModUninstallResult = { success: true } | { success: false; error: string }
+
+/** Result of installing a prepared pack folder. */
+export interface BundleInstallResult {
+  success: boolean
+  patchedCount?: number
+  error?: string
+}
 
 export interface SelectDirectoryResult {
   path: string
@@ -118,6 +138,8 @@ export interface SkinforgeBridge {
     customizations?: import('../shared/types/customization').HeroCustomizationsMap
   ) => Promise<ModInstallResult>
   uninstallMods: (customPath?: string) => Promise<ModUninstallResult>
+  selectBundleDirectory: () => Promise<string | null>
+  installBundle: (customPath?: string, bundleDir?: string) => Promise<BundleInstallResult>
   openExternal: (url: string) => Promise<void>
   readSettings: () => Promise<AppSettingsPayload>
   writeSettings: (settings: AppSettingsPayload) => Promise<{ ok: true } | { ok: false; error: string }>

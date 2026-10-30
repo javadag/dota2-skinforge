@@ -24,7 +24,7 @@ export const CATEGORY_META: Record<CategoryKey, CategoryMetaItem> = {
   interface: {
     name: 'Interface',
     title: 'Interface & Audio',
-    sub: 'Music Packs, Announcers, Loading Screens, Versus Screens, HUD Skins, Killstreak Effects, and Cursors',
+    sub: 'Music Packs, Announcers, Versus Screens, HUD Skins, Killstreak Effects, and Cursors',
     badge: 'Interface',
   },
   all: {

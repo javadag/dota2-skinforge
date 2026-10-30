@@ -27,6 +27,8 @@ const api = {
   installMods: (customPath?: string, equipped?: Record<string, unknown>, customizations?: Record<string, unknown>) =>
     ipcRenderer.invoke('install-mods', customPath, equipped, customizations),
   uninstallMods: (customPath?: string) => ipcRenderer.invoke('uninstall-mods', customPath),
+  selectBundleDirectory: () => ipcRenderer.invoke('select-bundle-directory'),
+  installBundle: (customPath?: string, bundleDir?: string) => ipcRenderer.invoke('install-bundle', customPath, bundleDir),
   openExternal: (url: string) => ipcRenderer.invoke('open-external', url),
   readSettings: () => ipcRenderer.invoke('read-settings'),
   writeSettings: (settings: Record<string, unknown>) => ipcRenderer.invoke('write-settings', settings),

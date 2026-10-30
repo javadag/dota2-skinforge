@@ -96,6 +96,40 @@ const CLEAN_TEMPLATE = `"GameInfo"
 }
 `
 
+const isGameLine = (line: string): boolean => /^\s*Game\s+\S/.test(line) && !/Game_(AudioLanguage|LowViolence)/.test(line)
+
+const isModLine = (line: string): boolean => /^\s*Mod\s+\S/.test(line) && !/Mod_AudioLanguage/.test(line)
+
+function hasModEntry(content: string, modFolderName: string): boolean {
+  const escaped = modFolderName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`^\\s*(?:Game|Mod)\\s+"?${escaped}"?\\s*$`, 'm').test(content)
+}
+
+/**
+ * Insert the mod's search paths ahead of the existing ones.
+ *
+ * Rewriting the whole file would drop every other mounted mod (another cosmetic mod, addons...),
+ * so a configured gameinfo is edited in place: the mod goes directly above the first
+ * `Game` entry, which is what gives it priority over everything below.
+ */
+function addModEntries(content: string, modFolderName: string): string {
+  const lines = content.split(/\r?\n/)
+  const gameIndex = lines.findIndex(isGameLine)
+  if (gameIndex === -1) return TEMPLATE_WITH_MOD(modFolderName).replace(/\r?\n/g, '\r\n')
+
+  const indent = (/^\s*/.exec(lines[gameIndex])?.[0] ?? '\t\t\t').replace(/\s+$/, '')
+  const insert: string[] = [`${indent}Game\t\t\t\t${modFolderName}`]
+
+  const modIndex = lines.findIndex(isModLine)
+  if (modIndex !== -1) {
+    // Keep the Mod options grouped together after the Game block.
+    insert.push(`${indent}Mod\t\t\t\t${modFolderName}`)
+  }
+
+  lines.splice(gameIndex, 0, ...insert)
+  return lines.join('\r\n')
+}
+
 export type GameinfoInjectStatus = 'already_configured' | 'updated'
 export type GameinfoRestoreStatus = 'restored_from_backup' | 'reset_to_clean'
 
@@ -130,16 +164,16 @@ export function injectSearchPaths(
     }
   }
 
-  if (currentContent.includes(modFolderName)) {
+  if (hasModEntry(currentContent, modFolderName)) {
     return { success: true, status: 'already_configured' }
   }
 
-  const newContent = TEMPLATE_WITH_MOD(modFolderName).replace(/\r?\n/g, '\r\n')
-  fs.writeFileSync(filePath, newContent, 'utf-8')
+  fs.writeFileSync(filePath, addModEntries(currentContent, modFolderName), 'utf-8')
   return { success: true, status: 'updated' }
 }
 
-export function restoreCleanGameinfo(dotaGameDir: string, backupDir: string | null = null): GameinfoRestoreResult {
+/** Put the pre-install gameinfo back, exactly as it was. */
+export function restoreGameinfo(dotaGameDir: string, backupDir: string | null = null): GameinfoRestoreResult {
   const filePath = getGameinfoPath(dotaGameDir)
   if (backupDir) {
     const backupTarget = path.join(backupDir, 'gameinfo_branchspecific.gi')
@@ -152,10 +186,14 @@ export function restoreCleanGameinfo(dotaGameDir: string, backupDir: string | nu
   return { success: true, status: 'reset_to_clean' }
 }
 
+/** Backwards-compatible alias. */
+export const restoreCleanGameinfo = restoreGameinfo
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     getGameinfoPath,
     injectSearchPaths,
+    restoreGameinfo,
     restoreCleanGameinfo
   }
 }

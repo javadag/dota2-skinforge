@@ -1,6 +1,8 @@
 /**
- * Dota 2 SkinForge — Item Images & Official Valve Rarity Visual Engine
+ * Dota 2 SkinForge - Item Images & Official Valve Rarity Visual Engine
  */
+
+import { getCanonicalHero } from '../../shared/constants/heroAliases'
 
 export interface RarityConfigItem {
   name: string
@@ -232,8 +234,7 @@ export function getCategorySvg(tagOrSlot?: string | null): string | null {
 }
 
 export function getSlotImage(slotId?: string | null): string {
-  if (!slotId) return '../assets/slots/weapon.svg'
-  const cleanSlot = slotId
+  const cleanSlot = (slotId || 'weapon')
     .toLowerCase()
     .replace(/_persona_\d+$/, '')
     .replace(/\d+$/, '')
@@ -260,7 +261,37 @@ export function getSlotImage(slotId?: string | null): string {
     music: 'music_pack'
   }
   const resolved = aliasMap[cleanSlot] || cleanSlot
-  return `../assets/slots/${resolved}.svg`
+  // Rendered locally so an empty slot never depends on a remote image.
+  const icon = getSlotSvgIcon(resolved, '#8b93a7')
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">` +
+    `<rect width="80" height="80" rx="10" fill="#151b2b"/>` +
+    `<rect x="1" y="1" width="78" height="78" rx="9" fill="none" stroke="rgba(255,255,255,0.08)"/>` +
+    `${icon}</svg>`
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
+}
+
+/**
+ * Empty slot art: a Valve `econ/...` default icon resolves through R2 like mod
+ * icons do, anything else falls back to the local generic slot art.
+ */
+export function resolveEmptySlotImage(emptyImg?: string | null, slotId = 'weapon'): string {
+  if (typeof emptyImg === 'string' && emptyImg.length > 0) {
+    if (
+      emptyImg.startsWith('econ/') ||
+      emptyImg.startsWith('loadingscreens/') ||
+      emptyImg.startsWith('compendium/') ||
+      emptyImg.startsWith('teamfancontent/') ||
+      emptyImg.startsWith('talentcontent/') ||
+      emptyImg.startsWith('events/') ||
+      emptyImg.startsWith('materials/')
+    ) {
+      const cleanImg = emptyImg.replace(/\.(png|vtex_c)$/i, '')
+      return `skinforge-icon://${cleanImg}.webp`
+    }
+    if (!/^https?:\/\//i.test(emptyImg)) return emptyImg
+  }
+  return getSlotImage(slotId)
 }
 
 function getSlotSvgIcon(slotId: string, color: string): string {
@@ -461,8 +492,7 @@ export function getItemImage(item?: ItemDescriptor | null, slotId = 'weapon', he
     if (heroTag) {
       const catSvg = getCategorySvg(heroTag)
       if (catSvg) return catSvg
-      const cleanTag = heroTag.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_')
-      return `../assets/heroes/${cleanTag}.png`
+      return `../assets/heroes/${getCanonicalHero(heroTag)}.png`
     }
     return generateItemSvg({ name: 'Default Base', tag: 'default', isDefault: true }, slotId, heroTag)
   }

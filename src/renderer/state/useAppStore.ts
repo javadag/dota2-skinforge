@@ -2,14 +2,7 @@ import { create } from 'zustand'
 import type { ItemCustomization, HeroCustomizationsMap } from '../../shared/types/customization'
 import type { CategoryKey } from '../../data/categoryMeta'
 import type { HeroAttribute } from '../../shared/constants/attributes'
-import {
-  formatHeroName,
-  getHeroSlotsDefinition,
-  initCatalog,
-  setCatalogHeroes,
-  type HeroSlot,
-  type HeroSlotsCatalogEntry
-} from '../components/slotGenerator'
+import { formatHeroName, getHeroSlotsDefinition, initCatalog, type CatalogSlot, type HeroCatalogEntry } from '../components/slotGenerator'
 import type { HeroEntry, InstallProgress, PipelineStatus } from '../env'
 
 export type AppTab = 'heroes' | 'presets' | 'launch' | 'settings' | 'about'
@@ -58,10 +51,10 @@ export interface AppStoreState {
   selectedHero: HeroEntry | null
   heroSlots: Record<string, Record<string, string>>
   heroCustomizations: HeroCustomizationsMap
-  activeCatalog: HeroSlotsCatalogEntry | null
+  activeCatalog: HeroCatalogEntry | null
 
   // Modals & Panels
-  activeModalSlot: HeroSlot | null
+  activeModalSlot: CatalogSlot | null
   modalRarityFilter: string
   modalSearchQuery: string
   isPresetModalOpen: boolean
@@ -98,7 +91,7 @@ export interface AppStoreState {
   unlockBestSet: (hero: HeroEntry) => void
 
   // Modals
-  openSlotModal: (hero: HeroEntry, slot: HeroSlot) => void
+  openSlotModal: (hero: HeroEntry, slot: CatalogSlot) => void
   closeSlotModal: () => void
   setModalRarityFilter: (rarity: string) => void
   setModalSearchQuery: (query: string) => void
@@ -121,6 +114,7 @@ export interface AppStoreState {
   // Mod Pipeline & System
   applyMods: () => Promise<void>
   restoreMods: () => Promise<void>
+  installBundle: () => Promise<void>
   refreshStatus: () => Promise<void>
   launchDota: () => void
 
@@ -135,6 +129,24 @@ export interface AppStoreState {
   toggleConsole: () => void
   setPatchAlertVisible: (visible: boolean) => void
   initApp: () => Promise<void>
+}
+
+/** Rarest-first ordering used by "Unlock Best Set". */
+const RARITY_RANK: Record<string, number> = {
+  arcana: 8,
+  immortal: 7,
+  legendary: 6,
+  mythical: 5,
+  rare: 4,
+  uncommon: 3,
+  common: 2,
+  seasonal: 1,
+  persona: 1,
+  taunt: 0
+}
+
+function rarityRank(rarity?: string): number {
+  return RARITY_RANK[(rarity || '').toLowerCase()] ?? 0
 }
 
 function getStoredPresets(): Preset[] {
@@ -321,15 +333,15 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
 
   unlockBestSet: (hero) => {
     const catalog = getHeroSlotsDefinition(hero.tag, hero)
+    if (!catalog) return
     let count = 0
     const newHeroSlots = { ...(get().heroSlots[hero.tag] || {}) }
 
     catalog.slots.forEach((slot) => {
-      const items = catalog.items[slot.id] || []
-      // The catalog lists each slot rarest-first, so the first entry is the top item.
-      const bestItem = items[0]
+      // The catalog lists items alphabetically, so pick the rarest explicitly.
+      const bestItem = [...slot.mods].sort((a, b) => rarityRank(b.rarity) - rarityRank(a.rarity))[0]
       if (bestItem) {
-        newHeroSlots[slot.id] = bestItem.name
+        newHeroSlots[slot.slot] = bestItem.name
         count++
       }
     })
@@ -528,6 +540,20 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
           set({ progress: { step: 10, total: 10, message: `Success (${count} items applied)!` } })
         }
 
+        const skipped = res.report?.skipped ?? []
+        if (skipped.length) {
+          state.addLog(
+            `${skipped.length} selection(s) could not be applied: ` +
+              skipped
+                .slice(0, 4)
+                .map((s) => `${s.hero}/${s.slot}`)
+                .join(', ') +
+              (skipped.length > 4 ? '...' : ''),
+            'warn'
+          )
+        }
+        for (const warning of res.report?.warnings ?? []) state.addLog(warning, 'warn')
+
         const status = await window.skinforge.checkStatus(state.dotaPath)
         set({ status })
 
@@ -535,6 +561,11 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
           state.addLog('Launching Dota 2...', 'info')
           window.skinforge.openExternal('steam://run/570')
         }
+      } else if (res) {
+        const msg = res.error || 'Unknown error'
+        state.addLog(`Installation failed: ${msg}`, 'error')
+        set({ progress: { step: 10, total: 10, message: 'Install failed' } })
+        alert(`Failed to apply mods:\n${msg}`)
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err)
@@ -566,11 +597,56 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
         set({ progress: { step: 10, total: 10, message: 'Restored' } })
         const status = await window.skinforge.checkStatus(state.dotaPath)
         set({ status })
+      } else if (res) {
+        const msg = res.error || 'Unknown error'
+        state.addLog(`Restore failed: ${msg}`, 'error')
+        alert(`Failed to restore:\n${msg}`)
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err)
       state.addLog(`Restore error: ${msg}`, 'error')
       alert(`Failed to restore: ${msg}`)
+    } finally {
+      set({ isBusy: false })
+      setTimeout(() => set({ progress: null }), 2000)
+    }
+  },
+
+  installBundle: async () => {
+    const state = get()
+    if (state.isBusy) return
+
+    if (state.status && state.status.dotaRunning) {
+      alert('Dota 2 is currently running. Please close Dota 2 before installing a pack.')
+      return
+    }
+
+    const bundleDir = await window.skinforge.selectBundleDirectory()
+    if (!bundleDir) return
+
+    if (!confirm(`Install the pack in:\n${bundleDir}\n\nThis replaces the currently installed cosmetic pack.`)) {
+      return
+    }
+
+    set({ isBusy: true, progress: { step: 1, total: 4, message: 'Reading pack folder...' } })
+    state.addLog(`Staging pack from ${bundleDir}...`, 'info')
+
+    try {
+      const res = await window.skinforge.installBundle(state.dotaPath, bundleDir)
+      if (res && res.success) {
+        state.addLog(`Pack installed (${res.patchedCount ?? 0} item blocks). Launch Dota 2 to see it.`, 'success')
+        set({ progress: { step: 4, total: 4, message: `Installed (${res.patchedCount ?? 0} blocks)` } })
+        const status = await window.skinforge.checkStatus(state.dotaPath)
+        set({ status })
+      } else {
+        const msg = res?.error ?? 'Unknown error'
+        state.addLog(`Pack install failed: ${msg}`, 'error')
+        alert(`Failed to install pack:\n${msg}`)
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err)
+      state.addLog(`Pack install error: ${msg}`, 'error')
+      alert(`Failed to install pack:\n${msg}`)
     } finally {
       set({ isBusy: false })
       setTimeout(() => set({ progress: null }), 2000)
@@ -637,7 +713,6 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
       const dotaPath = initial.dotaPath || ''
       const heroes = initial.heroes || []
       const categories = initial.categories || []
-      setCatalogHeroes([...heroes, ...categories])
       const status = initial.status
 
       let savedSettings: Partial<AppSettings> = {}

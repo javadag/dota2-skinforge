@@ -2,1073 +2,801 @@
   "heroes": [
     {
       "tag": "abaddon",
-      "img": "../assets/heroes/abaddon.png",
-      "alias": [
-        "aba",
-        "loa",
-        "lord of avernus"
-      ]
+      "name": "Abaddon",
+      "mods": 112,
+      "alias": []
     },
     {
       "tag": "alchemist",
-      "img": "../assets/heroes/alchemist.png",
-      "alias": [
-        "alch",
-        "razzil",
-        "chemist"
-      ]
+      "name": "Alchemist",
+      "mods": 163,
+      "alias": []
     },
     {
       "tag": "ancient apparition",
-      "img": "../assets/heroes/ancient_apparition.png",
-      "alias": [
-        "aa",
-        "kaldr"
-      ]
+      "name": "Ancient Apparition",
+      "mods": 65,
+      "alias": []
     },
     {
       "tag": "antimage",
-      "img": "../assets/heroes/antimage.png",
-      "name": "Anti-Mage",
+      "name": "Antimage",
+      "mods": 289,
       "alias": [
-        "am",
-        "magina",
-        "anti mage",
-        "anti-mage"
+        "anti-mage",
+        "antimage"
       ]
     },
     {
       "tag": "arc warden",
-      "img": "../assets/heroes/arc_warden.png",
-      "alias": [
-        "arc",
-        "zet",
-        "aw"
-      ]
+      "name": "Arc Warden",
+      "mods": 57,
+      "alias": []
     },
     {
       "tag": "axe",
-      "img": "../assets/heroes/axe.png",
-      "alias": [
-        "mogul khan",
-        "red duck"
-      ]
+      "name": "Axe",
+      "mods": 195,
+      "alias": []
     },
     {
       "tag": "bane",
-      "img": "../assets/heroes/bane.png",
-      "alias": [
-        "atropos",
-        "bane elemental"
-      ]
+      "name": "Bane",
+      "mods": 69,
+      "alias": []
     },
     {
       "tag": "batrider",
-      "img": "../assets/heroes/batrider.png",
-      "alias": [
-        "bat",
-        "jin'zakk",
-        "bat rider"
-      ]
+      "name": "Batrider",
+      "mods": 80,
+      "alias": []
     },
     {
       "tag": "beastmaster",
-      "img": "../assets/heroes/beastmaster.png",
-      "alias": [
-        "bm",
-        "rexxar",
-        "beast master"
-      ]
+      "name": "Beastmaster",
+      "mods": 113,
+      "alias": []
     },
     {
       "tag": "bloodseeker",
-      "img": "../assets/heroes/bloodseeker.png",
-      "alias": [
-        "bs",
-        "strygwyr",
-        "seeker"
-      ]
+      "name": "Bloodseeker",
+      "mods": 146,
+      "alias": []
     },
     {
       "tag": "bounty hunter",
-      "img": "../assets/heroes/bounty_hunter.png",
-      "alias": [
-        "bh",
-        "gondar",
-        "bounty"
-      ]
+      "name": "Bounty Hunter",
+      "mods": 147,
+      "alias": []
     },
     {
       "tag": "brewmaster",
-      "img": "../assets/heroes/brewmaster.png",
-      "alias": [
-        "brew",
-        "panda",
-        "mangix"
-      ]
+      "name": "Brewmaster",
+      "mods": 100,
+      "alias": []
     },
     {
       "tag": "bristleback",
-      "img": "../assets/heroes/bristleback.png",
-      "alias": [
-        "bb",
-        "rigwarl",
-        "bristle"
-      ]
+      "name": "Bristleback",
+      "mods": 72,
+      "alias": []
     },
     {
       "tag": "broodmother",
-      "img": "../assets/heroes/broodmother.png",
-      "alias": [
-        "brood",
-        "black arachnia",
-        "spider"
-      ]
+      "name": "Broodmother",
+      "mods": 149,
+      "alias": []
     },
     {
       "tag": "centaur warrunner",
-      "img": "../assets/heroes/centaur.png",
+      "name": "Centaur Warrunner",
+      "mods": 172,
       "alias": [
-        "cent",
-        "centaur",
-        "bradwarden",
-        "cw"
+        "centaur warrunner"
       ]
     },
     {
       "tag": "chaos knight",
-      "img": "../assets/heroes/chaos_knight.png",
-      "alias": [
-        "ck",
-        "nessaj"
-      ]
+      "name": "Chaos Knight",
+      "mods": 134,
+      "alias": []
     },
     {
       "tag": "chen",
-      "img": "../assets/heroes/chen.png",
-      "alias": [
-        "holy knight"
-      ]
+      "name": "Chen",
+      "mods": 80,
+      "alias": []
     },
     {
       "tag": "clinkz",
-      "img": "../assets/heroes/clinkz.png",
-      "alias": [
-        "bone",
-        "bone fletcher",
-        "clinks"
-      ]
+      "name": "Clinkz",
+      "mods": 95,
+      "alias": []
     },
     {
       "tag": "clockwerk",
-      "img": "../assets/heroes/rattletrap.png",
+      "name": "Clockwerk",
+      "mods": 147,
       "alias": [
-        "clock",
-        "rattletrap",
-        "cw"
+        "clockwerk"
       ]
     },
     {
       "tag": "crystal maiden",
-      "img": "../assets/heroes/crystal_maiden.png",
-      "alias": [
-        "cm",
-        "rylai",
-        "maiden"
-      ]
+      "name": "Crystal Maiden",
+      "mods": 188,
+      "alias": []
     },
     {
       "tag": "dark seer",
-      "img": "../assets/heroes/dark_seer.png",
-      "alias": [
-        "ds",
-        "ish'kafel"
-      ]
+      "name": "Dark Seer",
+      "mods": 91,
+      "alias": []
     },
     {
       "tag": "dark willow",
-      "img": "../assets/heroes/dark_willow.png",
-      "alias": [
-        "dw",
-        "willow",
-        "mireska"
-      ]
+      "name": "Dark Willow",
+      "mods": 117,
+      "alias": []
     },
     {
       "tag": "dawnbreaker",
-      "img": "../assets/heroes/dawnbreaker.png",
-      "alias": [
-        "db",
-        "valora",
-        "dawn"
-      ]
+      "name": "Dawnbreaker",
+      "mods": 43,
+      "alias": []
     },
     {
       "tag": "dazzle",
-      "img": "../assets/heroes/dazzle.png",
-      "alias": [
-        "shadow priest"
-      ]
+      "name": "Dazzle",
+      "mods": 84,
+      "alias": []
     },
     {
       "tag": "death prophet",
-      "img": "../assets/heroes/death_prophet.png",
-      "alias": [
-        "dp",
-        "krob",
-        "krobelus"
-      ]
+      "name": "Death Prophet",
+      "mods": 214,
+      "alias": []
     },
     {
       "tag": "disruptor",
-      "img": "../assets/heroes/disruptor.png",
-      "alias": [
-        "thrall",
-        "stormcrafter"
-      ]
+      "name": "Disruptor",
+      "mods": 136,
+      "alias": []
     },
     {
       "tag": "doom",
-      "img": "../assets/heroes/doom_bringer.png",
+      "name": "Doom",
+      "mods": 181,
       "alias": [
-        "lucifer",
-        "doom bringer"
+        "doom"
       ]
     },
     {
       "tag": "dragon knight",
-      "img": "../assets/heroes/dragon_knight.png",
-      "alias": [
-        "dk",
-        "davion"
-      ]
+      "name": "Dragon Knight",
+      "mods": 256,
+      "alias": []
     },
     {
       "tag": "drow ranger",
-      "img": "../assets/heroes/drow_ranger.png",
-      "alias": [
-        "drow",
-        "traxex",
-        "dr"
-      ]
+      "name": "Drow Ranger",
+      "mods": 273,
+      "alias": []
     },
     {
       "tag": "earth spirit",
-      "img": "../assets/heroes/earth_spirit.png",
-      "alias": [
-        "es",
-        "kaolin"
-      ]
+      "name": "Earth Spirit",
+      "mods": 71,
+      "alias": []
     },
     {
       "tag": "earthshaker",
-      "img": "../assets/heroes/earthshaker.png",
-      "alias": [
-        "es",
-        "raigor",
-        "shaker"
-      ]
+      "name": "Earthshaker",
+      "mods": 86,
+      "alias": []
     },
     {
       "tag": "elder titan",
-      "img": "../assets/heroes/elder_titan.png",
-      "alias": [
-        "et",
-        "tc",
-        "tauren chieftain"
-      ]
+      "name": "Elder Titan",
+      "mods": 50,
+      "alias": []
     },
     {
       "tag": "ember spirit",
-      "img": "../assets/heroes/ember_spirit.png",
-      "alias": [
-        "ember",
-        "xin"
-      ]
+      "name": "Ember Spirit",
+      "mods": 110,
+      "alias": []
     },
     {
       "tag": "enchantress",
-      "img": "../assets/heroes/enchantress.png",
-      "alias": [
-        "ench",
-        "bambi",
-        "aiushtha"
-      ]
+      "name": "Enchantress",
+      "mods": 89,
+      "alias": []
     },
     {
       "tag": "enigma",
-      "img": "../assets/heroes/enigma.png",
-      "alias": [
-        "darchrow"
-      ]
+      "name": "Enigma",
+      "mods": 45,
+      "alias": []
     },
     {
       "tag": "faceless void",
-      "img": "../assets/heroes/faceless_void.png",
-      "alias": [
-        "fv",
-        "void",
-        "darkterror"
-      ]
+      "name": "Faceless Void",
+      "mods": 112,
+      "alias": []
     },
     {
       "tag": "grimstroke",
-      "img": "../assets/heroes/grimstroke.png",
-      "alias": [
-        "grim",
-        "ashvor"
-      ]
+      "name": "Grimstroke",
+      "mods": 55,
+      "alias": []
     },
     {
       "tag": "gyrocopter",
-      "img": "../assets/heroes/gyrocopter.png",
-      "alias": [
-        "gyro",
-        "aurel"
-      ]
+      "name": "Gyrocopter",
+      "mods": 90,
+      "alias": []
     },
     {
       "tag": "hoodwink",
-      "img": "../assets/heroes/hoodwink.png",
-      "alias": [
-        "hood",
-        "squirrel"
-      ]
+      "name": "Hoodwink",
+      "mods": 65,
+      "alias": []
     },
     {
       "tag": "huskar",
-      "img": "../assets/heroes/huskar.png",
-      "alias": [
-        "sacred warrior"
-      ]
+      "name": "Huskar",
+      "mods": 89,
+      "alias": []
     },
     {
       "tag": "invoker",
-      "img": "../assets/heroes/invoker.png",
-      "alias": [
-        "invo",
-        "kael",
-        "carl",
-        "arsenal magus"
-      ]
+      "name": "Invoker",
+      "mods": 222,
+      "alias": []
     },
     {
       "tag": "io",
-      "img": "../assets/heroes/wisp.png",
+      "name": "Io",
+      "mods": 17,
       "alias": [
-        "wisp"
+        "io"
       ]
     },
     {
       "tag": "jakiro",
-      "img": "../assets/heroes/jakiro.png",
-      "alias": [
-        "thd",
-        "twin head dragon",
-        "twin headed dragon"
-      ]
+      "name": "Jakiro",
+      "mods": 33,
+      "alias": []
     },
     {
       "tag": "juggernaut",
-      "img": "../assets/heroes/juggernaut.png",
-      "alias": [
-        "jugg",
-        "yurnero"
-      ]
+      "name": "Juggernaut",
+      "mods": 271,
+      "alias": []
     },
     {
       "tag": "keeper of the light",
-      "img": "../assets/heroes/keeper_of_the_light.png",
-      "alias": [
-        "kotl",
-        "ezalor",
-        "keeper"
-      ]
+      "name": "Keeper Of The Light",
+      "mods": 76,
+      "alias": []
     },
     {
       "tag": "kez",
-      "img": "../assets/heroes/kez.png",
-      "alias": [
-        "bird",
-        "swordsman",
-        "kazurai"
-      ]
+      "name": "Kez",
+      "mods": 20,
+      "alias": []
     },
     {
       "tag": "kunkka",
-      "img": "../assets/heroes/kunkka.png",
-      "alias": [
-        "admiral",
-        "coco",
-        "daelin"
-      ]
+      "name": "Kunkka",
+      "mods": 207,
+      "alias": []
     },
     {
       "tag": "largo",
-      "img": "../assets/heroes/largo.png",
-      "alias": [
-        "largo",
-        "frog"
-      ]
+      "name": "Largo",
+      "mods": 0,
+      "alias": []
     },
     {
       "tag": "legion commander",
-      "img": "../assets/heroes/legion_commander.png",
-      "alias": [
-        "lc",
-        "tresdin",
-        "legion"
-      ]
+      "name": "Legion Commander",
+      "mods": 205,
+      "alias": []
     },
     {
       "tag": "leshrac",
-      "img": "../assets/heroes/leshrac.png",
-      "alias": [
-        "lesh",
-        "tormented soul",
-        "disco pony"
-      ]
+      "name": "Leshrac",
+      "mods": 72,
+      "alias": []
     },
     {
       "tag": "lich",
-      "img": "../assets/heroes/lich.png",
-      "alias": [
-        "ethreain"
-      ]
+      "name": "Lich",
+      "mods": 105,
+      "alias": []
     },
     {
       "tag": "lifestealer",
-      "img": "../assets/heroes/life_stealer.png",
+      "name": "Lifestealer",
+      "mods": 75,
       "alias": [
-        "ls",
-        "naix",
-        "stealer",
-        "life stealer"
+        "lifestealer"
       ]
     },
     {
       "tag": "lina",
-      "img": "../assets/heroes/lina.png",
-      "alias": [
-        "slayer",
-        "lina inverse"
-      ]
+      "name": "Lina",
+      "mods": 133,
+      "alias": []
     },
     {
       "tag": "lion",
-      "img": "../assets/heroes/lion.png",
-      "alias": [
-        "demon witch"
-      ]
+      "name": "Lion",
+      "mods": 86,
+      "alias": []
     },
     {
       "tag": "lone druid",
-      "img": "../assets/heroes/lone_druid.png",
-      "alias": [
-        "ld",
-        "sylla",
-        "syllabear",
-        "bear"
-      ]
+      "name": "Lone Druid",
+      "mods": 80,
+      "alias": []
     },
     {
       "tag": "luna",
-      "img": "../assets/heroes/luna.png",
-      "alias": [
-        "moon fang"
-      ]
+      "name": "Luna",
+      "mods": 157,
+      "alias": []
     },
     {
       "tag": "lycan",
-      "img": "../assets/heroes/lycan.png",
-      "alias": [
-        "banehallow",
-        "wolf"
-      ]
+      "name": "Lycan",
+      "mods": 114,
+      "alias": []
     },
     {
       "tag": "magnus",
-      "img": "../assets/heroes/magnataur.png",
+      "name": "Magnus",
+      "mods": 79,
       "alias": [
-        "mag",
-        "magnataur"
+        "magnus"
       ]
     },
     {
       "tag": "marci",
-      "img": "../assets/heroes/marci.png",
-      "alias": [
-        "anime"
-      ]
+      "name": "Marci",
+      "mods": 69,
+      "alias": []
     },
     {
       "tag": "mars",
-      "img": "../assets/heroes/mars.png",
-      "alias": [
-        "ares"
-      ]
+      "name": "Mars",
+      "mods": 60,
+      "alias": []
     },
     {
       "tag": "medusa",
-      "img": "../assets/heroes/medusa.png",
-      "alias": [
-        "dusa",
-        "gorgon"
-      ]
+      "name": "Medusa",
+      "mods": 71,
+      "alias": []
     },
     {
       "tag": "meepo",
-      "img": "../assets/heroes/meepo.png",
-      "alias": [
-        "geomancer"
-      ]
+      "name": "Meepo",
+      "mods": 117,
+      "alias": []
     },
     {
       "tag": "mirana",
-      "img": "../assets/heroes/mirana.png",
-      "alias": [
-        "potm",
-        "priestess of the moon"
-      ]
+      "name": "Mirana",
+      "mods": 140,
+      "alias": []
     },
     {
       "tag": "monkey king",
-      "img": "../assets/heroes/monkey_king.png",
-      "alias": [
-        "mk",
-        "wukong",
-        "monkey"
-      ]
+      "name": "Monkey King",
+      "mods": 61,
+      "alias": []
     },
     {
       "tag": "morphling",
-      "img": "../assets/heroes/morphling.png",
-      "alias": [
-        "morph",
-        "water"
-      ]
+      "name": "Morphling",
+      "mods": 82,
+      "alias": []
     },
     {
       "tag": "muerta",
-      "img": "../assets/heroes/muerta.png",
-      "alias": [
-        "death",
-        "gunslinger"
-      ]
+      "name": "Muerta",
+      "mods": 24,
+      "alias": []
     },
     {
       "tag": "naga siren",
-      "img": "../assets/heroes/naga_siren.png",
-      "alias": [
-        "naga",
-        "slithice"
-      ]
+      "name": "Naga Siren",
+      "mods": 126,
+      "alias": []
     },
     {
       "tag": "natures prophet",
-      "img": "../assets/heroes/furion.png",
-      "alias": [
-        "np",
-        "furion",
-        "prophet",
-        "nature's prophet",
-        "tequoia"
-      ]
+      "name": "Natures Prophet",
+      "mods": 179,
+      "alias": []
     },
     {
       "tag": "necrophos",
-      "img": "../assets/heroes/necrolyte.png",
+      "name": "Necrophos",
+      "mods": 110,
       "alias": [
-        "necro",
-        "rotund'jere",
-        "necrolyte"
+        "necrophos"
       ]
     },
     {
       "tag": "night stalker",
-      "img": "../assets/heroes/night_stalker.png",
-      "alias": [
-        "ns",
-        "balanar",
-        "stalker",
-        "nightstalker"
-      ]
+      "name": "Night Stalker",
+      "mods": 64,
+      "alias": []
     },
     {
       "tag": "nyx assassin",
-      "img": "../assets/heroes/nyx_assassin.png",
-      "alias": [
-        "nyx",
-        "na",
-        "anub'arak",
-        "nerubian assassin"
-      ]
+      "name": "Nyx Assassin",
+      "mods": 147,
+      "alias": []
     },
     {
       "tag": "ogre magi",
-      "img": "../assets/heroes/ogre_magi.png",
-      "alias": [
-        "ogre",
-        "aggron stonebreak"
-      ]
+      "name": "Ogre Magi",
+      "mods": 100,
+      "alias": []
     },
     {
       "tag": "omniknight",
-      "img": "../assets/heroes/omniknight.png",
-      "alias": [
-        "omni",
-        "purist thunderwrath",
-        "omni knight"
-      ]
+      "name": "Omniknight",
+      "mods": 104,
+      "alias": []
     },
     {
       "tag": "oracle",
-      "img": "../assets/heroes/oracle.png",
-      "alias": [
-        "nerif"
-      ]
+      "name": "Oracle",
+      "mods": 67,
+      "alias": []
     },
     {
       "tag": "outworld devourer",
-      "img": "../assets/heroes/obsidian_destroyer.png",
+      "name": "Outworld Devourer",
+      "mods": 52,
       "alias": [
-        "od",
-        "obsidian destroyer",
-        "outworld destroyer",
-        "harbinger"
+        "outworld devourer"
       ]
     },
     {
       "tag": "pangolier",
-      "img": "../assets/heroes/pangolier.png",
-      "alias": [
-        "pango",
-        "donte panlin"
-      ]
+      "name": "Pangolier",
+      "mods": 46,
+      "alias": []
     },
     {
       "tag": "phantom assassin",
-      "img": "../assets/heroes/phantom_assassin.png",
-      "alias": [
-        "pa",
-        "mortred"
-      ]
+      "name": "Phantom Assassin",
+      "mods": 220,
+      "alias": []
     },
     {
       "tag": "phantom lancer",
-      "img": "../assets/heroes/phantom_lancer.png",
-      "alias": [
-        "pl",
-        "azwraith",
-        "lancer"
-      ]
+      "name": "Phantom Lancer",
+      "mods": 111,
+      "alias": []
     },
     {
       "tag": "phoenix",
-      "img": "../assets/heroes/phoenix.png",
-      "alias": [
-        "bird",
-        "icarus"
-      ]
+      "name": "Phoenix",
+      "mods": 39,
+      "alias": []
     },
     {
       "tag": "primal beast",
-      "img": "../assets/heroes/primal_beast.png",
-      "alias": [
-        "pb",
-        "primal",
-        "beast"
-      ]
+      "name": "Primal Beast",
+      "mods": 50,
+      "alias": []
     },
     {
       "tag": "puck",
-      "img": "../assets/heroes/puck.png",
-      "alias": [
-        "faerie dragon"
-      ]
+      "name": "Puck",
+      "mods": 76,
+      "alias": []
     },
     {
       "tag": "pudge",
-      "img": "../assets/heroes/pudge.png",
-      "alias": [
-        "butcher"
-      ]
+      "name": "Pudge",
+      "mods": 362,
+      "alias": []
     },
     {
       "tag": "pugna",
-      "img": "../assets/heroes/pugna.png",
-      "alias": [
-        "oblivion mage"
-      ]
+      "name": "Pugna",
+      "mods": 107,
+      "alias": []
     },
     {
       "tag": "queen of pain",
-      "img": "../assets/heroes/queenofpain.png",
+      "name": "Queen Of Pain",
+      "mods": 150,
       "alias": [
-        "qop",
-        "akasha"
+        "queen of pain"
       ]
     },
     {
       "tag": "razor",
-      "img": "../assets/heroes/razor.png",
-      "alias": [
-        "lightning revenant"
-      ]
+      "name": "Razor",
+      "mods": 110,
+      "alias": []
     },
     {
       "tag": "riki",
-      "img": "../assets/heroes/riki.png",
-      "alias": [
-        "sa",
-        "stealth assassin",
-        "rikimaru"
-      ]
+      "name": "Riki",
+      "mods": 139,
+      "alias": []
     },
     {
       "tag": "ringmaster",
-      "img": "../assets/heroes/ringmaster.png",
-      "alias": [
-        "coax",
-        "ring master",
-        "clown"
-      ]
+      "name": "Ringmaster",
+      "mods": 42,
+      "alias": []
     },
     {
       "tag": "rubick",
-      "img": "../assets/heroes/rubick.png",
-      "alias": [
-        "grand magus"
-      ]
+      "name": "Rubick",
+      "mods": 136,
+      "alias": []
     },
     {
       "tag": "sand king",
-      "img": "../assets/heroes/sand_king.png",
-      "alias": [
-        "sk",
-        "crixalis"
-      ]
+      "name": "Sand King",
+      "mods": 79,
+      "alias": []
     },
     {
       "tag": "shadow demon",
-      "img": "../assets/heroes/shadow_demon.png",
-      "alias": [
-        "sd",
-        "eradar"
-      ]
+      "name": "Shadow Demon",
+      "mods": 39,
+      "alias": []
     },
     {
       "tag": "shadow fiend",
-      "img": "../assets/heroes/nevermore.png",
+      "name": "Shadow Fiend",
+      "mods": 59,
       "alias": [
-        "sf",
-        "nevermore"
+        "shadow fiend"
       ]
     },
     {
       "tag": "shadow shaman",
-      "img": "../assets/heroes/shadow_shaman.png",
-      "alias": [
-        "ss",
-        "rhasta",
-        "shaman"
-      ]
+      "name": "Shadow Shaman",
+      "mods": 120,
+      "alias": []
     },
     {
       "tag": "silencer",
-      "img": "../assets/heroes/silencer.png",
-      "alias": [
-        "nortrom"
-      ]
+      "name": "Silencer",
+      "mods": 108,
+      "alias": []
     },
     {
       "tag": "skywrath mage",
-      "img": "../assets/heroes/skywrath_mage.png",
-      "alias": [
-        "sky",
-        "dragonus",
-        "sm"
-      ]
+      "name": "Skywrath Mage",
+      "mods": 149,
+      "alias": []
     },
     {
       "tag": "slardar",
-      "img": "../assets/heroes/slardar.png",
-      "alias": [
-        "slard",
-        "guard"
-      ]
+      "name": "Slardar",
+      "mods": 70,
+      "alias": []
     },
     {
       "tag": "slark",
-      "img": "../assets/heroes/slark.png",
-      "alias": [
-        "nightcrawler",
-        "fish"
-      ]
+      "name": "Slark",
+      "mods": 100,
+      "alias": []
     },
     {
       "tag": "snapfire",
-      "img": "../assets/heroes/snapfire.png",
-      "alias": [
-        "snap",
-        "beatrix",
-        "grandma",
-        "granny"
-      ]
+      "name": "Snapfire",
+      "mods": 70,
+      "alias": []
     },
     {
       "tag": "sniper",
-      "img": "../assets/heroes/sniper.png",
-      "alias": [
-        "kardel",
-        "kardel sharpeye"
-      ]
+      "name": "Sniper",
+      "mods": 180,
+      "alias": []
     },
     {
       "tag": "spectre",
-      "img": "../assets/heroes/spectre.png",
-      "alias": [
-        "spec",
-        "mercurial"
-      ]
+      "name": "Spectre",
+      "mods": 98,
+      "alias": []
     },
     {
       "tag": "spirit breaker",
-      "img": "../assets/heroes/spirit_breaker.png",
-      "alias": [
-        "sb",
-        "bara",
-        "barathrum",
-        "cow"
-      ]
+      "name": "Spirit Breaker",
+      "mods": 148,
+      "alias": []
     },
     {
       "tag": "storm spirit",
-      "img": "../assets/heroes/storm_spirit.png",
-      "alias": [
-        "storm",
-        "raijin",
-        "ss"
-      ]
+      "name": "Storm Spirit",
+      "mods": 68,
+      "alias": []
     },
     {
       "tag": "sven",
-      "img": "../assets/heroes/sven.png",
-      "alias": [
-        "rogue knight"
-      ]
+      "name": "Sven",
+      "mods": 258,
+      "alias": []
     },
     {
       "tag": "techies",
-      "img": "../assets/heroes/techies.png",
-      "alias": [
-        "squee",
-        "spleen",
-        "spoon",
-        "goblin techies"
-      ]
+      "name": "Techies",
+      "mods": 153,
+      "alias": []
     },
     {
       "tag": "templar assassin",
-      "img": "../assets/heroes/templar_assassin.png",
-      "alias": [
-        "ta",
-        "lanaya"
-      ]
+      "name": "Templar Assassin",
+      "mods": 111,
+      "alias": []
     },
     {
       "tag": "terrorblade",
-      "img": "../assets/heroes/terrorblade.png",
-      "alias": [
-        "tb",
-        "soul keeper"
-      ]
+      "name": "Terrorblade",
+      "mods": 93,
+      "alias": []
     },
     {
       "tag": "tidehunter",
-      "img": "../assets/heroes/tidehunter.png",
-      "alias": [
-        "tide",
-        "leviathan",
-        "watermelon"
-      ]
+      "name": "Tidehunter",
+      "mods": 160,
+      "alias": []
     },
     {
       "tag": "timbersaw",
-      "img": "../assets/heroes/shredder.png",
+      "name": "Timbersaw",
+      "mods": 124,
       "alias": [
-        "timber",
-        "rizzrack",
-        "shredder"
+        "timbersaw"
       ]
     },
     {
       "tag": "tinker",
-      "img": "../assets/heroes/tinker.png",
-      "alias": [
-        "boush"
-      ]
+      "name": "Tinker",
+      "mods": 53,
+      "alias": []
     },
     {
       "tag": "tiny",
-      "img": "../assets/heroes/tiny.png",
-      "alias": [
-        "stone giant"
-      ]
+      "name": "Tiny",
+      "mods": 72,
+      "alias": []
     },
     {
       "tag": "treant protector",
-      "img": "../assets/heroes/treant.png",
+      "name": "Treant Protector",
+      "mods": 81,
       "alias": [
-        "tree",
-        "rooftrellen",
-        "treant",
-        "tp"
+        "treant protector"
       ]
     },
     {
       "tag": "troll warlord",
-      "img": "../assets/heroes/troll_warlord.png",
-      "alias": [
-        "troll",
-        "jah'rakal",
-        "tw"
-      ]
+      "name": "Troll Warlord",
+      "mods": 33,
+      "alias": []
     },
     {
       "tag": "tusk",
-      "img": "../assets/heroes/tusk.png",
-      "alias": [
-        "ymir",
-        "tuskarr"
-      ]
+      "name": "Tusk",
+      "mods": 114,
+      "alias": []
     },
     {
       "tag": "underlord",
-      "img": "../assets/heroes/abyssal_underlord.png",
+      "name": "Underlord",
+      "mods": 28,
       "alias": [
-        "pit lord",
-        "vrogros",
-        "abyssal underlord"
+        "underlord"
       ]
     },
     {
       "tag": "undying",
-      "img": "../assets/heroes/undying.png",
-      "alias": [
-        "dirge",
-        "zombie"
-      ]
+      "name": "Undying",
+      "mods": 90,
+      "alias": []
     },
     {
       "tag": "ursa",
-      "img": "../assets/heroes/ursa.png",
-      "alias": [
-        "ulfsaar",
-        "bear"
-      ]
+      "name": "Ursa",
+      "mods": 89,
+      "alias": []
     },
     {
       "tag": "vengeful spirit",
-      "img": "../assets/heroes/vengefulspirit.png",
+      "name": "Vengeful Spirit",
+      "mods": 93,
       "alias": [
-        "vs",
-        "venge",
-        "shendelzare"
+        "vengeful spirit"
       ]
     },
     {
       "tag": "venomancer",
-      "img": "../assets/heroes/venomancer.png",
-      "alias": [
-        "veno",
-        "lesale deathbringer",
-        "banana"
-      ]
+      "name": "Venomancer",
+      "mods": 83,
+      "alias": []
     },
     {
       "tag": "viper",
-      "img": "../assets/heroes/viper.png",
-      "alias": [
-        "netherdrake"
-      ]
+      "name": "Viper",
+      "mods": 32,
+      "alias": []
     },
     {
       "tag": "visage",
-      "img": "../assets/heroes/visage.png",
-      "alias": [
-        "necro'lic",
-        "vis"
-      ]
+      "name": "Visage",
+      "mods": 32,
+      "alias": []
     },
     {
       "tag": "void spirit",
-      "img": "../assets/heroes/void_spirit.png",
-      "alias": [
-        "inai",
-        "vs"
-      ]
+      "name": "Void Spirit",
+      "mods": 41,
+      "alias": []
     },
     {
       "tag": "warlock",
-      "img": "../assets/heroes/warlock.png",
-      "alias": [
-        "demnok lannik"
-      ]
+      "name": "Warlock",
+      "mods": 115,
+      "alias": []
     },
     {
       "tag": "weaver",
-      "img": "../assets/heroes/weaver.png",
-      "alias": [
-        "anub'seran",
-        "nerubian weaver",
-        "bug"
-      ]
+      "name": "Weaver",
+      "mods": 67,
+      "alias": []
     },
     {
       "tag": "windranger",
-      "img": "../assets/heroes/windrunner.png",
+      "name": "Windranger",
+      "mods": 165,
       "alias": [
-        "wr",
-        "windrunner",
-        "lyralei"
+        "windranger"
       ]
     },
     {
       "tag": "winter wyvern",
-      "img": "../assets/heroes/winter_wyvern.png",
-      "alias": [
-        "ww",
-        "auroth",
-        "wyvern"
-      ]
+      "name": "Winter Wyvern",
+      "mods": 27,
+      "alias": []
     },
     {
       "tag": "witch doctor",
-      "img": "../assets/heroes/witch_doctor.png",
-      "alias": [
-        "wd",
-        "zharvakko",
-        "doctor"
-      ]
+      "name": "Witch Doctor",
+      "mods": 153,
+      "alias": []
     },
     {
       "tag": "wraith king",
-      "img": "../assets/heroes/skeleton_king.png",
+      "name": "Wraith King",
+      "mods": 173,
       "alias": [
-        "wk",
-        "sk",
-        "skeleton king",
-        "ostarion"
+        "wraith king"
       ]
     },
     {
       "tag": "zeus",
-      "img": "../assets/heroes/zuus.png",
+      "name": "Zeus",
+      "mods": 57,
       "alias": [
-        "zuus",
-        "lord of heaven",
-        "mario"
+        "zeus"
       ]
     }
   ]
