@@ -99,6 +99,8 @@ export interface MergeOptions {
   sanitize?: boolean
   /** Item ids whose base block must win over the patch. */
   skipIds?: Iterable<string>
+  /** When set, only these item ids may be taken from the patch. */
+  onlyIds?: Iterable<string>
 }
 
 /**
@@ -115,9 +117,11 @@ export function applyItemBlocks(
   const edits: Array<{ start: number; end: number; text: string }> = []
 
   const skip = new Set([...(options.skipIds ?? [])].map(String))
+  const only = options.onlyIds ? new Set([...options.onlyIds].map(String)) : null
 
   for (const [id, raw] of blocks) {
     if (skip.has(String(id))) continue
+    if (only && !only.has(String(id))) continue
     let body = raw
     if (options.sanitize !== false) {
       const clean = sanitizeBlock(body)

@@ -364,20 +364,22 @@ export async function buildSelectionPack(
   let schemaContent = compiled.content
   if (overlay.patches.length) {
     // The overlay's schema snapshot was generated for the items its author had picked, not
-    // for the ones selected here. It is only authoritative for the overlay item's own slot
-    // (the arcana body block, every persona piece); any other block it carries would paste
-    // a different item's effects over the player's pick, so our compiled block wins there.
+    // for the ones selected here. Only the overlay item's own slot block is authoritative
+    // (the arcana body block, every persona piece); the rest would paste a different item's
+    // effects over a slot the player may not even have picked.
     const personaOverlay = overlayPicks.some((pick) => schema.items.get(String(pick.id))?.resolvedSlot === 'persona_selector')
-    const keep = new Set<string>()
+    const own = new Set<string>()
     if (!personaOverlay) {
       for (const pick of overlayPicks) {
         for (const entry of compiled.report.applied) {
-          if (entry.hero === pick.hero && entry.slot === pick.slot) keep.add(entry.targetId)
+          if (entry.hero === pick.hero && entry.slot === pick.slot) own.add(entry.targetId)
         }
       }
     }
-    const skipIds = personaOverlay ? [] : compiled.report.applied.map((entry) => entry.targetId).filter((id) => !keep.has(id))
-    schemaContent = packService.mergeItemsGame(schemaContent, overlay.patches, { sanitize: true, skipIds }).text
+    schemaContent = packService.mergeItemsGame(schemaContent, overlay.patches, {
+      sanitize: true,
+      onlyIds: personaOverlay ? undefined : own
+    }).text
   }
   fs.writeFileSync(schemaPath, schemaContent, 'utf-8')
 
