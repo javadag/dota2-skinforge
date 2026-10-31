@@ -331,21 +331,23 @@ export async function buildSelectionPack(
   // hero's vanilla slot path, not by remapping `model_player` (see `ModelSwap` in the
   // compiler). Only the compiled `.vmdl_c` is needed: it references its materials by
   // absolute path, and Valve ships those.
-  let modelSwaps = 0
-  for (const swap of compiled.report.modelSwaps) {
+  const copyModelSwap = async (swap: (typeof compiled.report.modelSwaps)[number]): Promise<boolean> => {
     const src = swap.sourceModel.replace(/\.vmdl$/i, '') + '.vmdl_c'
     const rel = swap.destModel.replace(/\.vmdl$/i, '') + '.vmdl_c'
     const dst = path.join(stagingDir, rel.replace(/\//g, path.sep))
     fs.mkdirSync(path.dirname(dst), { recursive: true })
-    let copied: boolean
     try {
       const ok = await vpk.extract(dotaVpk, src, dst)
-      copied = typeof ok === 'object' && 'ok' in ok && Boolean(ok.ok)
+      return typeof ok === 'object' && 'ok' in ok && Boolean(ok.ok)
     } catch {
-      copied = false
+      return false
     }
-    if (copied) modelSwaps++
-    else compiled.report.warnings.push(`${swap.hero}/${swap.slot}: "${swap.itemName}" model is not in Valve's VPK (${src})`)
+  }
+
+  let modelSwaps = 0
+  for (const swap of compiled.report.modelSwaps) {
+    if (await copyModelSwap(swap)) modelSwaps++
+    else compiled.report.warnings.push(`${swap.hero}/${swap.slot}: "${swap.itemName}" model is not in Valve's VPK (${swap.sourceModel})`)
   }
 
   // Cosmetics that items_game alone cannot produce carry a file overlay plus the pack's
@@ -361,13 +363,24 @@ export async function buildSelectionPack(
     )
   }
 
+  // A bundle ships one model for every slot it was built for, so it can out-vote an
+  // explicit pick on that same slot. The pick wins: its model is copied again over the
+  // bundle's. Slots the player left alone keep the bundle's file — for an arcana those are
+  // its own set pieces (crown, raiments, dagger), which the real item brings along too.
+  const personaOverlay = overlayPicks.some((pick) => schema.items.get(String(pick.id))?.resolvedSlot === 'persona_selector')
+  if (!personaOverlay) {
+    const pickedSlots = new Set(overlayPicks.map((pick) => `${pick.hero}/${pick.slot}`))
+    for (const swap of compiled.report.modelSwaps) {
+      if (!pickedSlots.has(`${swap.hero}/${swap.slot}`)) await copyModelSwap(swap)
+    }
+  }
+
   let schemaContent = compiled.content
   if (overlay.patches.length) {
     // The overlay's schema snapshot was generated for the items its author had picked, not
     // for the ones selected here. Only the overlay item's own slot block is authoritative
     // (the arcana body block, every persona piece); the rest would paste a different item's
     // effects over a slot the player may not even have picked.
-    const personaOverlay = overlayPicks.some((pick) => schema.items.get(String(pick.id))?.resolvedSlot === 'persona_selector')
     const own = new Set<string>()
     if (!personaOverlay) {
       for (const pick of overlayPicks) {
