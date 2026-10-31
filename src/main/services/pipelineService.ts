@@ -268,6 +268,8 @@ export async function buildSelectionPack(
   const customizations: Record<string, Record<string, { style?: number }>> = {}
   const unresolved: SelectionReport['skipped'] = []
   const resolvedIds = new Set<number>()
+  /** Picks that bring an asset overlay, with the schema hero and slot they landed on. */
+  const overlayPicks: Array<{ hero: string; slot: string; id: number }> = []
 
   for (const pick of picks) {
     const id = catalogService.resolveModId(pick.hero, pick.slot, pick.item)
@@ -285,6 +287,9 @@ export async function buildSelectionPack(
     if (typeof pick.style === 'number') {
       ;(customizations[pick.hero] ??= {})[pick.slot] = { style: pick.style }
     }
+    if (cosmeticAssets.entryFor(id)) {
+      overlayPicks.push({ hero: modifier.ownerFor(schema, pick.hero) ?? pick.hero, slot: pick.slot, id })
+    }
   }
 
   if (!Object.keys(equipped).length) {
@@ -294,7 +299,11 @@ export async function buildSelectionPack(
   }
 
   onProgress({ step: 3, total: 5, message: 'Compiling selections into the schema...' })
-  const compiled = modifier.compileItemsGame(baseText, equipped, customizations)
+  const compiled = modifier.compileItemsGame(baseText, equipped, customizations, {
+    // Arcanas with an asset overlay carry their body as a file; only the schema-only ones
+    // need the body swap mirrored onto wearable slots.
+    overlayIds: [...resolvedIds].filter((id) => cosmeticAssets.entryFor(id))
+  })
   if (!compiled.report.validation.ok) {
     throw new Error(`Generated items_game.txt failed validation:\n${compiled.report.validation.errors.join('\n')}`)
   }
@@ -354,7 +363,21 @@ export async function buildSelectionPack(
 
   let schemaContent = compiled.content
   if (overlay.patches.length) {
-    schemaContent = packService.mergeItemsGame(schemaContent, overlay.patches, { sanitize: true }).text
+    // The overlay's schema snapshot was generated for the items its author had picked, not
+    // for the ones selected here. It is only authoritative for the overlay item's own slot
+    // (the arcana body block, every persona piece); any other block it carries would paste
+    // a different item's effects over the player's pick, so our compiled block wins there.
+    const personaOverlay = overlayPicks.some((pick) => schema.items.get(String(pick.id))?.resolvedSlot === 'persona_selector')
+    const keep = new Set<string>()
+    if (!personaOverlay) {
+      for (const pick of overlayPicks) {
+        for (const entry of compiled.report.applied) {
+          if (entry.hero === pick.hero && entry.slot === pick.slot) keep.add(entry.targetId)
+        }
+      }
+    }
+    const skipIds = personaOverlay ? [] : compiled.report.applied.map((entry) => entry.targetId).filter((id) => !keep.has(id))
+    schemaContent = packService.mergeItemsGame(schemaContent, overlay.patches, { sanitize: true, skipIds }).text
   }
   fs.writeFileSync(schemaPath, schemaContent, 'utf-8')
 

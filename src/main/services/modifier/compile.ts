@@ -96,6 +96,12 @@ export interface CompileResult {
 export interface CompileOptions {
   /** Contents of dota_english.txt, so style names resolve to readable labels. */
   localizationText?: string
+  /**
+   * Item ids whose model files are replaced on disk by an asset overlay. Their body swap
+   * needs no `entity_model` anchor: the client loads the arcana body from the hero's own
+   * model path, which the overlay already overwrites.
+   */
+  overlayIds?: Iterable<number | string>
 }
 
 function countItemBlocks(doc: VdfDocument): number {
@@ -149,8 +155,13 @@ export function compileItemsGame(
   // slots they have occupied simply ignore it.
   const anchorModifiers = new Map<string, { target: SchemaItem; modifiers: VdfNode[]; hero: string }>()
   const swapModifiers = new Map<string, Array<{ node: VdfNode; reason: PatchReason }>>()
+  const overlayIds = new Set([...(options.overlayIds ?? [])].map(String))
   for (const patch of plan.patches) {
     if (!patch.cosmetic) continue
+    // A picked arcana whose files are overlaid replaces the hero's own model on disk, so
+    // mirroring its `entity_model` swap onto wearables would only add blocks Valve never
+    // writes — and a second, redundant body swap.
+    if (patch.reason === 'requested' && overlayIds.has(String(patch.cosmetic.id))) continue
     const cosmeticNode = patch.cosmetic.entry.value
     if (typeof cosmeticNode === 'string') continue
     materializeDeep(source, cosmeticNode)
