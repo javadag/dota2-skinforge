@@ -85,27 +85,33 @@ export type SlotSource = 'declared' | 'prefab' | 'fallback' | 'none'
 
 /**
  * `baseitem` items are the default for a non-hero category. The schema declares the
- * category through `prefab`; these are the UI slot ids the catalog uses for it.
+ * category through `prefab`; the slot ids here are the ones `data/other_catalog.json`
+ * exposes, so a pick from the UI lands on the right default block.
+ *
+ * `announcer` is the one prefab with two defaults (normal and mega-kills), so its entries
+ * are keyed by `<prefab>:<item_slot>` first and fall back to the bare prefab.
  */
 const BASE_ITEM_SLOTS: Record<string, { owner: string; slot: string }> = {
-  music: { owner: 'music_packs', slot: 'music_pack' },
-  radiantcreeps: { owner: 'creeps', slot: 'radiant_creeps' },
-  direcreeps: { owner: 'creeps', slot: 'dire_creeps' },
-  radiantsiegecreeps: { owner: 'creeps', slot: 'radiant_siege' },
-  diresiegecreeps: { owner: 'creeps', slot: 'dire_siege' },
-  radianttowers: { owner: 'towers', slot: 'radiant_tower' },
-  diretowers: { owner: 'towers', slot: 'dire_tower' },
+  music: { owner: 'music_packs', slot: 'sound' },
+  radiantcreeps: { owner: 'creeps', slot: 'radiant' },
+  direcreeps: { owner: 'creeps', slot: 'dire' },
+  radiantsiegecreeps: { owner: 'creeps', slot: 'siegeradiant' },
+  diresiegecreeps: { owner: 'creeps', slot: 'siegedire' },
+  radianttowers: { owner: 'towers', slot: 'radiant' },
+  diretowers: { owner: 'towers', slot: 'dire' },
   courier: { owner: 'courier', slot: 'courier' },
   ward: { owner: 'wards', slot: 'ward' },
-  weather: { owner: 'weather', slot: 'weather_effect' },
-  terrain: { owner: 'terrain', slot: 'map_terrain' },
-  cursor_pack: { owner: 'cursor', slot: 'cursor_pack' },
-  hud_skin: { owner: 'huds', slot: 'hud_skin' },
+  weather: { owner: 'weather', slot: 'weather' },
+  terrain: { owner: 'terrain', slot: 'map' },
+  cursor_pack: { owner: 'cursor', slot: 'cursor' },
+  hud_skin: { owner: 'huds', slot: 'hud' },
   loading_screen: { owner: 'loadscreens', slot: 'loading_screen' },
   announcer: { owner: 'announcers', slot: 'announcer' },
-  roshan: { owner: 'roshan', slot: 'roshan_model' },
-  versus_screen: { owner: 'versus_screen', slot: 'versus_screen' },
-  streak_effect: { owner: 'kill_streak', slot: 'streak_effect' }
+  'announcer:mega_kills': { owner: 'announcers', slot: 'megakills' },
+  roshan: { owner: 'roshan', slot: 'effect' },
+  versus_screen: { owner: 'versus_screen', slot: 'effect' },
+  kill_effect: { owner: 'kill_streak', slot: 'effect' },
+  streak_effect: { owner: 'kill_streak', slot: 'effect' }
 }
 
 const HERO_PREFIX = 'npc_dota_hero_'
@@ -300,10 +306,15 @@ export function buildSchema(text: string, options: BuildSchemaOptions = {}): Sch
         defaults.get(hero)!.set(full.resolvedSlot, full)
       }
     } else if (item.baseItem) {
-      const mapping = BASE_ITEM_SLOTS[full.prefab]
+      const mapping = BASE_ITEM_SLOTS[`${full.prefab}:${full.slot}`] ?? BASE_ITEM_SLOTS[full.prefab]
       if (mapping) {
         if (!defaults.has(mapping.owner)) defaults.set(mapping.owner, new Map())
-        defaults.get(mapping.owner)!.set(mapping.slot, full)
+        const slots = defaults.get(mapping.owner)!
+        // Valve marks more than one item per category as `baseitem` (an interactive versus
+        // screen, "No Kill Streak Effect", ...). The block named "Default ..." is the one
+        // the client falls back to when the player owns nothing, so it must win.
+        const current = slots.get(mapping.slot)
+        if (!current || !/^default\b/i.test(current.name)) slots.set(mapping.slot, full)
       }
     }
 

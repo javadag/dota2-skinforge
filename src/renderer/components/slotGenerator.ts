@@ -12,6 +12,7 @@
 
 import heroesCatalogData from '../../../data/heroes_catalog.json'
 import otherCatalogData from '../../../data/other_catalog.json'
+import { getItemRarityKey } from '../utils/itemImages'
 import type { HeroEntry } from '../env'
 
 export interface SlotMod {
@@ -152,6 +153,37 @@ for (const [key, entry] of Object.entries(otherCatalog)) {
   if (entry?.tag) otherCatalogIndex.set(catalogKey(entry.tag), entry)
 }
 
+/** Rarest first. Anything unrecognised sorts last. */
+const RARITY_RANK: Record<string, number> = {
+  arcana: 0,
+  persona: 1,
+  immortal: 2,
+  legendary: 3,
+  mythical: 4,
+  rare: 5,
+  uncommon: 6,
+  common: 7,
+  taunt: 8,
+  voice: 9,
+  ambient: 10,
+  default: 11
+}
+
+function byRarity(a: SlotMod, b: SlotMod): number {
+  return (RARITY_RANK[getItemRarityKey(a)] ?? 99) - (RARITY_RANK[getItemRarityKey(b)] ?? 99)
+}
+
+/**
+ * Rarest item first inside every slot. The sort is stable, so items of the same rarity keep
+ * their catalog order — which is what keeps a style variant next to its base item.
+ */
+function sortModsByRarity(entry: HeroCatalogEntry): HeroCatalogEntry {
+  return {
+    ...entry,
+    slots: entry.slots.map((slot) => ({ ...slot, mods: [...slot.mods].sort(byRarity) }))
+  }
+}
+
 /**
  * Resolve a hero (or non-hero category) to its slot catalog.
  * Returns `null` when nothing is known about the tag.
@@ -161,7 +193,8 @@ export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEn
 
   const key = catalogKey(heroTag)
   const entry = catalogIndex.get(key) || (heroObj?.tag ? catalogIndex.get(catalogKey(heroObj.tag)) : undefined)
-  if (entry) return withTauntSlot(entry)
+  if (entry) return sortModsByRarity(withTauntSlot(entry))
 
-  return otherCatalogIndex.get(key) ?? null
+  const other = otherCatalogIndex.get(key)
+  return other ? sortModsByRarity(other as unknown as HeroCatalogEntry) : null
 }
