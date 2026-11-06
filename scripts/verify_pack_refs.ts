@@ -10,6 +10,7 @@
  */
 
 import fs from 'fs'
+import os from 'os'
 import path from 'path'
 import { execFileSync } from 'child_process'
 
@@ -34,15 +35,22 @@ function refsIn(block: string): string[] {
   return [...out]
 }
 
+/**
+ * `vpktool list` ignores its filter argument and always dumps the (truncated) index, so
+ * existence has to be proven by extracting. A missing entry leaves no file behind.
+ */
 function existsInVpk(vpk: string, ref: string): boolean {
-  const candidates = [ref, `${ref}_c`]
-  for (const c of candidates) {
+  const probe = path.join(os.tmpdir(), `skinforge_ref_probe_${process.pid}.bin`)
+  for (const candidate of [ref, `${ref}_c`]) {
+    fs.rmSync(probe, { force: true })
     try {
-      const out = execFileSync(path.resolve('tools/vpktool.exe'), ['list', vpk, '-f', c], { encoding: 'utf-8', timeout: 60000 })
-      const parsed = JSON.parse(out)
-      if (parsed?.ok && parsed.count > 0) return true
+      execFileSync(path.resolve('tools/vpktool.exe'), ['extract', vpk, candidate, probe], { stdio: 'ignore', timeout: 120000 })
     } catch {
-      // try next candidate
+      continue
+    }
+    if (fs.existsSync(probe) && fs.statSync(probe).size > 0) {
+      fs.rmSync(probe, { force: true })
+      return true
     }
   }
   return false
@@ -80,20 +88,23 @@ async function main(): Promise<void> {
     }
   }
 
-  console.log(`checking ${refs.size} referenced assets against Valve VPK...`)
+  // A ref can be satisfied by the mod's own VPK (overlay assets) or by Valve's.
+  const packVpk = arg('--pack')
+  console.log(`checking ${refs.size} referenced assets against ${packVpk ? 'the pack and ' : ''}Valve...`)
   const missing: Array<[string, string[]]> = []
   let i = 0
   for (const [ref, ids] of refs) {
     i++
     if (i % 25 === 0) console.log(`  ${i}/${refs.size}...`)
+    if (packVpk && existsInVpk(packVpk, ref)) continue
     if (!existsInVpk(vpk, ref)) missing.push([ref, ids])
   }
 
   if (!missing.length) {
-    console.log(`OK: all ${refs.size} refs resolve in Valve.`)
+    console.log(`OK: all ${refs.size} refs resolve.`)
     return
   }
-  console.log(`\nMISSING from Valve (${missing.length}):`)
+  console.log(`\nMISSING (${missing.length}):`)
   for (const [ref, ids] of missing) console.log(`  - ${ref}   (items: ${ids.join(', ')})`)
   process.exitCode = 1
 }
