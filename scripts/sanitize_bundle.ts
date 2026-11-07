@@ -422,13 +422,6 @@ export const GROUP_SPECS: GroupSpec[] = [
   },
   { id: '13456', name: 'Crown of the One True King', hero: 'wraith_king', group: 'wraith_king', basePatchIds: ['148', '149'] },
   {
-    id: '13527',
-    name: 'Pachyderm Powderwagon Elephant',
-    hero: 'techies',
-    group: 'techies',
-    basePatchIds: ['394', '487', '489', '490', '491', '492', '827', '35989']
-  },
-  {
     id: '13670',
     name: "Flockheart's Gamble",
     hero: 'ogre_magi',
@@ -658,13 +651,6 @@ export const GROUP_SPECS: GroupSpec[] = [
     group: 'axe_persona',
     basePatchIds: ['2', '4', '5', '846'],
     recoverFromWave2: ['2', '4', '5', '846']
-  },
-  {
-    id: '33393',
-    name: 'Mesmer-Eye - Base',
-    hero: 'nyx_assassin',
-    group: 'nerubian_assassin',
-    basePatchIds: ['195', '196', '197', '578', '902']
   },
   {
     id: '36191',
