@@ -407,6 +407,7 @@ export async function buildSelectionPack(
   }
 
   let schemaContent = compiled.content
+  const patchedTargetIds = new Set<string>(compiled.report.applied.map((a) => a.targetId))
   if (overlay.patches.length) {
     // The overlay's schema snapshot was generated for the items its author had picked, not
     // for the ones selected here. Only the overlay item's own slot block is authoritative
@@ -422,12 +423,15 @@ export async function buildSelectionPack(
     }
     for (const patch of overlay.patches) {
       const onlyIds = patch.onlyIds ?? (personaOverlay ? undefined : fallbackOwn)
-      schemaContent = packService.mergeItemsGame(schemaContent, [patch.text], {
+      const merged = packService.mergeItemsGame(schemaContent, [patch.text], {
         sanitize: true,
         onlyIds
-      }).text
+      })
+      schemaContent = merged.text
+      for (const id of merged.stats.applied) patchedTargetIds.add(id)
     }
   }
+  const totalPatchedCount = Math.max(compiled.report.patchedCount, patchedTargetIds.size)
   fs.writeFileSync(schemaPath, schemaContent, 'utf-8')
 
   const outDir = options.outDir ?? path.join(getStagingPackPath() + '_out')
@@ -464,14 +468,14 @@ export async function buildSelectionPack(
     files: modelOverrides + modelSwaps + overlay.copied,
     bytes: overlay.bytes,
     groups: 0,
-    patchBlocks: compiled.report.patchedCount,
-    itemsGameBytes: compiled.content.length,
+    patchBlocks: totalPatchedCount,
+    itemsGameBytes: schemaContent.length,
     packBytes,
     referencedBranding: 0,
     merge: { applied: [], added: [], removedWatermark: 0, removedAdvert: 0 },
     report: {
-      patchedCount: compiled.report.patchedCount,
-      itemsTouched: compiled.report.itemsTouched,
+      patchedCount: totalPatchedCount,
+      itemsTouched: totalPatchedCount,
       applied: compiled.report.applied.map((a) => ({
         hero: a.hero,
         slot: a.slot,

@@ -79,12 +79,21 @@ export interface GroupSpec {
   recoverFromWave2?: string[]
   refits?: RefitSpec[]
   extraAliases?: PathMapping[]
+  extraValveCopies?: PathMapping[]
 }
 
 export const GROUP_SPECS: GroupSpec[] = [
   { id: '4794', name: 'Fiery Soul of the Slayer', hero: 'lina', group: 'lina', basePatchIds: ['319'] },
   { id: '5810', name: 'Blades of Voth Domosh', hero: 'legion_commander', group: 'legion_commander', basePatchIds: ['847'] },
   { id: '5957', name: 'Fractal Horns of Inner Abysm', hero: 'terrorblade', group: 'terrorblade', basePatchIds: ['478', '540', '913'] },
+  {
+    id: '6879',
+    name: 'Swine of the Sunken Galley',
+    hero: 'techies',
+    group: 'techies_arcana',
+    basePatchIds: ['394', '487', '489', '490', '491', '492', '499', '827'],
+    recoverFromWave2: ['394', '487', '489', '490', '491', '492', '499', '827']
+  },
   {
     id: '6914',
     name: 'Tempest Helm of the Thundergod',
@@ -97,23 +106,18 @@ export const GROUP_SPECS: GroupSpec[] = [
     name: 'Demon Eater',
     hero: 'shadow_fiend',
     group: 'shadow_fiend',
-    basePatchIds: ['387', '486', '488', '826']
-  },
-  {
-    id: '7002',
-    name: 'Swine of the Sunken Galley',
-    hero: 'techies',
-    group: 'techies_arcana',
-    basePatchIds: ['394', '487', '489', '490', '491', '492', '499', '827'],
-    recoverFromWave2: ['394', '487', '489', '490', '491', '492', '499', '827']
+    basePatchIds: ['387', '486', '488', '826'],
+    extraValveCopies: [
+      {
+        src: 'materials/models/heroes/shadow_fiend/shadow_fiend_inferno_color.vmat_c',
+        dst: 'kisilev_ind/materials/shadow_fiend/arcana/shadow_fiend_inferno_kisilev_ind.vmat_c'
+      }
+    ]
   },
   { id: '7247', name: 'Manifold Paradox', hero: 'phantom_assassin', group: 'phantom_assassin', basePatchIds: ['140'] },
   { id: '7385', name: 'Frost Avalanche', hero: 'crystal_maiden', group: 'crystal_maiden', basePatchIds: ['38'] },
-  { id: '9050', name: "Great Sage's Reckoning", hero: 'monkey_king', group: 'monkey_king', basePatchIds: ['594', '825'] },
-  { id: '9059', name: 'Bladeform Legacy', hero: 'juggernaut', group: 'juggernaut', basePatchIds: ['6', '811'] },
-  { id: '9235', name: 'Benevolent Companion', hero: 'wisp', group: 'wisp', basePatchIds: ['639'] },
   {
-    id: '11482',
+    id: '7756',
     name: 'Feast of Abscession',
     hero: 'pudge',
     group: 'pudge',
@@ -137,7 +141,23 @@ export const GROUP_SPECS: GroupSpec[] = [
       }
     ]
   },
-  { id: '12451', name: 'The Magus Cypher', hero: 'rubick', group: 'rubick', basePatchIds: ['204', '674'] },
+  { id: '9050', name: "Great Sage's Reckoning", hero: 'monkey_king', group: 'monkey_king', basePatchIds: ['594', '825'] },
+  { id: '9059', name: 'Bladeform Legacy', hero: 'juggernaut', group: 'juggernaut', basePatchIds: ['6', '811'] },
+  { id: '9235', name: 'Benevolent Companion', hero: 'wisp', group: 'wisp', basePatchIds: ['639'] },
+  { id: '9662', name: 'Phantom Advent', hero: 'spectre', group: 'spectre', basePatchIds: ['323', '324', '325', '395', '580'] },
+  {
+    id: '12451',
+    name: 'The Magus Cypher',
+    hero: 'rubick',
+    group: 'rubick',
+    basePatchIds: ['204', '674'],
+    extraValveCopies: [
+      {
+        src: 'materials/particle/bullseye/bullseye_anim.vtex_c',
+        dst: 'kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/bullseye.vtex_c'
+      }
+    ]
+  },
   {
     id: '12692',
     name: 'Planetfall',
@@ -145,21 +165,22 @@ export const GROUP_SPECS: GroupSpec[] = [
     group: 'earthshaker',
     basePatchIds: ['459', '460', '461', '855', '8655', '12692']
   },
+  { id: '12930', name: 'Eminence of Ristul', hero: 'queenofpain', group: 'queenofpain', basePatchIds: ['26', '82', '83', '84'] },
   { id: '12964', name: 'Fists of Axe Unleashed', hero: 'axe', group: 'axe', basePatchIds: ['2', '4'] },
-  {
-    id: '12968',
-    name: 'Axe Unleashed',
-    hero: 'axe',
-    group: 'axe_persona',
-    basePatchIds: ['2', '4', '5', '846'],
-    recoverFromWave2: ['2', '4', '5', '846']
-  },
   {
     id: '13042',
     name: 'Acolyte of the Lost Arts',
     hero: 'invoker',
     group: 'invoker',
     basePatchIds: ['48', '89', '98', '99', '100', '305', '683', '8626']
+  },
+  { id: '13456', name: 'Crown of the One True King', hero: 'wraith_king', group: 'wraith_king', basePatchIds: ['148', '149'] },
+  {
+    id: '13527',
+    name: 'Pachyderm Powderwagon Elephant',
+    hero: 'techies',
+    group: 'techies',
+    basePatchIds: ['394', '487', '489', '490', '491', '492', '827', '35989']
   },
   {
     id: '13670',
@@ -240,17 +261,8 @@ export const GROUP_SPECS: GroupSpec[] = [
       }
     ]
   },
-  { id: '13456', name: 'The One True King', hero: 'wraith_king', group: 'wraith_king', basePatchIds: ['148', '149'] },
-  { id: '13806', name: 'The Eminence of Ristul', hero: 'queenofpain', group: 'queenofpain', basePatchIds: ['26', '82', '83', '84'] },
   {
-    id: '13856',
-    name: 'Compass of the Rising Gale',
-    hero: 'windrunner',
-    group: 'windrunner',
-    basePatchIds: ['21', '22', '23', '24', '25', '828']
-  },
-  {
-    id: '14599',
+    id: '13783',
     name: "The Disciple's Path",
     hero: 'antimage',
     group: 'antimage',
@@ -319,21 +331,35 @@ export const GROUP_SPECS: GroupSpec[] = [
     ]
   },
   {
-    id: '14939',
+    id: '13786',
     name: 'The Toy Butcher',
     hero: 'pudge',
     group: 'pudge_persona',
     basePatchIds: ['47', '258', '391', '709', '810'],
     recoverFromWave2: ['47', '258', '391', '709', '810']
   },
-  { id: '18510', name: 'Davion of Dragon Hold', hero: 'dragon_knight', group: 'dragon_knight', basePatchIds: ['64', '732'] },
   {
-    id: '18518',
-    name: 'Conduit of the Blueheart',
-    hero: 'crystal_maiden',
-    group: 'crystal_maiden_persona',
-    basePatchIds: ['38', '39', '40', '41', '311', '502', '707'],
-    recoverFromWave2: ['38', '39', '40', '41', '311', '502', '707']
+    id: '13806',
+    name: 'Compass of the Rising Gale',
+    hero: 'windrunner',
+    group: 'windrunner',
+    basePatchIds: ['21', '22', '23', '24', '25', '828']
+  },
+  {
+    id: '18033',
+    name: 'Claszian Apostasy Head',
+    hero: 'faceless_void',
+    group: 'faceless_void',
+    basePatchIds: ['15', '90', '91', '92', '93']
+  },
+  { id: '18113', name: 'Davion of Dragon Hold', hero: 'dragon_knight', group: 'dragon_knight', basePatchIds: ['64', '732'] },
+  { id: '18178', name: 'Mirana of Nightsilver', hero: 'mirana', group: 'mirana', basePatchIds: ['759'] },
+  {
+    id: '18539',
+    name: 'The Devotions of Dragonus - Wings',
+    hero: 'skywrath_mage',
+    group: 'skywrath_mage',
+    basePatchIds: ['420', '421', '422', '423', '424', '425']
   },
   {
     id: '19090',
@@ -342,47 +368,86 @@ export const GROUP_SPECS: GroupSpec[] = [
     group: 'drow',
     basePatchIds: ['75', '76', '77', '78', '79', '80', '267', '737', '905']
   },
-  { id: '19129', name: 'Phantom Advent', hero: 'spectre', group: 'spectre', basePatchIds: ['323', '324', '325', '395', '580'] },
-  { id: '19205', name: 'Mirana of Nightsilver', hero: 'mirana', group: 'mirana', basePatchIds: ['759'] },
   {
-    id: '23095',
+    id: '19205',
+    name: 'Conduit of the Blueheart',
+    hero: 'crystal_maiden',
+    group: 'crystal_maiden_persona',
+    basePatchIds: ['38', '39', '40', '41', '311', '502', '707'],
+    recoverFromWave2: ['38', '39', '40', '41', '311', '502', '707'],
+    extraAliases: [
+      {
+        src: 'kisilev_ind/models/crystal_maiden/persona/crystal_maiden_persona_kisilev_ind.vmdl_c',
+        dst: 'kisilev_ind/models/crystal_maiden/persona/crystal_maiden_persona.vmdl_c'
+      }
+    ]
+  },
+  {
+    id: '22718',
+    name: 'The Resurrection of Shen - Wings',
+    hero: 'vengeful',
+    group: 'vengeful',
+    basePatchIds: ['441', '442', '445', '447']
+  },
+  {
+    id: '22723',
     name: 'Exile Unveiled',
     hero: 'phantom_assassin',
     group: 'phantom_assassin_persona',
     basePatchIds: ['137', '138', '140', '141', '764'],
     recoverFromWave2: ['137', '138', '140', '141', '764']
   },
-  { id: '23096', name: 'Voidstorm Asylum', hero: 'razor', group: 'razor', basePatchIds: ['340', '341', '342', '343', '344'] },
-  { id: '23115', name: 'Claszian Apostasy', hero: 'faceless_void', group: 'faceless_void', basePatchIds: ['15', '90', '91', '92', '93'] },
-  { id: '24001', name: 'The Resurrection of Shen', hero: 'vengeful', group: 'vengeful', basePatchIds: ['441', '442', '445', '447'] },
+  { id: '23095', name: 'Voidstorm Asylum Tormentor', hero: 'razor', group: 'razor', basePatchIds: ['340', '341', '342', '343', '344'] },
   {
-    id: '24002',
-    name: 'The Devotions of Dragonus',
-    hero: 'skywrath_mage',
-    group: 'skywrath_mage',
-    basePatchIds: ['420', '421', '422', '423', '424', '425']
+    id: '31357',
+    name: 'Oracle Automaton Persona',
+    hero: 'oracle',
+    group: 'oracle',
+    basePatchIds: ['546', '547', '548', '549', '853']
   },
   {
-    id: '31373',
-    name: 'Legion Commander Persona',
+    id: '31367',
+    name: 'Axe Automaton Persona',
+    hero: 'axe',
+    group: 'axe_persona',
+    basePatchIds: ['2', '4', '5', '846'],
+    recoverFromWave2: ['2', '4', '5', '846']
+  },
+  {
+    id: '33393',
+    name: 'Mesmer-Eye - Base',
+    hero: 'nyx_assassin',
+    group: 'nerubian_assassin',
+    basePatchIds: ['195', '196', '197', '578', '902']
+  },
+  {
+    id: '36191',
+    name: 'Legion Commander Automaton Persona',
     hero: 'legion_commander',
     group: 'legion_commander_persona',
     basePatchIds: ['433', '434', '435', '847', '31372'],
     recoverFromWave2: ['433', '434', '435', '847', '31372']
   },
   {
-    id: '35574',
-    name: "Morphling's Persona",
+    id: '36193',
+    name: 'Morphling Automaton Persona',
     hero: 'morphling',
     group: 'morphling',
     basePatchIds: ['507', '575', '576', '860']
   },
   {
-    id: '35989',
-    name: 'Swine Proximity Mine',
-    hero: 'techies',
-    group: 'techies',
-    basePatchIds: ['394', '487', '489', '490', '491', '492', '827', '35989']
+    id: '36214',
+    name: 'Bristleback Automaton Persona',
+    hero: 'bristleback',
+    group: 'bristleback',
+    basePatchIds: ['436', '437', '438', '439', '440', '718']
+  },
+  {
+    id: '37143',
+    name: 'Maw of the Megalodon - Base',
+    hero: 'tidehunter',
+    group: 'tidehunter',
+    basePatchIds: ['904']
   }
 ]
 
@@ -414,13 +479,13 @@ export function sanitizeBundle(opts: {
   fs.mkdirSync(dstDir, { recursive: true })
 
   // 1. Stage _global guard files (excluding scripts/items/items_game.txt and panorama/)
-  const globalFiles: string[] = [
-    'particles/error/null.vpcf_c',
-    'particles/error/null_2.vpcf_c',
-    'materials/dev/null.vmat_c',
-    'materials/dev/null_color_tga_421599f6.vtex_c'
+  const directGlobalFiles: string[] = [
+    'models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl_c',
+    'models/dev/materialforerrormodel.vmat_c',
+    'particles/error/error.vpcf_c',
+    'scripts/npc/portraits_full_body_loadout.txt'
   ]
-  for (const rel of globalFiles) {
+  for (const rel of directGlobalFiles) {
     const s = path.join(srcDir, '_global', rel)
     const d = path.join(dstDir, '_global', rel)
     if (fs.existsSync(s)) {
@@ -428,6 +493,16 @@ export function sanitizeBundle(opts: {
       fs.copyFileSync(s, d)
     }
   }
+  // Place an empty null particle at kisilev_ind/particles/logo/logo.vpcf_c so embedded model
+  // references resolve cleanly without rendering Dota2Changer's advertisement logo.
+  const nullParticleSrc = path.join(srcDir, '_global', 'particles/error/error.vpcf_c')
+  const logoGuardRel = 'kisilev_ind/particles/logo/logo.vpcf_c'
+  if (fs.existsSync(nullParticleSrc)) {
+    const logoDst = path.join(dstDir, '_global', logoGuardRel)
+    fs.mkdirSync(path.dirname(logoDst), { recursive: true })
+    fs.copyFileSync(nullParticleSrc, logoDst)
+  }
+  const globalFiles: string[] = [...directGlobalFiles, logoGuardRel]
 
   // Load Wave-1 and Wave-2 items_game.txt for patch extraction/recovery
   const wave1Path = path.join(srcDir, '_global', 'scripts', 'items', 'items_game.txt')
@@ -563,6 +638,11 @@ export function sanitizeBundle(opts: {
     if (spec.extraAliases) {
       for (const mapping of spec.extraAliases) {
         baseAliases.push(mapping)
+      }
+    }
+    if (spec.extraValveCopies) {
+      for (const mapping of spec.extraValveCopies) {
+        baseValveCopies.push(mapping)
       }
     }
 
