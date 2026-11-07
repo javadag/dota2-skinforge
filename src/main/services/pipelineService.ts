@@ -14,11 +14,14 @@ import { APP_CONFIG } from '../../shared/constants/appConfig'
 import { getStagingPackPath } from './appPathService'
 import * as catalogService from './catalogService'
 import * as cosmeticAssets from './cosmeticAssets'
+import { receiptFor } from './assetReceipt'
+import { checkDrift, writeBaseline } from './itemsGameBaseline'
 import * as gameinfo from './gameinfoService'
 import * as modifier from './modifier'
 import * as packService from './packService'
 import * as signatures from './signatureService'
 import * as vpk from './vpkService'
+import { loadIndex } from './vpkIndex'
 
 export const MOD_FOLDER_NAME = APP_CONFIG.modFolder || 'skinforge'
 
@@ -262,6 +265,9 @@ export async function buildSelectionPack(
   onProgress({ step: 2, total: 5, message: 'Resolving selections against the schema...' })
   const baseText = fs.readFileSync(schemaPath, 'utf-8')
   const schema = modifier.buildSchema(baseText)
+  // Compare against the copy we kept last time, so a Dota patch that added or rewrote items
+  // is reported instead of discovered later through a broken pack.
+  const drift = checkDrift(baseText)
 
   // The planner keys off schema names, the catalog keys off ids. Bridge them here.
   const equipped: Record<string, Record<string, string>> = {}
@@ -307,6 +313,7 @@ export async function buildSelectionPack(
   if (!compiled.report.validation.ok) {
     throw new Error(`Generated items_game.txt failed validation:\n${compiled.report.validation.errors.join('\n')}`)
   }
+  if (drift.note) compiled.report.warnings.unshift(drift.note)
 
   // Arcanas/personas swap the root entity model; the client needs that model at the
   // vanilla hero path as well or it renders the old body and clips on reconnect.
@@ -354,7 +361,8 @@ export async function buildSelectionPack(
   // own schema patch. The patch replaces our synthesized block so the result matches the
   // setup that is known to survive reconnects (e.g. Lina keeps the vanilla head path and
   // the file itself becomes the arcana hair).
-  const overlay = cosmeticAssets.applyOverlay(resolvedIds, stagingDir)
+  const dotaVpkIndex = fs.existsSync(dotaVpk) ? loadIndex(dotaVpk) : undefined
+  const overlay = cosmeticAssets.applyOverlay(resolvedIds, stagingDir, { dotaVpk, vpkIndex: dotaVpkIndex })
   if (overlay.missing.length) {
     compiled.report.warnings.push(
       `Missing arcana/persona files for ${overlay.items.map((i) => i.name).join(', ')}: ` +
@@ -371,8 +379,31 @@ export async function buildSelectionPack(
   if (!personaOverlay) {
     const pickedSlots = new Set(overlayPicks.map((pick) => `${pick.hero}/${pick.slot}`))
     for (const swap of compiled.report.modelSwaps) {
-      if (!pickedSlots.has(`${swap.hero}/${swap.slot}`)) await copyModelSwap(swap)
+      const slotKey = `${swap.hero}/${swap.slot}`
+      if (!pickedSlots.has(slotKey) && !overlay.refitSlots.has(slotKey)) await copyModelSwap(swap)
     }
+  }
+
+  // Guard rail: every file the picked items need has to exist in the game or in this pack.
+  // Warnings only — a missing archive or unreadable index must never fail a build.
+  try {
+    const index = dotaVpkIndex ?? loadIndex(dotaVpk)
+    const cache = new Map<string, Buffer | null>()
+    for (const id of resolvedIds) {
+      const receipt = receiptFor(baseText, String(id), { index, cache }, schema)
+      if (!receipt) continue
+      const absent = receipt.missing.filter((rel) => !fs.existsSync(path.join(stagingDir, rel.replace(/\//g, path.sep))))
+      if (absent.length) {
+        compiled.report.warnings.push(
+          `${receipt.item.name}: ${absent.length} file(s) it needs are in neither the game nor this pack (` +
+            absent.slice(0, 3).join(', ') +
+            (absent.length > 3 ? '...' : '') +
+            ')'
+        )
+      }
+    }
+  } catch {
+    // best effort
   }
 
   let schemaContent = compiled.content
@@ -381,18 +412,21 @@ export async function buildSelectionPack(
     // for the ones selected here. Only the overlay item's own slot block is authoritative
     // (the arcana body block, every persona piece); the rest would paste a different item's
     // effects over a slot the player may not even have picked.
-    const own = new Set<string>()
+    const fallbackOwn = new Set<string>()
     if (!personaOverlay) {
       for (const pick of overlayPicks) {
         for (const entry of compiled.report.applied) {
-          if (entry.hero === pick.hero && entry.slot === pick.slot) own.add(entry.targetId)
+          if (entry.hero === pick.hero && entry.slot === pick.slot) fallbackOwn.add(entry.targetId)
         }
       }
     }
-    schemaContent = packService.mergeItemsGame(schemaContent, overlay.patches, {
-      sanitize: true,
-      onlyIds: personaOverlay ? undefined : own
-    }).text
+    for (const patch of overlay.patches) {
+      const onlyIds = patch.onlyIds ?? (personaOverlay ? undefined : fallbackOwn)
+      schemaContent = packService.mergeItemsGame(schemaContent, [patch.text], {
+        sanitize: true,
+        onlyIds
+      }).text
+    }
   }
   fs.writeFileSync(schemaPath, schemaContent, 'utf-8')
 
@@ -414,6 +448,10 @@ export async function buildSelectionPack(
   } catch {
     // best effort
   }
+
+  // Only remember the item file after the pack built cleanly, so a failed build does not
+  // swallow the notice about what changed.
+  writeBaseline(drift.current)
 
   const chunkVpk = path.join(outDir, 'pak01_000.vpk')
   assertDirVpk(dirVpk)
