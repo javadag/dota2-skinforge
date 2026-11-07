@@ -188,7 +188,16 @@ export function buildPlan(
             })
             continue
           }
-          claims.set(baseSlot, { item: variantItem, style: DEFAULT_STYLE, reason: 'persona-piece' })
+          const pickedPersonaClaim = claims.get(variantItem.resolvedSlot)
+          if (pickedPersonaClaim) {
+            claims.set(baseSlot, {
+              item: pickedPersonaClaim.item,
+              style: pickedPersonaClaim.style,
+              reason: 'requested'
+            })
+          } else {
+            claims.set(baseSlot, { item: variantItem, style: DEFAULT_STYLE, reason: 'persona-piece' })
+          }
         }
 
         // 2c. Hide base slots the persona does not cover, so adult geometry cannot clip

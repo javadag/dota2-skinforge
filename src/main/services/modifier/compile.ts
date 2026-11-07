@@ -249,10 +249,11 @@ export function compileItemsGame(
         if (typeof cosmeticNode === 'string') continue
         materializeDeep(source, cosmeticNode)
         const cosmeticModel = patch.cosmetic.model
-        if (patch.reason === 'requested' && vanillaModel && cosmeticModel) {
+        const heroHasOverlay = plan.patches.some((p) => p.hero === patch.hero && p.cosmetic && overlayIds.has(String(p.cosmetic.id)))
+        if ((patch.reason === 'requested' || (patch.reason === 'persona-piece' && heroHasOverlay)) && vanillaModel && cosmeticModel) {
           // Deliver the model by replacing the vanilla file (see ModelSwap). The block
           // keeps Valve's `model_player`, so the client never has to load a new path.
-          if (vanillaModel.toLowerCase() !== cosmeticModel.toLowerCase()) {
+          if (patch.reason === 'requested' && vanillaModel.toLowerCase() !== cosmeticModel.toLowerCase()) {
             modelSwaps.push({
               hero: patch.hero,
               slot: patch.slot,
@@ -260,6 +261,11 @@ export function compileItemsGame(
               destModel: vanillaModel,
               sourceModel: cosmeticModel
             })
+          }
+          const particles = getString(cosmeticNode, 'particle_folder')
+          if (particles !== undefined) {
+            setEntry(clone, 'particle_folder', particles)
+            touched = true
           }
           // Carry the cosmetic's effects onto the vanilla block the way Valve's own default
           // items carry theirs. `skip_model_combine` in particular has to survive: without

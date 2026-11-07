@@ -3430,12 +3430,7 @@
       "group": "invoker",
       "patch": "items_patch.txt",
       "basePatchIds": [
-        "48",
-        "89",
         "98",
-        "99",
-        "100",
-        "305",
         "683",
         "8626"
       ],
@@ -3478,23 +3473,23 @@
           "dst": "models/heroes/invoker/forge_spirit.vmdl_c"
         },
         {
-          "src": "models/items/invoker_kid/dark_artistry_kid/invoker_kid_dark_artistry_arms.vmdl_c",
+          "src": "models/heroes/invoker_kid/invoker_kid_sleeves.vmdl_c",
           "dst": "models/heroes/invoker/invoker_bracer.vmdl_c"
         },
         {
-          "src": "models/items/invoker_kid/dark_artistry_kid/invoker_kid_dark_artistry_back.vmdl_c",
+          "src": "models/heroes/invoker_kid/invoker_kid_cape.vmdl_c",
           "dst": "models/heroes/invoker/invoker_cape.vmdl_c"
         },
         {
-          "src": "models/items/invoker_kid/dark_artistry_kid/invoker_kid_dark_artistry_armor.vmdl_c",
+          "src": "models/development/invisiblebox.vmdl_c",
           "dst": "models/heroes/invoker/invoker_dress.vmdl_c"
         },
         {
-          "src": "models/items/invoker_kid/dark_artistry_kid/invoker_kid_dark_artistry_head.vmdl_c",
+          "src": "models/heroes/invoker_kid/invoker_kid_hair.vmdl_c",
           "dst": "models/heroes/invoker/invoker_hair.vmdl_c"
         },
         {
-          "src": "models/items/invoker_kid/dark_artistry_kid/invoker_kid_dark_artistry_shoulder.vmdl_c",
+          "src": "models/heroes/invoker_kid/invoker_kid_shoulder.vmdl_c",
           "dst": "models/heroes/invoker/invoker_shoulder.vmdl_c"
         },
         {
@@ -4056,12 +4051,8 @@
       "group": "antimage",
       "patch": "items_patch.txt",
       "basePatchIds": [
-        "1",
-        "215",
-        "216",
         "217",
         "218",
-        "335",
         "13784"
       ],
       "files": [
@@ -4125,19 +4116,19 @@
           "dst": "models/heroes/antimage/antimage_belt.vmdl_c"
         },
         {
-          "src": "models/items/antimage_female/anti_mage_cherry_blossom_armor_persona_1/anti_mage_cherry_blossom_armor_persona_1.vmdl_c",
+          "src": "models/heroes/antimage_female/antimage_female_clothing.vmdl_c",
           "dst": "models/heroes/antimage/antimage_chest.vmdl_c"
         },
         {
-          "src": "models/items/antimage_female/anti_mage_cherry_blossom_head_persona_1/anti_mage_cherry_blossom_head_persona_1.vmdl_c",
+          "src": "models/heroes/antimage_female/antimage_female_hair.vmdl_c",
           "dst": "models/heroes/antimage/antimage_head.vmdl_c"
         },
         {
-          "src": "models/items/antimage_female/anti_mage_cherry_blossom_offhand_weapon_persona_1/anti_mage_cherry_blossom_offhand_weapon_persona_1.vmdl_c",
+          "src": "models/heroes/antimage_female/antimage_female_offhand.vmdl_c",
           "dst": "models/heroes/antimage/antimage_offhand_weapon.vmdl_c"
         },
         {
-          "src": "models/items/antimage_female/anti_mage_cherry_blossom_weapon_persona_1/anti_mage_cherry_blossom_weapon_persona_1.vmdl_c",
+          "src": "models/heroes/antimage_female/antimage_female_weapon.vmdl_c",
           "dst": "models/heroes/antimage/antimage_weapon.vmdl_c"
         },
         {

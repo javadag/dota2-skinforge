@@ -418,7 +418,29 @@ export const GROUP_SPECS: GroupSpec[] = [
     name: 'Acolyte of the Lost Arts',
     hero: 'invoker',
     group: 'invoker',
-    basePatchIds: ['48', '89', '98', '99', '100', '305', '683', '8626']
+    basePatchIds: ['98', '683', '8626'],
+    extraValveCopies: [
+      {
+        src: 'models/heroes/invoker_kid/invoker_kid_sleeves.vmdl_c',
+        dst: 'models/heroes/invoker/invoker_bracer.vmdl_c'
+      },
+      {
+        src: 'models/heroes/invoker_kid/invoker_kid_cape.vmdl_c',
+        dst: 'models/heroes/invoker/invoker_cape.vmdl_c'
+      },
+      {
+        src: 'models/development/invisiblebox.vmdl_c',
+        dst: 'models/heroes/invoker/invoker_dress.vmdl_c'
+      },
+      {
+        src: 'models/heroes/invoker_kid/invoker_kid_hair.vmdl_c',
+        dst: 'models/heroes/invoker/invoker_hair.vmdl_c'
+      },
+      {
+        src: 'models/heroes/invoker_kid/invoker_kid_shoulder.vmdl_c',
+        dst: 'models/heroes/invoker/invoker_shoulder.vmdl_c'
+      }
+    ]
   },
   { id: '13456', name: 'Crown of the One True King', hero: 'wraith_king', group: 'wraith_king', basePatchIds: ['148', '149'] },
   {
@@ -505,7 +527,25 @@ export const GROUP_SPECS: GroupSpec[] = [
     name: "The Disciple's Path",
     hero: 'antimage',
     group: 'antimage',
-    basePatchIds: ['1', '215', '216', '217', '218', '335', '13784'],
+    basePatchIds: ['217', '218', '13784'],
+    extraValveCopies: [
+      {
+        src: 'models/heroes/antimage_female/antimage_female_clothing.vmdl_c',
+        dst: 'models/heroes/antimage/antimage_chest.vmdl_c'
+      },
+      {
+        src: 'models/heroes/antimage_female/antimage_female_hair.vmdl_c',
+        dst: 'models/heroes/antimage/antimage_head.vmdl_c'
+      },
+      {
+        src: 'models/heroes/antimage_female/antimage_female_offhand.vmdl_c',
+        dst: 'models/heroes/antimage/antimage_offhand_weapon.vmdl_c'
+      },
+      {
+        src: 'models/heroes/antimage_female/antimage_female_weapon.vmdl_c',
+        dst: 'models/heroes/antimage/antimage_weapon.vmdl_c'
+      }
+    ],
     extraAliases: [
       {
         src: 'kisilev_ind/particles/antimage/antimage_female/basher/antimage_female_basher_fx_l.vsnap_c',
@@ -888,7 +928,9 @@ export function sanitizeBundle(opts: {
     }
     if (spec.extraValveCopies) {
       for (const mapping of spec.extraValveCopies) {
-        baseValveCopies.push(mapping)
+        const idx = baseValveCopies.findIndex((v) => v.dst === mapping.dst)
+        if (idx !== -1) baseValveCopies[idx] = mapping
+        else baseValveCopies.push(mapping)
       }
     }
 

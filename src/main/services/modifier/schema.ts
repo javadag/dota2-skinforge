@@ -495,6 +495,20 @@ export function primarySetFor(schema: SchemaIndex, item: SchemaItem): SetChoice 
 }
 
 /**
+ * Persona default slots whose stripped stem (`_persona_N` removed) differs from the
+ * base hero's default wearable slot in `items_game.txt`.
+ */
+const PERSONA_BASE_SLOT_BRIDGES: Record<string, Record<string, string>> = {
+  crystal_maiden: { tail: 'back', armor: 'shoulder', misc: 'weapon' },
+  dragon_knight: { armor: 'shoulder' },
+  invoker: { armor: 'belt' },
+  legion_commander: { misc: 'arms' },
+  mirana: { armor: 'shoulder' },
+  phantom_assassin: { armor: 'shoulder', legs: 'belt' },
+  pudge: { armor: 'back' }
+}
+
+/**
  * Slots a persona re-skins: `head_persona_1` -> the item for `head`.
  *
  * Gated on the hero having a `persona_selector` default, which is what actually marks a
@@ -506,9 +520,13 @@ export function personaVariantSlots(schema: SchemaIndex, hero: string): Map<stri
   const out = new Map<string, SchemaItem>()
   const slots = schema.defaults.get(hero)
   if (!slots || !slots.has('persona_selector')) return out
+  const bridges = PERSONA_BASE_SLOT_BRIDGES[hero]
   for (const [slot, item] of slots) {
     const match = /^(.*)_persona_\d+$/.exec(slot)
-    if (match) out.set(match[1], item)
+    if (!match) continue
+    const stem = match[1]
+    const targetSlot = slots.has(stem) ? stem : (bridges?.[stem] ?? stem)
+    out.set(targetSlot, item)
   }
   return out
 }

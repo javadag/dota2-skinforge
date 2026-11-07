@@ -373,15 +373,13 @@ export async function buildSelectionPack(
 
   // A bundle ships one model for every slot it was built for, so it can out-vote an
   // explicit pick on that same slot. The pick wins: its model is copied again over the
-  // bundle's. Slots the player left alone keep the bundle's file — for an arcana those are
-  // its own set pieces (crown, raiments, dagger), which the real item brings along too.
+  // bundle's. Slots the player left alone keep the bundle's file — for an arcana/persona
+  // those are its own default set pieces, which the real item brings along too.
   const personaOverlay = overlayPicks.some((pick) => schema.items.get(String(pick.id))?.resolvedSlot === 'persona_selector')
-  if (!personaOverlay) {
-    const pickedSlots = new Set(overlayPicks.map((pick) => `${pick.hero}/${pick.slot}`))
-    for (const swap of compiled.report.modelSwaps) {
-      const slotKey = `${swap.hero}/${swap.slot}`
-      if (!pickedSlots.has(slotKey) && !overlay.refitSlots.has(slotKey)) await copyModelSwap(swap)
-    }
+  const pickedSlots = new Set(overlayPicks.map((pick) => `${pick.hero}/${pick.slot}`))
+  for (const swap of compiled.report.modelSwaps) {
+    const slotKey = `${swap.hero}/${swap.slot}`
+    if (!pickedSlots.has(slotKey) && !overlay.refitSlots.has(slotKey)) await copyModelSwap(swap)
   }
 
   // Guard rail: every file the picked items need has to exist in the game or in this pack.
@@ -421,11 +419,22 @@ export async function buildSelectionPack(
         }
       }
     }
+    const userPickedTargetIds = new Set<string>(
+      compiled.report.applied
+        .filter(
+          (a) =>
+            (a.reason === 'requested' || a.reason === 'model-swap') &&
+            !pickedSlots.has(`${a.hero}/${a.slot}`) &&
+            !overlay.refitSlots.has(`${a.hero}/${a.slot}`)
+        )
+        .map((a) => a.targetId)
+    )
     for (const patch of overlay.patches) {
       const onlyIds = patch.onlyIds ?? (personaOverlay ? undefined : fallbackOwn)
       const merged = packService.mergeItemsGame(schemaContent, [patch.text], {
         sanitize: true,
-        onlyIds
+        onlyIds,
+        skipIds: userPickedTargetIds
       })
       schemaContent = merged.text
       for (const id of merged.stats.applied) patchedTargetIds.add(id)
