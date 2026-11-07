@@ -17,7 +17,7 @@ import type { CosmeticAssetsManifest } from '../src/main/services/cosmeticAssets
 function extractEmbeddedStrings(buf: Buffer): string[] {
   const raw = buf.toString('latin1')
   const matches = raw.match(
-    /(?:kisilev_ind|models|materials|particles|sounds|soundevents)\/[a-zA-Z0-9_./ -]+\.(?:vmdl|vmat|vtex|vpcf|vsnap|vsnd|vsndevts|vmesh|vagrp|vanim|vphys|vseq)/g
+    /(?:kisilev_ind|models|materials|particles|sounds|soundevents)\/[a-zA-Z0-9_./-]+(?:\s+skull_basher\/[a-zA-Z0-9_./-]+)?\.(?:vmdl|vmat|vtex|vpcf|vsnap|vsnd|vsndevts|vmesh|vagrp|vanim|vphys|vseq)/g
   )
   return matches ? [...new Set(matches)] : []
 }
@@ -152,8 +152,9 @@ async function main(): Promise<void> {
       }
     }
 
-    // 6. Verify internal references in binary files (.vmdl_c, .vpcf_c, .vmat_c)
-    for (const rel of entry.files) {
+    // 6. Verify internal references in binary files (.vmdl_c, .vpcf_c, .vmat_c) across base + refits
+    const allGroupDiskFiles = [...entry.files, ...Object.values(entry.refits ?? {}).flatMap((r) => r.files)]
+    for (const rel of allGroupDiskFiles) {
       if (!/\.(vmdl_c|vpcf_c|vmat_c)$/.test(rel)) continue
       const buf = fs.readFileSync(path.join(groupDir, rel))
       for (const ref of extractEmbeddedStrings(buf)) {

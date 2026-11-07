@@ -98,161 +98,16 @@
         "kisilev_ind/materials/terrorblade/arcana/base/weapon_detailmask_png_5ef5371d.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/base/weapon_normal_png_4fb8a0a8.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/base/weapon_specmask_png_9ddd896c.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_color_png_8ed56d43.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_detailmask_png_c1de3356.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_normal_png_40ea8b1f.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_specmask_png_e34db58d.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_color_png_a09d8ecd.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_detailmask_png_bb719f1e.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_normal_png_8ba1c953.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_specmask_png_1ae88113.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/dotapit_s3_fallen_light_metamorphosis_color_png_f1d0396e.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/dotapit_s3_fallen_light_metamorphosis_detailmask_png_caf9fa0.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/dotapit_s3_fallen_light_metamorphosis_kisilev_ind.vmat_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/dotapit_s3_fallen_light_metamorphosis_normal_png_9cd815e8.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/dotapit_s3_fallen_light_metamorphosis_specmask_png_da490cac.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_color_png_46c63e82.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_detailmask_png_4fd5a41d.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_normal_png_97c18cbb.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_specmask_png_5323f750.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_color_png_b9bf880b.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_detailmask_png_c9bc2ecd.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_normal_png_fa1f1502.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_specmask_png_4fc8368a.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_color_png_e340dcab.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_detailmask_png_c75f59d3.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_normal_png_4e6768cb.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_specmask_png_f0c0c2d.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_color_png_d5ad7773.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_detailmask_png_c43fdd01.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_normal_png_dd2a2f61.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_specmask_png_5f76a95e.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_jailbreakers_rage_ability_color_png_22c1c735.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_jailbreakers_rage_ability_detailmask_png_b3369bc4.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_jailbreakers_rage_ability_kisilev_ind.vmat_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_jailbreakers_rage_ability_normal_png_59a06dbd.vtex_c",
         "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_jailbreakers_rage_ability_specmask_png_4c47952b.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_color_png_e4ca0438.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_detailmask_png_be4d0149.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_normal_png_f75114cb.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_specmask_png_952b253.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_color_png_2c31661a.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_detailmask_png_4b2abbb3.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_normal_png_1bb7879d.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_specmask_png_f69aaff2.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_color_png_5b712fce.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_diffusemask_png_aebf8ca5.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_normal_png_7b711c34.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_specmask_png_2d4c890e.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_color_png_59a35fd5.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_detailmask_png_f80384e6.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_normal_png_16c617e8.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_specmask_png_5ca7f6c1.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_color_png_74e1e7c6.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_detailmask_png_18f9d317.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_normal_png_bf70dd4c.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_specmask_png_f674f544.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_color_png_eaec4cd8.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_detailmask_png_f50bda28.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_normal_png_8c275ec5.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_specmask_png_9f2d65e0.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_color_png_1b9c5208.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_detailmask_png_d8fbe2b8.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_normal_png_130e6f3c.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_specmask_png_80395065.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_color_png_3c288dd0.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_detailmask_png_7a987d09.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_normal_png_860111a1.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_specmask_png_1322579c.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_color_png_329dcf76.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_detailmask_png_25a11d2d.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_normal_png_a820566e.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_specmask_png_c0bbd620.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_color_png_e39c0513.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_detailmask_png_2c2c2e6a.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_normal_png_af751be3.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_specmask_png_871faa62.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_color_png_acef6b43.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_detailmask_png_6e5f6608.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_normal_png_5116dbe0.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_specmask_png_b579a4b5.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_color_png_381ea9f8.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_detailmask_png_5240e2ca.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_normal_png_ebcdfa64.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_specmask_png_d1270411.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_color_png_9dd7d572.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_detailmask_png_18b1f21e.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_normal_png_13a021f0.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_specmask_png_452f18c8.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_color_png_f540aa9d.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_detailmask_png_b5586dae.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_normal_png_47b49ad6.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_specmask_png_22064585.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_armor_color_png_8ba65982.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_armor_detailmask_png_bb106360.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_armor_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_armor_normal_png_6bc8c0c2.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_armor_specmask_png_39a4fb6d.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_back_color_png_90809bfb.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_back_detailmask_png_e3d31e47.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_back_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_back_normal_png_b57b1767.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_back_specmask_png_d40bd1d8.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_head_color_png_baf03661.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_head_detailmask_png_2980bd26.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_head_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_head_normal_png_2402d486.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_head_specmask_png_cbb89ffa.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_weapon_color_png_d1d5b2ad.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_weapon_detailmask_png_74c2dda9.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_weapon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_weapon_normal_png_d6f964fc.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_weapon_specmask_png_f6716dd3.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_color_png_ebd2c337.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_detailmask_png_82dffcc1.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_normal_png_c5e1026e.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_specmask_png_818e4c51.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_color_png_7227a408.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_detailmask_png_30c20682.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_normal_png_13a3a625.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_specmask_png_94dca17b.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_color_png_bbd7baee.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_detailmask_png_4491206b.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_kiislev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_normal_png_3c353ac2.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_specmask_png_943f2ea2.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_color_png_7f09a7e6.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_detailmask_png_9469c414.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_normal_png_db5ff0a7.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_specmask_png_c5f2c69c.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_color_png_1030535f.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_detailmask_png_a19e2f03.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_normal_png_82a227f3.vtex_c",
-        "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_specmask_png_5ddc06a0.vtex_c",
         "kisilev_ind/models/terrorblade/arcana/terrorblade_arcana_kisilev_ind.vmdl_c",
         "kisilev_ind/particles/terrorblade/ability/terrorblade_ambient_eye_b.vpcf_c",
         "kisilev_ind/particles/terrorblade/ability/terrorblade_ambient_eye_c_demon.vpcf_c",
@@ -374,43 +229,11 @@
         "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_l.vpcf_c",
         "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_light.vpcf_c",
         "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_shake.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_a.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_base.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_beam.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_dark.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_dark_dust.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_dark_swirl.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_elec.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_energy.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_dark.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_pnt.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_ring.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_scorch.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_scorch_glow.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_impact.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_light.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_rope.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_rope_detail.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_swirl_rope.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_ti9_immortal_metamorphosis_base_attack_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_ti9_immortal_metamorphosis_dark.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_ti9_immortal_metamorphosis_emissive_projectile.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_ti9_immortal_metamorphosis_emissive_projectile_02.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_ti9_immortal_metamorphosis_projectile.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_ti9_immortal_metamorphosis_projectile_02.vpcf_c",
-        "kisilev_ind/particles/terrorblade/ability/terrorblade_ti9_immortal_metamorphosis_trail_dark.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_body_arcana_horns.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_body_arcana_horns_b.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_body_arcana_horns_c.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_body_arcana_horns_d.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_body_arcana_horns_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_eye_arcana_horns.vpcf_c",
-        "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_eye_c_arcana_horns.vpcf_c",
-        "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_eyes_arcana_horns_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_mouth_b_normal_arcana_horns.vpcf_c",
-        "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_mouth_c_arcana_horns.vpcf_c",
-        "kisilev_ind/particles/terrorblade/arcana/terrorblade_ambient_mouth_normal_arcana_horns.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_feet_effects_b.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_feet_effects_d.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_feet_effects_embers.vpcf_c",
@@ -419,38 +242,6 @@
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_feet_effects_embers_glow.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_feet_effects_embers_glow_b.vpcf_c",
         "kisilev_ind/particles/terrorblade/arcana/terrorblade_feet_effects_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/armor/tb_samurai_armor_ambient_arms.vpcf_c",
-        "kisilev_ind/particles/terrorblade/armor/tb_samurai_armor_ambient_arms_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/armor/tb_samurai_armor_ambient_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/armor/tb_samurai_armor_ambient_splash.vpcf_c",
-        "kisilev_ind/particles/terrorblade/armor/tb_samurai_head_ambient_mouth_glare.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/tb_samurai_back_ambient_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/tb_samurai_back_edge_rope.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/tb_samurai_back_edge_rope_right.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/tb_samurai_back_splash.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_core.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_core_center.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_core_front.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_elec.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_flek.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_flek_r.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_l.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_pull.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_r.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_rope_spiral.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_rope_spiral_r.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_streak.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_glow.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_left_a.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_left_b.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_left_c.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_left_d.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_right_a.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_right_b.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_right_c.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_right_d.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_rope.vpcf_c",
-        "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_trace_rope_tight.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_blade_2_kisilev_ind.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_blade_corrupted_2_kisilev_ind.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_blade_corrupted_kisilev_ind.vpcf_c",
@@ -466,37 +257,12 @@
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_kisilev_ind.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_l_kisilev_ind.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_r_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_workshop_left.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_workshop_left_a.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_workshop_left_kisilev_ind.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_workshop_right_a.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ambient_sword_workshop_right_kisilev_ind.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_left.vpcf_c",
         "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_right.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_edge.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_edge_jagged.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_glow.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_glow_r.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_handle.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_handle_model.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_left_kisilev_ind.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_01.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_02.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_03.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_04.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_05.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_06.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_particulate.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_smoke.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_smoke_parent.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_02.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_core.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_dark.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_glow.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_top.vpcf_c",
-        "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_top_02.vpcf_c",
         "soundevents/voscripts/game_sounds_vo_terrorblade.vsndevts_c"
       ],
       "aliases": [
@@ -513,128 +279,12 @@
           "dst": "materials/models/heroes/terrorblade/weapon_color.vmat_c"
         },
         {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/corrupted_form/corrupted_form.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/corrupted_weapons/corrupted_weapons.vmat_c"
-        },
-        {
           "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/dotapit_s3_fallen_light_metamorphosis_kisilev_ind.vmat_c",
           "dst": "materials/models/items/terrorblade/dotapit_s3_fallen_light_metamorphosis/dotapit_s3_fallen_light_metamorphosis.vmat_c"
         },
         {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/endless_purgatory_back/endless_purgatory_back.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/endless_purgatory_demon/endless_purgatory_demon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/endless_purgatory_weapon/endless_purgatory_weapon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/knight_of_foulfell_demon/knight_of_foulfell_demon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/knight_of_foulfell_terrorblade_armor/knight_of_foulfell_terrorblade_armor.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/knight_of_foulfell_terrorblade_back/knight_of_foulfell_terrorblade_back.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/knight_of_foulfell_terrorblade_weapon/knight_of_foulfell_terrorblade_weapon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/marauders_armor/marauders_armor.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/marauders_demon/marauders_demon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/marauders_head/marauders_head.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/marauders_weapon/marauders_weapon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/tb_samurai_armor/tb_samurai_armor.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/tb_samurai_back/tb_samurai_back.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/tb_samurai_head/tb_samurai_head.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/tb_samurai_samurai_demon/tb_samurai_samurai_demon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/tb_samurai_weapon/tb_samurai_weapon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/tb_ti9_immortal_weapon/tb_ti9_immortal_weapon.vmat_c"
-        },
-        {
           "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_jailbreakers_rage_ability_kisilev_ind.vmat_c",
           "dst": "materials/models/items/terrorblade/terrorblade_jailbreakers_rage_ability/terrorblade_jailbreakers_rage_ability.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_armor_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_jailbreakers_rage_armor/terrorblade_jailbreakers_rage_armor.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_back_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_jailbreakers_rage_back/terrorblade_jailbreakers_rage_back.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_head_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_jailbreakers_rage_head/terrorblade_jailbreakers_rage_head.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_jailbreakers_rage_weapon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_jailbreakers_rage_weapon/terrorblade_jailbreakers_rage_weapon.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_ti8_immortal_back/terrorblade_ti8_immortal_back.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_ability/terrorblade_ultimate_depravity_ability.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_armor/terrorblade_ultimate_depravity_armor.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_kiislev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_back/terrorblade_ultimate_depravity_back.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_head/terrorblade_ultimate_depravity_head.vmat_c"
-        },
-        {
-          "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_kisilev_ind.vmat_c",
-          "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_weapon/terrorblade_ultimate_depravity_weapon.vmat_c"
         },
         {
           "src": "kisilev_ind/particles/terrorblade/ability/terrorblade_metamorphosis_base_attack.vpcf_c",
@@ -655,10 +305,6 @@
           "dst": "kisilev_ind/materials/terrorblade/arcana/base/colorwarp_tb_arcana_colorwarp3d_z000_tga_1259b3d8.vtex_c"
         },
         {
-          "src": "particles/econ/items/terrorblade/terrorblade_back_ti8/terrorblade_back_ambient_ti8.vpcf_c",
-          "dst": "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_kisilev_ind.vpcf_c"
-        },
-        {
           "src": "models/heroes/terrorblade/horns_arcana.vmdl_c",
           "dst": "models/heroes/terrorblade/horns.vmdl_c"
         },
@@ -666,7 +312,491 @@
           "src": "particles/econ/items/terrorblade/terrorblade_horns_arcana/terrorblade_ambient_eyes_arcana_horns.vpcf_c",
           "dst": "particles/units/heroes/hero_terrorblade/terrorblade_ambient_eyes.vpcf_c"
         }
-      ]
+      ],
+      "refits": {
+        "7032": {
+          "name": "Marauder's Armor",
+          "slot": "armor",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_color_png_1b9c5208.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_detailmask_png_d8fbe2b8.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_normal_png_130e6f3c.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_specmask_png_80395065.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/marauders_armor_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/marauders_armor/marauders_armor.vmat_c"
+            }
+          ]
+        },
+        "7033": {
+          "name": "Marauder's Demon Form",
+          "slot": "ability3",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_color_png_e340dcab.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_detailmask_png_c75f59d3.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_normal_png_4e6768cb.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_specmask_png_f0c0c2d.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/marauders_demon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/marauders_demon/marauders_demon.vmat_c"
+            }
+          ]
+        },
+        "7034": {
+          "name": "Marauder's Crown",
+          "slot": "head",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_color_png_3c288dd0.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_detailmask_png_7a987d09.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_normal_png_860111a1.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_specmask_png_1322579c.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/marauders_head_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/marauders_head/marauders_head.vmat_c"
+            }
+          ]
+        },
+        "7035": {
+          "name": "Marauder's Blades",
+          "slot": "weapon",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_color_png_329dcf76.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_detailmask_png_25a11d2d.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_normal_png_a820566e.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_specmask_png_c0bbd620.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/marauders_weapon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/marauders_weapon/marauders_weapon.vmat_c"
+            }
+          ]
+        },
+        "7404": {
+          "name": "Form of the Baleful Hollow",
+          "slot": "ability3",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_color_png_a09d8ecd.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_detailmask_png_bb719f1e.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_normal_png_8ba1c953.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_specmask_png_1ae88113.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/corrupted_form_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/corrupted_form/corrupted_form.vmat_c"
+            }
+          ]
+        },
+        "7406": {
+          "name": "Blades of the Baleful Hollow",
+          "slot": "weapon",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_color_png_8ed56d43.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_detailmask_png_c1de3356.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_normal_png_40ea8b1f.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_specmask_png_e34db58d.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/corrupted_weapons_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/corrupted_weapons/corrupted_weapons.vmat_c"
+            }
+          ]
+        },
+        "8177": {
+          "name": "Wings of Eternal Purgatory",
+          "slot": "back",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_color_png_2c31661a.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_detailmask_png_4b2abbb3.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_normal_png_1bb7879d.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_specmask_png_f69aaff2.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_back_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/endless_purgatory_back/endless_purgatory_back.vmat_c"
+            }
+          ]
+        },
+        "8179": {
+          "name": "Curse of Eternal Purgatory",
+          "slot": "weapon",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_color_png_5b712fce.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_diffusemask_png_aebf8ca5.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_normal_png_7b711c34.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_specmask_png_2d4c890e.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/endless_purgatory_weapon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/endless_purgatory_weapon/endless_purgatory_weapon.vmat_c"
+            }
+          ]
+        },
+        "8276": {
+          "name": "Form of Eternal Purgatory",
+          "slot": "ability3",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_color_png_46c63e82.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_detailmask_png_4fd5a41d.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_normal_png_97c18cbb.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_specmask_png_5323f750.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/endless_purgatory_demon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/endless_purgatory_demon/endless_purgatory_demon.vmat_c"
+            }
+          ]
+        },
+        "9497": {
+          "name": "Armor of the Foulfell Corruptor",
+          "slot": "armor",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_color_png_59a35fd5.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_detailmask_png_f80384e6.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_normal_png_16c617e8.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_specmask_png_5ca7f6c1.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_armor_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/knight_of_foulfell_terrorblade_armor/knight_of_foulfell_terrorblade_armor.vmat_c"
+            }
+          ]
+        },
+        "9499": {
+          "name": "Wings of the Foulfell Corruptor",
+          "slot": "back",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_color_png_74e1e7c6.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_detailmask_png_18f9d317.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_normal_png_bf70dd4c.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_specmask_png_f674f544.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_back_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/knight_of_foulfell_terrorblade_back/knight_of_foulfell_terrorblade_back.vmat_c"
+            }
+          ]
+        },
+        "9500": {
+          "name": "Blades of the Foulfell Corruptor",
+          "slot": "weapon",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_color_png_eaec4cd8.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_detailmask_png_f50bda28.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_normal_png_8c275ec5.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_specmask_png_9f2d65e0.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/knight_of_foulfell_terrorblade_weapon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/knight_of_foulfell_terrorblade_weapon/knight_of_foulfell_terrorblade_weapon.vmat_c"
+            }
+          ]
+        },
+        "9501": {
+          "name": "Demon Form of the Foulfell Corruptor",
+          "slot": "ability3",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_color_png_b9bf880b.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_detailmask_png_c9bc2ecd.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_normal_png_fa1f1502.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_specmask_png_4fc8368a.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/knight_of_foulfell_demon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/knight_of_foulfell_demon/knight_of_foulfell_demon.vmat_c"
+            }
+          ]
+        },
+        "9750": {
+          "name": "Span of Sorrow",
+          "slot": "back",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_color_png_ebd2c337.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_detailmask_png_82dffcc1.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_normal_png_c5e1026e.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_specmask_png_818e4c51.vtex_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_a.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_base.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_beam.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_dark_dust.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_dark_swirl.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_dark.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_elec.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_energy.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_dark.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_pnt.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_ring.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_scorch_glow.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_ground_scorch.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_impact.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_kisilev_ind.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_light.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_rope_detail.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_rope.vpcf_c",
+            "kisilev_ind/particles/terrorblade/ability/terrorblade_sunder_ti8_swirl_rope.vpcf_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ti8_immortal_back_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/terrorblade_ti8_immortal_back/terrorblade_ti8_immortal_back.vmat_c"
+            }
+          ],
+          "valveCopies": [
+            {
+              "src": "particles/econ/items/terrorblade/terrorblade_back_ti8/terrorblade_back_ambient_ti8.vpcf_c",
+              "dst": "kisilev_ind/particles/terrorblade/back/terrorblade_back_ambient_ti8_kisilev_ind.vpcf_c"
+            }
+          ]
+        },
+        "12917": {
+          "name": "Scythes of Sorrow",
+          "slot": "weapon",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_color_png_f540aa9d.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_detailmask_png_b5586dae.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_normal_png_47b49ad6.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_specmask_png_22064585.vtex_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_edge_jagged.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_edge.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_glow_r.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_glow.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_handle_model.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_handle.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_kisilev_ind.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_left_kisilev_ind.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_01.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_02.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_03.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_04.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_05.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_parent_06.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_particulate.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_smoke_parent.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_smoke.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_02.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_core.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_dark.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_glow.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_top_02.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail_top.vpcf_c",
+            "kisilev_ind/particles/terrorblade/weapon/terrorblade_ti9_immortal_weapon_trail.vpcf_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_ti9_immortal_weapon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/tb_ti9_immortal_weapon/tb_ti9_immortal_weapon.vmat_c"
+            }
+          ]
+        },
+        "14338": {
+          "name": "Chasm of the Broken Code Weapon",
+          "slot": "weapon",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_color_png_9dd7d572.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_detailmask_png_18b1f21e.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_normal_png_13a021f0.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_specmask_png_452f18c8.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_weapon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/tb_samurai_weapon/tb_samurai_weapon.vmat_c"
+            }
+          ]
+        },
+        "14339": {
+          "name": "Chasm of the Broken Code Demon",
+          "slot": "ability3",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_color_png_d5ad7773.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_detailmask_png_c43fdd01.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_normal_png_dd2a2f61.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_specmask_png_5f76a95e.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/tb_samurai_samurai_demon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/tb_samurai_samurai_demon/tb_samurai_samurai_demon.vmat_c"
+            }
+          ]
+        },
+        "14340": {
+          "name": "Chasm of the Broken Code Helm",
+          "slot": "head",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_color_png_381ea9f8.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_detailmask_png_5240e2ca.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_normal_png_ebcdfa64.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_specmask_png_d1270411.vtex_c",
+            "kisilev_ind/particles/terrorblade/armor/tb_samurai_head_ambient_mouth_glare.vpcf_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_head_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/tb_samurai_head/tb_samurai_head.vmat_c"
+            }
+          ]
+        },
+        "14341": {
+          "name": "Chasm of the Broken Code Wings",
+          "slot": "back",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_color_png_acef6b43.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_detailmask_png_6e5f6608.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_normal_png_5116dbe0.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_specmask_png_b579a4b5.vtex_c",
+            "kisilev_ind/particles/terrorblade/back/tb_samurai_back_ambient_kisilev_ind.vpcf_c",
+            "kisilev_ind/particles/terrorblade/back/tb_samurai_back_edge_rope_right.vpcf_c",
+            "kisilev_ind/particles/terrorblade/back/tb_samurai_back_edge_rope.vpcf_c",
+            "kisilev_ind/particles/terrorblade/back/tb_samurai_back_splash.vpcf_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_back_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/tb_samurai_back/tb_samurai_back.vmat_c"
+            }
+          ]
+        },
+        "14342": {
+          "name": "Chasm of the Broken Code Armor",
+          "slot": "armor",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_color_png_e39c0513.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_detailmask_png_2c2c2e6a.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_normal_png_af751be3.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_specmask_png_871faa62.vtex_c",
+            "kisilev_ind/particles/terrorblade/armor/tb_samurai_armor_ambient_arms.vpcf_c",
+            "kisilev_ind/particles/terrorblade/armor/tb_samurai_armor_ambient_kisilev_ind.vpcf_c",
+            "kisilev_ind/particles/terrorblade/armor/tb_samurai_armor_ambient_splash.vpcf_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/tb_samurai_armor_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/tb_samurai_armor/tb_samurai_armor.vmat_c"
+            }
+          ]
+        },
+        "26445": {
+          "name": "Forgotten Station - Armor",
+          "slot": "armor",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_color_png_7227a408.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_detailmask_png_30c20682.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_normal_png_13a3a625.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_specmask_png_94dca17b.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_armor_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_armor/terrorblade_ultimate_depravity_armor.vmat_c"
+            }
+          ]
+        },
+        "26446": {
+          "name": "Forgotten Station - Demon",
+          "slot": "ability3",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_color_png_e4ca0438.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_detailmask_png_be4d0149.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_normal_png_f75114cb.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_specmask_png_952b253.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/demon/terrorblade_ultimate_depravity_ability_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_ability/terrorblade_ultimate_depravity_ability.vmat_c"
+            }
+          ]
+        },
+        "26447": {
+          "name": "Forgotten Station - Head",
+          "slot": "head",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_color_png_7f09a7e6.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_detailmask_png_9469c414.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_normal_png_db5ff0a7.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_specmask_png_c5f2c69c.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_head_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_head/terrorblade_ultimate_depravity_head.vmat_c"
+            }
+          ]
+        },
+        "26448": {
+          "name": "Forgotten Station - Weapon",
+          "slot": "weapon",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_color_png_1030535f.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_detailmask_png_a19e2f03.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_kisilev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_normal_png_82a227f3.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_specmask_png_5ddc06a0.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_weapon_kisilev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_weapon/terrorblade_ultimate_depravity_weapon.vmat_c"
+            }
+          ]
+        },
+        "26449": {
+          "name": "Forgotten Station - Back",
+          "slot": "back",
+          "files": [
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_color_png_bbd7baee.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_detailmask_png_4491206b.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_kiislev_ind.vmat_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_normal_png_3c353ac2.vtex_c",
+            "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_specmask_png_943f2ea2.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/materials/terrorblade/arcana/items/terrorblade_ultimate_depravity_back_kiislev_ind.vmat_c",
+              "dst": "materials/models/items/terrorblade/terrorblade_ultimate_depravity_back/terrorblade_ultimate_depravity_back.vmat_c"
+            }
+          ]
+        }
+      }
     },
     "6879": {
       "name": "Swine of the Sunken Galley",
@@ -684,12 +814,9 @@
         "827"
       ],
       "files": [
-        "kisilev_ind/models/techies/arcana/invisible_head.vmat_c",
-        "kisilev_ind/models/techies/arcana/invisible_head_vmat_g_tcolor_715c1c6b.vtex_c",
         "kisilev_ind/models/techies/arcana/techies_arcana_kisilev_ind.vmdl_c",
         "kisilev_ind/models/techies/arcana/techies_arcana_kisilev_ind/spleen_head_kisilev_ind_vmorf.vtex_c",
         "kisilev_ind/models/techies/arcana/techies_arcana_kisilev_ind/squee_head_kisilev_ind_vmorf.vtex_c",
-        "kisilev_ind/models/techies/arcana/techies_arcana_kisilev_ind/techies_arcana_kisilev_ind_vmorf.vtex_c",
         "kisilev_ind/models/techies/arcana/techies_base_color1.vmat_c",
         "kisilev_ind/particles/techies/arcana/ambient/techies_ambient_arc_molten_drip.vpcf_c",
         "kisilev_ind/particles/techies/arcana/ambient/techies_ambient_arcana.vpcf_c",
@@ -713,7 +840,6 @@
         "kisilev_ind/particles/techies/arcana/base_attack/techies_base_attack_b.vpcf_c",
         "kisilev_ind/particles/techies/arcana/base_attack/techies_base_attack_core.vpcf_c",
         "kisilev_ind/particles/techies/arcana/base_attack/techies_base_attack_smokefire_arcana.vpcf_c",
-        "kisilev_ind/particles/techies/arcana/base_attack/techies_base_attack_smokevel.vpcf_c",
         "kisilev_ind/particles/techies/arcana/base_attack/techies_baseattack_arcana_fuse_spark.vpcf_c",
         "kisilev_ind/particles/techies/arcana/land_mine/minitaunt.vpcf_c",
         "kisilev_ind/particles/techies/arcana/land_mine/taunt_1.vtex_c",
@@ -725,7 +851,6 @@
         "kisilev_ind/particles/techies/arcana/land_mine/techies_land_mine_ground_flare.vpcf_c",
         "kisilev_ind/particles/techies/arcana/land_mine/techies_land_mine_sparks.vpcf_c",
         "kisilev_ind/particles/techies/arcana/land_mine/techies_stasis_trap_smoky_glow.vpcf_c",
-        "kisilev_ind/particles/techies/arcana/remote_cart/techies_remote_cart.vpcf_c",
         "kisilev_ind/particles/techies/arcana/remote_cart/techies_remote_cart_explode.vpcf_c",
         "kisilev_ind/particles/techies/arcana/remote_cart/techies_remote_cart_explode_sparks.vpcf_c",
         "kisilev_ind/particles/techies/arcana/remote_cart/techies_remote_cart_explode_sparks_big.vpcf_c",
@@ -755,8 +880,6 @@
         "kisilev_ind/particles/techies/arcana/stasis_trap/techies_stasis_trap_arcana.vpcf_c",
         "kisilev_ind/particles/techies/arcana/stasis_trap/techies_stasis_trap_smoky_glow.vpcf_c",
         "kisilev_ind/particles/techies/arcana/suicide/techies_blast_off.vpcf_c",
-        "kisilev_ind/particles/techies/arcana/suicide/techies_blast_off_arcana.vpcf_c",
-        "kisilev_ind/particles/techies/arcana/suicide/techies_suicide_arcana.vpcf_c",
         "kisilev_ind/particles/techies/arcana/suicide/techies_suicide_fireworks_a_trail.vpcf_c",
         "kisilev_ind/particles/techies/arcana/suicide/techies_suicide_fireworks_a_trailflikr.vpcf_c",
         "kisilev_ind/particles/techies/arcana/suicide/techies_suicide_fireworks_boom_a.vpcf_c",
@@ -782,7 +905,6 @@
         "kisilev_ind/particles/techies/arcana/tazer/techies_tazer_explode_beams_flare.vpcf_c",
         "models/heroes/techies/fx_techies_remote_cart.vmdl_c",
         "models/heroes/techies/techies.vmdl_c",
-        "models/heroes/techies/techies_arcana_kisilev_ind/techies_arcana_kisilev_ind_vmorf.vtex_c",
         "models/heroes/techies/techies_barrel.vmdl_c",
         "models/heroes/techies/techies_cart.vmdl_c",
         "models/heroes/techies/techies_sign.vmdl_c",
@@ -844,9 +966,7 @@
         "826"
       ],
       "files": [
-        "kisilev_ind/models/shadow_fiend/base/shadow_fiend_arcana_desol_kisilev_ind.vmdl_c",
         "kisilev_ind/models/shadow_fiend/base/shadow_fiend_arcana_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/shadow_fiend/base/shadow_fiend_kisilev_ind.vmdl_c",
         "kisilev_ind/models/shadow_fiend/shadow_fiend_arcana/shadow_fiend_arcana_kisilev_ind.vmdl_c",
         "models/heroes/shadow_fiend/demon_eater_kisilev_ind/shadow_fiend_arcana_kisilev_ind.vmdl_c",
         "models/heroes/shadow_fiend/shadow_fiend_head.vmdl_c",
@@ -864,10 +984,6 @@
         {
           "src": "materials/models/items/shadow_fiend/shadow_fiend_arcana/base_body/shadow_fiend_arcana_base_body.vmat_c",
           "dst": "kisilev_ind/materials/shadow_fiend/arcana/shadow_fiend_arcana_base_body_kisilev_ind.vmat_c"
-        },
-        {
-          "src": "materials/models/heroes/shadow_fiend/default/base_body/shadow_fiend_base_body.vmat_c",
-          "dst": "kisilev_ind/materials/shadow_fiend/base/shadow_fiend_base_body_kisilev_ind.vmat_c"
         },
         {
           "src": "models/heroes/shadow_fiend/shadow_fiend_arcana_arms.vmdl_c",
@@ -1043,40 +1159,14 @@
         "825"
       ],
       "files": [
-        "kisilev_ind/models/monkey_king/armor/accursed_king_armor/accursed_king_armor_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/monkey_king/armor/mk_ti9_immortal_armor/mk_ti9_immortal_armor_kisilev_ind.vmdl_c",
         "kisilev_ind/models/monkey_king/base/monkey_king_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
-        "kisilev_ind/models/monkey_king/head/mk_ti9_immortal_head/mk_ti9_immortal_head_kisilev_ind.vmdl_c",
         "kisilev_ind/models/monkey_king/head/monkey_king_arcana_head/monkey_king_arcana_head_kisilev_ind.vmdl_c",
         "kisilev_ind/models/monkey_king/head/monkey_king_arcana_head/monkey_king_arcana_head_kisilev_ind/monkey_king_arcana_kisilev_ind_vmorf.vtex_c",
         "kisilev_ind/models/monkey_king/head/monkey_king_arcana_head/monkey_king_arcana_head_kisilev_ind/monkey_king_water_scroll_kisilev_ind_vmorf.vtex_c",
-        "kisilev_ind/models/monkey_king/head/monkey_king_arcana_head/monkey_king_arcana_head_kisilev_ind/monkey_king_water_scroll_style1_kisilev_ind1_vmorf.vtex_c",
-        "kisilev_ind/models/monkey_king/shoulder/accursed_king_shoulder/accursed_king_shoulder_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/monkey_king/shoulder/mk_ti9_immortal_shoulder/mk_ti9_immortal_shoulder_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/monkey_king/weapon/mk_ti9_immortal_weapon/mk_ti9_immortal_weapon_kisilev_ind.vmdl_c",
         "models/heroes/monkey_king/monkey_king_arcana/monkey_king_arcana_kisilev_ind.vmdl_c",
-        "models/heroes/monkey_king/monkey_king_arcana/monkey_king_arcana_kisilev_ind/monkey_king_kisilev_ind_vmorf.vtex_c",
-        "soundevents/game_sounds_heroes/voscripts/game_sounds_vo_monkey_king.vsndevts_c"
+        "models/heroes/monkey_king/monkey_king_arcana/monkey_king_arcana_kisilev_ind/monkey_king_kisilev_ind_vmorf.vtex_c"
       ],
       "aliases": [
-        {
-          "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
-          "dst": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_death_kisilev_ind_vmorf.vtex_c"
-        },
-        {
-          "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
-          "dst": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_fire_kisilev_ind_vmorf.vtex_c"
-        },
-        {
-          "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
-          "dst": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_kisilev_ind_vmorf.vtex_c"
-        },
-        {
-          "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
-          "dst": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_water_kisilev_ind_vmorf.vtex_c"
-        },
         {
           "src": "kisilev_ind/models/monkey_king/head/monkey_king_arcana_head/monkey_king_arcana_head_kisilev_ind/monkey_king_arcana_kisilev_ind_vmorf.vtex_c",
           "dst": "kisilev_ind/models/monkey_king/head/monkey_king_arcana_head/monkey_king_arcana_head_kisilev_ind/monkey_king_arcana_style1_kisilev_ind_vmorf.vtex_c"
@@ -1151,7 +1241,141 @@
           "src": "sounds/weapons/hero/monkey_king/stike_impact01.vsnd_c",
           "dst": "sounds/weapons/hero/monkey_king/spring_impact.vsnd_c"
         }
-      ]
+      ],
+      "refits": {
+        "13008": {
+          "name": "Armor of the Demon Trickster",
+          "slot": "armor",
+          "files": [
+            "kisilev_ind/models/monkey_king/armor/mk_ti9_immortal_armor/mk_ti9_immortal_armor_kisilev_ind.vmdl_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/models/monkey_king/armor/mk_ti9_immortal_armor/mk_ti9_immortal_armor_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/mk_ti9_immortal_armor/mk_ti9_immortal_arcana_armor.vmdl_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/armor/mk_ti9_immortal_armor/mk_ti9_immortal_armor_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/mk_ti9_immortal_armor/mk_ti9_immortal_armor.vmdl_c"
+            }
+          ]
+        },
+        "13544": {
+          "name": "Mask of the Demon Trickster",
+          "slot": "head",
+          "files": [
+            "kisilev_ind/models/monkey_king/head/mk_ti9_immortal_head/mk_ti9_immortal_head_kisilev_ind.vmdl_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/models/monkey_king/head/mk_ti9_immortal_head/mk_ti9_immortal_head_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/mk_ti9_immortal_head/mk_ti9_immortal_arcana_head.vmdl_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/head/mk_ti9_immortal_head/mk_ti9_immortal_head_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/mk_ti9_immortal_head/mk_ti9_immortal_head.vmdl_c"
+            }
+          ]
+        },
+        "13545": {
+          "name": "Pauldrons of the Demon Trickster",
+          "slot": "shoulder",
+          "files": [
+            "kisilev_ind/models/monkey_king/shoulder/mk_ti9_immortal_shoulder/mk_ti9_immortal_shoulder_kisilev_ind.vmdl_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/models/monkey_king/shoulder/mk_ti9_immortal_shoulder/mk_ti9_immortal_shoulder_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/mk_ti9_immortal_shoulder/mk_ti9_immortal_arcana_shoulder.vmdl_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/shoulder/mk_ti9_immortal_shoulder/mk_ti9_immortal_shoulder_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/mk_ti9_immortal_shoulder/mk_ti9_immortal_shoulder.vmdl_c"
+            }
+          ]
+        },
+        "13546": {
+          "name": "Staff of the Demon Trickster",
+          "slot": "weapon",
+          "files": [
+            "kisilev_ind/models/monkey_king/weapon/mk_ti9_immortal_weapon/mk_ti9_immortal_weapon_kisilev_ind.vmdl_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/models/monkey_king/weapon/mk_ti9_immortal_weapon/mk_ti9_immortal_weapon_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/mk_ti9_immortal_weapon/mk_ti9_immortal_arcana_weapon.vmdl_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/weapon/mk_ti9_immortal_weapon/mk_ti9_immortal_weapon_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/mk_ti9_immortal_weapon/mk_ti9_immortal_weapon.vmdl_c"
+            }
+          ]
+        },
+        "31421": {
+          "name": "Sins of the Simian Sovereign - Armor",
+          "slot": "armor",
+          "files": [
+            "kisilev_ind/models/monkey_king/armor/accursed_king_armor/accursed_king_armor_kisilev_ind.vmdl_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/models/monkey_king/armor/accursed_king_armor/accursed_king_armor_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/accursed_king_armor/accursed_king_armor.vmdl_c"
+            }
+          ]
+        },
+        "31422": {
+          "name": "Sins of the Simian Sovereign - Crown",
+          "slot": "head",
+          "files": [
+            "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind.vmdl_c",
+            "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_death_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_fire_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_arcana_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind/accursed_king_crown_water_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/accursed_king_inverted_crown/accursed_king_arcana_inverted_crown.vmdl_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/head/accursed_king_inverted_crown/accursed_king_inverted_crown_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/accursed_king_inverted_crown/accursed_king_inverted_crown.vmdl_c"
+            }
+          ]
+        },
+        "31423": {
+          "name": "Sins of the Simian Sovereign - Shoulder",
+          "slot": "shoulder",
+          "files": [
+            "kisilev_ind/models/monkey_king/shoulder/accursed_king_shoulder/accursed_king_shoulder_kisilev_ind.vmdl_c"
+          ],
+          "aliases": [
+            {
+              "src": "kisilev_ind/models/monkey_king/shoulder/accursed_king_shoulder/accursed_king_shoulder_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/accursed_king_shoulder/accursed_king_arcana_shoulder.vmdl_c"
+            },
+            {
+              "src": "kisilev_ind/models/monkey_king/shoulder/accursed_king_shoulder/accursed_king_shoulder_kisilev_ind.vmdl_c",
+              "dst": "models/items/monkey_king/accursed_king_shoulder/accursed_king_shoulder.vmdl_c"
+            }
+          ]
+        }
+      }
     },
     "9059": {
       "name": "Bladeform Legacy",
@@ -1188,20 +1412,10 @@
         "639"
       ],
       "files": [
-        "kisilev_ind/materials/wips/wisp_arcana/wisp_arcana_color_png_e09497c9.vtex_c",
-        "kisilev_ind/materials/wips/wisp_arcana/wisp_arcana_kisilev_ind.vmat_c",
-        "kisilev_ind/materials/wips/wisp_arcana/wisp_arcana_metalnessmask_psd_fceadb25.vtex_c",
-        "kisilev_ind/materials/wips/wisp_arcana/wisp_arcana_normal_png_428e2f41.vtex_c",
-        "kisilev_ind/materials/wips/wisp_arcana/wisp_arcana_specmask_psd_f960b314.vtex_c",
-        "kisilev_ind/models/wisp/arcana/io_arcana.vmdl_c",
-        "kisilev_ind/models/wisp/arcana/io_arcana/wisp_arcana_kiislev_ind_vmorf.vtex_c",
         "kisilev_ind/models/wisp/arcana/wisp_arcana.vmdl_c",
         "kisilev_ind/models/wisp/arcana/wisp_arcana_f81c8ae5.vagrp_c",
         "kisilev_ind/models/wisp/arcana/wisp_arcana_kisilev_ind_27e13323.vagrp_c",
         "kisilev_ind/models/wisp/arcana/wisp_arcana_model_kisilev_ind.vmesh_c",
-        "kisilev_ind/models/wisp/arcana/wisp_arcana_model_kisilev_ind.vmorf_c",
-        "kisilev_ind/models/wisp/arcana/wisp_arcana_model_kisilev_ind_vmorf.vtex_c",
-        "kisilev_ind/particles/wisp/wisp_arcana/wisp_ambient_ti7.vpcf_c",
         "kisilev_ind/particles/wisp/wisp_arcana/wisp_arcana_idle_ambient.vpcf_c",
         "kisilev_ind/particles/wisp/wisp_arcana/wisp_death_ti7.vpcf_c",
         "kisilev_ind/particles/wisp/wisp_arcana/wisp_death_ti7_model.vpcf_c",
@@ -1338,14 +1552,6 @@
         "kisilev_ind/models/rubick/rubick_arcana/cape/rubick_arcana_back.vmdl_c",
         "kisilev_ind/models/rubick/rubick_arcana/cape/rubick_arcana_back/rubick_arcana_back_base_kisilev_ind_vmorf.vtex_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_cubes.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_cubes_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_cubes_b_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_cubes_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_cubes_target.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_cubes_target_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_default.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_default1.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_default_cubes.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_default_cubes_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_default_cubes_b_glow.vpcf_c",
@@ -1355,10 +1561,7 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_default_haze.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_default_squares.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_default_squares_target.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_haze.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_light.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_squares.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_squares_target.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_staff.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_staff_cubes.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/cast/rubick_arcana_spell_steal_staff_flare.vpcf_c",
@@ -1408,9 +1611,7 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_glow_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_ice.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_ice_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_initial.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_initial_explode.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_initial_grid.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_main.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_marker.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ancient_apparition_ice_blast_sphere.vpcf_c",
@@ -1490,7 +1691,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/beastmaster_primal_roar_dust.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/beastmaster_primal_roar_fire.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/beastmaster_primal_roar_flash.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/beastmaster_primal_roar_ground.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/beastmaster_primal_roar_rocks.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/beastmaster_primal_roar_scream.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/beastmaster_primal_roar_streak.vpcf_c",
@@ -1587,20 +1787,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/centaur_stampede_overhead_model.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/centaur_stampede_pulse.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/centaur_stampede_rocks.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_explosion.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_explosion_a.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_explosion_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_explosion_d.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_explosion_e.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_explosion_light.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_launch.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_launch_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_model.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_trail_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_trail_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chaos_knight_chaos_bolt_trail_d.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chen_cast_4_d.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chen_hand_of_god.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/chen_hand_of_god_b.vpcf_c",
@@ -1715,30 +1901,8 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/disruptor_staticstrike_inits_ring_end.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/disruptor_staticstrom_inits.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/disruptor_staticstrom_inits_endcap.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_c_fallback01.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_d.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_e.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_f.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_g.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_launch.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_low.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/dragon_knight_breathe_fire_mid.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_hero_silence.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_hero_silence_ice.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_dust.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_pnt.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_proj.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_proj_dirt.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_proj_frost.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_rope.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_rope_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/drow_silence_wave_ground_smoke.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/earthshaker_fissure.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/earthshaker_fissure_cracks.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/earthshaker_fissure_cracks_b.vpcf_c",
@@ -1772,8 +1936,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ember_spirit_remnant_dash_rubick.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/ember_spirit_rubick_fire_remnant.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/enchantress_natures_attendant_heal_magic.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/enchantress_natures_attendants_heal.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/enchantress_natures_attendants_heal_aura.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/enchantress_natures_attendants_heal_wisp_glow.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/enchantress_natures_attendants_heal_wispa.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/enchantress_natures_attendants_heal_wispa2.vpcf_c",
@@ -1963,7 +2125,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/leshrac_pulse_nova_g.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/leshrac_pulse_nova_h.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/leshrac_pulse_nova_i.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lich_chain_frost_rubick.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/life_stealer_rage.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/life_stealer_rage_body.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/life_stealer_rage_cast.vpcf_c",
@@ -1997,13 +2158,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lina_spell_laguna_blade_smoke.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lina_spell_laguna_blade_startpoint.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lina_spell_laguna_blade_swoop.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lone_druid_true_form_dust.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lone_druid_true_form_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lone_druid_true_form_mist.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lone_druid_true_form_mist_fall.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lone_druid_true_form_runes.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lone_druid_true_form_runes_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lone_druid_true_form_sweep.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/luna_ambient_lunar_blessing.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/luna_eclipse.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/luna_eclipse_cast.vpcf_c",
@@ -2065,16 +2219,9 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lycan_shapeshift_cast_moon_g.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lycan_shapeshift_cast_moon_h.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/lycan_shapeshift_revert.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_cast.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_cast_a.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_cast_glow_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_cracks_background.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_cracks_center.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_cracks_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_light.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/magnataur_shockwave_sparks.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mars_shield_bash.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mars_shield_bash_crit.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mars_shield_bash_crit_smoke.vpcf_c",
@@ -2126,14 +2273,9 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/meepo_earthbind_projectile_launch.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/meepo_earthbind_projectile_launch_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/meepo_earthbind_projectile_wind.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow_cloud.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow_destruction.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow_destruction_sparkles.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow_dustr.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow_fx.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow_ribbon.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow_ribbon_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/mirana_spell_arrow_trail.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/monkey_king_fur_army_cast.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/monkey_king_fur_army_cast_ground_glyph.vpcf_c",
@@ -2159,14 +2301,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/monkey_king_furarmy_ring.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/monkey_king_furarmy_ring_bright.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/monkey_king_furarmy_ring_energy.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/morphling_waveform.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/morphling_waveform_splash_a.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/morphling_waveform_splash_a_endcap.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/morphling_waveform_splash_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/morphling_waveform_splash_d.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/morphling_waveform_splash_f.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/morphling_waveform_wave_1.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/morphling_waveform_wave_2.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/naga_siren_siren_song_cast.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/naga_siren_siren_song_cast_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/naga_siren_siren_song_cast_c.vpcf_c",
@@ -2208,28 +2342,11 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nightstalker_crippling_fear_smoke.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nightstalker_silence.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nightstalker_silenced_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_debris.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_debris_head.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_debris_rings.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_debris_ripple.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_dust.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_glow_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_hit.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_hit_debris.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_hit_dust.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_hit_glow.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_hit_spikes.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_soil.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_soil_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_soil_rupture.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_sparks.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_spikes.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_start.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_start_flash.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_start_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/nyx_assassin_impale_start_sparks.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/obsidian_destroyer_sanity_eclipse_area.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/obsidian_destroyer_sanity_eclipse_area_atmos_orbit.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/obsidian_destroyer_sanity_eclipse_area_beam.vpcf_c",
@@ -2311,30 +2428,8 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pangolier_gyroshell_ground_streaks.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pangolier_gyroshell_immunity.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pangolier_gyroshell_swirl.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_explosion.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_explosion_flash.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_explosion_points.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_explosion_points_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_launch.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_trail.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_trail_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_trail_d.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_trail_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_trail_glow_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_trail_glow_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantom_assassin_stifling_dagger_trail_sparkles.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_phant_lance_trail.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_caster.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_flash_target.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_projectile.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_projectile_explosion.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_projectile_explosion_flash.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_projectile_launch.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_projectile_launch_trails.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_projectile_trail.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_projectile_trail_sparkexpl.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_projectile_trail_sparks.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_target.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_target_explodes.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phantomlancer_spiritlance_target_slowparent.vpcf_c",
@@ -2370,10 +2465,8 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phoenix_supernova_reborn_sphere_shockwave.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/phoenix_supernova_reborn_star_sphere.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pl_pl_slash_flashbang.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pl_pl_slash_flashbang_glow.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pl_pl_slash_flashbang_glow2.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pl_pl_slash_flashbang_ray.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pl_pl_slash_radiant_smoke.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/puck_dreamcoil.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/puck_dreamcoil_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/puck_dreamcoil_end.vpcf_c",
@@ -2399,20 +2492,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pudge_meathook_hook.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pudge_meathook_impact.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/pudge_meathook_impact_droplets.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_a.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_c_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_debrisl.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_debrisr.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_distort.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_dustl.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_dustr.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_flash.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_flash_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_grp.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_spiral_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/queen_sonic_wave_streak.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rain_storm_leaves.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rattletrap_cog_ambient.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rattletrap_cog_attack.vpcf_c",
@@ -2441,14 +2520,11 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/razor_storm_lightning_strike.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/razor_storm_secondary_arc_a.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/razor_storm_secondary_arc_b.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arc_kunkka_ghost_ship.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arc_sandking_epicenter.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arc_skywrath_mage_mystic_flare_ambient.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arc_snapfire_lizard_blobs_arced.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arc_venomancer_poison_nova.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arc_viper_viperstrike_trail_cubes.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arcana_acorn_shot_initial.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arcana_acorn_shot_tracking.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arcana_snapfire_impact.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arcana_ultimate_linger.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rbck_arcana_void_spirit_dissimilate.vpcf_c",
@@ -2483,7 +2559,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/riki_tricks_ring_persist.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/riki_tricks_sphere.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rubick_blackhole.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rubick_chaos_meteor.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rubick_chaos_meteor_fly.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rubick_doom.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rubick_faceless_void_chronosphere.vpcf_c",
@@ -2502,7 +2577,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/rubick_thundergods_wrath_start.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadow_demon_demonic_purge_cast_rubick.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadow_demon_demonic_purge_rubick.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadow_shaman_ward_base_attack_rubick.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadowshaman_ward_ambient.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadowshaman_ward_ambient_e.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadowshaman_ward_death.vpcf_c",
@@ -2510,8 +2584,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadowshaman_ward_spawn_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadowshaman_ward_spawn_c.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shadowshaman_ward_spawn_d.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shredder_chakram.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shredder_chakram_aghs.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shredder_chakram_return.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shredder_chakram_spin.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/shredder_chakram_spin_arcs.vpcf_c",
@@ -2567,27 +2639,8 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/slark_dark_pact_start.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/slark_dark_pact_start_ring.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/slark_dark_pact_start_ring_sparkle.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_barrel_smoke.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_endpoint.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_impact_blood.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_impact_sparks.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_light.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_rings.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_startpoint.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_assassinate_startpoint_light.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_crosshair.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/sniper_crosshair_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_shadow_path.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_shadow_path_b_start.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_shadow_path_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_shadow_path_d.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_shadow_path_fallback_mid.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_spectral_dagger.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_spectral_dagger_fallback_mid.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_spectral_dagger_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spectre_spectral_dagger_glow_mist.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spirit_breaker_charge.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spirit_breaker_charge_dust.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/spirit_breaker_charge_foot_glow.vpcf_c",
@@ -2666,7 +2719,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/templar_assassin_trap_explosion_core.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/templar_assassin_trap_explosion_d.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/templar_assassin_trap_explosion_shock.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/templar_assassin_trap_proj_drk.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/templar_assassin_trap_ring_inner_start.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/templar_assassin_trap_rings.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/templar_assassin_trap_rings_flash.vpcf_c",
@@ -2694,18 +2746,12 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tinker_rearm.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tinker_rearm_c.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tinker_rearm_d.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tiny_avalanche.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tiny_avalanche_projectile.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tiny_avalanche_projectile_explode.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tiny_avalanche_projectile_soil.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrown_areabeam_pulse.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_ambient_beam_sparkly.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_area_beam.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_area_beam_spray.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_cast.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_cast_tree.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_conjure_rise.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_conjure_rope.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_glow.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_hero_glow.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/treant_overgrowth_vine_core_sparkly.vpcf_c",
@@ -2724,7 +2770,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/troll_warlord_battletrance_buff_f.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/troll_warlord_battletrance_buff_g.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/troll_warlord_battletrance_buff_h.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/true_form_lone_druid.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tusk_rubickpunch_txt.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tusk_walruspunch_hand.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/tusk_walruspunch_hand_streak.vpcf_c",
@@ -2758,18 +2803,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/viper_viper_strike_barb_child_glow.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/viper_viper_strike_beam.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_ambient.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_core.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_core_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_energy.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_fire.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_flash.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_flash_ember.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_glow_trail.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_hit.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_hit_glow.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_hit_ring.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_base_attack_trail_glow.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_transform.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_transform_dust.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/visage_familiar_transform_haze.vpcf_c",
@@ -2809,7 +2842,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/wisp_relocate_teleport.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/wisp_relocate_teleport_b.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/wisp_relocate_teleport_c.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/witchdoctor_ward_attack_rubick.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/witchdoctor_ward_cast_staff_fire_rubick.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/witchdoctor_ward_skull_rubick.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/wyvern_winters_curse.vpcf_c",
@@ -2843,7 +2875,6 @@
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/wyvern_winters_curse_status.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/wyvern_winters_curse_status_ice.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_arcana_skills/wyvern_winters_curse_twinkle.vpcf_c",
-        "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_cape_ambient_base.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_cape_ambient_cubes.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_cape_ambient_default_edge.vpcf_c",
         "kisilev_ind/particles/rubick/rubick_arcana_cape/rubick_cape_ambient_default_edge_beam.vpcf_c",
@@ -2931,13 +2962,10 @@
         "kisilev_ind/models/earthshaker/arcana/earthshaker_arcana_kisilev_ind/earthshaker_arcana_base_kisilev_ind_vmorf.vtex_c",
         "kisilev_ind/models/earthshaker/arcana/earthshaker_arcana_kisilev_ind/earthshaker_arcana_head_kisilev_ind_vmorf.vtex_c",
         "kisilev_ind/models/earthshaker/items/bracers/arcana_bracers/earthshaker_arcana_arms_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/earthshaker/items/bracers/bracers.vmdl_c",
         "kisilev_ind/models/earthshaker/items/head/earthshaker_arcana_head/earthshaker_arcana_head_kisilev_ind.vmdl_c",
         "kisilev_ind/models/earthshaker/items/totem/arcana_weapon/earthshaker_arcana_weapon_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/earthshaker/items/totem/totem.vmdl_c",
         "kisilev_ind/particles/earthshaker/arcana/items/chess_knight/es_fall_chess_knight_arms.vpcf_c",
         "kisilev_ind/particles/earthshaker/arcana/items/es_cosmic_arms/es_cosmic_arcana_arms_ambient.vpcf_c",
-        "kisilev_ind/particles/earthshaker/arcana/items/es_cosmic_arms/es_cosmic_arcana_style1_arms_ambient.vpcf_c",
         "models/heroes/earthshaker/earthshaker_arcana/earthshaker_arcana_kisilev_ind.vmdl_c",
         "models/heroes/earthshaker/earthshaker_arcana/earthshaker_arcana_kisilev_ind/earthshaker_arcana_head_kisilev_ind_vmorf.vtex_c",
         "models/items/earthshaker/earthshaker_arcana/earthshaker_arcana_head.vmdl_c",
@@ -2964,14 +2992,6 @@
         }
       ],
       "valveCopies": [
-        {
-          "src": "materials/models/heroes/earthshaker/bracers.vmat_c",
-          "dst": "kisilev_ind/materials/earthshaker/arcana/items/base/bracers.vmat_c"
-        },
-        {
-          "src": "materials/models/heroes/earthshaker/totem.vmat_c",
-          "dst": "kisilev_ind/materials/earthshaker/arcana/items/base/totem.vmat_c"
-        },
         {
           "src": "materials/models/items/earthshaker/earthshaker_arcana/arms_style1/earthshaker_arcana_arms_style1.vmat_c",
           "dst": "kisilev_ind/materials/earthshaker/arcana/items/earthshaker_arcana/earthshaker_arcana_arms_style1.vmat_c"
@@ -3186,15 +3206,9 @@
         "84"
       ],
       "files": [
-        "kisilev_ind/materials/queen_of_pain/items/queenofpain_arcana/queenofpain_arcana_base_armor.vmat_c",
-        "kisilev_ind/materials/queen_of_pain/items/queenofpain_arcana/queenofpain_arcana_base_armor_style1.vmat_c",
-        "kisilev_ind/materials/queen_of_pain/items/queenofpain_arcana/queenofpain_arcana_wings.vmat_c",
-        "kisilev_ind/materials/queen_of_pain/items/queenofpain_arcana/queenofpain_arcana_wings_style1.vmat_c",
         "kisilev_ind/models/queen_of_pain/arcana/queenofpain_arcana_base_head_kisilev_ind.vmat_c",
         "kisilev_ind/models/queen_of_pain/arcana/queenofpain_arcana_base_legs_kisilev_ind.vmat_c",
         "kisilev_ind/models/queen_of_pain/arcana/queenofpain_arcana_base_whip_kisilev_ind.vmat_c",
-        "kisilev_ind/models/queen_of_pain/arcana/queenofpain_inv.vmat_c",
-        "kisilev_ind/models/queen_of_pain/arcana/queenofpain_inv_vmat_g_tcolor_83a7e64.vtex_c",
         "kisilev_ind/models/queen_of_pain/items/head/arcana_head/queenofpain_arcana_head_kisilev_ind.vmdl_c",
         "kisilev_ind/models/queen_of_pain/items/head/arcana_head/queenofpain_arcana_head_kisilev_ind/queenofpain_arcana_head_kisilev_ind_blue_vmorf.vtex_c",
         "kisilev_ind/models/queen_of_pain/items/head/arcana_head/queenofpain_arcana_head_kisilev_ind/queenofpain_arcana_head_kisilev_ind_vmorf.vtex_c",
@@ -3440,17 +3454,7 @@
         "kisilev_ind/particles/invoker/invoker_kid/attack/invoker_kid_attack_super_ultra_mega_combo_wex.vpcf_c",
         "kisilev_ind/particles/invoker/invoker_kid/attack/invoker_kid_attack_super_ultra_mega_combo_wex_explode.vpcf_c",
         "kisilev_ind/particles/invoker/invoker_kid/attack/invoker_kid_attack_super_ultra_mega_combo_wex_explode_ember.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_exort_orb.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_exort_orb_model.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_exort_orb_taunt.vpcf_c",
         "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_orbs_loadout.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_quas_orb.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_quas_orb_model.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_quas_orb_taunt.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_wex_orb.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_wex_orb_model.vpcf_c",
-        "kisilev_ind/particles/invoker/invoker_kid/invoker_kid_wex_orb_taunt.vpcf_c",
-        "models/heroes/invoker/invoker_kid/invoker_kid_kisilev_ind.vmdl_c",
         "models/heroes/invoker/invoker_kid_taunt/invoker_kid_taunt_kisilev_ind.vmdl_c",
         "models/heroes/invoker/invoker_kid_taunt/invoker_kid_taunt_kisilev_ind/invoker_kid_kisilev_ind_vmorf.vtex_c",
         "particles/units/heroes/hero_invoker/invoker_deafening_blast.vpcf_c",
@@ -3459,10 +3463,6 @@
         "soundevents/voscripts/game_sounds_vo_invoker.vsndevts_c"
       ],
       "aliases": [
-        {
-          "src": "models/heroes/invoker/invoker_kid_taunt/invoker_kid_taunt_kisilev_ind/invoker_kid_kisilev_ind_vmorf.vtex_c",
-          "dst": "models/heroes/invoker/invoker_kid/invoker_kid_kisilev_ind/invoker_kid_kisilev_ind_vmorf.vtex_c"
-        },
         {
           "src": "models/heroes/invoker/invoker_kid_taunt/invoker_kid_taunt_kisilev_ind.vmdl_c",
           "dst": "models/heroes/invoker/invoker.vmdl_c"
@@ -3597,10 +3597,6 @@
         "models/heroes/techies/techies_ti9_elephant/techies_ti9_elephant_kisilev_ind/techies_arcana_kisilev_ind_vmorf.vtex_c"
       ],
       "aliases": [
-        {
-          "src": "models/heroes/techies/techies_cart.vmdl_c",
-          "dst": "models/heroes/techies/techies_ti9_elephant/elephant_ti9_immortal_cart_kisilev_ind.vmdl_c"
-        },
         {
           "src": "models/heroes/techies/techies_ti9_elephant/techies_ti9_elephant_kisilev_ind.vmdl_c",
           "dst": "models/heroes/techies/techies.vmdl_c"
@@ -4153,10 +4149,6 @@
         "kisilev_ind/models/antimage/persona/am_persona_body_diffusemask_psd_66e42662.vtex_c",
         "kisilev_ind/models/antimage/persona/am_persona_body_normal_psd_62c685d6.vtex_c",
         "kisilev_ind/models/antimage/persona/am_persona_body_specmask_psd_dd60c2dc.vtex_c",
-        "kisilev_ind/particles/antimage/antimage_female/base/am_female_blade_l_ambient.vpcf_c",
-        "kisilev_ind/particles/antimage/antimage_female/base/am_female_blade_r_ambient.vpcf_c",
-        "kisilev_ind/particles/antimage/antimage_female/base/antimage_female_base_l_fx.vsnap_c",
-        "kisilev_ind/particles/antimage/antimage_female/base/antimage_female_base_r_fx.vsnap_c",
         "kisilev_ind/particles/antimage/antimage_female/basher/antimage_ambient_skullbasher.vpcf_c",
         "kisilev_ind/particles/antimage/antimage_female/basher/antimage_ambient_skullbasher_gold.vpcf_c",
         "kisilev_ind/particles/antimage/antimage_female/basher/antimage_ambient_skullbasher_offhand.vpcf_c",
@@ -4184,14 +4176,6 @@
         },
         {
           "src": "kisilev_ind/particles/antimage/antimage_female/basher/antimage_female_basher_fx_l.vsnap_c",
-          "dst": "particles/models/items/antimage/ skull_basher/antimage_female_basher_fx_l.vsnap_c"
-        },
-        {
-          "src": "kisilev_ind/particles/antimage/antimage_female/basher/antimage_female_basher_fx_r.vsnap_c",
-          "dst": "particles/models/items/antimage/ skull_basher/antimage_female_basher_fx_r.vsnap_c"
-        },
-        {
-          "src": "kisilev_ind/particles/antimage/antimage_female/basher/antimage_female_basher_fx_l.vsnap_c",
           "dst": "particles/models/heroes/antimage/antimage_persona_kisilev_ind/antimage_female_kisilev_ind/antimage_female_basher_fx_l.vsnap_c"
         },
         {
@@ -4207,14 +4191,6 @@
         {
           "src": "materials/models/heroes/mars/mars_fresnelwarprim_psd_aad1d229.vtex_c",
           "dst": "kisilev_ind/models/antimage/persona/mars_fresnelwarprim_png_50bffa37.vtex_c"
-        },
-        {
-          "src": "sounds/weapons/hero/antimage/blink_in_persona.vsnd_c",
-          "dst": "kisilev_ind/sounds/weapons/hero/antimage/blink_in_persona.vsnd_c"
-        },
-        {
-          "src": "sounds/weapons/hero/antimage/mana_void_cast_persona.vsnd_c",
-          "dst": "kisilev_ind/sounds/weapons/hero/antimage/mana_void_cast_persona.vsnd_c"
         },
         {
           "src": "models/development/invisiblebox.vmdl_c",
@@ -4276,30 +4252,6 @@
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_af9636cf.vagrp_c",
-              "dst": "models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_af9636cf.vagrp_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_kisilev_ind_de86f23b.vagrp_c",
-              "dst": "models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_kisilev_ind_de86f23b.vagrp_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_kisilev_ins_lod1.vmesh_c",
-              "dst": "models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_kisilev_ins_lod1.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_kisilev_ins.vmesh_c",
-              "dst": "models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_kisilev_ins.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_p_kisilev_ins_lod1.vmesh_c",
-              "dst": "models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_p_kisilev_ins_lod1.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_p_kisilev_ins.vmesh_c",
-              "dst": "models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic_p_kisilev_ins.vmesh_c"
-            },
-            {
               "src": "kisilev_ind/models/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic.vmdl_c",
               "dst": "models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic.vmdl_c"
             }
@@ -4332,56 +4284,8 @@
               "dst": "kisilev_ind/models/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_kisilev_ind_34ce346c.vagrp_c"
             },
             {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_b_kisilev_ind_lod1.vmesh_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_b_kisilev_ind_lod1.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_b_kisilev_ind.vmesh_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_b_kisilev_ind.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_fbd85394.vagrp_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_fbd85394.vagrp_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_kisilev_ind_19f6b7ef.vagrp_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_kisilev_ind_19f6b7ef.vagrp_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_p_kisilev_ind_lod1.vmesh_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_p_kisilev_ind_lod1.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_p_kisilev_ind.vmesh_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_p_kisilev_ind.vmesh_c"
-            },
-            {
               "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood.vmdl_c",
               "dst": "models/items/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood.vmdl_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_fbd85394.vagrp_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_54607365.vagrp_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hood/acolyte_vengeance_hood_kisilev_ind_19f6b7ef.vagrp_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_kisilev_ind_34ce346c.vagrp_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_kisilev_ind_lod1.vmesh_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_kisilev_ind_lod1.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_kisilev_ind.vmesh_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_kisilev_ind.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_p_kisilev_ind_lod1.vmesh_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_p_kisilev_ind_lod1.vmesh_c"
-            },
-            {
-              "src": "kisilev_ind/models/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_p_kisilev_ind.vmesh_c",
-              "dst": "models/items/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask_p_kisilev_ind.vmesh_c"
             },
             {
               "src": "kisilev_ind/models/antimage/acolyte_vengeance_hooded_mask/acolyte_vengeance_hooded_mask.vmdl_c",
@@ -4454,10 +4358,6 @@
         "kisilev_ind/materials/pudge_puppet/pudge_cute_kisilev_ind.vmat_c",
         "kisilev_ind/models/pudge_puppet/pudge_puppet_kisilev_ind.vmdl_c",
         "kisilev_ind/models/pudge_puppet/pudge_puppet_kisilev_ind/pudge_cute_head_kisilev_ind_vmorf.vtex_c",
-        "kisilev_ind/particles/pudge_puppet/ambient/pudge_puppet_head_ambient.vpcf_c",
-        "kisilev_ind/particles/pudge_puppet/ambient/pudge_puppet_head_ambient_eye_glow_detail.vpcf_c",
-        "kisilev_ind/particles/pudge_puppet/ambient/pudge_puppet_head_ambient_eye_glow_l.vpcf_c",
-        "kisilev_ind/particles/pudge_puppet/ambient/pudge_puppet_head_ambient_eye_glow_r.vpcf_c",
         "kisilev_ind/particles/pudge_puppet/saw/pudge_insatiable_bonesaw.vpcf_c",
         "kisilev_ind/particles/pudge_puppet/saw/pudge_insatiable_bonesaw_ambient.vpcf_c",
         "kisilev_ind/particles/pudge_puppet/saw/pudge_insatiable_bonesaw_ambient_ember.vpcf_c",
@@ -4594,10 +4494,6 @@
         {
           "src": "models/items/windrunner/armaments_of_the_wind_shoulder/armaments_of_the_wind_shoulder_refit.vmdl_c",
           "dst": "models/items/windrunner/armaments_of_the_wind_shoulder/armaments_of_the_wind_shoulder.vmdl_c"
-        },
-        {
-          "src": "models/items/windrunner/barrel_quiver_update/barrel_quiver_refit.vmdl_c",
-          "dst": "models/items/windrunner/barrel_quiver_update/barrel_quiver.vmdl_c"
         },
         {
           "src": "models/items/windrunner/circlet_of_the_northern_wind/circlet_of_the_northern_wind_refit.vmdl_c",
@@ -4780,32 +4676,12 @@
       ],
       "valveCopies": [
         {
-          "src": "materials/models/items/faceless_void/faceless_void_arcana/fv_arcana_base_alt_style.vmat_c",
-          "dst": "kisilev_ind/materials/faceless_void/arcana/fv_arcana_base_alt_kisilev_ind.vmat_c"
-        },
-        {
           "src": "materials/models/items/faceless_void/faceless_void_arcana/fv_arcana_base.vmat_c",
           "dst": "kisilev_ind/materials/faceless_void/arcana/fv_arcana_base_kisilev_ind.vmat_c"
         },
         {
           "src": "models/development/invisiblebox.vmdl_c",
           "dst": "models/heroes/faceless_void/faceless_void_head.vmdl_c"
-        },
-        {
-          "src": "materials/models/items/faceless_void/faceless_void_arcana/fv_arcana_belt.vmat_c",
-          "dst": "materials1/models/items/faceless_void/faceless_void_arcana/fv_arcana_belt_alt.vmat_c"
-        },
-        {
-          "src": "materials/models/items/faceless_void/faceless_void_arcana/fv_arcana_bracer.vmat_c",
-          "dst": "materials1/models/items/faceless_void/faceless_void_arcana/fv_arcana_bracer_alt.vmat_c"
-        },
-        {
-          "src": "materials/models/items/faceless_void/faceless_void_arcana/fv_arcana_shoulder.vmat_c",
-          "dst": "materials1/models/items/faceless_void/faceless_void_arcana/fv_arcana_shoulder_alt.vmat_c"
-        },
-        {
-          "src": "materials/models/items/faceless_void/faceless_void_arcana/fv_arcana_weapon.vmat_c",
-          "dst": "materials1/models/items/faceless_void/faceless_void_arcana/fv_arcana_weapon_alt.vmat_c"
         },
         {
           "src": "models/items/faceless_void/acolyte_belt/acolyte_belt_refit.vmdl_c",
@@ -5161,27 +5037,13 @@
         "905"
       ],
       "files": [
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_base.vmat_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_base_color_png_3db7bb8d.vtex_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_base_detailmask_png_c5ed6e22.vtex_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_base_normal_png_1b8c4b22.vtex_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_base_specmask_png_bd43b30b.vtex_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_cube_psd_6e6a208e.vtex_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_detail_png_b90dab35.vtex_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_diffusewarp_png_91e91814.vtex_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_ranger_invis.vmat_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_ranger_invis_vmat_g_tcolor_715c1c6b.vtex_c",
-        "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/ogre_arcana_fresnelwarprim_png_e29783c6.vtex_c",
         "kisilev_ind/models/drow_ranger/arcana/drow_arcana_arms_kisilev_ind.vmdl_c",
         "kisilev_ind/models/drow_ranger/arcana/drow_arcana_back_kisilev_ind.vmdl_c",
         "kisilev_ind/models/drow_ranger/arcana/drow_arcana_head_kisilev_ind.vmdl_c",
         "kisilev_ind/models/drow_ranger/arcana/drow_arcana_legs_kisilev_ind.vmdl_c",
         "kisilev_ind/models/drow_ranger/arcana/drow_arcana_quiver.vmdl_c",
         "kisilev_ind/models/drow_ranger/arcana/drow_arcana_shoulder_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/drow_ranger/arcana/drow_arcana_weapon.vmdl_c",
         "models/heroes/drow/drow_base.vmdl_c",
-        "models/heroes/drow/drow_ranger_arcana_kisilev_ind/drow_arcana_kisilev_ind.vmdl_c",
-        "models/heroes/drow/drow_ranger_arcana_kisilev_ind/drow_arcana_kisilev_ind/drow_arcana_kisilev_ind_vmorf.vtex_c",
         "models/heroes/drow/drow_weapon.vmdl_c",
         "models/items/drow/drow_dark_carnival/drow_dark_carnival_shoulders_arcana_refit.vmdl_c",
         "models/items/drow/ti6_immortal_cape/mesh/drow_ti6_immortal_cape.vmdl_c",
@@ -5219,22 +5081,6 @@
         }
       ],
       "valveCopies": [
-        {
-          "src": "materials/models/items/drow/drow_arcana/drow_arcana_dissolve_test.vmat_c",
-          "dst": "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_dissolve_test.vmat_c"
-        },
-        {
-          "src": "materials/models/items/drow/drow_arcana/drow_arcana_eye_shadow.vmat_c",
-          "dst": "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_eye_shadow.vmat_c"
-        },
-        {
-          "src": "materials/models/items/drow/drow_arcana/drow_arcana_frost_base_legs.vmat_c",
-          "dst": "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_frost_base_legs.vmat_c"
-        },
-        {
-          "src": "materials/models/items/drow/drow_arcana/drow_arcana_head.vmat_c",
-          "dst": "kisilev_ind/materials/drow_ranger/drow_ranger_arcana/drow_arcana_head.vmat_c"
-        },
         {
           "src": "models/items/drow/2023_crownfall_arms/drow_scree_arms_arcana_refit.vmdl_c",
           "dst": "models/items/drow/2023_crownfall_arms/drow_scree_arms.vmdl_c"
@@ -5523,10 +5369,6 @@
           "dst": "models/heroes/crystal_maiden/crystal_maiden.vmdl_c"
         },
         {
-          "src": "models/heroes/crystal_maiden/crystal_maiden_arcana.vmdl_c",
-          "dst": "models/heroes/crystal_maiden/persona/crystal_maiden_persona_kisilev_ind.vmdl_c"
-        },
-        {
           "src": "kisilev_ind/models/crystal_maiden/persona/crystal_maiden_persona_kisilev_ind/crystal_maiden_persona_kisilev_ind_vmorf.vtex_c",
           "dst": "models/heroes/crystal_maiden/persona/crystal_maiden_persona_kisilev_ind/crystal_maiden_persona_kisilev_ind_vmorf.vtex_c"
         },
@@ -5548,14 +5390,8 @@
         "447"
       ],
       "files": [
-        "kisilev_ind/models/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_head_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_legs_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_shoulders_kisilev_ind.vmdl_c",
-        "kisilev_ind/models/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_weapon_kisilev_ind.vmdl_c",
         "models/heroes/vengeful/vengeful_hair.vmdl_c",
         "models/heroes/vengeful/vengeful_lowerbody.vmdl_c",
-        "models/heroes/vengeful/vengeful_spirit_arcana/vengeful_spirit_arcana_kisilev_ind.vmdl_c",
-        "models/heroes/vengeful/vengeful_spirit_arcana/vengeful_spirit_arcana_kisilev_ind/vengeful_spirit_arcana_base_head_kisilev_ind_vmorf.vtex_c",
         "models/heroes/vengeful/vengeful_spirit_imperia/imperia_kisilev_ind.vmdl_c",
         "models/heroes/vengeful/vengeful_spirit_imperia/imperia_kisilev_ind/imperia_base_head_kisilev_ind_vmorf.vtex_c",
         "models/heroes/vengeful/vengeful_upperbody.vmdl_c",
@@ -5604,22 +5440,6 @@
         {
           "src": "materials/models/items/vengefulspirit/imperia/imperia_wings.vmat_c",
           "dst": "kisilev_ind/materials/vengeful_spirit/vengeful_spirit_arcana/imperia/imperia_wings_kisilev_ind.vmat_c"
-        },
-        {
-          "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/alt/vengeful_spirit_arcana_base_alt.vmat_c",
-          "dst": "kisilev_ind/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_base_alt_kisilev_ind.vmat_c"
-        },
-        {
-          "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/alt/vengeful_spirit_arcana_base_head_alt.vmat_c",
-          "dst": "kisilev_ind/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_base_head_alt_kisilev_ind.vmat_c"
-        },
-        {
-          "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_base_head.vmat_c",
-          "dst": "kisilev_ind/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_base_head_kisilev_ind.vmat_c"
-        },
-        {
-          "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_base.vmat_c",
-          "dst": "kisilev_ind/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_base_kisilev_ind.vmat_c"
         },
         {
           "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/alt/vengeful_spirit_arcana_head_alt.vmat_c",
@@ -5846,10 +5666,6 @@
         "soundevents/voscripts/game_sounds_vo_phantom_assassin.vsndevts_c"
       ],
       "aliases": [
-        {
-          "src": "models/heroes/phantom_assassin/pa_arcana.vmdl_c",
-          "dst": "models/heroes/phantom_assassin/persona/phantom_assassin_persona_kisilev_ind.vmdl_c"
-        },
         {
           "src": "kisilev_ind/models/phantom_assassin/persona/phantom_assassin_persona_kisilev_ind/phantom_assassin_persona_head_kisilev_ind_vmorf.vtex_c",
           "dst": "models/heroes/phantom_assassin/persona/phantom_assassin_persona_kisilev_ind/phantom_assassin_persona_head_kisilev_ind_vmorf.vtex_c"
@@ -6118,7 +5934,6 @@
         "models/heroes/legion_commander/legion_commander_back.vmdl_c",
         "models/heroes/legion_commander/legion_commander_carnival/legion_commander_carnival_kisilev_ind.vmdl_c",
         "models/heroes/legion_commander/legion_commander_carnival/legion_commander_carnival_kisilev_ind/dark_carnival_legion_commander_base_kisilev_ind_vmorf.vtex_c",
-        "models/heroes/legion_commander/legion_commander_carnival/legion_commander_carnival_kisilev_ind/unnamed_1_vmorf.vtex_c",
         "models/heroes/legion_commander/legion_commander_head.vmdl_c",
         "models/heroes/legion_commander/legion_commander_shoulders.vmdl_c",
         "models/heroes/legion_commander/legion_commander_weapon.vmdl_c",
@@ -6153,9 +5968,6 @@
         "kisilev_ind/models/morphling/automaton/morphling_dark_carnival_kisilev_ind/morphling_dark_carnival_metal_kisilev_ind_vmorf.vtex_c",
         "kisilev_ind/models/morphling/automaton/morphling_dark_carnival_kisilev_ind/morphling_dark_carnival_wood_kisilev_ind_vmorf.vtex_c",
         "models/heroes/morphling/morphling_dark_carnival/morphling_dark_carnival_kisilev_ind.vmdl_c",
-        "models/heroes/morphling/morphling_dark_carnival/morphling_dark_carnival_kisilev_ind/morphling_dark_carnival_kisilev_ind_vmorf.vtex_c",
-        "models/heroes/morphling/morphling_dark_carnival/morphling_dark_carnival_kisilev_ind/unnamed_1_vmorf.vtex_c",
-        "models/heroes/morphling/morphling_dark_carnival/morphling_dark_carnival_kisilev_ind/unnamed_2_vmorf.vtex_c",
         "soundevents/game_sounds_heroes/game_sounds_morphling.vsndevts_c",
         "soundevents/voscripts/game_sounds_vo_morphling.vsndevts_c"
       ],
@@ -6224,9 +6036,7 @@
         "kisilev_ind/particles/bristleback/bristleback_dark_carnival/bristleback_carnival_ambient_kisilev_ind.vpcf_c",
         "kisilev_ind/particles/bristleback/bristleback_dark_carnival/bristleback_carnival_back_ambient_kisilev_ind.vpcf_c",
         "models/heroes/bristleback/bristleback.vmdl_c",
-        "models/heroes/bristleback/dark_carnival_bristlebot/bristlebot_kisilev_ind/dark_carnival_bristlebot_kisilev_ind_vmorf.vtex_c",
-        "soundevents/game_sounds_heroes/game_sounds_bristleback.vsndevts",
-        "soundevents/voscripts/game_sounds_vo_bristleback.vsndevts"
+        "models/heroes/bristleback/dark_carnival_bristlebot/bristlebot_kisilev_ind/dark_carnival_bristlebot_kisilev_ind_vmorf.vtex_c"
       ],
       "aliases": [
         {
@@ -6240,10 +6050,6 @@
         {
           "src": "kisilev_ind/models/bristleback/bristleback_dark_carnival/dark_carnival_bristlebot_weapon_kisilev_ind.vmdl_c",
           "dst": "models/heroes/bristleback/bristleback_weapon.vmdl_c"
-        },
-        {
-          "src": "models/heroes/bristleback/bristleback.vmdl_c",
-          "dst": "models/heroes/bristleback/dark_carnival_bristlebot/bristlebot_kisilev_ind.vmdl_c"
         }
       ],
       "valveCopies": [

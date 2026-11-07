@@ -9,6 +9,8 @@ import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
 import * as packService from '../src/main/services/packService'
+import { loadIndex } from '../src/main/services/vpkIndex'
+import { detectDotaPath } from '../src/main/services/dotaPathService'
 import type { CompanionRefit, CosmeticAssetEntry, CosmeticAssetsManifest, PathMapping } from '../src/main/services/cosmeticAssets'
 
 export const INVISIBLE_BOX_3708_CRC = 'dfb82309'
@@ -85,7 +87,194 @@ export interface GroupSpec {
 export const GROUP_SPECS: GroupSpec[] = [
   { id: '4794', name: 'Fiery Soul of the Slayer', hero: 'lina', group: 'lina', basePatchIds: ['319'] },
   { id: '5810', name: 'Blades of Voth Domosh', hero: 'legion_commander', group: 'legion_commander', basePatchIds: ['847'] },
-  { id: '5957', name: 'Fractal Horns of Inner Abysm', hero: 'terrorblade', group: 'terrorblade', basePatchIds: ['478', '540', '913'] },
+  {
+    id: '5957',
+    name: 'Fractal Horns of Inner Abysm',
+    hero: 'terrorblade',
+    group: 'terrorblade',
+    basePatchIds: ['478', '540', '913'],
+    refits: [
+      {
+        companionId: '7032',
+        name: "Marauder's Armor",
+        slot: 'armor',
+        patchIds: [],
+        pathFilter: (p) => p.includes('marauders_armor')
+      },
+      {
+        companionId: '7033',
+        name: "Marauder's Demon Form",
+        slot: 'ability3',
+        patchIds: [],
+        pathFilter: (p) => p.includes('marauders_demon')
+      },
+      {
+        companionId: '7034',
+        name: "Marauder's Crown",
+        slot: 'head',
+        patchIds: [],
+        pathFilter: (p) => p.includes('marauders_head')
+      },
+      {
+        companionId: '7035',
+        name: "Marauder's Blades",
+        slot: 'weapon',
+        patchIds: [],
+        pathFilter: (p) => p.includes('marauders_weapon')
+      },
+      {
+        companionId: '7404',
+        name: 'Form of the Baleful Hollow',
+        slot: 'ability3',
+        patchIds: [],
+        pathFilter: (p) => p.includes('corrupted_form')
+      },
+      {
+        companionId: '7406',
+        name: 'Blades of the Baleful Hollow',
+        slot: 'weapon',
+        patchIds: [],
+        pathFilter: (p) => p.includes('corrupted_weapons')
+      },
+      {
+        companionId: '8177',
+        name: 'Wings of Eternal Purgatory',
+        slot: 'back',
+        patchIds: [],
+        pathFilter: (p) => p.includes('endless_purgatory_back')
+      },
+      {
+        companionId: '8179',
+        name: 'Curse of Eternal Purgatory',
+        slot: 'weapon',
+        patchIds: [],
+        pathFilter: (p) => p.includes('endless_purgatory_weapon')
+      },
+      {
+        companionId: '8276',
+        name: 'Form of Eternal Purgatory',
+        slot: 'ability3',
+        patchIds: [],
+        pathFilter: (p) => p.includes('endless_purgatory_demon')
+      },
+      {
+        companionId: '9497',
+        name: 'Armor of the Foulfell Corruptor',
+        slot: 'armor',
+        patchIds: [],
+        pathFilter: (p) => p.includes('knight_of_foulfell_terrorblade_armor')
+      },
+      {
+        companionId: '9499',
+        name: 'Wings of the Foulfell Corruptor',
+        slot: 'back',
+        patchIds: [],
+        pathFilter: (p) => p.includes('knight_of_foulfell_terrorblade_back')
+      },
+      {
+        companionId: '9500',
+        name: 'Blades of the Foulfell Corruptor',
+        slot: 'weapon',
+        patchIds: [],
+        pathFilter: (p) => p.includes('knight_of_foulfell_terrorblade_weapon')
+      },
+      {
+        companionId: '9501',
+        name: 'Demon Form of the Foulfell Corruptor',
+        slot: 'ability3',
+        patchIds: [],
+        pathFilter: (p) => p.includes('knight_of_foulfell_demon')
+      },
+      {
+        companionId: '9750',
+        name: 'Span of Sorrow',
+        slot: 'back',
+        patchIds: [],
+        pathFilter: (p) =>
+          p.includes('terrorblade_ti8_immortal_back') ||
+          p.includes('ti8_tb_back') ||
+          p.includes('terrorblade_back_ambient_ti8') ||
+          p.includes('terrorblade_sunder_ti8')
+      },
+      {
+        companionId: '12917',
+        name: 'Scythes of Sorrow',
+        slot: 'weapon',
+        patchIds: [],
+        pathFilter: (p) => p.includes('tb_ti9_immortal_weapon') || p.includes('terrorblade_ti9_immortal_weapon')
+      },
+      {
+        companionId: '14338',
+        name: 'Chasm of the Broken Code Weapon',
+        slot: 'weapon',
+        patchIds: [],
+        pathFilter: (p) => p.includes('tb_samurai_weapon')
+      },
+      {
+        companionId: '14339',
+        name: 'Chasm of the Broken Code Demon',
+        slot: 'ability3',
+        patchIds: [],
+        pathFilter: (p) => p.includes('tb_samurai_samurai_demon')
+      },
+      {
+        companionId: '14340',
+        name: 'Chasm of the Broken Code Helm',
+        slot: 'head',
+        patchIds: [],
+        pathFilter: (p) => p.includes('tb_samurai_head')
+      },
+      {
+        companionId: '14341',
+        name: 'Chasm of the Broken Code Wings',
+        slot: 'back',
+        patchIds: [],
+        pathFilter: (p) => p.includes('tb_samurai_back')
+      },
+      {
+        companionId: '14342',
+        name: 'Chasm of the Broken Code Armor',
+        slot: 'armor',
+        patchIds: [],
+        pathFilter: (p) => p.includes('tb_samurai_armor')
+      },
+      {
+        companionId: '26445',
+        name: 'Forgotten Station - Armor',
+        slot: 'armor',
+        patchIds: [],
+        pathFilter: (p) => p.includes('terrorblade_ultimate_depravity_armor')
+      },
+      {
+        companionId: '26446',
+        name: 'Forgotten Station - Demon',
+        slot: 'ability3',
+        patchIds: [],
+        pathFilter: (p) => p.includes('terrorblade_ultimate_depravity_ability')
+      },
+      {
+        companionId: '26447',
+        name: 'Forgotten Station - Head',
+        slot: 'head',
+        patchIds: [],
+        pathFilter: (p) => p.includes('terrorblade_ultimate_depravity_head')
+      },
+      {
+        companionId: '26448',
+        name: 'Forgotten Station - Weapon',
+        slot: 'weapon',
+        patchIds: [],
+        pathFilter: (p) => p.includes('terrorblade_ultimate_depravity_weapon')
+      },
+      {
+        companionId: '26449',
+        name: 'Forgotten Station - Back',
+        slot: 'back',
+        patchIds: [],
+        pathFilter: (p) => p.includes('terrorblade_ultimate_depravity_back')
+      }
+    ]
+  },
   {
     id: '6879',
     name: 'Swine of the Sunken Galley',
@@ -141,7 +330,64 @@ export const GROUP_SPECS: GroupSpec[] = [
       }
     ]
   },
-  { id: '9050', name: "Great Sage's Reckoning", hero: 'monkey_king', group: 'monkey_king', basePatchIds: ['594', '825'] },
+  {
+    id: '9050',
+    name: "Great Sage's Reckoning",
+    hero: 'monkey_king',
+    group: 'monkey_king',
+    basePatchIds: ['594', '825'],
+    refits: [
+      {
+        companionId: '31421',
+        name: 'Sins of the Simian Sovereign - Armor',
+        slot: 'armor',
+        patchIds: [],
+        pathFilter: (p) => p.includes('accursed_king_armor')
+      },
+      {
+        companionId: '31422',
+        name: 'Sins of the Simian Sovereign - Crown',
+        slot: 'head',
+        patchIds: [],
+        pathFilter: (p) => p.includes('accursed_king_inverted_crown') || p.includes('accursed_king_arcana_inverted_crown')
+      },
+      {
+        companionId: '31423',
+        name: 'Sins of the Simian Sovereign - Shoulder',
+        slot: 'shoulder',
+        patchIds: [],
+        pathFilter: (p) => p.includes('accursed_king_shoulder') || p.includes('accursed_king_arcana_shoulder')
+      },
+      {
+        companionId: '13008',
+        name: 'Armor of the Demon Trickster',
+        slot: 'armor',
+        patchIds: [],
+        pathFilter: (p) => p.includes('mk_ti9_immortal_armor') || p.includes('mk_ti9_immortal_arcana_armor')
+      },
+      {
+        companionId: '13544',
+        name: 'Mask of the Demon Trickster',
+        slot: 'head',
+        patchIds: [],
+        pathFilter: (p) => p.includes('mk_ti9_immortal_head') || p.includes('mk_ti9_immortal_arcana_head')
+      },
+      {
+        companionId: '13545',
+        name: 'Pauldrons of the Demon Trickster',
+        slot: 'shoulder',
+        patchIds: [],
+        pathFilter: (p) => p.includes('mk_ti9_immortal_shoulder') || p.includes('mk_ti9_immortal_arcana_shoulder')
+      },
+      {
+        companionId: '13546',
+        name: 'Staff of the Demon Trickster',
+        slot: 'weapon',
+        patchIds: [],
+        pathFilter: (p) => p.includes('mk_ti9_immortal_weapon') || p.includes('mk_ti9_immortal_arcana_weapon')
+      }
+    ]
+  },
   { id: '9059', name: 'Bladeform Legacy', hero: 'juggernaut', group: 'juggernaut', basePatchIds: ['6', '811'] },
   { id: '9235', name: 'Benevolent Companion', hero: 'wisp', group: 'wisp', basePatchIds: ['639'] },
   { id: '9662', name: 'Phantom Advent', hero: 'spectre', group: 'spectre', basePatchIds: ['323', '324', '325', '395', '580'] },
@@ -455,6 +701,14 @@ function md5File(filePath: string): string {
   return crypto.createHash('md5').update(fs.readFileSync(filePath)).digest('hex')
 }
 
+function extractEmbeddedRefs(buf: Buffer): string[] {
+  const raw = buf.toString('latin1')
+  const matches = raw.match(
+    /(?:kisilev_ind|models|materials|particles|sounds|soundevents)\/[a-zA-Z0-9_./-]+(?:\s+skull_basher\/[a-zA-Z0-9_./-]+)?\.(?:vmdl|vmat|vtex|vpcf|vsnap|vsnd|vsndevts|vmesh|vagrp|vanim|vphys|vseq)/g
+  )
+  return matches ? [...new Set(matches.map((m) => `${m}_c`))] : []
+}
+
 function buildPatchFile(sourceItemsGameText: string, sourceSection: packService.ItemsSection, targetIds: string[]): string {
   const blocks: string[] = []
   for (const id of targetIds) {
@@ -511,6 +765,9 @@ export function sanitizeBundle(opts: {
 
   const wave2Text = fs.readFileSync(wave2ItemsGamePath, 'utf-8')
   const wave2Section = packService.readItemsSection(wave2Text)
+
+  const dotaPath = detectDotaPath()
+  const vpkIndex = dotaPath ? loadIndex(path.join(dotaPath, 'dota', 'pak01_dir.vpk')) : null
 
   const items: Record<string, CosmeticAssetEntry> = {}
 
@@ -657,10 +914,94 @@ export function sanitizeBundle(opts: {
     const allPatchTargetIds = [...new Set([...baseTargetIds, ...refitTargetIds])]
 
     let patchRel: string | undefined
+    let patchContent = ''
     if (allPatchTargetIds.length > 0) {
-      const content = buildPatchFile(patchSourceText, patchSourceSec, allPatchTargetIds)
-      fs.writeFileSync(path.join(groupDstDir, 'items_patch.txt'), content, 'utf-8')
+      patchContent = buildPatchFile(patchSourceText, patchSourceSec, allPatchTargetIds)
+      fs.writeFileSync(path.join(groupDstDir, 'items_patch.txt'), patchContent, 'utf-8')
       patchRel = 'items_patch.txt'
+    }
+
+    // Prune unreachable files/aliases/valveCopies (orphaned alternate models, unused _vmorf textures, dead Workshop sets)
+    if (vpkIndex) {
+      const aliasToSrc = new Map<string, string>()
+      for (const a of baseAliases) aliasToSrc.set(a.dst, a.src)
+      for (const r of Object.values(refitEntries)) {
+        for (const a of r.aliases ?? []) aliasToSrc.set(a.dst, a.src)
+      }
+
+      const allDiskFiles = new Set<string>(baseFiles)
+      for (const r of Object.values(refitEntries)) {
+        for (const f of r.files) allDiskFiles.add(f)
+      }
+
+      const allStaged = new Set<string>(allDiskFiles)
+      for (const a of aliasToSrc.keys()) allStaged.add(a)
+      for (const v of baseValveCopies) allStaged.add(v.dst)
+      for (const r of Object.values(refitEntries)) {
+        for (const v of r.valveCopies ?? []) allStaged.add(v.dst)
+      }
+
+      const roots = new Set<string>()
+      for (const p of allStaged) {
+        if (vpkIndex.entries.has(p)) roots.add(p)
+      }
+      if (patchContent) {
+        for (const ref of extractEmbeddedRefs(Buffer.from(patchContent, 'utf-8'))) {
+          if (allStaged.has(ref)) roots.add(ref)
+        }
+      }
+
+      const reachable = new Set<string>(roots)
+      const queue: string[] = [...roots]
+      while (queue.length > 0) {
+        const cur = queue.shift()!
+        const diskRel = aliasToSrc.get(cur) ?? cur
+        if (aliasToSrc.has(cur) && !reachable.has(diskRel)) {
+          reachable.add(diskRel)
+          queue.push(diskRel)
+        }
+        if (!allDiskFiles.has(diskRel)) continue
+        if (!/\.(vmdl_c|vpcf_c|vmat_c|vsndevts_c)$/.test(diskRel)) continue
+        const full = path.join(groupDstDir, diskRel)
+        if (!fs.existsSync(full)) continue
+        for (const ref of extractEmbeddedRefs(fs.readFileSync(full))) {
+          if (allStaged.has(ref) && !reachable.has(ref)) {
+            reachable.add(ref)
+            queue.push(ref)
+          }
+        }
+      }
+
+      const filterDiskFiles = (files: string[]): string[] => {
+        const kept: string[] = []
+        for (const f of files) {
+          if (reachable.has(f)) {
+            kept.push(f)
+          } else {
+            const full = path.join(groupDstDir, f)
+            if (fs.existsSync(full)) fs.rmSync(full, { force: true })
+          }
+        }
+        return kept
+      }
+
+      const keptBaseFiles = filterDiskFiles(baseFiles)
+      baseFiles.length = 0
+      baseFiles.push(...keptBaseFiles)
+
+      const keptBaseAliases = baseAliases.filter((a) => reachable.has(a.dst) && reachable.has(a.src))
+      baseAliases.length = 0
+      baseAliases.push(...keptBaseAliases)
+
+      const keptBaseVc = baseValveCopies.filter((v) => reachable.has(v.dst))
+      baseValveCopies.length = 0
+      baseValveCopies.push(...keptBaseVc)
+
+      for (const r of Object.values(refitEntries)) {
+        r.files = filterDiskFiles(r.files)
+        if (r.aliases) r.aliases = r.aliases.filter((a) => reachable.has(a.dst) && reachable.has(a.src))
+        if (r.valveCopies) r.valveCopies = r.valveCopies.filter((v) => reachable.has(v.dst))
+      }
     }
 
     if (spec.refits) {
