@@ -3752,19 +3752,28 @@
           "name": "Masks of Ancestral Luck",
           "slot": "head",
           "files": [
-            "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind.vmdl_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind.vmdl_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/ogre_ancestral_head/ogre_ancestral_head_kisilev_ind.vmdl_c",
@@ -3783,19 +3792,28 @@
           "name": "Hood of Pagus",
           "slot": "head",
           "files": [
-            "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind.vmdl_c",
-            "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind.vmdl_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/fortunes_veil_head/fortunes_veil_head_kisilev_ind.vmdl_c",
@@ -3814,19 +3832,28 @@
           "name": "Helmet and hood of the Antipodeans",
           "slot": "head",
           "files": [
-            "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind.vmdl_c",
-            "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind.vmdl_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/antipodean_head/antipodean_head_kisilev_ind.vmdl_c",
@@ -3845,19 +3872,28 @@
           "name": "Headgear of the Shoreline Sapper",
           "slot": "head",
           "files": [
-            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind.vmdl_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind.vmdl_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_set_head/ogre_magi_set_head_kisilev_ind.vmdl_c",
@@ -3877,19 +3913,28 @@
           "slot": "head",
           "files": [
             "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind.vmdl_c",
-            "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/frostivus2018_head_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/frostivus2018_head_kisilev_ind_vmorf.vtex_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/frostivus2018_head/frostivus2018_head_kisilev_ind.vmdl_c",
@@ -3908,19 +3953,28 @@
           "name": "Pyrexae Polymorph Perfected - Head",
           "slot": "head",
           "files": [
-            "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind.vmdl_c",
-            "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind.vmdl_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/om__dragon_head/om_dragon_head_kisilev_ind.vmdl_c",
@@ -3939,19 +3993,28 @@
           "name": "Stonebreak Excavators - Heads",
           "slot": "head",
           "files": [
-            "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind.vmdl_c",
-            "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind.vmdl_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/ti8_head/ti8_head_kisilev_ind.vmdl_c",
@@ -3969,19 +4032,28 @@
           "files": [
             "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind.vmdl_c",
             "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/adv_of_fortune_head_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/adve_of_fortune_head_refit_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/adve_of_fortune_head_refit_kisilev_ind_vmorf.vtex_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/adv_of_fortune_head/adv_of_fortune_head_kisilev_ind.vmdl_c",
@@ -3997,19 +4069,28 @@
           "name": "Oni Magi - Head",
           "slot": "head",
           "files": [
-            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind.vmdl_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
-            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
+            "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind.vmdl_c"
           ],
           "aliases": [
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/heads_ogre_arcana_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/heads_ogre_arcana_kisilev_ind_vmorf.vtex_c"
             },
             {
-              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_arcana_mount_alt_kisilev_ind_vmorf.vtex_c",
               "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/ogre_arcana_mount_kisilev_ind_vmorf.vtex_c"
+            },
+            {
+              "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_arcana_head/ogre_magi_arcana_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c",
+              "dst": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind/ogre_magi_heads_kisilev_ind_vmorf.vtex_c"
             },
             {
               "src": "kisilev_ind/models/ogre_magi/items/head/ogre_magi_oni_lord_head/ogre_magi_oni_lord_head_kisilev_ind.vmdl_c",

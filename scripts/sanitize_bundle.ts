@@ -571,8 +571,11 @@ export function sanitizeBundle(opts: {
 
     const baseHashPrimary = new Map<string, string>()
 
-    // Sort files so `kisilev_ind/` and `models/heroes/` are visited before `models/items/`
+    // Sort files so base files come before refits, and `kisilev_ind/` / `models/heroes/` before `models/items/`
     const sortedFiles = [...rawManifest.files].sort((a, b) => {
+      const refitA = isClaimedByRefit(a.path) ? 1 : 0
+      const refitB = isClaimedByRefit(b.path) ? 1 : 0
+      if (refitA !== refitB) return refitA - refitB
       const rank = (p: string): number => (p.startsWith('kisilev_ind/') ? 0 : p.startsWith('models/heroes/') ? 1 : 2)
       return rank(a.path) - rank(b.path) || a.path.localeCompare(b.path)
     })
@@ -610,7 +613,7 @@ export function sanitizeBundle(opts: {
       if (matchedRefit) {
         const rEntry = refitEntries[matchedRefit.companionId]
         const hMap = refitHashPrimary.get(matchedRefit.companionId)!
-        const existingPrimary = hMap.get(digest)
+        const existingPrimary = baseHashPrimary.get(digest) ?? hMap.get(digest)
         if (existingPrimary) {
           rEntry.aliases!.push({ src: existingPrimary, dst: rel })
         } else {
