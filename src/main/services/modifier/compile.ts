@@ -158,10 +158,10 @@ export function compileItemsGame(
   const overlayIds = new Set([...(options.overlayIds ?? [])].map(String))
   for (const patch of plan.patches) {
     if (!patch.cosmetic) continue
-    // A picked arcana whose files are overlaid replaces the hero's own model on disk, so
+    // A picked arcana or persona whose files are overlaid replaces the hero's own model on disk, so
     // mirroring its `entity_model` swap onto wearables would only add blocks Valve never
     // writes — and a second, redundant body swap.
-    if (patch.reason === 'requested' && overlayIds.has(String(patch.cosmetic.id))) continue
+    if ((patch.reason === 'requested' || patch.reason === 'persona-activation') && overlayIds.has(String(patch.cosmetic.id))) continue
     const cosmeticNode = patch.cosmetic.entry.value
     if (typeof cosmeticNode === 'string') continue
     materializeDeep(source, cosmeticNode)
@@ -279,9 +279,26 @@ export function compileItemsGame(
               touched = true
             }
           }
+          if (heroHasOverlay && !['weapon', 'offhand_weapon'].includes(patch.slot)) {
+            let vis = getNode(clone, 'visuals')
+            if (!vis) {
+              vis = { entries: [], start: 0, end: 0 }
+              setEntry(clone, 'visuals', vis)
+            }
+            setEntry(vis, 'skip_model_combine', '1')
+            touched = true
+          }
           expectedModel.set(targetId, vanillaModel)
         } else {
           applyVisuals(schema, clone, cosmeticNode, patch.style)
+          if (heroHasOverlay && !['weapon', 'offhand_weapon'].includes(patch.slot)) {
+            let vis = getNode(clone, 'visuals')
+            if (!vis) {
+              vis = { entries: [], start: 0, end: 0 }
+              setEntry(clone, 'visuals', vis)
+            }
+            setEntry(vis, 'skip_model_combine', '1')
+          }
           expectedModel.set(targetId, patch.cosmetic.model || null)
           touched = true
           if (patch.reason === 'requested' && !cosmeticModel) {
