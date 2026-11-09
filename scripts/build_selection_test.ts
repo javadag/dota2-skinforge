@@ -38,9 +38,14 @@ async function main(): Promise<void> {
   const install = process.argv.includes('--install')
 
   const picks = argAll('--pick').map((raw) => {
-    const [hero, slot, item] = raw.split('|')
+    const [hero, slot, item, style] = raw.split('|')
     if (!hero || !slot || !item) throw new Error(`--pick needs "hero|slot|item", got "${raw}"`)
-    return { hero: hero.trim(), slot: slot.trim(), item: item.trim() }
+    return {
+      hero: hero.trim(),
+      slot: slot.trim(),
+      item: item.trim(),
+      style: style !== undefined && style !== '' ? Number(style.trim()) : undefined
+    }
   })
   if (!picks.length) throw new Error('Pass at least one --pick "hero|slot|item".')
 

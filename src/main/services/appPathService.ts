@@ -96,6 +96,20 @@ export function getStagingPackPath(): string {
   return path.join(getAppRoot(), '.staging_pack')
 }
 
+/** Writable folder for state the app keeps between runs (baselines, caches). */
+export function getStatePath(...subpaths: string[]): string {
+  let root: string
+  try {
+    const { app } = require('electron')
+    root = app && app.isPackaged ? path.join(app.getPath('userData'), '.state') : path.join(getAppRoot(), '.state')
+  } catch {
+    root = path.join(getAppRoot(), '.state')
+  }
+  const full = path.join(root, ...subpaths)
+  fs.mkdirSync(path.dirname(full), { recursive: true })
+  return full
+}
+
 export function getStagingIconsPath(...subpaths: string[]): string {
   return path.join(getAppRoot(), '.staging_icons', 'webp', ...subpaths)
 }
@@ -107,6 +121,7 @@ if (typeof module !== 'undefined' && module.exports) {
     getToolsPath,
     getAssetsPath,
     getStagingPackPath,
+    getStatePath,
     getStagingIconsPath
   }
 }

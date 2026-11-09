@@ -1,11 +1,10 @@
 /**
  * Dota 2 SkinForge — per-item style options for the UI.
  *
- * The generated `data/itemStyles.json` catalog was removed together with the old
- * modifier schema pipeline, so style options are currently unavailable. The API is
- * kept intact so the editor can start offering styles again as soon as the catalog
- * is regenerated from `items_game.txt`.
+ * Generated from items_game.txt via `npm run build:styles`.
  */
+
+import itemStylesCatalog from '../../../data/itemStyles.json'
 
 export interface StyleOption {
   index: number
@@ -26,11 +25,18 @@ interface StylesEntry {
   styles: StyleOption[]
 }
 
-const items: Record<string, StylesEntry> = {}
+const items: Record<string, StylesEntry> = (itemStylesCatalog as { items?: Record<string, StylesEntry> })?.items ?? {}
 
 /** Every item the schema gives styles to (used by tests and diagnostics). */
 export function styledItemNames(): string[] {
   return Object.keys(items)
+}
+
+function normalizeItemName(itemName: string): string {
+  return itemName
+    .replace(/\s*-\s*Style\s*\d+/i, '')
+    .replace(/\s+Style\s*\d+/i, '')
+    .trim()
 }
 
 /**
@@ -39,7 +45,7 @@ export function styledItemNames(): string[] {
  */
 export function getItemStyleOptions(heroTag?: string, slotId?: string, itemName?: string): CosmeticCustomizationInfo | null {
   if (!itemName) return null
-  const entry = items[itemName]
+  const entry = items[itemName] ?? items[normalizeItemName(itemName)]
   if (!entry || entry.styles.length === 0) return null
 
   if (heroTag && entry.hero && entry.hero !== heroTag.toLowerCase()) return null
@@ -51,5 +57,13 @@ export function getItemStyleOptions(heroTag?: string, slotId?: string, itemName?
 /** Style metadata declared by the generated catalog, without the hero/slot guard. */
 export function getStyleOptionsByName(itemName?: string): StyleOption[] {
   if (!itemName) return []
-  return items[itemName]?.styles ?? []
+  const entry = items[itemName] ?? items[normalizeItemName(itemName)]
+  if (entry) return entry.styles
+  const dashIndex = itemName.lastIndexOf(' - ')
+  if (dashIndex > 0) {
+    const base = itemName.slice(0, dashIndex).trim()
+    const baseEntry = items[base] ?? items[normalizeItemName(base)]
+    return baseEntry?.styles ?? []
+  }
+  return []
 }

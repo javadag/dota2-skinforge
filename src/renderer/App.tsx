@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { AboutView } from './components/AboutView'
+import { BugReportModal } from './components/BugReportModal'
 import { ConsoleFooter } from './components/ConsoleFooter'
 import { HeroesView } from './components/HeroesView'
 import { ItemSelectModal } from './components/ItemSelectModal'
@@ -43,6 +44,7 @@ export const App = () => {
       <ItemSelectModal />
       <PresetNameModal />
       <UpdateModal />
+      <BugReportModal />
     </div>
   )
 }

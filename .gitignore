@@ -12,9 +12,11 @@ release/
 
 # Mod Generation Staging & Runtime Backups
 .staging_pack/
+.staging_pack_out/
 .staging_icons/
 .staging_styles/
 .staging_schema-*/
+.state/
 scratch*
 scratch_*.txt
 # Standalone Binaries
@@ -32,6 +34,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+
+# Cache
+.cache/
 
 # Electron Crash Reports
 CrashDumps/

@@ -89,8 +89,7 @@ const SLOT_ORDER = [
   'ability3',
   'ability4',
   'ability_ultimate',
-  'voice',
-  'taunt'
+  'voice'
 ]
 
 const SLOT_TITLES: Record<string, string> = {
@@ -114,13 +113,12 @@ const SLOT_TITLES: Record<string, string> = {
   hero_base: 'Base',
   persona: 'Persona',
   ambient_effects: 'Ambient FX',
-  voice: 'Voice',
-  taunt: 'Taunt'
+  voice: 'Voice'
 }
 
 /** `head_persona_1` -> `persona_head`, so the persona pieces keep their shipped slot names. */
 function catalogSlot(item: SchemaItem): string | undefined {
-  if (item.prefab === 'taunt') return 'taunt'
+  if (item.prefab === 'taunt') return undefined
   const slot = item.resolvedSlot || item.slot
   if (!slot) return undefined
   if (slot === 'persona_selector') return 'persona'
@@ -181,10 +179,11 @@ function buildSlots(schema: SchemaIndex, text: string, owner: string, previous?:
     if (!item.heroes.includes(owner)) continue
     // Defaults are represented by the UI's synthetic "Official Base" entry, and bundles are
     // containers rather than cosmetics.
-    if (item.prefab !== 'wearable' && item.prefab !== 'taunt') continue
+    if (item.prefab !== 'wearable') continue
+    if (/diretide shimmer costume/i.test(item.name)) continue
     const slot = catalogSlot(item)
     if (!slot) continue
-    if (!item.image && item.prefab !== 'taunt') continue
+    if (!item.image) continue
 
     const mods = styleMods(schema, text, item)
     for (let i = 0; i < mods.length; i++) {

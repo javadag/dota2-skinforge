@@ -66,6 +66,16 @@ export function updateSignaturesForGameinfo(dotaGameDir: string, backupDir: stri
   const newEntry = `...\\..\\..\\dota\\gameinfo_branchspecific.gi~SHA1:${sha1};CRC:${crc}`
 
   let sigContent = fs.readFileSync(sigPath, 'utf-8')
+  // If already signed with the matching SHA1 checksum, skip modifying dota.signatures.
+  if (sigContent.includes(sha1)) {
+    return {
+      success: true,
+      sha1,
+      crc,
+      newEntry,
+      sigPath
+    }
+  }
 
   const digestIndex = sigContent.indexOf('DIGEST:')
   if (digestIndex !== -1) {

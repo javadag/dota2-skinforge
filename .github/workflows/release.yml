@@ -37,11 +37,20 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate SHA-256 Checksums
+        shell: pwsh
+        run: |
+          Get-FileHash -Algorithm SHA256 dist/*.exe | ForEach-Object {
+            "$($_.Hash.ToLower())  $($_.Path | Split-Path -Leaf)"
+          } | Out-File -Encoding utf8 dist/SHA256SUMS.txt
+          Get-Content dist/SHA256SUMS.txt
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             dist/*.exe
+            dist/SHA256SUMS.txt
           draft: false
           prerelease: false
           generate_release_notes: true

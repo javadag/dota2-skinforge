@@ -696,17 +696,6 @@
           }
         ],
         "empty_img": "econ/heroes/abaddon/weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 23670,
-            "name": "Taunt: Dapper Duo",
-            "img": "econ/taunts/taunt_icon_abaddon_2022"
-          }
-        ]
       }
     ]
   },
@@ -1642,31 +1631,6 @@
             "img": "econ/heroes/alchemist/alchemist_ogre_head1"
           }
         ]
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7660,
-            "name": "Taunt: Ogre Hop",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_alchemist_ogre_hop"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 18304,
-            "name": "Alchemist's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_alchemists_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/alchemist/dota_item_alchemist_costume"
       }
     ]
   },
@@ -1983,18 +1947,6 @@
           }
         ],
         "empty_img": "econ/heroes/ancient_apparition/ancient_apparition_tail"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9666,
-            "name": "Taunt: Cold Hearted!",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_ancient_apparition_ti9"
-          }
-        ]
       }
     ]
   },
@@ -3418,24 +3370,6 @@
           }
         ],
         "empty_img": "econ/heroes/antimage/antimage_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12940,
-            "name": "Taunt: Bring It On",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_technomage"
-          },
-          {
-            "id": 4996,
-            "name": "Taunt: The Magic Ends Here",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Taunt_The_Magic_Ends_Here"
-          }
-        ]
       }
     ]
   },
@@ -3734,18 +3668,6 @@
           }
         ],
         "empty_img": "econ/testitem_slot_empty"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12541,
-            "name": "Taunt: Got That Spark, Warden!",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_arc_warden_gentleman_caller"
-          }
-        ]
       }
     ]
   },
@@ -4911,31 +4833,6 @@
           }
         ],
         "empty_img": "econ/heroes/axe/axe_persona"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 4043,
-            "name": "Taunt: Come and Get It!",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Taunt_Come_and_Get_It"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17790,
-            "name": "Axe's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_axes_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/axe/dota_item_axe_costume"
       }
     ]
   },
@@ -5170,18 +5067,6 @@
           }
         ],
         "empty_img": "econ/heroes/bane/bane_shoulders"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12538,
-            "name": "Taunt: Soured Relationship",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_bane_ti10"
-          }
-        ]
       }
     ]
   },
@@ -5589,18 +5474,6 @@
           }
         ],
         "empty_img": "econ/heroes/batrider/batrider_cloak"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8060,
-            "name": "Taunt: Hang Loose!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_batrider_hang_loose"
-          }
-        ]
       }
     ]
   },
@@ -6209,18 +6082,6 @@
           }
         ],
         "empty_img": "econ/heroes/beastmaster/beastmaster_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9147,
-            "name": "Taunt: Beat Master",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_taunt_beastmaster_ti9"
-          }
-        ]
       }
     ]
   },
@@ -7029,31 +6890,6 @@
           }
         ],
         "empty_img": "econ/heroes/blood_seeker/weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 19012,
-            "name": "Taunt: Blades of Gory",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_bloodseeker_bloodskate"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 18311,
-            "name": "Bloodseeker's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/DOTA_Item_Bloodseekers_Diretide_Bundle"
-          }
-        ],
-        "empty_img": "econ/sets/DOTA_Item_Bloodseekers_Costume"
       }
     ]
   },
@@ -7884,18 +7720,6 @@
           }
         ],
         "empty_img": "econ/heroes/bounty_hunter/bounty_hunter_arms"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13774,
-            "name": "Taunt: The Gold Dip",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_bounty_hunter_goldpiles"
-          }
-        ]
       }
     ]
   },
@@ -8412,18 +8236,6 @@
           }
         ],
         "empty_img": "econ/heroes/brewmaster/weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 11890,
-            "name": "Taunt: Barrelmeister",
-            "rarity": "rare",
-            "img": "econ/taunts/fall_2016_battle_pass_taunt_brewmaster"
-          }
-        ]
       }
     ]
   },
@@ -8886,18 +8698,6 @@
           }
         ],
         "empty_img": "econ/heroes/bristleback/bristleback"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9148,
-            "name": "Taunt: Bristlebeat Breakdown",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_bristleback_2021"
-          }
-        ]
       }
     ]
   },
@@ -9572,18 +9372,6 @@
           }
         ],
         "empty_img": "econ/heroes/broodmother/broodmother_misc"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 4044,
-            "name": "Taunt: Spider Shuffle",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Taunt_Spider_Shuffle"
-          }
-        ]
       }
     ]
   },
@@ -10586,31 +10374,6 @@
           }
         ],
         "empty_img": "econ/default_no_item"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 11889,
-            "name": "Taunt: Battle Dressage",
-            "rarity": "rare",
-            "img": "econ/taunts/fall_2016_battle_pass_taunt_centaur"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 13779,
-            "name": "Centaur's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/DOTA_Item_Centaurs_Diretide_Bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/centaur/centaur_costume"
       }
     ]
   },
@@ -11322,18 +11085,6 @@
           }
         ],
         "empty_img": "econ/heroes/chaos_knight/chaos_knight_mace"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12434,
-            "name": "Taunt: Orderly Chaos",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_chaos_knight_ti9"
-          }
-        ]
       }
     ]
   },
@@ -11783,17 +11534,6 @@
           }
         ],
         "empty_img": "econ/heroes/chen/weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 23674,
-            "name": "Taunt: Joyless Pleasure",
-            "img": "econ/taunts/taunt_icon_chen_2022"
-          }
-        ]
       }
     ]
   },
@@ -12291,18 +12031,6 @@
           }
         ],
         "empty_img": "econ/heroes/clinkz/clinkz_summon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9163,
-            "name": "Taunt: Xylobones",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_clinkz_head_roll"
-          }
-        ]
       }
     ]
   },
@@ -13124,31 +12852,6 @@
           }
         ],
         "empty_img": "econ/heroes/rattletrap/rattletrap_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8068,
-            "name": "Taunt: Do the Robot!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_clockwerk_do_the_robot"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17808,
-            "name": "Clockwerk's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_clockwerks_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/rattletrap/dota_item_rattletrap_costume"
       }
     ]
   },
@@ -14194,24 +13897,6 @@
         "empty_img": "econ/heroes/crystal_maiden_persona/crystal_maiden_persona_tail"
       },
       {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 4041,
-            "name": "Taunt: Beautiful Snowangel",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Taunt_Beautiful_Snowangel"
-          },
-          {
-            "id": 9041,
-            "name": "Taunt: Making Friends",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_crystal_maiden_snowmaiden"
-          }
-        ]
-      },
-      {
         "slot": "persona_summon",
         "title": "Persona Summon",
         "mods": [
@@ -14622,18 +14307,6 @@
           }
         ],
         "empty_img": "econ/heroes/dark_seer/dark_seer_neck"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 18409,
-            "name": "Taunt: More Than Mental Mass",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_dark_seer_2022"
-          }
-        ]
       }
     ]
   },
@@ -15114,31 +14787,6 @@
           }
         ],
         "empty_img": "econ/heroes/dark_willow/dark_willow_offhand"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9211,
-            "name": "Taunt: Thorns and All",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_dark_willow_rose"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17684,
-            "name": "Dark Willow's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_dark_willows_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/dark_willow/dark_willow_costume"
       }
     ]
   },
@@ -15383,17 +15031,6 @@
           }
         ],
         "empty_img": "econ/heroes/dawnbreaker/dawnbreaker_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 23698,
-            "name": "Taunt: Bar Belle Ballet",
-            "img": "econ/taunts/taunt_icon_dawnbreaker_carnival_taunt"
-          }
-        ]
       }
     ]
   },
@@ -15896,19 +15533,6 @@
           }
         ],
         "empty_img": "econ/heroes/dazzle/dazzle_staff"
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 18312,
-            "name": "Dazzle's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/DOTA_Item_Dazzles_Diretide_Bundle"
-          }
-        ],
-        "empty_img": "econ/sets/DOTA_Item_Dazzles_Costume"
       }
     ]
   },
@@ -17020,18 +16644,6 @@
           }
         ],
         "empty_img": "econ/heroes/death_prophet/death_prophet_misc"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9667,
-            "name": "Taunt: All Sparkles n' Rainbows",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_death_prophet_ti8"
-          }
-        ]
       }
     ]
   },
@@ -18810,17 +18422,6 @@
           }
         ],
         "empty_img": "econ/heroes/doom/doom_sword"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12539,
-            "name": "Taunt: Doom Shreds",
-            "img": "econ/taunts/dota_icon_taunt_doom_2021"
-          }
-        ]
       }
     ]
   },
@@ -21668,37 +21269,6 @@
         "empty_img": "econ/heroes/drow/drow_weapon"
       },
       {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 4050,
-            "name": "Taunt: Keep an Ear Out",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Taunt_Keep_an_Ear_Out"
-          },
-          {
-            "id": 27475,
-            "name": "Taunt: The Finer Points",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_drow_shooting"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17841,
-            "name": "Drow's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/DOTA_Item_Drows_Diretide_Costume_Bundle"
-          }
-        ],
-        "empty_img": "econ/sets/DOTA_Item_Drows_Costume"
-      },
-      {
         "slot": "Legs",
         "title": "Legs",
         "mods": [
@@ -22060,18 +21630,6 @@
           }
         ],
         "empty_img": "econ/heroes/earth_spirit/earth_spirit_staff"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12413,
-            "name": "Taunt: Dirt Surfer",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_hang_ten"
-          }
-        ]
       }
     ]
   },
@@ -22774,18 +22332,6 @@
           }
         ],
         "empty_img": "econ/default_no_item"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12935,
-            "name": "Taunt: Totem Roller",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_earthshaker"
-          }
-        ]
       }
     ]
   },
@@ -23069,18 +22615,6 @@
           }
         ],
         "empty_img": "econ/heroes/elder_titan/elder_titan_hammer"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 23671,
-            "name": "Taunt: Rootin Tootin Ridin Titan",
-            "rarity": "rare",
-            "img": "econ/taunts/et_motorcycle_taunt_icon_2022"
-          }
-        ]
       }
     ]
   },
@@ -23724,18 +23258,6 @@
           }
         ],
         "empty_img": "econ/heroes/ember_spirit/weapon1"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13454,
-            "name": "Taunt: Hot Eats",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_ember_spirit"
-          }
-        ]
       }
     ]
   },
@@ -24220,31 +23742,6 @@
           }
         ],
         "empty_img": "econ/heroes/enchantress/enchantress_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7602,
-            "name": "Taunt: A Sproink in Your Step",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_enchantress"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17801,
-            "name": "Enchantress' Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_enchantress_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/enchantress/enchantress_costume"
       }
     ]
   },
@@ -24540,18 +24037,6 @@
           }
         ],
         "empty_img": "econ/heroes/enigma/head"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9682,
-            "name": "Taunt: Enigmatic Style",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Enigma_tube_dance"
-          }
-        ]
       }
     ]
   },
@@ -25211,18 +24696,6 @@
           }
         ],
         "empty_img": "econ/heroes/faceless_void/faceless_void_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7829,
-            "name": "Taunt: Timeless Classic",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_faceless_funky_feetz"
-          }
-        ]
       }
     ]
   },
@@ -25413,18 +24886,6 @@
           }
         ],
         "empty_img": "econ/heroes/grimstroke/grimstroke_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12923,
-            "name": "Taunt: Harsh Critique",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_grimstroke_ti9"
-          }
-        ]
       }
     ]
   },
@@ -25973,18 +25434,6 @@
           }
         ],
         "empty_img": "econ/heroes/gyro/gyro_side_gunner"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8203,
-            "name": "Taunt: Do a Barrel Roll!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_gyrocopter_barrel_roll"
-          }
-        ]
       }
     ]
   },
@@ -26181,24 +25630,6 @@
           }
         ],
         "empty_img": "econ/heroes/hoodwink/hoodwink_crossbow"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13145,
-            "name": "Taunt: High Flying Squirrel",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_hoodwink_acorns"
-          },
-          {
-            "id": 23696,
-            "name": "Taunt: In It for the Lute",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_hoodwink_2022"
-          }
-        ]
       }
     ]
   },
@@ -27990,23 +27421,6 @@
         "empty_img": "econ/heroes/invoker/invoker_persona"
       },
       {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 31374,
-            "name": "Taunt: Rug Cutter",
-            "img": "econ/taunts/taunt_icon_kid_invoker_magic_carpet_taunt"
-          },
-          {
-            "id": 7582,
-            "name": "Taunt: The Master Juggles",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_invoker_master_juggles"
-          }
-        ]
-      },
-      {
         "slot": "persona_summon",
         "title": "Persona Summon",
         "mods": [
@@ -28067,18 +27481,6 @@
           }
         ],
         "empty_img": "econ/heroes/io/io_head"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 18111,
-            "name": "Taunt: Pop the Question",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_item_taunt_io"
-          }
-        ]
       }
     ]
   },
@@ -28299,18 +27701,6 @@
           }
         ],
         "empty_img": "econ/heroes/jakiro/jakiro_armor"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9213,
-            "name": "Taunt: Fluid Mechanics",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_jakiro_cork_screw"
-          }
-        ]
       }
     ]
   },
@@ -29586,24 +28976,6 @@
           }
         ],
         "empty_img": "econ/heroes/juggernaut/juggernaut_voice"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 4059,
-            "name": "Taunt: For Death and Honor",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Taunt_For_Death_and_Honor"
-          },
-          {
-            "id": 4994,
-            "name": "Taunt: Sharp Blade",
-            "rarity": "mythical",
-            "img": "econ/taunts/DOTA_Item_Taunt_Sharp_Blade"
-          }
-        ]
       }
     ]
   },
@@ -30046,18 +29418,6 @@
           }
         ],
         "empty_img": "econ/heroes/keeper_of_the_light/kotl_staff"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12433,
-            "name": "Taunt: Some Light Horseplay",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_keeper_of_the_light_ti10"
-          }
-        ]
       }
     ]
   },
@@ -31112,18 +30472,6 @@
           }
         ],
         "empty_img": "econ/heroes/kunkka/kunkka_sword"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9214,
-            "name": "Taunt: Step Lively",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_kunkka_walk_plank"
-          }
-        ]
       }
     ]
   },
@@ -32295,31 +31643,6 @@
           }
         ],
         "empty_img": "econ/heroes/legion_commander/legion_commander"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12918,
-            "name": "Taunt: Fearless Cadence",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_drum_major"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 18313,
-            "name": "Legion Commander's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/DOTA_Item_Legion_Commanders_Diretide_Bundle"
-          }
-        ],
-        "empty_img": "econ/sets/DOTA_Item_Legion_Commanders_Costume"
       }
     ]
   },
@@ -32671,18 +31994,6 @@
           }
         ],
         "empty_img": "econ/heroes/leshrac/leshrac_misc"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7596,
-            "name": "Taunt: Party On?  Party Off!",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_leshrac_party_on"
-          }
-        ]
       }
     ]
   },
@@ -33292,18 +32603,6 @@
           }
         ],
         "empty_img": "econ/heroes/lich/lich_neck_rock"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12953,
-            "name": "Taunt: Ice Cold Baller",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_lich_ballplay"
-          }
-        ]
       }
     ]
   },
@@ -33648,31 +32947,6 @@
           }
         ],
         "empty_img": "econ/heroes/life_stealer/life_stealer_head"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9165,
-            "name": "Taunt:  Chain Break Dance",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_lifestealer_sidewalker"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 727,
-            "name": "Lifestealer's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_lifestealers_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/life_stealer/dota_item_life_stealer_costume"
       }
     ]
   },
@@ -34411,18 +33685,6 @@
           }
         ],
         "empty_img": "econ/heroes/lina/lina_neck"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 4998,
-            "name": "Taunt: Get Burned",
-            "rarity": "mythical",
-            "img": "econ/taunts/DOTA_Item_Taunt_Get_Burned"
-          }
-        ]
       }
     ]
   },
@@ -34897,18 +34159,6 @@
           }
         ],
         "empty_img": "econ/heroes/lion/lion_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7594,
-            "name": "Taunt: To Hell and Back!",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_lion_hell_and_back"
-          }
-        ]
       }
     ]
   },
@@ -36276,37 +35526,6 @@
           }
         ],
         "empty_img": "econ/heroes/luna/luna_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13794,
-            "name": "Taunt:  The Cat Dancer!",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_luna_cat_dancer"
-          },
-          {
-            "id": 8070,
-            "name": "Taunt: Selemene Leap!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_luna_selemene_leap"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 18315,
-            "name": "Luna's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_lunas_diretide_bundle"
-          }
-        ],
-        "empty_img": "econ/sets/DOTA_Item_Lunas_Costume"
       }
     ]
   },
@@ -37330,31 +36549,6 @@
           }
         ],
         "empty_img": "econ/heroes/magnataur/magnataur_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8059,
-            "name": "Taunt: Mag Power!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_magnus_mag_power"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 18314,
-            "name": "Magnus's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/DOTA_Item_Magnuss_Diretide_Bundle"
-          }
-        ],
-        "empty_img": "econ/sets/DOTA_Item_Magnuss_Costume"
       }
     ]
   },
@@ -37624,24 +36818,6 @@
           }
         ],
         "empty_img": "econ/default_no_item"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 34474,
-            "name": "Taunt: Monster Masher",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_marci_boltheart"
-          },
-          {
-            "id": 32638,
-            "name": "Taunt: Riding High",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_marci_riding_high"
-          }
-        ]
       }
     ]
   },
@@ -37950,31 +37126,6 @@
           }
         ],
         "empty_img": "econ/heroes/mars/mars_spear"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12568,
-            "name": "Taunt: Get the Blood Flowing",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_mars_ti10"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17662,
-            "name": "Mars' Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_mars_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/mars/dota_item_mars_costume"
       }
     ]
   },
@@ -38379,18 +37530,6 @@
           }
         ],
         "empty_img": "econ/heroes/medusa/medusa_bow"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12567,
-            "name": "Taunt: Creep Creations",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_medusa_ti10"
-          }
-        ]
       }
     ]
   },
@@ -38939,31 +38078,6 @@
           }
         ],
         "empty_img": "econ/heroes/meepo/meepo_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 30944,
-            "name": "Taunt: Chicken Prance",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_meepo_2024"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17813,
-            "name": "Meepo's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/testitem_slot_empty"
-          }
-        ],
-        "empty_img": "econ/heroes/meepo/dota_item_meepo_costume"
       }
     ]
   },
@@ -39865,18 +38979,6 @@
           }
         ],
         "empty_img": "econ/heroes/mirana_persona/mirana_persona_armor"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9772,
-            "name": "Taunt: Cat Wrangler",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_mirana_ti8"
-          }
-        ]
       }
     ]
   },
@@ -40230,18 +39332,6 @@
           }
         ],
         "empty_img": "econ/heroes/monkey_king/monkey_king_base_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7726,
-            "name": "Taunt: Goin' Bananas",
-            "rarity": "legendary",
-            "img": "econ/taunts/dota_icon_taunt_monkey_king_pogo_stick"
-          }
-        ]
       }
     ]
   },
@@ -40731,18 +39821,6 @@
           }
         ],
         "empty_img": "econ/heroes/morphling/morphling_persona"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13771,
-            "name": "Taunt: Sawed-off Watergun",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_morphling_ti10"
-          }
-        ]
       }
     ]
   },
@@ -41597,19 +40675,6 @@
           }
         ],
         "empty_img": "econ/heroes/siren/siren_weapon"
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 18316,
-            "name": "Naga Siren's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/DOTA_Item_Naga_Sirens_Diretide_Bundle"
-          }
-        ],
-        "empty_img": "econ/sets/DOTA_Item_Naga_Sirens_Costume"
       }
     ]
   },
@@ -42597,30 +41662,6 @@
           }
         ],
         "empty_img": "econ/heroes/furion/furion_staff"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8057,
-            "name": "Taunt: Make It Rain",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_natures_prophet_make_it_rain"
-          },
-          {
-            "id": 4058,
-            "name": "Taunt: Shredding the Lute Invisible",
-            "rarity": "mythical",
-            "img": "econ/taunts/DOTA_Item_Taunt_Shredding_the_Lute_Invisible"
-          },
-          {
-            "id": 4067,
-            "name": "Taunt: Victory Jig",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Taunt_Victory_Jig"
-          }
-        ]
       }
     ]
   },
@@ -43683,18 +42724,6 @@
           }
         ],
         "empty_img": "econ/heroes/nightstalker/nightstalker_tail"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 18756,
-            "name": "Taunt: Party Monster",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_night_stalker_2021"
-          }
-        ]
       }
     ]
   },
@@ -44993,18 +44022,6 @@
           }
         ],
         "empty_img": "econ/heroes/ogre_magi/ogre_magi_voice"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13014,
-            "name": "Taunt: Call It What You Will",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_ogre_magi_ti10"
-          }
-        ]
       }
     ]
   },
@@ -45597,18 +44614,6 @@
           }
         ],
         "empty_img": "econ/heroes/omniknight/hammer"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9762,
-            "name": "Taunt: Bathed in the Glow",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_omniknight_ti8"
-          }
-        ]
       }
     ]
   },
@@ -45966,18 +44971,6 @@
           }
         ],
         "empty_img": "econ/heroes/oracle/oracle_persona"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9668,
-            "name": "Taunt: Time and Space Jam",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_oracle_2021"
-          }
-        ]
       }
     ]
   },
@@ -46246,18 +45239,6 @@
           }
         ],
         "empty_img": "econ/heroes/obsidian_destroyer/obsidian_destroyer_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 23669,
-            "name": "Taunt: The Inner Dark",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_outworld_devourer_2022"
-          }
-        ]
       }
     ]
   },
@@ -46462,18 +45443,6 @@
           }
         ],
         "empty_img": "econ/heroes/pangolier/pangolier_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9461,
-            "name": "Taunt: Foolish Gallantry",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_pangolier_kritter_kartwheel"
-          }
-        ]
       }
     ]
   },
@@ -47513,18 +46482,6 @@
           }
         ],
         "empty_img": "econ/heroes/phantom_assassin/phantom_assassin_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9202,
-            "name": "Taunt: Deadly Grace",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_phantomassassin_ti8"
-          }
-        ]
       }
     ]
   },
@@ -48141,18 +47098,6 @@
           }
         ],
         "empty_img": "econ/heroes/phantom_lancer/phantom_lancer_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13110,
-            "name": "Taunt: Pole Position",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_phantom_lancer_2024"
-          }
-        ]
       }
     ]
   },
@@ -48360,24 +47305,6 @@
           }
         ],
         "empty_img": "econ/heroes/phoenix/phoenix_bird_head"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9664,
-            "name": "Taunt: Cold Breakfast",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_phoenix_ti8"
-          },
-          {
-            "id": 9680,
-            "name": "Taunt: Order Up!",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_phoenix_ti8_alt"
-          }
-        ]
       }
     ]
   },
@@ -48634,18 +47561,6 @@
           }
         ],
         "empty_img": "econ/heroes/primal_beast/primal_beast_leg"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 18454,
-            "name": "Taunt: Temper Tramplum",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_primal_beast_2022"
-          }
-        ]
       }
     ]
   },
@@ -50685,42 +49600,6 @@
           }
         ],
         "empty_img": "econ/heroes/pudge/righthook"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 4997,
-            "name": "Taunt: Shake Your Money Maker",
-            "rarity": "mythical",
-            "img": "econ/taunts/DOTA_Item_Taunt_Shake_Your_Money_Maker"
-          },
-          {
-            "id": 9722,
-            "name": "Taunt: Skip to the Good Stuff!",
-            "rarity": "legendary",
-            "img": "econ/taunts/taunt_icon_pugde_skip"
-          },
-          {
-            "id": 31366,
-            "name": "Taunt: The Meat Wagon",
-            "img": "econ/taunts/taunt_icon_pudge_2025_meat_wagon"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17687,
-            "name": "Pudge's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_pudges_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/pudge/dota_item_pudge_costume"
       }
     ]
   },
@@ -51151,18 +50030,6 @@
           }
         ],
         "empty_img": "econ/heroes/pugna/pugna_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8130,
-            "name": "Taunt: Check This Out!",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_pugna_ti8"
-          }
-        ]
       }
     ]
   },
@@ -51900,18 +50767,6 @@
           }
         ],
         "empty_img": "econ/heroes/queenofpain/queenofpain_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 24533,
-            "name": "Taunt: Dancing Queen",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_queenofpain_2022"
-          }
-        ]
       }
     ]
   },
@@ -52458,18 +51313,6 @@
           }
         ],
         "empty_img": "econ/heroes/razor/razor_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13143,
-            "name": "Taunt: Unhidden Talents",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_item_taunt_razor"
-          }
-        ]
       }
     ]
   },
@@ -53193,18 +52036,6 @@
           }
         ],
         "empty_img": "econ/default_no_item"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9681,
-            "name": "Taunt: See Me Now",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_riki_ti8"
-          }
-        ]
       }
     ]
   },
@@ -54266,18 +53097,6 @@
           }
         ],
         "empty_img": "econ/heroes/rubick/rubick_voice"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8061,
-            "name": "Taunt: Giddy Up!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_rubick_giddy_up"
-          }
-        ]
       }
     ]
   },
@@ -54780,17 +53599,6 @@
           }
         ],
         "empty_img": "econ/heroes/sand_king/sand_king_shoulder"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13180,
-            "name": "Taunt: Get Up and Trance",
-            "img": "econ/taunts/taunt_icon_taunt_sand_king_bounce_king"
-          }
-        ]
       }
     ]
   },
@@ -55359,18 +54167,6 @@
           }
         ],
         "empty_img": "econ/heroes/shadow_fiend/shadow_fiend_shoulders"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8072,
-            "name": "Taunt: Fiendish Swag!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_shadow_fiend_fiendish_swag"
-          }
-        ]
       }
     ]
   },
@@ -56010,18 +54806,6 @@
           }
         ],
         "empty_img": "econ/heroes/shadowshaman/weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8085,
-            "name": "Taunt: Shaman Dance",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_taunt_shadow_shaman_ti9"
-          }
-        ]
       }
     ]
   },
@@ -57571,31 +56355,6 @@
           }
         ],
         "empty_img": "econ/heroes/skywrath_mage/skywrath_mage_staff"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8127,
-            "name": "Taunt: Chicken!",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_skywrath_mage_chicken"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 18317,
-            "name": "Skywrath Mage's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/DOTA_Item_Skywrath_Mages_Diretide_Bundle"
-          }
-        ],
-        "empty_img": "econ/sets/DOTA_Item_Skywrath_Mages_Costume"
       }
     ]
   },
@@ -58018,31 +56777,6 @@
           }
         ],
         "empty_img": "econ/heroes/slardar/slardar_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12306,
-            "name": "Taunt: Flopper",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_taunt_slardar_ti9"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17686,
-            "name": "Slardar's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_slardars_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/slardar/dota_item_slardar_costume"
       }
     ]
   },
@@ -58616,18 +57350,6 @@
           }
         ],
         "empty_img": "econ/default_no_item"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7667,
-            "name": "Taunt: RazorFlip!",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_slark_razor_flip"
-          }
-        ]
       }
     ]
   },
@@ -58854,18 +57576,6 @@
           }
         ],
         "empty_img": "econ/heroes/snapfire/snapfire_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 13013,
-            "name": "Taunt: Float Where He Wanna",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_snapfire_lizard_blob"
-          }
-        ]
       },
       {
         "slot": "costume",
@@ -59834,18 +58544,6 @@
           }
         ],
         "empty_img": "econ/heroes/sniper/weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8221,
-            "name": "Taunt: Quick Draw!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_sniper_quick_draw"
-          }
-        ]
       }
     ]
   },
@@ -60411,17 +59109,6 @@
           }
         ],
         "empty_img": "econ/heroes/spectre/spectre_default_voice"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 18508,
-            "name": "Taunt: Ghostriding",
-            "img": "econ/taunts/dota_icon_taunt_spectre_2021"
-          }
-        ]
       }
     ]
   },
@@ -61294,18 +59981,6 @@
           }
         ],
         "empty_img": "econ/heroes/spirit_breaker/spirit_breaker_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7826,
-            "name": "Taunt: Raging Bull",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_spirit_breaker_raging_bull"
-          }
-        ]
       }
     ]
   },
@@ -61653,18 +60328,6 @@
           }
         ],
         "empty_img": "econ/heroes/storm_spirit/storm_hat"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8062,
-            "name": "Taunt: In the Spirit of Peace",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_storm_spirit_meditate"
-          }
-        ]
       }
     ]
   },
@@ -63485,24 +62148,6 @@
           }
         ],
         "empty_img": "econ/heroes/techies/techies_proximity_mine"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 6907,
-            "name": "Taunt: Techies Squint and Laugh",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_item_taunt_techies_squint_laugh"
-          },
-          {
-            "id": 9166,
-            "name": "Taunt: We Have Liftoff",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_techies_swing_around"
-          }
-        ]
       }
     ]
   },
@@ -64124,18 +62769,6 @@
           }
         ],
         "empty_img": "econ/heroes/lanaya/lanaya_default_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12540,
-            "name": "Taunt: You Earned It",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_templar_assassin_ti10"
-          }
-        ]
       }
     ]
   },
@@ -65115,48 +63748,6 @@
           }
         ],
         "empty_img": "econ/heroes/tidehunter/tidehunter_anchor"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8086,
-            "name": "Taunt: Backstroke!",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_tidehunter_backstroke"
-          },
-          {
-            "id": 19263,
-            "name": "Taunt: Melon Massacre",
-            "img": "econ/taunts/taunt_icon_tidehunter_2022"
-          },
-          {
-            "id": 37160,
-            "name": "Taunt: Melon Massacre - The Revenge",
-            "rarity": "legendary",
-            "img": "econ/taunts/taunt_icon_tidehunter_melon_massacre"
-          },
-          {
-            "id": 34419,
-            "name": "Taunt: Shake His Booty",
-            "rarity": "legendary",
-            "img": "econ/taunts/taunt_icon_tidehunter_catch_of_the_day"
-          }
-        ]
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17820,
-            "name": "Tidehunter's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_tidehunters_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/tidehunter/dota_item_tidehunter_costume"
       }
     ]
   },
@@ -66005,18 +64596,6 @@
           }
         ],
         "empty_img": "econ/heroes/tinker/tinker_right_arm"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12543,
-            "name": "Taunt: Advanced Bladework",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_tinker_ti10"
-          }
-        ]
       }
     ]
   },
@@ -66490,18 +65069,6 @@
           }
         ],
         "empty_img": "econ/heroes/tiny/tiny_04/tiny_04"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12920,
-            "name": "Taunt: Rolling Stone!",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_tiny_ti9"
-          }
-        ]
       }
     ]
   },
@@ -67080,19 +65647,6 @@
           }
         ],
         "empty_img": "econ/heroes/treant_protector/foliage"
-      },
-      {
-        "slot": "costume",
-        "title": "Costume",
-        "mods": [
-          {
-            "id": 17825,
-            "name": "Treant Protector's Diretide Shimmer Costume",
-            "rarity": "seasonal",
-            "img": "econ/sets/dota_item_treant_protectors_spooky_bundle"
-          }
-        ],
-        "empty_img": "econ/heroes/treant_protector/dota_item_treant_protector_costume"
       }
     ]
   },
@@ -67288,18 +65842,6 @@
           }
         ],
         "empty_img": "econ/heroes/troll_warlord/troll_warlord_axe_ranged_r"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8073,
-            "name": "Taunt: Troll's Groove!",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_troll_warlord_trolls_groove"
-          }
-        ]
       }
     ]
   },
@@ -67886,18 +66428,6 @@
           }
         ],
         "empty_img": "econ/heroes/tuskarr/tusk_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9761,
-            "name": "Taunt: Fight Me!",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_tusk_ti8"
-          }
-        ]
       }
     ]
   },
@@ -68051,18 +66581,6 @@
           }
         ],
         "empty_img": "econ/heroes/abyssal_underlord/mesh/underlord_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 23699,
-            "name": "Taunt: Pie of Malice",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_underlord_pizza_icon"
-          }
-        ]
       }
     ]
   },
@@ -68505,18 +67023,6 @@
           }
         ],
         "empty_img": "econ/heroes/undying/undying_tower"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8679,
-            "name": "Taunt: Funk of the Dead",
-            "rarity": "rare",
-            "img": "econ/taunts/taunt_icon_undying_walk_of_dead"
-          }
-        ]
       }
     ]
   },
@@ -69043,18 +67549,6 @@
           }
         ],
         "empty_img": "econ/heroes/ursa/claws"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 12432,
-            "name": "Taunt: Not Just Your Average Bear",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_ursa_ti9"
-          }
-        ]
       }
     ]
   },
@@ -69643,18 +68137,6 @@
           }
         ],
         "empty_img": "econ/heroes/vengeful/vengeful_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7595,
-            "name": "Taunt: The Royal Raspberry",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_vengeful_lady_chicken_dance"
-          }
-        ]
       }
     ]
   },
@@ -70155,24 +68637,6 @@
           }
         ],
         "empty_img": "econ/heroes/venomancer/venomancer_tail"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7399,
-            "name": "Taunt: Bananadancer",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_venomancer_little_friend"
-          },
-          {
-            "id": 32655,
-            "name": "Taunt: Mecha Bananadancer",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_venomancer_little_friend"
-          }
-        ]
       }
     ]
   },
@@ -70720,18 +69184,6 @@
           }
         ],
         "empty_img": "econ/heroes/void_spirit/void_spirit_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 6976,
-            "name": "Taunt: Curious Movements Indeed",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_void_spirit_ti10"
-          }
-        ]
       }
     ]
   },
@@ -71880,18 +70332,6 @@
           }
         ],
         "empty_img": "econ/heroes/weaver/weaver_misc"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9743,
-            "name": "Taunt: Exterminated",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_weaver_ti8"
-          }
-        ]
       }
     ]
   },
@@ -72806,18 +71246,6 @@
           }
         ],
         "empty_img": "econ/heroes/windrunner/windrunner_bow"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 7668,
-            "name": "Taunt: You Prefer Arrows?",
-            "rarity": "immortal",
-            "img": "econ/taunts/taunt_icon_windrunner_blow_a_kiss"
-          }
-        ]
       }
     ]
   },
@@ -72988,18 +71416,6 @@
           }
         ],
         "empty_img": "econ/heroes/winterwyvern/winterwyvern_crown"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9167,
-            "name": "Taunt:  Pleasant Distraction",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_winter_wyvern_smoke"
-          }
-        ]
       }
     ]
   },
@@ -73804,18 +72220,6 @@
           }
         ],
         "empty_img": "econ/heroes/witchdoctor/witchdoctor_ward_npc_dota_witch_doctor_death_ward"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 4054,
-            "name": "Taunt: Celebration of Death",
-            "rarity": "rare",
-            "img": "econ/taunts/DOTA_Item_Taunt_Celebration_of_Death"
-          }
-        ]
       }
     ]
   },
@@ -74702,24 +73106,6 @@
           }
         ],
         "empty_img": "econ/heroes/wraith_king/wraith_king_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 9767,
-            "name": "Taunt: Fit to Rule",
-            "rarity": "rare",
-            "img": "econ/taunts/dota_icon_taunt_wraith_king_ti8"
-          },
-          {
-            "id": 14942,
-            "name": "Taunt: The King Doesn't Walk, He Rules",
-            "rarity": "mythical",
-            "img": "econ/taunts/dota_icon_taunt_wk_king_rules"
-          }
-        ]
       }
     ]
   },
@@ -75069,18 +73455,6 @@
           }
         ],
         "empty_img": "econ/heroes/zeus/zeus_default_weapon"
-      },
-      {
-        "slot": "taunt",
-        "title": "Taunt",
-        "mods": [
-          {
-            "id": 8069,
-            "name": "Taunt: Heavenly Jump!",
-            "rarity": "mythical",
-            "img": "econ/taunts/taunt_icon_zeus_heavenly_jump"
-          }
-        ]
       }
     ]
   }

@@ -1,4 +1,4 @@
-import { Globe, Info, Layers, LayoutGrid, Settings, Sparkles, Terminal } from 'lucide-react'
+import { Bug, Globe, Info, Layers, LayoutGrid, Settings, Sparkles, Terminal } from 'lucide-react'
 import React from 'react'
 import { useAppStore } from '../state/useAppStore'
 
@@ -6,6 +6,7 @@ export const Sidebar: React.FC = () => {
   const activeTab = useAppStore((s) => s.activeTab)
   const activeCategoryGroup = useAppStore((s) => s.activeCategoryGroup)
   const setTab = useAppStore((s) => s.setTab)
+  const setBugReportOpen = useAppStore((s) => s.setBugReportOpen)
   const status = useAppStore((s) => s.status)
   const dotaPath = useAppStore((s) => s.dotaPath)
   const updateStatus = useAppStore((s) => s.updateStatus)
@@ -142,6 +143,15 @@ export const Sidebar: React.FC = () => {
         >
           <Info className="size-4.25 shrink-0" />
           <span>About</span>
+        </button>
+
+        <button
+          id="navReportBug"
+          className={navBtnBase}
+          onClick={() => setBugReportOpen(true)}
+        >
+          <Bug className="size-4.25 shrink-0" />
+          <span>Report a Bug</span>
         </button>
       </nav>
 

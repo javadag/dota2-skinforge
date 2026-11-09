@@ -10,6 +10,10 @@ import { registerIpcHandlers } from './ipc'
 import { registerIconScheme, registerIconProtocol } from './services/iconCacheService'
 import { getAssetsPath } from './services/appPathService'
 import { migrateLegacySettings } from './services/updateService'
+import { installMainErrorCapture } from './services/bugReportService'
+
+// Start collecting main-process errors early so bug reports can include them
+installMainErrorCapture()
 
 // Explicitly ensure consistent userData path between dev (terminal) and packaged exe
 app.setName(APP_CONFIG.name)
@@ -46,7 +50,7 @@ function createWindow() {
       preload: getPreloadPath(),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: false
+      sandbox: true
     },
     autoHideMenuBar: true,
     show: false,

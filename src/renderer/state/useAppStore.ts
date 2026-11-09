@@ -1,9 +1,10 @@
 import { create } from 'zustand'
-import type { ItemCustomization, HeroCustomizationsMap } from '../../shared/types/customization'
 import type { CategoryKey } from '../../data/categoryMeta'
 import type { HeroAttribute } from '../../shared/constants/attributes'
+import type { HeroCustomizationsMap, ItemCustomization } from '../../shared/types/customization'
 import { formatHeroName, getHeroSlotsDefinition, initCatalog, type CatalogSlot, type HeroCatalogEntry } from '../components/slotGenerator'
 import type { HeroEntry, InstallProgress, PipelineStatus } from '../env'
+import type { HeroSet } from '../utils/heroSets'
 
 export type AppTab = 'heroes' | 'presets' | 'launch' | 'settings' | 'about'
 export type AttributeFilter = 'all' | HeroAttribute
@@ -16,6 +17,16 @@ export interface Preset {
   heroSlots: Record<string, Record<string, string>>
 }
 
+export interface LaunchOptionsSettings {
+  novid: boolean
+  map: boolean
+  high: boolean
+  console: boolean
+  nojoy: boolean
+  dx11: boolean
+  customArgs?: string
+}
+
 export interface AppSettings {
   dotaPath: string
   modFolder: string
@@ -23,6 +34,32 @@ export interface AppSettings {
   launchAfter: boolean
   confirmRestore: boolean
   autoCheckUpdates: boolean
+  launchOptions?: LaunchOptionsSettings
+}
+
+export const DEFAULT_LAUNCH_OPTIONS: LaunchOptionsSettings = {
+  novid: true,
+  map: true,
+  high: true,
+  console: false,
+  nojoy: true,
+  dx11: false,
+  customArgs: ''
+}
+
+export function buildLaunchArgsString(options?: Partial<LaunchOptionsSettings>): string {
+  const opts = { ...DEFAULT_LAUNCH_OPTIONS, ...(options || {}) }
+  const flags: string[] = []
+  if (opts.novid) flags.push('-novid')
+  if (opts.map) flags.push('-map dota')
+  if (opts.high) flags.push('-high')
+  if (opts.console) flags.push('-console')
+  if (opts.nojoy) flags.push('-nojoy')
+  if (opts.dx11) flags.push('-dx11')
+  if (opts.customArgs && opts.customArgs.trim()) {
+    flags.push(opts.customArgs.trim())
+  }
+  return flags.join(' ')
 }
 
 export interface LogEntry {
@@ -50,6 +87,8 @@ export interface AppStoreState {
   categories: HeroEntry[]
   selectedHero: HeroEntry | null
   heroSlots: Record<string, Record<string, string>>
+  heroStanceSlots: Record<string, { default?: Record<string, string>; persona?: Record<string, string> }>
+  heroActiveStance: Record<string, 'default' | 'persona'>
   heroCustomizations: HeroCustomizationsMap
   activeCatalog: HeroCatalogEntry | null
 
@@ -76,8 +115,9 @@ export interface AppStoreState {
   updateInfo: import('../env').UpdateInfo | null
   updateProgress: import('../env').UpdateDownloadProgress | null
   downloadedUpdatePath: string | null
+  downloadedUpdateSha256: string | null
   isUpdateModalOpen: boolean
-
+  isBugReportOpen: boolean
   // Actions
   setTab: (tab: AppTab, category?: CategoryGroup | null) => void
   setCategoryGroup: (group: CategoryGroup) => void
@@ -88,6 +128,9 @@ export interface AppStoreState {
   setSlotCustomization: (heroTag: string, slotId: string, customization: Partial<ItemCustomization>) => void
   resetHeroSlot: (heroTag: string, slotId: string) => void
   resetAllHeroSlots: (heroTag: string) => void
+  clearAllEquippedSlots: () => void
+  setHeroActiveStance: (heroTag: string, stance: 'default' | 'persona') => void
+  equipSet: (heroTag: string, set: HeroSet) => void
   unlockBestSet: (hero: HeroEntry) => void
 
   // Modals
@@ -120,10 +163,10 @@ export interface AppStoreState {
 
   // Update Actions
   checkForUpdates: (manual?: boolean) => Promise<void>
-  downloadUpdate: (assetUrl: string, filename: string) => Promise<void>
+  downloadUpdate: (assetUrl: string, filename: string, expectedSha256?: string) => Promise<void>
   installUpdate: () => Promise<void>
   setUpdateModalOpen: (open: boolean) => void
-
+  setBugReportOpen: (open: boolean) => void
   // UI Utilities
   addLog: (message: string, type?: 'info' | 'warn' | 'error' | 'success') => void
   toggleConsole: () => void
@@ -167,6 +210,63 @@ function getStoredHeroSlots(): Record<string, Record<string, string>> {
   }
 }
 
+function getStoredActiveStances(): Record<string, 'default' | 'persona'> {
+  try {
+    const data = localStorage.getItem('skinforge_hero_active_stance')
+    return data ? (JSON.parse(data) as Record<string, 'default' | 'persona'>) : {}
+  } catch {
+    return {}
+  }
+}
+
+export const isPersonaSlotId = (slotId: string): boolean =>
+  slotId === 'persona' || slotId === 'persona_selector' || slotId.startsWith('persona_') || slotId.includes('_persona_')
+
+function getStoredStanceSlots(
+  initialHeroSlots: Record<string, Record<string, string>>
+): Record<string, { default?: Record<string, string>; persona?: Record<string, string> }> {
+  try {
+    const data = localStorage.getItem('skinforge_hero_stance_slots')
+    if (data) {
+      const parsed = JSON.parse(data) as Record<string, { default?: Record<string, string>; persona?: Record<string, string> }>
+      for (const stances of Object.values(parsed)) {
+        if (stances.default) {
+          for (const s of Object.keys(stances.default)) {
+            if (isPersonaSlotId(s)) delete stances.default[s]
+          }
+        }
+        if (stances.persona) {
+          for (const s of Object.keys(stances.persona)) {
+            if (!isPersonaSlotId(s)) delete stances.persona[s]
+          }
+        }
+      }
+      return parsed
+    }
+  } catch {
+    // ignore
+  }
+
+  // Migrate existing single-dictionary heroSlots if any
+  const migrated: Record<string, { default?: Record<string, string>; persona?: Record<string, string> }> = {}
+  for (const [heroTag, slots] of Object.entries(initialHeroSlots)) {
+    const defSlots: Record<string, string> = {}
+    const pSlots: Record<string, string> = {}
+    for (const [slot, item] of Object.entries(slots)) {
+      if (isPersonaSlotId(slot)) {
+        pSlots[slot] = item
+      } else {
+        defSlots[slot] = item
+      }
+    }
+    migrated[heroTag] = {
+      default: defSlots,
+      persona: pSlots
+    }
+  }
+  return migrated
+}
+
 function getStoredHeroCustomizations(): HeroCustomizationsMap {
   try {
     const data = localStorage.getItem('skinforge_hero_customizations')
@@ -174,6 +274,23 @@ function getStoredHeroCustomizations(): HeroCustomizationsMap {
   } catch {
     return {}
   }
+}
+
+const initialHeroSlots = getStoredHeroSlots()
+const initialStanceSlots = getStoredStanceSlots(initialHeroSlots)
+const initialActiveStance = getStoredActiveStances()
+
+// Align initialHeroSlots with each hero's active stance so it never holds cross-stance leftovers
+for (const heroTag of Object.keys(initialHeroSlots)) {
+  const stance = initialActiveStance[heroTag] || 'default'
+  const stanceData = initialStanceSlots[heroTag]?.[stance] || {}
+  const cleanSlots: Record<string, string> = {}
+  for (const [slot, item] of Object.entries(stanceData)) {
+    if (stance === 'persona' ? isPersonaSlotId(slot) : !isPersonaSlotId(slot)) {
+      cleanSlots[slot] = item
+    }
+  }
+  initialHeroSlots[heroTag] = cleanSlots
 }
 
 export const useAppStore = create<AppStoreState>((set, get) => ({
@@ -185,7 +302,9 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
   heroes: [],
   categories: [],
   selectedHero: null,
-  heroSlots: getStoredHeroSlots(),
+  heroSlots: initialHeroSlots,
+  heroStanceSlots: initialStanceSlots,
+  heroActiveStance: initialActiveStance,
   heroCustomizations: getStoredHeroCustomizations(),
   activeCatalog: null,
 
@@ -207,14 +326,17 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
     autoDetect: true,
     launchAfter: false,
     confirmRestore: true,
-    autoCheckUpdates: true
+    autoCheckUpdates: true,
+    launchOptions: DEFAULT_LAUNCH_OPTIONS
   },
   cacheStats: null,
   updateStatus: 'idle',
   updateInfo: null,
   updateProgress: null,
   downloadedUpdatePath: null,
+  downloadedUpdateSha256: null,
   isUpdateModalOpen: false,
+  isBugReportOpen: false,
   logs: [
     {
       id: 'init',
@@ -250,19 +372,33 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
 
   setHeroSlot: (heroTag, slotId, itemName) => {
     set((state) => {
-      const updated = {
+      const currentStance = state.heroActiveStance[heroTag] || 'default'
+      const currentSlots = state.heroSlots[heroTag] || {}
+      const updatedHero: Record<string, string> = {}
+      for (const [s, it] of Object.entries(currentSlots)) {
+        if (currentStance === 'persona' ? isPersonaSlotId(s) : !isPersonaSlotId(s)) {
+          updatedHero[s] = it
+        }
+      }
+      updatedHero[slotId] = itemName
+      const updatedHeroSlots = {
         ...state.heroSlots,
+        [heroTag]: updatedHero
+      }
+      const updatedStanceSlots = {
+        ...state.heroStanceSlots,
         [heroTag]: {
-          ...(state.heroSlots[heroTag] || {}),
-          [slotId]: itemName
+          ...(state.heroStanceSlots[heroTag] || {}),
+          [currentStance]: updatedHero
         }
       }
       try {
-        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updated))
+        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
+        localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
       } catch {
         // ignore localStorage errors
       }
-      return { heroSlots: updated }
+      return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots }
     })
   },
 
@@ -289,11 +425,19 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
   resetHeroSlot: (heroTag, slotId) => {
     set((state) => {
       if (!state.heroSlots[heroTag]) return state
+      const currentStance = state.heroActiveStance[heroTag] || 'default'
       const currentSlots = { ...state.heroSlots[heroTag] }
       delete currentSlots[slotId]
-      const updatedSlots = {
+      const updatedHeroSlots = {
         ...state.heroSlots,
         [heroTag]: currentSlots
+      }
+      const updatedStanceSlots = {
+        ...state.heroStanceSlots,
+        [heroTag]: {
+          ...(state.heroStanceSlots[heroTag] || {}),
+          [currentStance]: currentSlots
+        }
       }
 
       const updatedCust = { ...state.heroCustomizations }
@@ -304,31 +448,221 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
       }
 
       try {
-        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedSlots))
+        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
+        localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
         localStorage.setItem('skinforge_hero_customizations', JSON.stringify(updatedCust))
       } catch {
         // ignore
       }
-      return { heroSlots: updatedSlots, heroCustomizations: updatedCust }
+      return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots, heroCustomizations: updatedCust }
     })
   },
 
   resetAllHeroSlots: (heroTag) => {
     set((state) => {
-      const updatedSlots = { ...state.heroSlots }
-      delete updatedSlots[heroTag]
+      const currentStance = state.heroActiveStance[heroTag] || 'default'
+      const updatedHeroSlots = { ...state.heroSlots }
+      delete updatedHeroSlots[heroTag]
+
+      const updatedStanceSlots = { ...state.heroStanceSlots }
+      if (updatedStanceSlots[heroTag]) {
+        const heroStances = { ...updatedStanceSlots[heroTag] }
+        delete heroStances[currentStance]
+        updatedStanceSlots[heroTag] = heroStances
+      }
+
+      // If resetting while in persona stance, auto-re-equip the persona base model
+      if (currentStance === 'persona') {
+        const catalog = getHeroSlotsDefinition(heroTag)
+        const personaSlot = catalog?.slots.find((s) => s.slot === 'persona')
+        const personaMod = personaSlot?.mods?.[0]
+        if (personaMod) {
+          updatedHeroSlots[heroTag] = { persona: personaMod.name }
+          updatedStanceSlots[heroTag] = {
+            ...(updatedStanceSlots[heroTag] || {}),
+            persona: { persona: personaMod.name }
+          }
+        }
+      }
+
       const updatedCust = { ...state.heroCustomizations }
       delete updatedCust[heroTag]
 
       try {
-        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedSlots))
+        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
+        localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
         localStorage.setItem('skinforge_hero_customizations', JSON.stringify(updatedCust))
       } catch {
         // ignore
       }
-      return { heroSlots: updatedSlots, heroCustomizations: updatedCust }
+      return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots, heroCustomizations: updatedCust }
     })
-    get().addLog(`Reset all slots for ${formatHeroName(heroTag)} to default.`, 'info')
+    get().addLog(`Reset active slots for ${formatHeroName(heroTag)} to default.`, 'info')
+  },
+
+  clearAllEquippedSlots: () => {
+    const state = get()
+    const totalEquipped = Object.values(state.heroSlots || {}).reduce((acc, slots) => acc + Object.keys(slots || {}).length, 0)
+    if (totalEquipped === 0) {
+      state.addLog('No items are currently equipped in your loadout.', 'info')
+      return
+    }
+
+    if (!confirm(`Are you sure you want to clear all ${totalEquipped} equipped cosmetic item(s) from your loadout?`)) {
+      return
+    }
+
+    set({
+      heroSlots: {},
+      heroStanceSlots: {},
+      heroCustomizations: {}
+    })
+
+    try {
+      localStorage.removeItem('skinforge_hero_slots')
+      localStorage.removeItem('skinforge_hero_stance_slots')
+      localStorage.removeItem('skinforge_hero_customizations')
+    } catch {
+      // ignore
+    }
+
+    get().addLog(`Cleared all ${totalEquipped} equipped cosmetic slot(s) from loadout.`, 'info')
+  },
+
+  setHeroActiveStance: (heroTag, stance) => {
+    const state = get()
+    const currentStance = state.heroActiveStance[heroTag] || 'default'
+    if (currentStance === stance) return
+
+    // 1. Save current active slots into previous stance storage (cleanly partitioned)
+    const currentSlots = state.heroSlots[heroTag] || {}
+    const sanitizedCurrent: Record<string, string> = {}
+    for (const [s, it] of Object.entries(currentSlots)) {
+      if (currentStance === 'persona' ? isPersonaSlotId(s) : !isPersonaSlotId(s)) {
+        sanitizedCurrent[s] = it
+      }
+    }
+
+    const updatedStanceSlots = {
+      ...state.heroStanceSlots,
+      [heroTag]: {
+        ...(state.heroStanceSlots[heroTag] || {}),
+        [currentStance]: sanitizedCurrent
+      }
+    }
+
+    // 2. Retrieve slots for the new stance (cleanly partitioned)
+    const rawTarget = updatedStanceSlots[heroTag]?.[stance] || {}
+    const targetSlots: Record<string, string> = {}
+    for (const [s, it] of Object.entries(rawTarget)) {
+      if (stance === 'persona' ? isPersonaSlotId(s) : !isPersonaSlotId(s)) {
+        targetSlots[s] = it
+      }
+    }
+
+    // 3. Auto-equip persona if switching to persona stance
+    if (stance === 'persona') {
+      const catalog = getHeroSlotsDefinition(heroTag)
+      const personaSlot = catalog?.slots.find((s) => s.slot === 'persona')
+      const personaMod = personaSlot?.mods?.[0]
+      if (personaMod && !targetSlots['persona']) {
+        targetSlots['persona'] = personaMod.name
+      }
+    }
+
+    // 4. Update active stance and slots
+    const updatedActiveStance: Record<string, 'default' | 'persona'> = {
+      ...state.heroActiveStance,
+      [heroTag]: stance
+    }
+    updatedStanceSlots[heroTag] = {
+      ...(updatedStanceSlots[heroTag] || {}),
+      [stance]: targetSlots
+    }
+
+    const updatedHeroSlots = {
+      ...state.heroSlots,
+      [heroTag]: targetSlots
+    }
+
+    try {
+      localStorage.setItem('skinforge_hero_active_stance', JSON.stringify(updatedActiveStance))
+      localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
+      localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
+    } catch {
+      // ignore
+    }
+
+    set({
+      heroActiveStance: updatedActiveStance,
+      heroStanceSlots: updatedStanceSlots,
+      heroSlots: updatedHeroSlots
+    })
+
+    const stanceLabel = stance === 'persona' ? 'Persona' : 'Default'
+    get().addLog(`Switched ${formatHeroName(heroTag)} to ${stanceLabel} stance.`, 'info')
+  },
+
+  equipSet: (heroTag, setObj) => {
+    const state = get()
+    const targetStance = setObj.isPersona ? 'persona' : 'default'
+    const currentStance = state.heroActiveStance[heroTag] || 'default'
+
+    const rawTarget = currentStance === targetStance ? state.heroSlots[heroTag] || {} : state.heroStanceSlots[heroTag]?.[targetStance] || {}
+
+    const targetSlots: Record<string, string> = {}
+    for (const [s, it] of Object.entries(rawTarget)) {
+      if (targetStance === 'persona' ? isPersonaSlotId(s) : !isPersonaSlotId(s)) {
+        targetSlots[s] = it
+      }
+    }
+
+    // Equip each set item into its respective slot
+    for (const item of setObj.items) {
+      targetSlots[item.slot] = item.name
+    }
+
+    // If persona set, ensure persona base is equipped
+    if (setObj.isPersona && !targetSlots['persona']) {
+      const catalog = getHeroSlotsDefinition(heroTag)
+      const personaSlot = catalog?.slots.find((s) => s.slot === 'persona')
+      const personaMod = personaSlot?.mods?.[0]
+      if (personaMod) targetSlots['persona'] = personaMod.name
+    }
+
+    const updatedStanceSlots = {
+      ...state.heroStanceSlots,
+      [heroTag]: {
+        ...(state.heroStanceSlots[heroTag] || {}),
+        [targetStance]: targetSlots
+      }
+    }
+
+    const updatedActiveStance: Record<string, 'default' | 'persona'> = {
+      ...state.heroActiveStance,
+      [heroTag]: targetStance
+    }
+
+    const updatedHeroSlots = {
+      ...state.heroSlots,
+      [heroTag]: targetSlots
+    }
+
+    try {
+      localStorage.setItem('skinforge_hero_active_stance', JSON.stringify(updatedActiveStance))
+      localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
+      localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
+    } catch {
+      // ignore
+    }
+
+    set({
+      heroActiveStance: updatedActiveStance,
+      heroStanceSlots: updatedStanceSlots,
+      heroSlots: updatedHeroSlots
+    })
+
+    get().addLog(`Equipped entire set "${setObj.name}" for ${formatHeroName(heroTag)} (${setObj.items.length} pieces).`, 'success')
   },
 
   unlockBestSet: (hero) => {
@@ -439,9 +773,13 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
   },
 
   updateSettings: (newSettings) => {
-    set((state) => ({
-      settings: { ...state.settings, ...newSettings }
-    }))
+    set((state) => {
+      const updated = { ...state.settings, ...newSettings }
+      if (window.skinforge && typeof window.skinforge.writeSettings === 'function') {
+        window.skinforge.writeSettings(updated).catch(() => {})
+      }
+      return { settings: updated }
+    })
   },
 
   saveSettings: async () => {
@@ -515,7 +853,22 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
       return
     }
 
-    const equipped = state.heroSlots || {}
+    const rawEquipped = state.heroSlots || {}
+    const equipped: Record<string, Record<string, string>> = {}
+    for (const [heroTag, slots] of Object.entries(rawEquipped)) {
+      if (!slots) continue
+      const stance = state.heroActiveStance[heroTag] || 'default'
+      const cleanHeroSlots: Record<string, string> = {}
+      for (const [slotId, itemName] of Object.entries(slots)) {
+        if (!itemName) continue
+        if (stance === 'persona' ? isPersonaSlotId(slotId) : !isPersonaSlotId(slotId)) {
+          cleanHeroSlots[slotId] = itemName
+        }
+      }
+      if (Object.keys(cleanHeroSlots).length > 0) {
+        equipped[heroTag] = cleanHeroSlots
+      }
+    }
     const totalSelected = Object.values(equipped).reduce((acc, slots) => acc + Object.keys(slots || {}).length, 0)
     if (totalSelected === 0) {
       state.addLog('No custom cosmetics equipped! Select items or Unlock Best Set first.', 'warn')
@@ -540,7 +893,7 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
           set({ progress: { step: 10, total: 10, message: `Success (${count} items applied)!` } })
         }
 
-        const skipped = res.report?.skipped ?? []
+        const skipped = (res.report?.skipped ?? []).filter((s) => !s.reason?.includes('already provides it'))
         if (skipped.length) {
           state.addLog(
             `${skipped.length} selection(s) could not be applied: ` +
@@ -662,10 +1015,19 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
     }
   },
 
-  launchDota: () => {
-    get().addLog('Launching Dota 2 via Steam (steam://run/570)...', 'info')
-    if (window.skinforge && typeof window.skinforge.openExternal === 'function') {
-      window.skinforge.openExternal('steam://run/570')
+  launchDota: async () => {
+    const state = get()
+    const launchArgs = buildLaunchArgsString(state.settings.launchOptions)
+    state.addLog(`Launching Dota 2 via Steam (${launchArgs || 'no flags'})...`, 'info')
+
+    if (window.skinforge && typeof window.skinforge.launchDota === 'function') {
+      const res = await window.skinforge.launchDota(launchArgs)
+      if (res && !res.success && res.error) {
+        state.addLog(`Launch warning: ${res.error}`, 'warn')
+      }
+    } else if (window.skinforge && typeof window.skinforge.openExternal === 'function') {
+      const url = launchArgs ? `steam://run/570//${encodeURIComponent(launchArgs)}/` : 'steam://run/570'
+      await window.skinforge.openExternal(url)
     }
   },
 
@@ -742,7 +1104,11 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
           autoDetect: typeof savedSettings.autoDetect === 'boolean' ? savedSettings.autoDetect : true,
           launchAfter: typeof savedSettings.launchAfter === 'boolean' ? savedSettings.launchAfter : false,
           confirmRestore: typeof savedSettings.confirmRestore === 'boolean' ? savedSettings.confirmRestore : true,
-          autoCheckUpdates: typeof savedSettings.autoCheckUpdates === 'boolean' ? savedSettings.autoCheckUpdates : true
+          autoCheckUpdates: typeof savedSettings.autoCheckUpdates === 'boolean' ? savedSettings.autoCheckUpdates : true,
+          launchOptions: {
+            ...DEFAULT_LAUNCH_OPTIONS,
+            ...(savedSettings.launchOptions || {})
+          }
         }
       }))
 
@@ -769,6 +1135,10 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
 
   setUpdateModalOpen: (open: boolean) => {
     set({ isUpdateModalOpen: open })
+  },
+
+  setBugReportOpen: (open: boolean) => {
+    set({ isBugReportOpen: open })
   },
 
   checkForUpdates: async (manual: boolean = false) => {
@@ -807,10 +1177,10 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
     }
   },
 
-  downloadUpdate: async (assetUrl: string, filename: string) => {
+  downloadUpdate: async (assetUrl: string, filename: string, expectedSha256?: string) => {
     if (!window.skinforge || typeof window.skinforge.downloadUpdate !== 'function') return
 
-    set({ updateStatus: 'downloading', updateProgress: null })
+    set({ updateStatus: 'downloading', updateProgress: null, downloadedUpdateSha256: null })
     get().addLog(`Downloading update: ${filename}...`, 'info')
 
     let cleanup: (() => void) | undefined
@@ -821,12 +1191,17 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
     }
 
     try {
-      const res = await window.skinforge.downloadUpdate({ assetUrl, filename })
+      const res = await window.skinforge.downloadUpdate({ assetUrl, filename, expectedSha256 })
       if (cleanup) cleanup()
 
       if (res && res.ok && res.filePath) {
-        set({ updateStatus: 'downloaded', downloadedUpdatePath: res.filePath })
-        get().addLog(`Update downloaded successfully to ${res.filePath}`, 'success')
+        set({
+          updateStatus: 'downloaded',
+          downloadedUpdatePath: res.filePath,
+          downloadedUpdateSha256: res.sha256 || expectedSha256 || null
+        })
+        const hashMsg = res.sha256 ? ` (SHA-256: ${res.sha256.slice(0, 12)}...)` : ''
+        get().addLog(`Update downloaded and integrity verified${hashMsg}`, 'success')
       } else {
         set({ updateStatus: 'error' })
         get().addLog(`Failed to download update: ${res?.error || 'Unknown error'}`, 'error')
@@ -840,10 +1215,16 @@ export const useAppStore = create<AppStoreState>((set, get) => ({
   },
 
   installUpdate: async () => {
-    const { downloadedUpdatePath } = get()
+    const { downloadedUpdatePath, downloadedUpdateSha256 } = get()
     if (!downloadedUpdatePath || !window.skinforge || typeof window.skinforge.installUpdate !== 'function') return
 
-    get().addLog('Launching update installer...', 'info')
-    await window.skinforge.installUpdate({ filePath: downloadedUpdatePath })
+    get().addLog('Launching verified update installer...', 'info')
+    const res = await window.skinforge.installUpdate({
+      filePath: downloadedUpdatePath,
+      expectedSha256: downloadedUpdateSha256 || undefined
+    })
+    if (res && !res.ok) {
+      get().addLog(`Failed to launch update: ${res.error || 'Unknown error'}`, 'error')
+    }
   }
 }))

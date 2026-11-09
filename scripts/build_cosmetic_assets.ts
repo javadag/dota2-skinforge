@@ -1,5 +1,5 @@
 /**
- * Generate `data/cosmetic-assets.json` and sanitize the extracted pack bundle into `D:\changer_cleaned`.
+ * Generate `data/cosmetic-assets.json` and sanitize the extracted pack bundle into `D:\skinforge_assets`.
  *
  *   npx tsx scripts/build_cosmetic_assets.ts
  */
@@ -14,9 +14,9 @@ function arg(name: string, fallback: string): string {
 }
 
 function main(): void {
-  const srcDir = path.resolve(arg('--src', 'D:\\changer_changed'))
-  const dstDir = path.resolve(arg('--bundle', 'D:\\changer_cleaned'))
-  const wave2ItemsGamePath = path.resolve(arg('--wave2', 'scratch/d2c_extracted/items/scripts/items/items_game.txt'))
+  const srcDir = path.resolve(arg('--src', 'D:\\skinforge_raw'))
+  const dstDir = path.resolve(arg('--bundle', 'D:\\skinforge_assets'))
+  const wave2ItemsGamePath = path.resolve(arg('--wave2', 'scratch/pack_extracted/items/scripts/items/items_game.txt'))
   const outManifestPath = path.resolve(arg('--out', 'data/cosmetic-assets.json'))
 
   const manifest = sanitizeBundle({ srcDir, dstDir, wave2ItemsGamePath, outManifestPath })

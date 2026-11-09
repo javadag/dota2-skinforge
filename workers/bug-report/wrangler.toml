@@ -1,0 +1,21 @@
+name = "skinforge-bug-report"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[vars]
+GITHUB_REPO = "javadag/dota2-skinforge"
+# Public base URL of the screenshots R2 bucket (no trailing slash). Leave empty to drop screenshots.
+SCREENSHOT_PUBLIC_URL = "https://pub-e8027f2f447d4d72a19359e588c60e8d.r2.dev"
+
+# Create with:  npx wrangler kv namespace create STATE   -> paste the id below
+[[kv_namespaces]]
+binding = "STATE"
+id = "bd1d36ffb818430181e702423004258b"
+
+# Optional screenshots bucket. Create with: npx wrangler r2 bucket create skinforge-bug-screenshots
+[[r2_buckets]]
+binding = "SCREENSHOTS"
+bucket_name = "skinforge-bug-screenshots"
+
+# Secret (never put this in this file):  npx wrangler secret put GITHUB_TOKEN

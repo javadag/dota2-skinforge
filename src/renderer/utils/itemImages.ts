@@ -415,6 +415,9 @@ function getSlotSvgIcon(slotId: string, color: string): string {
     return `<polygon points="40,12 48,28 66,32 52,44 56,62 40,52 24,62 28,44 14,32 32,28" fill="${color}" filter="drop-shadow(0 0 6px ${color})"/>
             <circle cx="40" cy="38" r="6" fill="#ffffff" opacity="0.9"/>`
   }
+  if (s.includes('set')) {
+    return `<path d="M22 28 L40 18 L58 28 L40 38 Z M22 40 L40 50 L58 40 M22 52 L40 62 L58 52" stroke="${color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="drop-shadow(0 0 5px ${color})"/>`
+  }
 
   return `<polygon points="40,16 62,24 58,58 40,68 22,58 18,24" fill="${color}" filter="drop-shadow(0 0 5px ${color})"/>
           <polygon points="40,22 54,28 50,52 40,60 30,52 26,28" fill="#0f1524" opacity="0.6"/>`

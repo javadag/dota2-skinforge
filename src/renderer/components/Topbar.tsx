@@ -1,4 +1,4 @@
-import { AlertTriangle, Check, Play, RefreshCw, RotateCcw } from 'lucide-react'
+import { AlertTriangle, Check, Play, RefreshCw, RotateCcw, Trash2 } from 'lucide-react'
 import React from 'react'
 import { CATEGORY_META } from '../../data/categoryMeta'
 import { useAppStore } from '../state/useAppStore'
@@ -17,6 +17,10 @@ export const Topbar: React.FC = () => {
   const applyMods = useAppStore((s) => s.applyMods)
   const restoreMods = useAppStore((s) => s.restoreMods)
   const refreshStatus = useAppStore((s) => s.refreshStatus)
+  const clearAllEquippedSlots = useAppStore((s) => s.clearAllEquippedSlots)
+  const heroSlots = useAppStore((s) => s.heroSlots)
+
+  const totalEquipped = Object.values(heroSlots || {}).reduce((acc, s) => acc + Object.keys(s || {}).length, 0)
 
   const appInfo = (typeof window !== 'undefined' && window.appInfo) || {
     name: 'Dota 2 SkinForge'
@@ -77,7 +81,23 @@ export const Topbar: React.FC = () => {
             <span>Apply Mods</span>
           </Button>
 
-          <Button id="btnRestore" variant="ghost" disabled={isBusy} onClick={restoreMods}>
+          <Button
+            id="btnClearAllSlots"
+            variant="ghost"
+            disabled={isBusy || totalEquipped === 0}
+            title={totalEquipped > 0 ? `Clear all ${totalEquipped} equipped cosmetic item(s) from your loadout` : 'No cosmetics equipped'}
+            onClick={clearAllEquippedSlots}
+          >
+            <Trash2 className="w-4 h-4 text-slate-400" />
+            <span>Clear All</span>
+            {totalEquipped > 0 && (
+              <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded-full text-slate-300 font-mono">
+                {totalEquipped}
+              </span>
+            )}
+          </Button>
+
+          <Button id="btnRestore" variant="ghost" disabled={isBusy} title="Restore clean original Dota 2 game files (uninstalls mods from Dota 2)" onClick={restoreMods}>
             <RotateCcw className="w-4 h-4" />
             <span>Restore</span>
           </Button>

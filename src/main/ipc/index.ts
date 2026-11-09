@@ -7,12 +7,14 @@ import { registerModsIpc } from './modsIpc'
 import { registerSettingsIpc } from './settingsIpc'
 import { registerSystemIpc } from './systemIpc'
 import { registerUpdateIpc } from './updateIpc'
+import { registerBugReportIpc } from './bugReportIpc'
 
 export function registerIpcHandlers(getMainWindow: () => BrowserWindow | null) {
   registerModsIpc(getMainWindow)
   registerSettingsIpc(getMainWindow)
   registerSystemIpc()
   registerUpdateIpc(getMainWindow)
+  registerBugReportIpc(getMainWindow)
 }
 
 if (typeof module !== 'undefined' && module.exports) {

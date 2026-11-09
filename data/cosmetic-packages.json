@@ -1,0 +1,455 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-09T19:35:15.253Z",
+  "baseUrl": "cosmetic-assets/packages",
+  "packages": {
+    "antimage": {
+      "file": "antimage.zip",
+      "version": "1.0.0",
+      "sha256": "fb239ed4818313fc195d8ae48ef1d2dd94e8222b8c7bfdbd89a4d8c25b148f28",
+      "size": 5714483,
+      "uncompressedSize": 14980506,
+      "fileCount": 54,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "axe": {
+      "file": "axe.zip",
+      "version": "1.0.0",
+      "sha256": "4ae003115752537ceed1dc3ffa55ea7355f3ad80b78d1532b4ecd3c1a04bbdff",
+      "size": 1403273,
+      "uncompressedSize": 2766699,
+      "fileCount": 15,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "axe_persona": {
+      "file": "axe_persona.zip",
+      "version": "1.0.0",
+      "sha256": "172fc9983a84752c20193202c29f34ddc8fe53909b77132e9f932e9582be74e8",
+      "size": 1283274,
+      "uncompressedSize": 2167685,
+      "fileCount": 13,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "bristleback": {
+      "file": "bristleback.zip",
+      "version": "1.0.0",
+      "sha256": "c2e56f021cea91bc4f31b9f04d360c0099c9f178eb6aaf61d15fa473b38b0395",
+      "size": 2433296,
+      "uncompressedSize": 5752861,
+      "fileCount": 8,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "crystal_maiden": {
+      "file": "crystal_maiden.zip",
+      "version": "1.0.0",
+      "sha256": "2909820615e341ad1f7da6e0902d899ca0a18488fcb66a31ced81b35617ec9a6",
+      "size": 2192844,
+      "uncompressedSize": 3144711,
+      "fileCount": 14,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "crystal_maiden_persona": {
+      "file": "crystal_maiden_persona.zip",
+      "version": "1.0.0",
+      "sha256": "4e055df9a660e2d213da0ea612874ea5b201fead68a3ced09ddae4c98d294415",
+      "size": 3399143,
+      "uncompressedSize": 8262076,
+      "fileCount": 13,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "dragon_knight": {
+      "file": "dragon_knight.zip",
+      "version": "1.0.0",
+      "sha256": "ca7dca7a3711928dc7dffad1980ca49a64577eb36e4f2867cbb28a0d6e4e46e3",
+      "size": 6992412,
+      "uncompressedSize": 11979215,
+      "fileCount": 8,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "dragon_knight_helm": {
+      "file": "dragon_knight_helm.zip",
+      "version": "1.0.0",
+      "sha256": "d8f509231f9c2f09850614143889ac1a771f83ac9d943c56cc857c037d29b57f",
+      "size": 940567,
+      "uncompressedSize": 1388477,
+      "fileCount": 19,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "drow": {
+      "file": "drow.zip",
+      "version": "1.0.0",
+      "sha256": "ef2997559f6e674254128ffa33ab9522ed2657eb6e25e08860e7aedcc156c7a0",
+      "size": 39857472,
+      "uncompressedSize": 76933636,
+      "fileCount": 126,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "earthshaker": {
+      "file": "earthshaker.zip",
+      "version": "1.0.0",
+      "sha256": "fc473a6ee55f8747abfcdc11c1fbccb116eb8baf1170b13796e17730dd4f8323",
+      "size": 11237609,
+      "uncompressedSize": 17014944,
+      "fileCount": 67,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "faceless_void": {
+      "file": "faceless_void.zip",
+      "version": "1.0.0",
+      "sha256": "9bb440ffef17c10bd7bb55fecc2d9c6a2fb8bb406172285535a5593ec3c61605",
+      "size": 10293551,
+      "uncompressedSize": 12816755,
+      "fileCount": 42,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "invoker": {
+      "file": "invoker.zip",
+      "version": "1.0.0",
+      "sha256": "a16b63109f1c68982f070a276a6468d114037b2656611b47835825da04d29123",
+      "size": 2474162,
+      "uncompressedSize": 3325429,
+      "fileCount": 22,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "juggernaut": {
+      "file": "juggernaut.zip",
+      "version": "1.0.0",
+      "sha256": "ec266cca098283b757f3043ef6b989aee19eb3745c3f2ba913fd2ae04eb0261b",
+      "size": 5206272,
+      "uncompressedSize": 5479817,
+      "fileCount": 9,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "legion_commander": {
+      "file": "legion_commander.zip",
+      "version": "1.0.0",
+      "sha256": "af79b39ad4bcb9bd870c72978a21a593699e571ccfcea0c165442a5d9b6e978a",
+      "size": 1649725,
+      "uncompressedSize": 4540061,
+      "fileCount": 3,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "legion_commander_hells_legion": {
+      "file": "legion_commander_hells_legion.zip",
+      "version": "1.0.0",
+      "sha256": "fdb83a375e6822e069e3be902bf200ef8032ac14a0a5207c909225a63c0ad392",
+      "size": 1528254,
+      "uncompressedSize": 1759936,
+      "fileCount": 3,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "legion_commander_persona": {
+      "file": "legion_commander_persona.zip",
+      "version": "1.0.0",
+      "sha256": "5a13497a41138532f19ec195a120bae540f59e693b1be4863a1e4f4693a5f76f",
+      "size": 1699757,
+      "uncompressedSize": 3452791,
+      "fileCount": 13,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "lina": {
+      "file": "lina.zip",
+      "version": "1.0.0",
+      "sha256": "92f3942493fec66c4c18f54b499dd45be5f9e4b0c1523047a3510ed83d388e53",
+      "size": 5529,
+      "uncompressedSize": 10228,
+      "fileCount": 3,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "mirana": {
+      "file": "mirana.zip",
+      "version": "1.0.0",
+      "sha256": "e351e67c686a81d92e846710a8676f9b65aed3d11ee284f7c73d50c9f11d21c2",
+      "size": 2875476,
+      "uncompressedSize": 6121884,
+      "fileCount": 8,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "monkey_king": {
+      "file": "monkey_king.zip",
+      "version": "1.0.0",
+      "sha256": "989991184c1440590572d204aa931fb5ccaed8daa5cb581c84343c165df93dac",
+      "size": 19908498,
+      "uncompressedSize": 26031652,
+      "fileCount": 35,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "morphling": {
+      "file": "morphling.zip",
+      "version": "1.0.0",
+      "sha256": "10b6fc1cf117383b025f55b844965899e841f6b8e48e79f870eb2d84dee9e87f",
+      "size": 2362906,
+      "uncompressedSize": 5880750,
+      "fileCount": 7,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "ogre_magi": {
+      "file": "ogre_magi.zip",
+      "version": "1.0.0",
+      "sha256": "d610560bedc3b7a837a84cb3698bc6a74f53fbb24dc1761fc9f108a72486c1bf",
+      "size": 27799680,
+      "uncompressedSize": 54915167,
+      "fileCount": 75,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "oracle": {
+      "file": "oracle.zip",
+      "version": "1.0.0",
+      "sha256": "f095ef90c37ce42805269312dd2e4908bbc7f055c9b0462f439945cb952decbc",
+      "size": 2111059,
+      "uncompressedSize": 3558496,
+      "fileCount": 11,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "phantom_assassin": {
+      "file": "phantom_assassin.zip",
+      "version": "1.0.0",
+      "sha256": "0226266c64a04f595824c8e3b8b1a0d7341ad53ccd0b0de7497ba13ec62329cd",
+      "size": 890638,
+      "uncompressedSize": 1453826,
+      "fileCount": 13,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "phantom_assassin_persona": {
+      "file": "phantom_assassin_persona.zip",
+      "version": "1.0.0",
+      "sha256": "aca08349b76fc9a90ad57000dbf66450b66f88bee33a6a2d7a30bd33c019d1a0",
+      "size": 3280171,
+      "uncompressedSize": 5355102,
+      "fileCount": 13,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "pudge": {
+      "file": "pudge.zip",
+      "version": "1.0.0",
+      "sha256": "28d465e23c21f5bf09f9efa2cb642f163ee1c419eff820e6889677eaabdf5fb0",
+      "size": 18600105,
+      "uncompressedSize": 19306770,
+      "fileCount": 46,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "pudge_persona": {
+      "file": "pudge_persona.zip",
+      "version": "1.0.0",
+      "sha256": "ef180d00664606ecdf161c64835e637a23787dd7180862aee579d5af2f5d06c7",
+      "size": 3566588,
+      "uncompressedSize": 5051776,
+      "fileCount": 22,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "queenofpain": {
+      "file": "queenofpain.zip",
+      "version": "1.0.0",
+      "sha256": "98d126c5b0e37d78058c06b618cea9656db0d5cde690b304386c86895046d046",
+      "size": 19142656,
+      "uncompressedSize": 22887525,
+      "fileCount": 67,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "razor": {
+      "file": "razor.zip",
+      "version": "1.0.0",
+      "sha256": "9eb0ab02af1527e776730f7554ae57d0e24a2a9b9c08a06f13d0328190a800d2",
+      "size": 3029422,
+      "uncompressedSize": 3690769,
+      "fileCount": 22,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "rubick": {
+      "file": "rubick.zip",
+      "version": "1.0.0",
+      "sha256": "5dec9d62ae859f46b7dd67bc201e213851c35853301340dec6d9acbc1838dede",
+      "size": 9338678,
+      "uncompressedSize": 11218084,
+      "fileCount": 1365,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "shadow_fiend": {
+      "file": "shadow_fiend.zip",
+      "version": "1.0.0",
+      "sha256": "f99f665a6cb1eaab54c173ffb3984ec371cc443b2b40119df6931fda263cd147",
+      "size": 1338091,
+      "uncompressedSize": 1548563,
+      "fileCount": 8,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "skywrath_mage": {
+      "file": "skywrath_mage.zip",
+      "version": "1.0.0",
+      "sha256": "7246726a98f40e24bb429328e24fe9dc2b3591361a6b6b9da31aed213cfd40ce",
+      "size": 13757788,
+      "uncompressedSize": 23816688,
+      "fileCount": 41,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "spectre": {
+      "file": "spectre.zip",
+      "version": "1.0.0",
+      "sha256": "9b727038fd9d1ab53856ab41121eca11a3d95e98f6ee7bd094cf932760f2663e",
+      "size": 7115103,
+      "uncompressedSize": 8793659,
+      "fileCount": 42,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "techies_arcana": {
+      "file": "techies_arcana.zip",
+      "version": "1.0.0",
+      "sha256": "51164dbb7c0fa7780147b0587da88158515771226d4de03433e2cd7956f1d6f5",
+      "size": 2804665,
+      "uncompressedSize": 11108350,
+      "fileCount": 98,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "terrorblade": {
+      "file": "terrorblade.zip",
+      "version": "1.0.0",
+      "sha256": "4f32b9c58b571ccfa611b33f46b11b7c8572d840f61090386a250ad265c40df1",
+      "size": 16659412,
+      "uncompressedSize": 30276358,
+      "fileCount": 359,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "tidehunter": {
+      "file": "tidehunter.zip",
+      "version": "1.0.0",
+      "sha256": "0b4dcec0e091db8296e7084b4a583b9780374c7596ec3144fcb5c41ae21a84f4",
+      "size": 21806031,
+      "uncompressedSize": 46016150,
+      "fileCount": 32,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "vengeful": {
+      "file": "vengeful.zip",
+      "version": "1.0.0",
+      "sha256": "8cf4c8c95dd922225d084d6600ccf07e645a6dcd38ed496c4460010ceced9ba3",
+      "size": 33149278,
+      "uncompressedSize": 51461603,
+      "fileCount": 98,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "windrunner": {
+      "file": "windrunner.zip",
+      "version": "1.0.0",
+      "sha256": "4b066c35fe7debb83b7ff6869ef3285330288337a0b8ef8d2ee2137a8eb1710d",
+      "size": 13816739,
+      "uncompressedSize": 18064741,
+      "fileCount": 90,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "wisp": {
+      "file": "wisp.zip",
+      "version": "1.0.0",
+      "sha256": "fe4dca07741ef38929c53f5ab457742abd54ed1ce53d0f20d3c7dd912fb7f6d0",
+      "size": 181736,
+      "uncompressedSize": 238849,
+      "fileCount": 10,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "wraith_king": {
+      "file": "wraith_king.zip",
+      "version": "1.0.0",
+      "sha256": "ff95176755c153e6b6effcb40717835ca026d17b55f8d33f8ff882779b31e300",
+      "size": 3813249,
+      "uncompressedSize": 10106074,
+      "fileCount": 35,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "zeus": {
+      "file": "zeus.zip",
+      "version": "1.0.0",
+      "sha256": "1d56c965f15dda2bf904fca9f42dc9b2145038248e041012b3193b5ffffe4867",
+      "size": 2110,
+      "uncompressedSize": 4709,
+      "fileCount": 2,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "_global": {
+      "file": "_global.zip",
+      "version": "1.0.0",
+      "sha256": "4de45382dd17abbdfe9a9690626785df09945f0d2e32a01862b73dba3ff1e2b7",
+      "size": 587711,
+      "uncompressedSize": 1385865,
+      "fileCount": 5
+    }
+  }
+}

@@ -30,6 +30,7 @@ const api = {
   selectBundleDirectory: () => ipcRenderer.invoke('select-bundle-directory'),
   installBundle: (customPath?: string, bundleDir?: string) => ipcRenderer.invoke('install-bundle', customPath, bundleDir),
   openExternal: (url: string) => ipcRenderer.invoke('open-external', url),
+  launchDota: (launchArgs?: string) => ipcRenderer.invoke('launch-dota', launchArgs),
   readSettings: () => ipcRenderer.invoke('read-settings'),
   writeSettings: (settings: Record<string, unknown>) => ipcRenderer.invoke('write-settings', settings),
   getCacheStats: () => ipcRenderer.invoke('get-cache-stats'),
@@ -37,8 +38,14 @@ const api = {
   onInstallProgress: (cb: (progress: ProgressPayload) => void) =>
     ipcRenderer.on('install-progress', (_e, data: ProgressPayload) => cb(data)),
   checkForUpdates: () => ipcRenderer.invoke('check-for-updates'),
-  downloadUpdate: (payload: { assetUrl: string; filename: string }) => ipcRenderer.invoke('download-update', payload),
-  installUpdate: (payload: { filePath: string }) => ipcRenderer.invoke('install-update', payload),
+  downloadUpdate: (payload: { assetUrl: string; filename: string; expectedSha256?: string }) =>
+    ipcRenderer.invoke('download-update', payload),
+  installUpdate: (payload: { filePath: string; expectedSha256?: string }) => ipcRenderer.invoke('install-update', payload),
+  getBugReportContext: (input?: { activeTab?: string; dotaFound?: boolean; modsInstalled?: boolean }) =>
+    ipcRenderer.invoke('bug-report:context', input),
+  captureBugScreenshot: () => ipcRenderer.invoke('bug-report:capture'),
+  pickBugScreenshot: () => ipcRenderer.invoke('bug-report:pick-image'),
+  submitBugReport: (input: unknown) => ipcRenderer.invoke('bug-report:submit', input),
   onUpdateProgress: (cb: (progress: UpdateProgressPayload) => void) => {
     const listener = (_e: Electron.IpcRendererEvent, data: UpdateProgressPayload) => cb(data)
     ipcRenderer.on('update-download-progress', listener)

@@ -1,8 +1,8 @@
 import { getCanonicalHero } from '../../shared/constants/heroAliases'
-import { Search, Sparkles } from 'lucide-react'
+import { Layers, Search } from 'lucide-react'
 import { useEffect } from 'react'
-import { getItemStyleOptions } from '../../shared/constants/itemStyles'
 import { useAppStore } from '../state/useAppStore'
+import { findSetForItem, getHeroSets, getSetEffectiveRarity, isSetEquipped } from '../utils/heroSets'
 import { generateItemSvg, getCategorySvg, getItemImage, getItemRarityKey, getRarityConfig } from '../utils/itemImages'
 import { formatHeroName } from './slotGenerator'
 
@@ -13,14 +13,15 @@ export const ItemSelectModal = () => {
   const modalRarityFilter = useAppStore((s) => s.modalRarityFilter)
   const modalSearchQuery = useAppStore((s) => s.modalSearchQuery)
   const heroSlots = useAppStore((s) => s.heroSlots)
-  const heroCustomizations = useAppStore((s) => s.heroCustomizations)
+  const heroActiveStance = useAppStore((s) => s.heroActiveStance)
 
   const closeSlotModal = useAppStore((s) => s.closeSlotModal)
   const setModalRarityFilter = useAppStore((s) => s.setModalRarityFilter)
   const setModalSearchQuery = useAppStore((s) => s.setModalSearchQuery)
   const setHeroSlot = useAppStore((s) => s.setHeroSlot)
-  const setSlotCustomization = useAppStore((s) => s.setSlotCustomization)
+  const equipSet = useAppStore((s) => s.equipSet)
   const resetHeroSlot = useAppStore((s) => s.resetHeroSlot)
+  const resetAllHeroSlots = useAppStore((s) => s.resetAllHeroSlots)
   const addLog = useAppStore((s) => s.addLog)
 
   useEffect(() => {
@@ -37,10 +38,23 @@ export const ItemSelectModal = () => {
     return <div id="slotModal" className="hidden" />
   }
 
+  const isCompleteSetSlot = activeModalSlot.slot === 'complete_set'
   const query = modalSearchQuery.toLowerCase().trim()
   const currentSlots = heroSlots[selectedHero.tag] || {}
-  const currentEquippedName = currentSlots[activeModalSlot.slot]
-  const currentSlotCustomization = heroCustomizations[selectedHero.tag]?.[activeModalSlot.slot]
+
+  // Handle stance-specific sets for heroes with personas
+  const currentStance = heroActiveStance[selectedHero.tag] || 'default'
+  const isPersonaSlotId = (id: string): boolean =>
+    id === 'persona' || id === 'persona_selector' || id.startsWith('persona_') || id.includes('_persona_')
+  const catalogSlots = activeCatalog.slots ?? []
+  const hasPersona = catalogSlots.some((s) => isPersonaSlotId(s.slot) && s.mods.length > 0)
+  const showPersona = hasPersona && currentStance === 'persona'
+
+  const heroSets = isCompleteSetSlot ? getHeroSets(selectedHero.tag) : []
+  const visibleSets = heroSets.filter((s) => (hasPersona && showPersona ? s.isPersona : !s.isPersona))
+  const equippedSet = isCompleteSetSlot ? visibleSets.find((s) => isSetEquipped(s, currentSlots)) : null
+
+  const currentEquippedName = isCompleteSetSlot ? equippedSet?.name : currentSlots[activeModalSlot.slot]
   const items = activeModalSlot.mods || []
 
   // Check default item visibility
@@ -51,32 +65,66 @@ export const ItemSelectModal = () => {
 
   const baseThumbSrc = selectedHero.img || getCategorySvg(selectedHero.tag) || `../assets/heroes/${getCanonicalHero(selectedHero.tag)}.png`
 
-  // Filter items
-  const filteredItems = items.filter((it) => {
-    const conf = getRarityConfig(it)
-    const rarityKey = getItemRarityKey(it)
+  // Filter items (regular slots)
+  const filteredItems = isCompleteSetSlot
+    ? []
+    : items.filter((it) => {
+        const conf = getRarityConfig(it)
+        const rarityKey = getItemRarityKey(it)
 
-    if (modalRarityFilter !== 'all') {
-      if (modalRarityFilter === 'immortal') {
-        if (rarityKey !== 'immortal') return false
-      } else if (modalRarityFilter === 'common') {
-        if (rarityKey !== 'common' && rarityKey !== 'uncommon') return false
-      } else {
-        if (rarityKey !== modalRarityFilter) return false
-      }
-    }
+        if (modalRarityFilter !== 'all') {
+          if (modalRarityFilter === 'immortal') {
+            if (rarityKey !== 'immortal') return false
+          } else if (modalRarityFilter === 'common') {
+            if (rarityKey !== 'common' && rarityKey !== 'uncommon') return false
+          } else {
+            if (rarityKey !== modalRarityFilter) return false
+          }
+        }
 
-    if (
-      query &&
-      !it.name.toLowerCase().includes(query) &&
-      !(it.rarity && it.rarity.toLowerCase().includes(query)) &&
-      !conf.name.toLowerCase().includes(query)
-    ) {
-      return false
-    }
+        if (
+          query &&
+          !it.name.toLowerCase().includes(query) &&
+          !(it.rarity && it.rarity.toLowerCase().includes(query)) &&
+          !conf.name.toLowerCase().includes(query)
+        ) {
+          return false
+        }
 
-    return true
-  })
+        return true
+      })
+
+  // Filter sets (complete_set slot)
+  const filteredSets = isCompleteSetSlot
+    ? visibleSets.filter((s) => {
+        const effectiveRarity = getSetEffectiveRarity(s)
+        const conf = getRarityConfig({ rarity: effectiveRarity })
+        const rarityKey = getItemRarityKey({ rarity: effectiveRarity })
+
+        if (modalRarityFilter !== 'all') {
+          if (modalRarityFilter === 'immortal') {
+            if (rarityKey !== 'immortal') return false
+          } else if (modalRarityFilter === 'common') {
+            if (rarityKey !== 'common' && rarityKey !== 'uncommon') return false
+          } else {
+            if (rarityKey !== modalRarityFilter) return false
+          }
+        }
+
+        if (
+          query &&
+          !s.name.toLowerCase().includes(query) &&
+          !(s.rarity && s.rarity.toLowerCase().includes(query)) &&
+          !effectiveRarity.toLowerCase().includes(query) &&
+          !conf.name.toLowerCase().includes(query) &&
+          !s.items.some((it) => it.name.toLowerCase().includes(query))
+        ) {
+          return false
+        }
+
+        return true
+      })
+    : []
 
   const rarities = ['all', 'arcana', 'persona', 'immortal', 'mythical', 'legendary', 'rare', 'common']
 
@@ -115,7 +163,7 @@ export const ItemSelectModal = () => {
             type="text"
             id="slotModalSearch"
             className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 outline-none focus:border-purple-500/50 transition-colors"
-            placeholder="Filter cosmetics by name or rarity..."
+            placeholder={isCompleteSetSlot ? 'Filter sets by name, rarity, or item...' : 'Filter cosmetics by name or rarity...'}
             autoComplete="off"
             value={modalSearchQuery}
             onChange={(e) => setModalSearchQuery(e.target.value)}
@@ -148,9 +196,15 @@ export const ItemSelectModal = () => {
                 isDefaultSelected ? 'border-purple-500/50 bg-purple-500/10' : 'border-white/5'
               }`}
               onClick={() => {
-                resetHeroSlot(selectedHero.tag, activeModalSlot.slot)
-                closeSlotModal()
-                addLog(`Reset ${formatHeroName(selectedHero.tag)} [${activeModalSlot.title}] to Official Base.`, 'info')
+                if (isCompleteSetSlot) {
+                  resetAllHeroSlots(selectedHero.tag)
+                  closeSlotModal()
+                  addLog(`Reset ${formatHeroName(selectedHero.tag)} loadout to Official Base.`, 'info')
+                } else {
+                  resetHeroSlot(selectedHero.tag, activeModalSlot.slot)
+                  closeSlotModal()
+                  addLog(`Reset ${formatHeroName(selectedHero.tag)} [${activeModalSlot.title}] to Official Base.`, 'info')
+                }
               }}
             >
               <div className="w-full h-44 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center shrink-0 overflow-hidden">
@@ -178,140 +232,157 @@ export const ItemSelectModal = () => {
             </div>
           )}
 
-          {filteredItems.map((it) => {
-            const conf = getRarityConfig(it)
-            const isSelected = currentEquippedName === it.name
-            const itemImg = getItemImage(it, activeModalSlot.slot, selectedHero.tag, selectedHero)
-            const customInfo = getItemStyleOptions(selectedHero.tag, activeModalSlot.slot, it.name)
+          {/* Complete Sets List */}
+          {isCompleteSetSlot &&
+            filteredSets.map((s) => {
+              const effectiveRarity = getSetEffectiveRarity(s)
+              const conf = getRarityConfig({ rarity: effectiveRarity })
+              const isSelected = equippedSet?.id === s.id || isSetEquipped(s, currentSlots)
+              const itemImg = getItemImage({ name: s.name, img: s.img, rarity: effectiveRarity }, 'set', selectedHero.tag, selectedHero)
 
-            const activeStyle = currentSlotCustomization?.style ?? 0
-            const hasCustomOptions = !!(customInfo && customInfo.hasStyles)
-
-            return (
-              <div
-                key={it.name}
-                className={`slot-item-option flex flex-col items-center gap-3 p-2.5 rounded-xl border transition-all cursor-pointer bg-white/5 hover:bg-white/10 ${
-                  isSelected ? 'border-purple-500/50 bg-purple-500/10' : 'border-white/5'
-                } ${isSelected && hasCustomOptions ? 'col-span-2' : ''}`}
-                onClick={() => {
-                  setHeroSlot(selectedHero.tag, activeModalSlot.slot, it.name)
-                  if (hasCustomOptions) {
-                    if (!currentSlotCustomization) {
-                      setSlotCustomization(selectedHero.tag, activeModalSlot.slot, {
-                        style: 0
-                      })
-                    }
-                    addLog(
-                      `Equipped ${it.name} on ${formatHeroName(selectedHero.tag)} [${activeModalSlot.title}]. Customize styles below.`,
-                      'success'
-                    )
-                  } else {
-                    closeSlotModal()
-                    addLog(`Equipped ${it.name} on ${formatHeroName(selectedHero.tag)} [${activeModalSlot.title}].`, 'success')
-                  }
-                }}
-              >
+              return (
                 <div
-                  className={`w-full rounded-lg border flex items-center justify-center shrink-0 overflow-hidden ${
-                    isSelected && hasCustomOptions ? 'h-48' : 'h-44'
+                  key={s.id}
+                  className={`slot-item-option flex flex-col items-center gap-3 p-2.5 rounded-xl border transition-all cursor-pointer bg-white/5 hover:bg-white/10 ${
+                    isSelected ? 'border-purple-500/50 bg-purple-500/10' : 'border-white/5'
                   }`}
-                  style={{
-                    borderColor: conf.color,
-                    boxShadow: `0 0 10px ${conf.glow}`
+                  onClick={() => {
+                    equipSet(selectedHero.tag, s)
+                    closeSlotModal()
+                    addLog(`Equipped entire set "${s.name}" on ${formatHeroName(selectedHero.tag)} (${s.items.length} pieces).`, 'success')
                   }}
                 >
-                  <img
-                    src={itemImg}
-                    alt={it.name}
-                    className="size-full object-contain"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null
-                      e.currentTarget.src = generateItemSvg(it, activeModalSlot.slot, selectedHero.tag)
-                    }}
-                  />
-                </div>
-
-                <div className="flex-1 min-w-0 flex flex-col gap-1 items-center text-center">
-                  <span className="text-sm font-semibold" style={{ color: isSelected ? conf.color : 'var(--text-main)' }} title={it.name}>
-                    {it.name}
-                  </span>
-                  <div className="flex items-center gap-1.5 flex-wrap justify-center">
-                    <span className="text-[11px]" style={{ color: conf.color }}>
-                      {conf.name}
-                    </span>
-                    {customInfo?.hasStyles && !isSelected && (
-                      <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                        <Sparkles className="size-2.5" />
-                        {customInfo.styles.length} Styles
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {isSelected && !hasCustomOptions && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 shrink-0">
-                    Active
-                  </span>
-                )}
-
-                {/* Styles Customization Box */}
-                {isSelected && customInfo?.hasStyles && (
                   <div
-                    className="w-full mt-2 p-3 bg-purple-950/30 border border-purple-500/30 rounded-xl flex flex-col gap-2 text-left"
-                    onClick={(e) => e.stopPropagation()}
+                    className="w-full rounded-lg border flex items-center justify-center shrink-0 overflow-hidden h-44"
+                    style={{
+                      borderColor: conf.color,
+                      boxShadow: `0 0 10px ${conf.glow}`
+                    }}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-1.5 text-xs font-bold text-purple-300 uppercase tracking-wider">
-                        <Sparkles className="size-3.5 text-purple-400" />
-                        Unlocked Styles
+                    <img
+                      src={itemImg}
+                      alt={s.name}
+                      className="size-full object-contain"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null
+                        e.currentTarget.src = generateItemSvg({ name: s.name, rarity: effectiveRarity }, 'set', selectedHero.tag)
+                      }}
+                    />
+                  </div>
+
+                  <div className="flex-1 min-w-0 flex flex-col gap-1 items-center text-center w-full">
+                    <span
+                      className="text-sm font-semibold truncate max-w-full"
+                      style={{ color: isSelected ? conf.color : 'var(--text-main)' }}
+                      title={s.name}
+                    >
+                      {s.name}
+                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap justify-center">
+                      <span className="text-[11px]" style={{ color: conf.color }}>
+                        {conf.name}
                       </span>
-                      <span className="text-[11px] text-purple-200/90 font-medium">
-                        {customInfo.styles.find((s) => s.index === activeStyle)?.name || `Style ${activeStyle + 1}`}
-                      </span>
+                      <span className="text-[11px] text-slate-400">• {s.items.length} pieces</span>
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      {customInfo.styles.map((s) => {
-                        const isStyleActive = activeStyle === s.index
-                        return (
-                          <button
-                            key={s.index}
-                            type="button"
-                            onClick={() => {
-                              setSlotCustomization(selectedHero.tag, activeModalSlot.slot, { style: s.index })
-                              addLog(`Selected style "${s.name}" for ${it.name}.`, 'info')
-                            }}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                              isStyleActive
-                                ? 'bg-linear-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)] border border-purple-400/50 scale-[1.02]'
-                                : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white border border-white/10'
-                            }`}
-                          >
-                            {s.name}
-                          </button>
-                        )
-                      })}
+                    <div className="flex flex-wrap gap-1 mt-1 justify-center max-w-full">
+                      {s.items.map((it) => (
+                        <span
+                          key={it.slot + it.name}
+                          className="text-[9px] px-1.5 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5 truncate max-w-28"
+                          title={`${it.slot}: ${it.name}`}
+                        >
+                          <span className="text-slate-400 capitalize">{it.slot}:</span> {it.name}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                )}
 
-                {/* Done Button for Active Customized Items */}
-                {isSelected && hasCustomOptions && (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      closeSlotModal()
+                  {isSelected && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 shrink-0">
+                      Active
+                    </span>
+                  )}
+                </div>
+              )
+            })}
+
+          {/* Regular Slot Items List */}
+          {!isCompleteSetSlot &&
+            filteredItems.map((it) => {
+              const conf = getRarityConfig(it)
+              const isSelected = currentEquippedName === it.name
+              const itemImg = getItemImage(it, activeModalSlot.slot, selectedHero.tag, selectedHero)
+
+              return (
+                <div
+                  key={it.name}
+                  className={`slot-item-option flex flex-col items-center gap-3 p-2.5 rounded-xl border transition-all cursor-pointer bg-white/5 hover:bg-white/10 ${
+                    isSelected ? 'border-purple-500/50 bg-purple-500/10' : 'border-white/5'
+                  }`}
+                  onClick={() => {
+                    setHeroSlot(selectedHero.tag, activeModalSlot.slot, it.name)
+                    closeSlotModal()
+                    addLog(`Equipped ${it.name} on ${formatHeroName(selectedHero.tag)} [${activeModalSlot.title}].`, 'success')
+                  }}
+                >
+                  <div
+                    className="w-full rounded-lg border flex items-center justify-center shrink-0 overflow-hidden h-44"
+                    style={{
+                      borderColor: conf.color,
+                      boxShadow: `0 0 10px ${conf.glow}`
                     }}
-                    className="w-full py-1.5 rounded-lg text-xs font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-colors text-center cursor-pointer"
                   >
-                    Done
-                  </button>
-                )}
-              </div>
-            )
-          })}
+                    <img
+                      src={itemImg}
+                      alt={it.name}
+                      className="size-full object-contain"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null
+                        e.currentTarget.src = generateItemSvg(it, activeModalSlot.slot, selectedHero.tag)
+                      }}
+                    />
+                  </div>
 
-          {!showDefaultItem && filteredItems.length === 0 && (
+                  <div className="flex-1 min-w-0 flex flex-col gap-1 items-center text-center">
+                    <span className="text-sm font-semibold" style={{ color: isSelected ? conf.color : 'var(--text-main)' }} title={it.name}>
+                      {it.name}
+                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap justify-center">
+                      <span className="text-[11px]" style={{ color: conf.color }}>
+                        {conf.name}
+                      </span>
+                    </div>
+                    {(() => {
+                      const itemSet = findSetForItem(selectedHero.tag, it.name)
+                      if (!itemSet) return null
+                      return (
+                        <button
+                          type="button"
+                          className="mt-1 flex items-center gap-1 text-[10px] font-semibold text-purple-300 hover:text-white bg-purple-500/15 hover:bg-purple-500/30 border border-purple-500/30 rounded px-2 py-0.5 transition-colors cursor-pointer"
+                          title={`Equip all ${itemSet.items.length} pieces of "${itemSet.name}"`}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            equipSet(selectedHero.tag, itemSet)
+                            closeSlotModal()
+                          }}
+                        >
+                          <Layers size={11} />
+                          <span>Equip Entire Set</span>
+                        </button>
+                      )
+                    })()}
+                  </div>
+
+                  {isSelected && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 shrink-0">
+                      Active
+                    </span>
+                  )}
+                </div>
+              )
+            })}
+
+          {!showDefaultItem && (isCompleteSetSlot ? filteredSets.length === 0 : filteredItems.length === 0) && (
             <div className="col-span-2 text-center py-8 text-xs text-slate-400">No cosmetics found matching your filter.</div>
           )}
         </div>

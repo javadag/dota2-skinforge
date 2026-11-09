@@ -160,6 +160,43 @@ export function mergeItemsGame(baseText: string, patches: string[], options: Mer
   return applyItemBlocks(baseText, blocks, options)
 }
 
+export interface PatchSpec {
+  text: string
+  onlyIds?: Set<string>
+}
+
+/**
+ * Batch-merge multiple overlay patches into baseText in a SINGLE parse-and-splice pass.
+ */
+export function mergePatchList(
+  baseText: string,
+  patches: PatchSpec[],
+  options: { sanitize?: boolean; skipIds?: Iterable<string> } = {}
+): { text: string; stats: MergeStats } {
+  if (!patches.length) {
+    return {
+      text: baseText,
+      stats: { applied: [], added: [], removedWatermark: 0, removedAdvert: 0 }
+    }
+  }
+
+  const skip = new Set([...(options.skipIds ?? [])].map(String))
+  const blocksById = new Map<string, string>()
+
+  for (const patch of patches) {
+    for (const [id, span] of readPatchBlocks(patch.text)) {
+      if (skip.has(id)) continue
+      if (patch.onlyIds && !patch.onlyIds.has(id)) continue
+      blocksById.set(id, patch.text.slice(span.start, span.end))
+    }
+  }
+
+  return applyItemBlocks(baseText, blocksById.entries(), {
+    sanitize: options.sanitize,
+    skipIds: skip
+  })
+}
+
 // ---------------------------------------------------------------------------
 // Bundles
 // ---------------------------------------------------------------------------

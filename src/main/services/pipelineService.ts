@@ -11,9 +11,11 @@ import fs from 'fs'
 import path from 'path'
 
 import { APP_CONFIG } from '../../shared/constants/appConfig'
+import { getStyleOptionsByName } from '../../shared/constants/itemStyles'
 import { getStagingPackPath } from './appPathService'
 import * as catalogService from './catalogService'
 import * as cosmeticAssets from './cosmeticAssets'
+import { ensurePackagesForItems } from './assetDeliveryService'
 import { receiptFor } from './assetReceipt'
 import { checkDrift, writeBaseline } from './itemsGameBaseline'
 import * as gameinfo from './gameinfoService'
@@ -21,7 +23,8 @@ import * as modifier from './modifier'
 import * as packService from './packService'
 import * as signatures from './signatureService'
 import * as vpk from './vpkService'
-import { loadIndex } from './vpkIndex'
+import type { VpkPackEntry } from './vpkService'
+import { readEntry } from './vpkIndex'
 
 export const MOD_FOLDER_NAME = APP_CONFIG.modFolder || 'skinforge'
 
@@ -248,22 +251,18 @@ export async function buildSelectionPack(
   const { dotaGameDir, picks } = options
   if (!picks.length) throw new Error('No cosmetics selected.')
 
-  const stagingDir = getStagingPackPath()
-  fs.rmSync(stagingDir, { recursive: true, force: true })
-  const schemaPath = path.join(stagingDir, 'scripts', 'items', 'items_game.txt')
-  fs.mkdirSync(path.dirname(schemaPath), { recursive: true })
-
   const dotaVpk = path.join(dotaGameDir, 'dota', 'pak01_dir.vpk')
   if (!fs.existsSync(dotaVpk)) throw new Error(`Valve schema not found at ${dotaVpk}`)
 
   onProgress({ step: 1, total: 5, message: 'Extracting fresh items schema from Dota 2...' })
-  const extracted = await vpk.extract(dotaVpk, 'scripts/items/items_game.txt', schemaPath)
-  if (typeof extracted === 'object' && 'ok' in extracted && !extracted.ok) {
-    throw new Error(`Failed to extract items_game.txt: ${JSON.stringify(extracted)}`)
+  const dotaVpkIndex = vpk.getOrLoadVpkIndex(dotaVpk)
+  const schemaBytes = readEntry(dotaVpkIndex, 'scripts/items/items_game.txt')
+  if (!schemaBytes) {
+    throw new Error(`Failed to extract items_game.txt from ${dotaVpk}`)
   }
 
   onProgress({ step: 2, total: 5, message: 'Resolving selections against the schema...' })
-  const baseText = fs.readFileSync(schemaPath, 'utf-8')
+  const baseText = schemaBytes.toString('utf-8')
   const schema = modifier.buildSchema(baseText)
   // Compare against the copy we kept last time, so a Dota patch that added or rewrote items
   // is reported instead of discovered later through a broken pack.
@@ -290,8 +289,24 @@ export async function buildSelectionPack(
     }
     resolvedIds.add(id)
     ;(equipped[pick.hero] ??= {})[pick.slot] = item.name
-    if (typeof pick.style === 'number') {
-      ;(customizations[pick.hero] ??= {})[pick.slot] = { style: pick.style }
+
+    let styleIndex: number | undefined = typeof pick.style === 'number' ? pick.style : undefined
+    if (styleIndex === undefined) {
+      const match = pick.item.match(/style\s*(\d+)/i)
+      if (match) {
+        styleIndex = Math.max(0, parseInt(match[1], 10) - 1)
+      } else {
+        const options = getStyleOptionsByName(pick.item)
+        for (const opt of options) {
+          if (opt.index > 0 && pick.item.toLowerCase().endsWith(opt.name.toLowerCase())) {
+            styleIndex = opt.index
+            break
+          }
+        }
+      }
+    }
+    if (typeof styleIndex === 'number') {
+      ;(customizations[pick.hero] ??= {})[pick.slot] = { style: styleIndex }
     }
     if (cosmeticAssets.entryFor(id)) {
       overlayPicks.push({ hero: modifier.ownerFor(schema, pick.hero) ?? pick.hero, slot: pick.slot, id })
@@ -318,18 +333,31 @@ export async function buildSelectionPack(
   // Arcanas/personas swap the root entity model; the client needs that model at the
   // vanilla hero path as well or it renders the old body and clips on reconnect.
   onProgress({ step: 4, total: 5, message: 'Packaging arcana/persona assets...' })
+
+  // Ensure any necessary cosmetic asset packages are present locally or downloaded from Cloudflare R2
+  const manifest = cosmeticAssets.loadManifest()
+  await ensurePackagesForItems(resolvedIds, manifest.items, (msg) => {
+    onProgress({ step: 4, total: 5, message: msg })
+  })
+
+  const stagedEntries = new Map<string, VpkPackEntry>()
+  const stageEntry = (rel: string, source: string | Buffer, force = false): boolean => {
+    const key = rel.replace(/\\/g, '/').toLowerCase()
+    if (!force && stagedEntries.has(key)) return false
+    stagedEntries.set(key, { vpkPath: rel.replace(/\\/g, '/'), source })
+    return true
+  }
+
   let modelOverrides = 0
   if (compiled.report.entityModelOverrides.length) {
     for (const override of compiled.report.entityModelOverrides) {
       const src = override.overrideModel.replace(/\.vmdl$/i, '') + '.vmdl_c'
       const rel = override.baseModel.replace(/\.vmdl$/i, '') + '.vmdl_c'
-      const dst = path.join(stagingDir, rel.replace(/\//g, path.sep))
-      fs.mkdirSync(path.dirname(dst), { recursive: true })
-      try {
-        const ok = await vpk.extract(dotaVpk, src, dst)
-        if (typeof ok === 'object' && 'ok' in ok && ok.ok) modelOverrides++
-      } catch {
-        // Missing override models are non-fatal; the schema swap still applies.
+      const cleanSrc = src.replace(/\\/g, '/')
+      const bytes = readEntry(dotaVpkIndex, cleanSrc) ?? (cleanSrc.endsWith('_c') ? null : readEntry(dotaVpkIndex, `${cleanSrc}_c`))
+      if (bytes) {
+        stageEntry(rel, bytes, true)
+        modelOverrides++
       }
     }
   }
@@ -338,31 +366,65 @@ export async function buildSelectionPack(
   // hero's vanilla slot path, not by remapping `model_player` (see `ModelSwap` in the
   // compiler). Only the compiled `.vmdl_c` is needed: it references its materials by
   // absolute path, and Valve ships those.
-  const copyModelSwap = async (swap: (typeof compiled.report.modelSwaps)[number]): Promise<boolean> => {
+  const copyModelSwap = (swap: (typeof compiled.report.modelSwaps)[number], force = false): boolean => {
     const src = swap.sourceModel.replace(/\.vmdl$/i, '') + '.vmdl_c'
     const rel = swap.destModel.replace(/\.vmdl$/i, '') + '.vmdl_c'
-    const dst = path.join(stagingDir, rel.replace(/\//g, path.sep))
-    fs.mkdirSync(path.dirname(dst), { recursive: true })
-    try {
-      const ok = await vpk.extract(dotaVpk, src, dst)
-      return typeof ok === 'object' && 'ok' in ok && Boolean(ok.ok)
-    } catch {
-      return false
+    const key = rel.replace(/\\/g, '/').toLowerCase()
+    if (!force && stagedEntries.has(key)) {
+      // Custom compiled model or overlay asset already staged for this path.
+      // Do not overwrite it with the vanilla asset unless forced by explicit pick.
+      return true
     }
+    const cleanSrc = src.replace(/\\/g, '/')
+    const bytes = readEntry(dotaVpkIndex, cleanSrc) ?? (cleanSrc.endsWith('_c') ? null : readEntry(dotaVpkIndex, `${cleanSrc}_c`))
+    if (bytes) {
+      stageEntry(rel, bytes, force)
+      return true
+    }
+    return false
   }
 
   let modelSwaps = 0
   for (const swap of compiled.report.modelSwaps) {
-    if (await copyModelSwap(swap)) modelSwaps++
+    if (copyModelSwap(swap)) modelSwaps++
     else compiled.report.warnings.push(`${swap.hero}/${swap.slot}: "${swap.itemName}" model is not in Valve's VPK (${swap.sourceModel})`)
+  }
+
+  // Ensure all equipped cosmetic models (including additional_wearable / anchored models) exist in the pack VPK
+  for (const pick of picks) {
+    const id = catalogService.resolveModId(pick.hero, pick.slot, pick.item)
+    if (!id) continue
+    const item = schema.items.get(String(id))
+    if (!item?.model) continue
+    const modelRel = item.model.replace(/\.vmdl$/i, '') + '.vmdl_c'
+    const key = modelRel.replace(/\\/g, '/').toLowerCase()
+    if (!stagedEntries.has(key)) {
+      const cleanSrc = modelRel.replace(/\\/g, '/')
+      const bytes = readEntry(dotaVpkIndex, cleanSrc) ?? (cleanSrc.endsWith('_c') ? null : readEntry(dotaVpkIndex, `${cleanSrc}_c`))
+      if (bytes) stageEntry(modelRel, bytes)
+    }
   }
 
   // Cosmetics that items_game alone cannot produce carry a file overlay plus the pack's
   // own schema patch. The patch replaces our synthesized block so the result matches the
   // setup that is known to survive reconnects (e.g. Lina keeps the vanilla head path and
   // the file itself becomes the arcana hair).
-  const dotaVpkIndex = fs.existsSync(dotaVpk) ? loadIndex(dotaVpk) : undefined
-  const overlay = cosmeticAssets.applyOverlay(resolvedIds, stagingDir, { dotaVpk, vpkIndex: dotaVpkIndex })
+  const itemStylesMap = new Map<number, number>()
+  for (const pick of picks) {
+    const id = catalogService.resolveModId(pick.hero, pick.slot, pick.item)
+    if (!id) continue
+    const st = customizations[pick.hero]?.[pick.slot]?.style
+    if (typeof st === 'number') itemStylesMap.set(id, st)
+  }
+  const overlay = cosmeticAssets.applyOverlay(resolvedIds, '', {
+    dotaVpk,
+    vpkIndex: dotaVpkIndex,
+    styles: itemStylesMap,
+    virtual: true
+  })
+  for (const entry of overlay.entries) {
+    stageEntry(entry.vpkPath, entry.source, true)
+  }
   if (overlay.missing.length) {
     compiled.report.warnings.push(
       `Missing arcana/persona files for ${overlay.items.map((i) => i.name).join(', ')}: ` +
@@ -376,21 +438,30 @@ export async function buildSelectionPack(
   // bundle's. Slots the player left alone keep the bundle's file — for an arcana/persona
   // those are its own default set pieces, which the real item brings along too.
   const personaOverlay = overlayPicks.some((pick) => schema.items.get(String(pick.id))?.resolvedSlot === 'persona_selector')
-  const pickedSlots = new Set(overlayPicks.map((pick) => `${pick.hero}/${pick.slot}`))
+  const pickedSlots = new Set<string>()
+  for (const pick of overlayPicks) {
+    pickedSlots.add(`${pick.hero}/${pick.slot}`)
+    const item = schema.items.get(String(pick.id))
+    if (item?.resolvedSlot) pickedSlots.add(`${pick.hero}/${item.resolvedSlot}`)
+  }
   for (const swap of compiled.report.modelSwaps) {
     const slotKey = `${swap.hero}/${swap.slot}`
-    if (!pickedSlots.has(slotKey) && !overlay.refitSlots.has(slotKey)) await copyModelSwap(swap)
+    if (!pickedSlots.has(slotKey) && !overlay.refitSlots.has(slotKey)) copyModelSwap(swap, true)
   }
 
   // Guard rail: every file the picked items need has to exist in the game or in this pack.
   // Warnings only — a missing archive or unreadable index must never fail a build.
   try {
-    const index = dotaVpkIndex ?? loadIndex(dotaVpk)
+    const coreVpk = path.join(dotaGameDir, 'core', 'pak01_dir.vpk')
+    const coreIndex = fs.existsSync(coreVpk) ? vpk.getOrLoadVpkIndex(coreVpk) : undefined
+    const indexes = [dotaVpkIndex]
+    if (coreIndex) indexes.push(coreIndex)
+
     const cache = new Map<string, Buffer | null>()
     for (const id of resolvedIds) {
-      const receipt = receiptFor(baseText, String(id), { index, cache }, schema)
+      const receipt = receiptFor(baseText, String(id), { indexes, cache }, schema)
       if (!receipt) continue
-      const absent = receipt.missing.filter((rel) => !fs.existsSync(path.join(stagingDir, rel.replace(/\//g, path.sep))))
+      const absent = receipt.missing.filter((rel) => !stagedEntries.has(rel.replace(/\\/g, '/').toLowerCase()))
       if (absent.length) {
         compiled.report.warnings.push(
           `${receipt.item.name}: ${absent.length} file(s) it needs are in neither the game nor this pack (` +
@@ -407,10 +478,6 @@ export async function buildSelectionPack(
   let schemaContent = compiled.content
   const patchedTargetIds = new Set<string>(compiled.report.applied.map((a) => a.targetId))
   if (overlay.patches.length) {
-    // The overlay's schema snapshot was generated for the items its author had picked, not
-    // for the ones selected here. Only the overlay item's own slot block is authoritative
-    // (the arcana body block, every persona piece); the rest would paste a different item's
-    // effects over a slot the player may not even have picked.
     const fallbackOwn = new Set<string>()
     if (!personaOverlay) {
       for (const pick of overlayPicks) {
@@ -425,23 +492,26 @@ export async function buildSelectionPack(
           (a) =>
             (a.reason === 'requested' || a.reason === 'model-swap') &&
             !pickedSlots.has(`${a.hero}/${a.slot}`) &&
-            !overlay.refitSlots.has(`${a.hero}/${a.slot}`)
+            !overlay.refitSlots.has(`${a.hero}/${a.slot}`) &&
+            a.slot !== 'persona_selector'
         )
         .map((a) => a.targetId)
     )
-    for (const patch of overlay.patches) {
-      const onlyIds = patch.onlyIds ?? (personaOverlay ? undefined : fallbackOwn)
-      const merged = packService.mergeItemsGame(schemaContent, [patch.text], {
-        sanitize: true,
-        onlyIds,
-        skipIds: userPickedTargetIds
-      })
-      schemaContent = merged.text
-      for (const id of merged.stats.applied) patchedTargetIds.add(id)
-    }
+    const patchSpecs = overlay.patches.map((p) => ({
+      text: p.text,
+      onlyIds: p.onlyIds ?? (personaOverlay ? undefined : fallbackOwn)
+    }))
+    const merged = packService.mergePatchList(schemaContent, patchSpecs, {
+      sanitize: true,
+      skipIds: userPickedTargetIds
+    })
+    schemaContent = merged.text
+    for (const id of merged.stats.applied) patchedTargetIds.add(id)
   }
   const totalPatchedCount = Math.max(compiled.report.patchedCount, patchedTargetIds.size)
-  fs.writeFileSync(schemaPath, schemaContent, 'utf-8')
+
+  // Stage compiled schema text buffer
+  stageEntry('scripts/items/items_game.txt', Buffer.from(schemaContent, 'utf-8'), true)
 
   const outDir = options.outDir ?? path.join(getStagingPackPath() + '_out')
   fs.mkdirSync(outDir, { recursive: true })
@@ -451,15 +521,9 @@ export async function buildSelectionPack(
 
   onProgress({ step: 5, total: 5, message: 'Packing assets into multi-chunk VPK...' })
   const dirVpk = path.join(outDir, 'pak01_dir.vpk')
-  const packed = await vpk.pack(stagingDir, dirVpk)
+  const packed = await vpk.pack(Array.from(stagedEntries.values()), dirVpk)
   if (typeof packed !== 'object' || !('ok' in packed) || !packed.ok) {
     throw new Error(`VPK packing failed: ${JSON.stringify(packed)}`)
-  }
-
-  try {
-    fs.rmSync(stagingDir, { recursive: true, force: true })
-  } catch {
-    // best effort
   }
 
   // Only remember the item file after the pack built cleanly, so a failed build does not

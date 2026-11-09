@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useAppStore } from '../state/useAppStore'
 import { Button } from './ui/Button'
-import { ArrowDownToLine, CheckCircle2, ExternalLink, RefreshCw, Sparkles, X } from 'lucide-react'
+import { ArrowDownToLine, CheckCircle2, ExternalLink, RefreshCw, ShieldCheck, Sparkles, X } from 'lucide-react'
 
 export const UpdateModal: React.FC = () => {
   const isUpdateModalOpen = useAppStore((s) => s.isUpdateModalOpen)
@@ -9,6 +9,7 @@ export const UpdateModal: React.FC = () => {
   const updateInfo = useAppStore((s) => s.updateInfo)
   const updateStatus = useAppStore((s) => s.updateStatus)
   const updateProgress = useAppStore((s) => s.updateProgress)
+  const downloadedUpdateSha256 = useAppStore((s) => s.downloadedUpdateSha256)
   const downloadUpdate = useAppStore((s) => s.downloadUpdate)
   const installUpdate = useAppStore((s) => s.installUpdate)
 
@@ -29,7 +30,7 @@ export const UpdateModal: React.FC = () => {
 
   const handleStartDownload = () => {
     if (!chosenAsset) return
-    downloadUpdate(chosenAsset.browser_download_url, chosenAsset.name)
+    downloadUpdate(chosenAsset.browser_download_url, chosenAsset.name, chosenAsset.sha256)
   }
 
   const handleOpenGitHub = () => {
@@ -168,13 +169,19 @@ export const UpdateModal: React.FC = () => {
 
         {/* Downloaded Ready to Install */}
         {updateStatus === 'downloaded' && (
-          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3">
-            <CheckCircle2 className="size-6 text-emerald-400 shrink-0" />
-            <div>
+          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-3">
+            <CheckCircle2 className="size-6 text-emerald-400 shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
               <div className="text-xs font-bold text-emerald-300">Update downloaded successfully!</div>
               <div className="text-[11px] text-emerald-200/70 mt-0.5">
                 Click below to launch the new version and close the current app.
               </div>
+              {downloadedUpdateSha256 && (
+                <div className="mt-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950/60 border border-emerald-500/20 text-[10px] text-emerald-300 font-mono">
+                  <ShieldCheck className="size-3.5 text-emerald-400 shrink-0" />
+                  <span className="truncate">Integrity verified (SHA-256: {downloadedUpdateSha256.slice(0, 16)}...)</span>
+                </div>
+              )}
             </div>
           </div>
         )}

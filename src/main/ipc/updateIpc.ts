@@ -16,17 +16,22 @@ export function registerUpdateIpc(getMainWindow: () => BrowserWindow | null) {
     }
   })
 
-  ipcMain.handle('download-update', async (_event, payload: { assetUrl: string; filename: string }) => {
+  ipcMain.handle('download-update', async (_event, payload: { assetUrl: string; filename: string; expectedSha256?: string }) => {
     const mainWindow = getMainWindow()
-    return await downloadUpdate(payload.assetUrl, payload.filename, (progress) => {
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        mainWindow.webContents.send('update-download-progress', progress)
-      }
-    })
+    return await downloadUpdate(
+      payload.assetUrl,
+      payload.filename,
+      (progress) => {
+        if (mainWindow && !mainWindow.isDestroyed()) {
+          mainWindow.webContents.send('update-download-progress', progress)
+        }
+      },
+      payload.expectedSha256
+    )
   })
 
-  ipcMain.handle('install-update', async (_event, payload: { filePath: string }) => {
-    return installUpdate(payload.filePath)
+  ipcMain.handle('install-update', async (_event, payload: { filePath: string; expectedSha256?: string }) => {
+    return await installUpdate(payload.filePath, payload.expectedSha256)
   })
 }
 

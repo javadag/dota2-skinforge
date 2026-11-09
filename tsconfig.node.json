@@ -19,6 +19,7 @@
     "src/data/**/*",
     "scripts/**/*",
     "test/**/*",
+    "workers/**/*",
     "electron.vite.config.*"
   ]
 }

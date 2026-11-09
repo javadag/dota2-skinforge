@@ -343,27 +343,7 @@ function cleanHero(
   delete hero.is_hero
   delete hero.base_rc
   delete hero.abilities
-
-  if (hero.taunt) {
-    const taunts = (hero.taunt.taunts || []).filter((taunt) => {
-      delete taunt.sec
-      if (typeof taunt.name === 'string' && taunt.name.includes('*')) {
-        taunt.name = fixApostrophes(taunt.name)
-        stats.tauntNamesFixed++
-      }
-      if (typeof taunt.name !== 'string') return false
-
-      const id = resolveItemId(taunt.name, index, tag, '', heroIndex, entries, true)
-      if (id === null) {
-        stats.tauntsDropped++
-        return false
-      }
-      taunt.id = id
-      stats.tauntsKept++
-      return true
-    })
-    hero.taunt = taunts.length > 0 ? { taunts } : undefined
-  }
+  delete hero.taunt
 
   for (const set of hero.gamesets || []) {
     if (typeof set.name === 'string' && set.name.includes('*')) {
@@ -373,6 +353,7 @@ function cleanHero(
   }
 
   const slots = (hero.slots || []).filter((slot) => {
+    if (slot.slot === 'taunt') return false
     const kept = (slot.mods || []).filter((mod) => {
       delete mod.iw
       delete mod.f
@@ -383,6 +364,7 @@ function cleanHero(
         stats.namesFixed++
       }
       if (typeof mod.name !== 'string') return false
+      if (/diretide shimmer costume/i.test(mod.name)) return false
 
       const direct = nameVariants(mod.name).some((variant) => findItemId(variant, index) !== null)
       const id = resolveItemId(mod.name, index, tag, slot.slot, heroIndex, entries)

@@ -8,6 +8,7 @@ import fs from 'fs'
 import path from 'path'
 import { crc32 } from '../../shared/utils/crc32'
 import { getToolsPath } from './appPathService'
+import { loadIndex, readEntry, type VpkIndex } from './vpkIndex'
 
 export const VPKTOOL_PATH = getToolsPath('vpktool.exe')
 
@@ -16,6 +17,33 @@ export interface VpkToolResult {
   error?: string
   files?: string[]
   [key: string]: unknown
+}
+
+export interface VpkPackEntry {
+  /** Relative path inside the VPK, e.g. 'scripts/items/items_game.txt' or 'models/heroes/axe/axe.vmdl_c' */
+  vpkPath: string
+  /** Source of data: absolute file path on disk, or Buffer in memory */
+  source: string | Buffer
+}
+
+const indexCache = new Map<string, { mtime: number; index: VpkIndex }>()
+
+/** Get or load a cached VpkIndex for in-process lookups. */
+export function getOrLoadVpkIndex(vpkPath: string): VpkIndex {
+  const resolved = path.resolve(vpkPath)
+  const stat = fs.statSync(resolved)
+  const cached = indexCache.get(resolved)
+  if (cached && cached.mtime === stat.mtimeMs) {
+    return cached.index
+  }
+  const index = loadIndex(resolved)
+  indexCache.set(resolved, { mtime: stat.mtimeMs, index })
+  return index
+}
+
+/** Clear cached VpkIndex instances if files change. */
+export function clearVpkIndexCache(): void {
+  indexCache.clear()
 }
 
 function runVpkTool(args: string[]): Promise<VpkToolResult | string> {
@@ -42,12 +70,29 @@ export async function list(vpkPath: string): Promise<VpkToolResult | string> {
   return await runVpkTool(['list', path.resolve(vpkPath)])
 }
 
+/**
+ * Extract a single file from a VPK. Uses the in-process pure TypeScript reader first
+ * for 0.5ms extraction, falling back to vpktool.exe if needed.
+ */
 export async function extract(vpkPath: string, internalPath: string, outFilePath: string): Promise<VpkToolResult | string> {
   const resolvedOut = path.resolve(outFilePath)
   const outDir = path.dirname(resolvedOut)
   if (!fs.existsSync(outDir)) {
     fs.mkdirSync(outDir, { recursive: true })
   }
+
+  try {
+    const index = getOrLoadVpkIndex(vpkPath)
+    const clean = internalPath.replace(/\\/g, '/').replace(/^\//, '')
+    const bytes = readEntry(index, clean) ?? (clean.endsWith('_c') ? null : readEntry(index, `${clean}_c`))
+    if (bytes) {
+      fs.writeFileSync(resolvedOut, bytes)
+      return { ok: true, files: [resolvedOut] }
+    }
+  } catch {
+    // Pure TypeScript reader fallback to vpktool.exe
+  }
+
   return await runVpkTool(['extract', path.resolve(vpkPath), internalPath, resolvedOut])
 }
 
@@ -60,11 +105,11 @@ export async function unpack(vpkPath: string, outDir: string): Promise<VpkToolRe
 }
 
 interface FileEntry {
-  full: string
   ext: string
   dir: string
   base: string
   size: number
+  source: string | Buffer
   crc?: number
   offset?: number
 }
@@ -76,8 +121,11 @@ export interface PackMultiChunkResult {
   chunkVpk: string
 }
 
-// Source 2 multi-chunk VPK packer (pak01_dir.vpk + pak01_000.vpk)
-export function packMultiChunk(srcDir: string, outDirVpkPath: string): PackMultiChunkResult {
+/**
+ * Source 2 multi-chunk VPK packer (pak01_dir.vpk + pak01_000.vpk).
+ * Supports both directory walking and direct in-memory Virtual VPK entry arrays.
+ */
+export function packMultiChunk(src: string | VpkPackEntry[], outDirVpkPath: string): PackMultiChunkResult {
   const resolvedDirVpk = path.resolve(outDirVpkPath)
   const vpkDir = path.dirname(resolvedDirVpk)
   if (!fs.existsSync(vpkDir)) {
@@ -89,29 +137,49 @@ export function packMultiChunk(srcDir: string, outDirVpkPath: string): PackMulti
 
   // 1. Gather all files
   const fileEntries: FileEntry[] = []
-  function walk(currentDir: string, relDir: string): void {
-    const listFiles = fs.readdirSync(currentDir)
-    for (const item of listFiles) {
-      const full = path.join(currentDir, item)
-      const rel = relDir ? `${relDir}/${item}` : item
-      const stat = fs.statSync(full)
-      if (stat.isDirectory()) {
-        walk(full, rel)
-      } else {
-        const ext = path.extname(item).replace(/^\./, '').toLowerCase()
-        const base = path.basename(item, path.extname(item))
-        const dir = relDir ? relDir.replace(/\\/g, '/').toLowerCase() : ' '
-        fileEntries.push({
-          full,
-          ext,
-          dir,
-          base,
-          size: stat.size
-        })
+
+  if (typeof src === 'string') {
+    function walk(currentDir: string, relDir: string): void {
+      const listFiles = fs.readdirSync(currentDir)
+      for (const item of listFiles) {
+        const full = path.join(currentDir, item)
+        const rel = relDir ? `${relDir}/${item}` : item
+        const stat = fs.statSync(full)
+        if (stat.isDirectory()) {
+          walk(full, rel)
+        } else {
+          const ext = path.extname(item).replace(/^\./, '').toLowerCase()
+          const base = path.basename(item, path.extname(item))
+          const dir = relDir ? relDir.replace(/\\/g, '/').toLowerCase() : ' '
+          fileEntries.push({
+            ext,
+            dir,
+            base,
+            size: stat.size,
+            source: full
+          })
+        }
       }
     }
+    walk(src, '')
+  } else {
+    for (const entry of src) {
+      const cleanPath = entry.vpkPath.replace(/\\/g, '/').replace(/^\//, '')
+      const ext = path.extname(cleanPath).replace(/^\./, '').toLowerCase()
+      const base = path.basename(cleanPath, path.extname(cleanPath))
+      const dirName = path.dirname(cleanPath).replace(/\\/g, '/').toLowerCase()
+      const dir = dirName === '.' ? ' ' : dirName
+      const size = Buffer.isBuffer(entry.source) ? entry.source.length : fs.statSync(entry.source).size
+
+      fileEntries.push({
+        ext,
+        dir,
+        base,
+        size,
+        source: entry.source
+      })
+    }
   }
-  walk(srcDir, '')
 
   // 2. Sort by ext -> dir -> base
   fileEntries.sort((a, b) => {
@@ -124,7 +192,7 @@ export function packMultiChunk(srcDir: string, outDirVpkPath: string): PackMulti
   const chunkFd = fs.openSync(outChunkVpkPath, 'w')
   let currentOffset = 0
   for (const entry of fileEntries) {
-    const buf = fs.readFileSync(entry.full)
+    const buf = Buffer.isBuffer(entry.source) ? entry.source : fs.readFileSync(entry.source)
     entry.crc = crc32(buf)
     entry.offset = currentOffset
     fs.writeSync(chunkFd, buf, 0, buf.length, currentOffset)
@@ -193,12 +261,12 @@ export function packMultiChunk(srcDir: string, outDirVpkPath: string): PackMulti
   }
 }
 
-export async function pack(srcDir: string, outVpkPath: string): Promise<PackMultiChunkResult | VpkToolResult | string> {
+export async function pack(src: string | VpkPackEntry[], outVpkPath: string): Promise<PackMultiChunkResult | VpkToolResult | string> {
   const resolvedOutVpk = path.resolve(outVpkPath)
-  if (resolvedOutVpk.toLowerCase().endsWith('_dir.vpk')) {
-    return packMultiChunk(srcDir, resolvedOutVpk)
+  if (Array.isArray(src) || resolvedOutVpk.toLowerCase().endsWith('_dir.vpk')) {
+    return packMultiChunk(src, resolvedOutVpk)
   }
-  return await runVpkTool(['pack', path.resolve(srcDir), resolvedOutVpk])
+  return await runVpkTool(['pack', path.resolve(src), resolvedOutVpk])
 }
 
 if (typeof module !== 'undefined' && module.exports) {
@@ -208,6 +276,8 @@ if (typeof module !== 'undefined' && module.exports) {
     unpack,
     pack,
     packMultiChunk,
+    getOrLoadVpkIndex,
+    clearVpkIndexCache,
     VPKTOOL_PATH
   }
 }

@@ -8,6 +8,8 @@
  * actually do. Only explicitly selected slots are touched; no set auto-fill.
  */
 
+import { getCanonicalHero } from '../../../shared/constants/heroAliases'
+import { getStyleOptionsByName } from '../../../shared/constants/itemStyles'
 import {
   baseSlotOfPersona,
   defaultFor,
@@ -18,7 +20,6 @@ import {
   type SchemaIndex,
   type SchemaItem
 } from './schema'
-import { getCanonicalHero } from '../../../shared/constants/heroAliases'
 
 export type PatchReason =
   /** The user picked this item for this slot. */
@@ -57,9 +58,24 @@ export type CustomizationsMap = Record<string, Record<string, { style?: number }
 
 const DEFAULT_STYLE = 0
 
-function styleOf(customizations: CustomizationsMap, hero: string, slot: string): number {
-  const style = customizations?.[hero]?.[slot]?.style
-  return typeof style === 'number' && Number.isFinite(style) && style >= 0 ? style : DEFAULT_STYLE
+function styleOf(customizations: CustomizationsMap, hero: string, slot: string, rawName?: string): number {
+  const style = customizations?.[hero]?.[slot]?.style ?? customizations?.[hero.toLowerCase()]?.[slot]?.style
+  if (typeof style === 'number' && Number.isFinite(style) && style >= 0) {
+    return style
+  }
+  if (rawName) {
+    const match = rawName.match(/style\s*(\d+)/i)
+    if (match) {
+      return Math.max(0, parseInt(match[1], 10) - 1)
+    }
+    const options = getStyleOptionsByName(rawName)
+    for (const opt of options) {
+      if (opt.index > 0 && rawName.toLowerCase().endsWith(opt.name.toLowerCase())) {
+        return opt.index
+      }
+    }
+  }
+  return DEFAULT_STYLE
 }
 
 /** The persona a hero's `persona_selector` slot can activate, if the hero has one. */
@@ -94,6 +110,26 @@ interface Claim {
   reason: PatchReason
 }
 
+function isExpectedSlotAlias(selectedSlot: string, declaredSlot: string): boolean {
+  if (selectedSlot === declaredSlot) return true
+  if (selectedSlot === 'persona' && declaredSlot === 'persona_selector') return true
+  if (selectedSlot === 'persona_selector' && declaredSlot === 'persona') return true
+  const personaSelectedMatch = /^persona_(.+)$/.exec(selectedSlot)
+  if (personaSelectedMatch && declaredSlot === `${personaSelectedMatch[1]}_persona_1`) return true
+  const personaDeclaredMatch = /^(.+)_persona_\d+$/.exec(declaredSlot)
+  if (personaDeclaredMatch && selectedSlot === `persona_${personaDeclaredMatch[1]}`) return true
+  return false
+}
+
+export interface PlanOptions {
+  /**
+   * Item ids whose model files or schema definitions are supplied by an asset overlay.
+   * Overlay personas replace models on disk or in their own patch, so base slots must not
+   * be nulled out with prop_null.
+   */
+  overlayIds?: Iterable<number | string>
+}
+
 /**
  * Build the edits for every hero the user has customised.
  *
@@ -105,11 +141,13 @@ interface Claim {
 export function buildPlan(
   schema: SchemaIndex,
   equipped: Record<string, Record<string, string>> = {},
-  customizations: CustomizationsMap = {}
+  customizations: CustomizationsMap = {},
+  options: PlanOptions = {}
 ): ModificationPlan {
   const patches: PlannedPatch[] = []
   const skipped: SkippedSelection[] = []
   const warnings: string[] = []
+  const overlayIds = new Set([...(options.overlayIds ?? [])].map(String))
 
   for (const heroTag of Object.keys(equipped)) {
     const selections = equipped[heroTag]
@@ -128,7 +166,23 @@ export function buildPlan(
       const name = rawName.trim()
       if (!name || /official base/i.test(name) || name.toLowerCase() === 'default') continue
 
-      const item = itemByName(schema, name)
+      let item = itemByName(schema, name)
+      if (!item) {
+        const cleanName = name
+          .replace(/\s*-\s*Style\s*\d+/i, '')
+          .replace(/\s+Style\s*\d+/i, '')
+          .trim()
+        if (cleanName !== name) {
+          item = itemByName(schema, cleanName)
+        }
+        if (!item) {
+          const dashIndex = name.lastIndexOf(' - ')
+          if (dashIndex > 0) {
+            const baseName = name.slice(0, dashIndex).trim()
+            item = itemByName(schema, baseName)
+          }
+        }
+      }
       if (!item) {
         skipped.push({ hero, slot, itemName: name, reason: 'not found in items_game.txt' })
         continue
@@ -152,9 +206,11 @@ export function buildPlan(
         continue
       }
       if (declaredSlot && declaredSlot !== slot) {
-        warnings.push(`${name}: declared as slot "${declaredSlot}" but selected under "${slot}"; applied to "${declaredSlot}".`)
+        if (!isExpectedSlotAlias(slot, declaredSlot)) {
+          warnings.push(`${name}: declared as slot "${declaredSlot}" but selected under "${slot}"; applied to "${declaredSlot}".`)
+        }
       }
-      claims.set(targetSlot, { item, style: styleOf(customizations, heroTag, slot), reason: 'requested' })
+      claims.set(targetSlot, { item, style: styleOf(customizations, heroTag, slot, rawName), reason: 'requested' })
     }
 
     // 2. Persona handling.
@@ -180,12 +236,8 @@ export function buildPlan(
         for (const [baseSlot, variantItem] of variants) {
           if (claims.has(baseSlot)) continue
           if (!defaultFor(schema, hero, baseSlot)) {
-            skipped.push({
-              hero,
-              slot: baseSlot,
-              itemName: variantItem.name,
-              reason: 'hero has no base default for this slot; the persona variant default item already provides it'
-            })
+            // When a hero has no base default for this slot (e.g. Crystal Maiden has no base summon slot),
+            // the persona's own `_persona_N` default item already provides it natively without substituting.
             continue
           }
           const pickedPersonaClaim = claims.get(variantItem.resolvedSlot)
@@ -205,13 +257,21 @@ export function buildPlan(
         //     hidden — default items without `model_player` (voice, pet summons, and the
         //     `hero_base` body slots some heroes have) must never be pointed at the null
         //     prop, which would blank the hero.
-        for (const slot of defaultSlots(schema, hero)) {
-          if (isPersonaSlot(slot) || baseSlotOfPersona(slot)) continue
-          if (variants.has(slot) || claims.has(slot)) continue
-          if (slot === 'persona_selector') continue
-          const target = defaultFor(schema, hero, slot)
-          if (!target?.model) continue
-          claims.set(slot, { item: target, style: DEFAULT_STYLE, reason: 'persona-hide' })
+        //     When the persona is an overlay asset (e.g. Axe Automaton Persona), the author
+        //     replaces files on disk or provides an items patch; pointing base slots at
+        //     the null prop replaces valid meshes with a static prop that spawns an ERROR
+        //     at the hero's feet on reconnect.
+        const activePersona = claims.get('persona_selector')?.item ?? persona
+        const isPersonaOverlay = Boolean(activePersona && overlayIds.has(String(activePersona.id)))
+        if (!isPersonaOverlay) {
+          for (const slot of defaultSlots(schema, hero)) {
+            if (isPersonaSlot(slot) || baseSlotOfPersona(slot)) continue
+            if (variants.has(slot) || claims.has(slot)) continue
+            if (slot === 'persona_selector') continue
+            const target = defaultFor(schema, hero, slot)
+            if (!target?.model) continue
+            claims.set(slot, { item: target, style: DEFAULT_STYLE, reason: 'persona-hide' })
+          }
         }
       }
     }

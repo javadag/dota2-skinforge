@@ -1,8 +1,8 @@
 /**
- * Sanitize and deduplicate an extracted Dota2Changer asset bundle (`D:\changer_changed`)
- * into a clean, self-contained bundle (`D:\changer_cleaned`) and generate `data/cosmetic-assets.json`.
+ * Sanitize and deduplicate an extracted third-party asset bundle (`D:\skinforge_raw`)
+ * into a clean, self-contained bundle (`D:\skinforge_assets`) and generate `data/cosmetic-assets.json`.
  *
- *   npx tsx scripts/sanitize_bundle.ts --src D:\changer_changed --dst D:\changer_cleaned --wave2 scratch/d2c_extracted/items/scripts/items/items_game.txt --out data/cosmetic-assets.json
+ *   npx tsx scripts/sanitize_bundle.ts --src D:\skinforge_raw --dst D:\skinforge_assets --wave2 scratch/pack_extracted/items/scripts/items/items_game.txt --out data/cosmetic-assets.json
  */
 
 import fs from 'fs'
@@ -25,7 +25,7 @@ export type FileClassification = 'keep' | 'drop'
  * 1. Always drop `.webm` promo videos (`panorama/videos/...`).
  * 2. Drop Workshop item paths (`models/items/...`) that were replaced with `invisiblebox.vmdl_c`
  *    (3708-byte custom or 3249-byte Valve stock) or that duplicate a default hero slot / base model
- *    (Dota2Changer's brute-force Workshop item hijack).
+ *    (the pack's brute-force Workshop item hijack).
  * 3. Keep default hero slot paths (`models/heroes/...`) and custom `kisilev_ind/...` assets.
  */
 export function classifyGroupFile(
@@ -774,7 +774,7 @@ export function sanitizeBundle(opts: {
     }
   }
   // Place an empty null particle at kisilev_ind/particles/logo/logo.vpcf_c so embedded model
-  // references resolve cleanly without rendering Dota2Changer's advertisement logo.
+  // references resolve cleanly without rendering the pack's advertisement logo.
   const nullParticleSrc = path.join(srcDir, '_global', 'particles/error/error.vpcf_c')
   const logoGuardRel = 'kisilev_ind/particles/logo/logo.vpcf_c'
   if (fs.existsSync(nullParticleSrc)) {
@@ -1072,9 +1072,9 @@ if (require.main === module) {
     const idx = process.argv.indexOf(flag)
     return idx !== -1 && process.argv[idx + 1] ? process.argv[idx + 1] : fallback
   }
-  const srcDir = path.resolve(getArg('--src', 'D:\\changer_changed'))
-  const dstDir = path.resolve(getArg('--dst', 'D:\\changer_cleaned'))
-  const wave2ItemsGamePath = path.resolve(getArg('--wave2', 'scratch/d2c_extracted/items/scripts/items/items_game.txt'))
+  const srcDir = path.resolve(getArg('--src', 'D:\\skinforge_raw'))
+  const dstDir = path.resolve(getArg('--dst', 'D:\\skinforge_assets'))
+  const wave2ItemsGamePath = path.resolve(getArg('--wave2', 'scratch/pack_extracted/items/scripts/items/items_game.txt'))
   const outManifestPath = path.resolve(getArg('--out', 'data/cosmetic-assets.json'))
 
   const res = sanitizeBundle({ srcDir, dstDir, wave2ItemsGamePath, outManifestPath })

@@ -2,13 +2,13 @@
  * Asset overlay & companion refit engine for cosmetics that items_game alone cannot express.
  *
  * Arcanas, Personas, and select custom-compiled sets live in `data/cosmetic-assets.json`
- * and are sourced from the sanitized bundle (`D:\changer_cleaned`).
+ * and are sourced from the sanitized bundle (`D:\skinforge_assets`).
  */
 
 import fs from 'fs'
 import path from 'path'
-import { APP_CONFIG } from '../../shared/constants/appConfig'
 import { getAppRoot, getDataPath } from './appPathService'
+import { getAssetCacheDir } from './assetDeliveryService'
 import { loadIndex, readEntry, type VpkIndex } from './vpkIndex'
 
 export interface PathMapping {
@@ -25,6 +25,7 @@ export interface CompanionRefit {
   aliases?: PathMapping[]
   valveCopies?: PathMapping[]
   patchIds?: string[]
+  styles?: Record<string, { files?: string[]; aliases?: PathMapping[]; patch?: string; valveCopies?: PathMapping[] }>
 }
 
 export interface CosmeticAssetEntry {
@@ -44,6 +45,7 @@ export interface CosmeticAssetEntry {
   valveCopies?: PathMapping[]
   /** Companion item ID -> refitted assets activated when both the base item and companion item are picked. */
   refits?: Record<string, CompanionRefit>
+  styles?: Record<string, { files?: string[]; aliases?: PathMapping[]; patch?: string; valveCopies?: PathMapping[] }>
 }
 
 export interface CosmeticAssetsManifest {
@@ -64,6 +66,7 @@ export interface OverlayResult {
   copied: number
   bytes: number
   missing: string[]
+  entries: Array<{ vpkPath: string; source: string | Buffer }>
   /** Raw items_game patches shipped with each overlay group, paired with their allowed block IDs. */
   patches: OverlayPatch[]
   /** `${hero}/${slot}` keys fulfilled by a companion refit so vanilla ModelSwaps do not overwrite them. */
@@ -77,6 +80,8 @@ export interface ApplyOverlayOptions {
   vpkIndex?: VpkIndex
   /** Override manifest (used by tests). */
   manifest?: CosmeticAssetsManifest
+  virtual?: boolean
+  styles?: Map<number, number> | Record<string, number>
 }
 
 let cache: CosmeticAssetsManifest | null = null
@@ -102,14 +107,24 @@ export function entryFor(itemId: number | string, manifest = loadManifest()): Co
 
 /** Folders searched, in order, for `<group>/<file>`. */
 export function sourceRoots(group: string, manifest = loadManifest()): string[] {
-  const roots: string[] = []
+  const baseDirs: string[] = []
   const env = process.env.SKINFORGE_ASSET_SOURCE
-  if (env) roots.push(env)
+  if (env) baseDirs.push(env)
   const configured = manifest.sourceDir
-  if (configured) roots.push(configured)
-  roots.push(path.join(getAppRoot(), 'data', 'cosmetic-assets'))
-  roots.push(path.join(APP_CONFIG.cdnUrl, 'cosmetic-assets'))
-  return roots.map((root) => path.join(root, group))
+  if (configured) baseDirs.push(configured)
+
+  // Standard local developer directories
+  for (const devDir of ['D:\\skinforge_assets', 'D:\\changer_cleaned']) {
+    if (fs.existsSync(devDir)) baseDirs.push(devDir)
+  }
+
+  // User cache directory (downloaded packages from Cloudflare R2)
+  baseDirs.push(getAssetCacheDir())
+
+  // Local data fallback directory
+  baseDirs.push(path.join(getAppRoot(), 'data', 'cosmetic-assets'))
+
+  return baseDirs.map((root) => path.join(root, group))
 }
 
 function resolveFile(group: string, rel: string, manifest = loadManifest()): string | null {
@@ -129,6 +144,7 @@ export function applyOverlay(itemIds: Iterable<number>, stagingDir: string, opti
     copied: 0,
     bytes: 0,
     missing: [],
+    entries: [],
     patches: [],
     refitSlots: new Set<string>()
   }
@@ -155,26 +171,41 @@ export function applyOverlay(itemIds: Iterable<number>, stagingDir: string, opti
       result.missing.push(rel)
       return false
     }
-    const dest = path.join(stagingDir, rel.replace(/\//g, path.sep))
-    fs.mkdirSync(path.dirname(dest), { recursive: true })
-    fs.copyFileSync(source, dest)
+    const cleanRel = rel.replace(/\\/g, '/')
+    result.entries.push({ vpkPath: cleanRel, source })
     result.copied++
     result.bytes += fs.statSync(source).size
+
+    if (!options.virtual && stagingDir) {
+      const dest = path.join(stagingDir, rel.replace(/\//g, path.sep))
+      fs.mkdirSync(path.dirname(dest), { recursive: true })
+      fs.copyFileSync(source, dest)
+    }
     return true
   }
 
   const copyAlias = (group: string, mapping: PathMapping): void => {
-    const stagedSrc = path.join(stagingDir, mapping.src.replace(/\//g, path.sep))
-    const source = fs.existsSync(stagedSrc) ? stagedSrc : resolveFile(group, mapping.src, manifest)
+    const cleanSrc = mapping.src.replace(/\\/g, '/')
+    const existing = result.entries.find((e) => e.vpkPath.toLowerCase() === cleanSrc.toLowerCase())
+    const source = existing ? existing.source : resolveFile(group, mapping.src, manifest)
     if (!source) {
       result.missing.push(mapping.dst)
       return
     }
-    const dest = path.join(stagingDir, mapping.dst.replace(/\//g, path.sep))
-    fs.mkdirSync(path.dirname(dest), { recursive: true })
-    fs.copyFileSync(source, dest)
+    const cleanDst = mapping.dst.replace(/\\/g, '/')
+    result.entries.push({ vpkPath: cleanDst, source })
     result.copied++
-    result.bytes += fs.statSync(source).size
+    result.bytes += Buffer.isBuffer(source) ? source.length : fs.statSync(source).size
+
+    if (!options.virtual && stagingDir) {
+      const dest = path.join(stagingDir, mapping.dst.replace(/\//g, path.sep))
+      fs.mkdirSync(path.dirname(dest), { recursive: true })
+      if (Buffer.isBuffer(source)) {
+        fs.writeFileSync(dest, source)
+      } else {
+        fs.copyFileSync(source, dest)
+      }
+    }
   }
 
   const copyFromValve = (mapping: PathMapping): void => {
@@ -189,11 +220,16 @@ export function applyOverlay(itemIds: Iterable<number>, stagingDir: string, opti
       result.missing.push(mapping.dst)
       return
     }
-    const dest = path.join(stagingDir, mapping.dst.replace(/\//g, path.sep))
-    fs.mkdirSync(path.dirname(dest), { recursive: true })
-    fs.writeFileSync(dest, bytes)
+    const cleanDst = mapping.dst.replace(/\\/g, '/')
+    result.entries.push({ vpkPath: cleanDst, source: bytes })
     result.copied++
     result.bytes += bytes.length
+
+    if (!options.virtual && stagingDir) {
+      const dest = path.join(stagingDir, mapping.dst.replace(/\//g, path.sep))
+      fs.mkdirSync(path.dirname(dest), { recursive: true })
+      fs.writeFileSync(dest, bytes)
+    }
   }
 
   let globalStaged = false
@@ -216,6 +252,16 @@ export function applyOverlay(itemIds: Iterable<number>, stagingDir: string, opti
     for (const alias of entry.aliases ?? []) copyAlias(entry.group, alias)
     for (const vc of entry.valveCopies ?? []) copyFromValve(vc)
 
+    const pickedStyle =
+      options.styles instanceof Map ? options.styles.get(Number(id)) : (options.styles as Record<string, number> | undefined)?.[id]
+    const styleKey = pickedStyle !== undefined ? String(pickedStyle) : '0'
+    const styleOverride = entry.styles?.[styleKey]
+    if (styleOverride) {
+      for (const rel of styleOverride.files ?? []) copyGroupFile(entry.group, rel)
+      for (const alias of styleOverride.aliases ?? []) copyAlias(entry.group, alias)
+      for (const vc of styleOverride.valveCopies ?? []) copyFromValve(vc)
+    }
+
     const activePatchIds = entry.basePatchIds ? new Set<string>(entry.basePatchIds.map(String)) : undefined
 
     if (entry.refits) {
@@ -224,6 +270,19 @@ export function applyOverlay(itemIds: Iterable<number>, stagingDir: string, opti
         for (const rel of refit.files) copyGroupFile(entry.group, rel)
         for (const alias of refit.aliases ?? []) copyAlias(entry.group, alias)
         for (const vc of refit.valveCopies ?? []) copyFromValve(vc)
+
+        const pickedStyle =
+          options.styles instanceof Map
+            ? options.styles.get(Number(companionId))
+            : (options.styles as Record<string, number> | undefined)?.[companionId]
+        const styleKey = pickedStyle !== undefined ? String(pickedStyle) : '0'
+        const refitStyleOverride = refit.styles?.[styleKey]
+        if (refitStyleOverride) {
+          for (const rel of refitStyleOverride.files ?? []) copyGroupFile(entry.group, rel)
+          for (const alias of refitStyleOverride.aliases ?? []) copyAlias(entry.group, alias)
+          for (const vc of refitStyleOverride.valveCopies ?? []) copyFromValve(vc)
+        }
+
         if (refit.slot) result.refitSlots.add(`${entry.hero}/${refit.slot}`)
         if (activePatchIds && refit.patchIds) {
           for (const pid of refit.patchIds) activePatchIds.add(String(pid))
@@ -231,15 +290,16 @@ export function applyOverlay(itemIds: Iterable<number>, stagingDir: string, opti
       }
     }
 
-    if (entry.patch) {
-      const patchPath = resolveFile(entry.group, entry.patch, manifest)
+    const activePatch = styleOverride?.patch ?? entry.patch
+    if (activePatch) {
+      const patchPath = resolveFile(entry.group, activePatch, manifest)
       if (patchPath) {
         result.patches.push({
           text: fs.readFileSync(patchPath, 'utf-8'),
           onlyIds: activePatchIds
         })
       } else {
-        result.missing.push(entry.patch)
+        result.missing.push(activePatch)
       }
     }
   }

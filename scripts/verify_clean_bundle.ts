@@ -1,6 +1,6 @@
 /**
- * Verify that `D:\changer_cleaned` and `data/cosmetic-assets.json` have:
- * - Every declared disk file present in `D:\changer_cleaned`
+ * Verify that `D:\skinforge_assets` and `data/cosmetic-assets.json` have:
+ * - Every declared disk file present in `D:\skinforge_assets`
  * - Every `aliases.src` present on disk
  * - Every `valveCopies.src` present in Dota 2's `pak01_dir.vpk`
  * - Every group's `items_patch.txt` present, parseable, and free of ad spam / watermarks

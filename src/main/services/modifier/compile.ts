@@ -226,6 +226,32 @@ export function compileItemsGame(
     if (!byTarget.has(targetId)) byTarget.set(targetId, [])
   }
 
+  const heroModelRemaps = new Map<string, Map<string, string>>()
+  for (const patch of plan.patches) {
+    if (!patch.cosmetic) continue
+    const cosmeticNode = patch.cosmetic.entry.value
+    if (typeof cosmeticNode === 'string') continue
+    materializeDeep(source, cosmeticNode)
+    const visuals = getNode(cosmeticNode, 'visuals')
+    if (!visuals || visuals.opaque) continue
+    const flattened = flattenVisuals(schema, visuals, patch.style)
+    for (const entry of assetModifiers(flattened)) {
+      if (!isNode(entry.value)) continue
+      if (getString(entry.value, 'type') === 'model') {
+        const asset = getString(entry.value, 'asset')
+        const modifier = getString(entry.value, 'modifier')
+        if (asset && modifier) {
+          let map = heroModelRemaps.get(patch.hero)
+          if (!map) {
+            map = new Map()
+            heroModelRemaps.set(patch.hero, map)
+          }
+          map.set(asset.toLowerCase(), modifier)
+        }
+      }
+    }
+  }
+
   const modelSwaps: ModelSwap[] = []
 
   for (const [targetId, patches] of byTarget) {
@@ -248,7 +274,12 @@ export function compileItemsGame(
         const cosmeticNode = patch.cosmetic.entry.value
         if (typeof cosmeticNode === 'string') continue
         materializeDeep(source, cosmeticNode)
-        const cosmeticModel = patch.cosmetic.model
+        let cosmeticModel = patch.cosmetic.model
+        const remaps = heroModelRemaps.get(patch.hero)
+        if (cosmeticModel && remaps) {
+          const remapped = remaps.get(cosmeticModel.toLowerCase())
+          if (remapped) cosmeticModel = remapped
+        }
         const heroHasOverlay = plan.patches.some((p) => p.hero === patch.hero && p.cosmetic && overlayIds.has(String(p.cosmetic.id)))
         if ((patch.reason === 'requested' || (patch.reason === 'persona-piece' && heroHasOverlay)) && vanillaModel && cosmeticModel) {
           // Deliver the model by replacing the vanilla file (see ModelSwap). The block
@@ -291,6 +322,19 @@ export function compileItemsGame(
           expectedModel.set(targetId, vanillaModel)
         } else {
           applyVisuals(schema, clone, cosmeticNode, patch.style)
+          if (!vanillaModel) {
+            // For slots with no vanilla model (e.g. Legion Commander's legs item 662), the server
+            // never allocates a network entity. If the client reconnects, the custom leg entity is
+            // dropped. Never apply `bodygroup_visibility` here so the hero's built-in legs remain
+            // visible on reconnect instead of turning completely invisible.
+            const vis = getNode(clone, 'visuals')
+            if (vis && !vis.opaque) {
+              vis.entries = vis.entries.filter((entry) => {
+                if (!isNode(entry.value)) return true
+                return getString(entry.value, 'type') !== 'bodygroup_visibility'
+              })
+            }
+          }
           if (heroHasOverlay && !['weapon', 'offhand_weapon'].includes(patch.slot)) {
             let vis = getNode(clone, 'visuals')
             if (!vis) {

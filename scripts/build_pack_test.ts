@@ -1,9 +1,9 @@
 /**
  * Pipeline smoke test: build a mod pack from a bundle folder without touching the game.
  *
- *   npx tsx scripts/build_pack_test.ts --bundle D:\changer_changed --heroes zeus,nerubian_assassin
- *   npx tsx scripts/build_pack_test.ts --bundle D:\changer_changed --extract-valve --heroes zeus
- *   npx tsx scripts/build_pack_test.ts --bundle D:\changer_changed --install
+ *   npx tsx scripts/build_pack_test.ts --bundle D:\skinforge_raw --heroes zeus,nerubian_assassin
+ *   npx tsx scripts/build_pack_test.ts --bundle D:\skinforge_raw --extract-valve --heroes zeus
+ *   npx tsx scripts/build_pack_test.ts --bundle D:\skinforge_raw --install
  *
  * Exit code is non-zero when the pack fails verification.
  */
@@ -52,7 +52,7 @@ async function extractValveItemsGame(dotaDir: string): Promise<string> {
 
 async function main(): Promise<void> {
   const dotaDir = arg('--dota') ?? detectDotaPath()
-  const bundleDir = arg('--bundle', 'D:\\changer_changed')!
+  const bundleDir = arg('--bundle', 'D:\\skinforge_raw')!
   const outDir = path.resolve(arg('--out', 'scratch/test_pack')!)
   const heroesArg = arg('--heroes')
   const heroes = heroesArg

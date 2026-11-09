@@ -89,6 +89,16 @@ export interface InitialDataPayload {
   groups: Array<{ key: string; title: string }> | string[]
 }
 
+export interface LaunchOptionsSettings {
+  novid: boolean
+  map: boolean
+  high: boolean
+  console: boolean
+  nojoy: boolean
+  dx11: boolean
+  customArgs?: string
+}
+
 export interface AppSettingsPayload {
   dotaPath?: string
   modFolder?: string
@@ -97,12 +107,14 @@ export interface AppSettingsPayload {
   confirmRestore?: boolean
   autoCheckUpdates?: boolean
   r2CdnUrl?: string
+  launchOptions?: LaunchOptionsSettings
 }
 
 export interface UpdateAsset {
   name: string
   size: number
   browser_download_url: string
+  sha256?: string
 }
 
 export interface UpdateInfo {
@@ -117,6 +129,7 @@ export interface UpdateInfo {
   assets?: UpdateAsset[]
   portableAsset?: UpdateAsset
   installerAsset?: UpdateAsset
+  checksumsAsset?: UpdateAsset
   error?: string
 }
 
@@ -125,6 +138,15 @@ export interface UpdateDownloadProgress {
   bytesReceived: number
   totalBytes: number
   speedBytesPerSec: number
+}
+
+export interface BugScreenshotResult {
+  ok: boolean
+  canceled?: boolean
+  error?: string
+  mime?: 'image/png' | 'image/jpeg'
+  dataBase64?: string
+  sizeBytes?: number
 }
 
 export interface SkinforgeBridge {
@@ -141,14 +163,35 @@ export interface SkinforgeBridge {
   selectBundleDirectory: () => Promise<string | null>
   installBundle: (customPath?: string, bundleDir?: string) => Promise<BundleInstallResult>
   openExternal: (url: string) => Promise<void>
+  launchDota: (launchArgs?: string) => Promise<{ success: boolean; method?: string; error?: string }>
   readSettings: () => Promise<AppSettingsPayload>
   writeSettings: (settings: AppSettingsPayload) => Promise<{ ok: true } | { ok: false; error: string }>
   getCacheStats: () => Promise<{ count: number; sizeBytes: number; formattedSize: string }>
   clearIconCache: () => Promise<boolean>
   onInstallProgress: (callback: (progress: InstallProgress) => void) => void
   checkForUpdates: () => Promise<UpdateInfo>
-  downloadUpdate: (payload: { assetUrl: string; filename: string }) => Promise<{ ok: boolean; filePath?: string; error?: string }>
-  installUpdate: (payload: { filePath: string }) => Promise<{ ok: boolean; error?: string }>
+  downloadUpdate: (payload: {
+    assetUrl: string
+    filename: string
+    expectedSha256?: string
+  }) => Promise<{ ok: boolean; filePath?: string; sha256?: string; error?: string }>
+  installUpdate: (payload: { filePath: string; expectedSha256?: string }) => Promise<{ ok: boolean; error?: string }>
+  getBugReportContext: (input?: { activeTab?: string; dotaFound?: boolean; modsInstalled?: boolean }) => Promise<{
+    diagnostics: import('../shared/bugReport').BugReportDiagnostics
+    errors: string
+    configured: boolean
+  }>
+  captureBugScreenshot: () => Promise<BugScreenshotResult>
+  pickBugScreenshot: () => Promise<BugScreenshotResult>
+  submitBugReport: (input: {
+    title: string
+    description: string
+    steps?: string
+    logs?: string
+    includeLogs: boolean
+    diagnostics: import('../shared/bugReport').BugReportDiagnostics
+    screenshot?: { mime: string; dataBase64: string }
+  }) => Promise<import('../shared/bugReport').BugReportResult>
   onUpdateProgress: (callback: (progress: UpdateDownloadProgress) => void) => () => void
 }
 

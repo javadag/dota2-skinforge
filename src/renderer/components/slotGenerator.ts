@@ -117,27 +117,17 @@ export async function initCatalog(): Promise<Record<string, HeroCatalogEntry>> {
   return catalog
 }
 
-/** Taunts live at hero level in the catalog; surface them as a normal slot. */
-function withTauntSlot(entry: HeroCatalogEntry): HeroCatalogEntry {
-  const taunts = entry.taunt?.taunts
-  if (!taunts || taunts.length === 0) return entry
-  if (entry.slots.some((s) => s.slot === 'taunt')) return entry
-
+/** Filter out removed slots (taunt, Diretide shimmer costumes). */
+function cleanSlots(entry: HeroCatalogEntry): HeroCatalogEntry {
   return {
     ...entry,
-    slots: [
-      ...entry.slots,
-      {
-        slot: 'taunt',
-        title: 'Taunt',
-        mods: taunts.map((t) => ({
-          id: t.id,
-          name: t.name,
-          rarity: 'taunt',
-          img: t.img
-        }))
-      }
-    ]
+    slots: entry.slots
+      .filter((s) => s.slot !== 'taunt')
+      .map((s) => ({
+        ...s,
+        mods: s.mods.filter((m) => !m.name.toLowerCase().includes('diretide shimmer costume'))
+      }))
+      .filter((s) => s.mods.length > 0)
   }
 }
 
@@ -193,7 +183,7 @@ export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEn
 
   const key = catalogKey(heroTag)
   const entry = catalogIndex.get(key) || (heroObj?.tag ? catalogIndex.get(catalogKey(heroObj.tag)) : undefined)
-  if (entry) return sortModsByRarity(withTauntSlot(entry))
+  if (entry) return sortModsByRarity(cleanSlots(entry))
 
   const other = otherCatalogIndex.get(key)
   return other ? sortModsByRarity(other as unknown as HeroCatalogEntry) : null

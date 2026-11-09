@@ -6,13 +6,16 @@
 
 import fs from 'fs'
 import path from 'path'
+import http from 'http'
 import https from 'https'
+import crypto from 'crypto'
 import { spawn } from 'child_process'
 
 export interface ReleaseAsset {
   name: string
   size: number
   browser_download_url: string
+  sha256?: string
 }
 
 export interface ParsedReleaseInfo {
@@ -27,6 +30,7 @@ export interface ParsedReleaseInfo {
   assets: ReleaseAsset[]
   portableAsset?: ReleaseAsset
   installerAsset?: ReleaseAsset
+  checksumsAsset?: ReleaseAsset
 }
 
 export interface DownloadProgress {
@@ -34,6 +38,64 @@ export interface DownloadProgress {
   bytesReceived: number
   totalBytes: number
   speedBytesPerSec: number
+}
+
+/**
+ * Parses sha256 checksums from manifest text or release notes.
+ * Matches standard format: `<64-hex-hash> [* ]<filename>`
+ */
+export function parseChecksums(manifestText: string): Record<string, string> {
+  const result: Record<string, string> = {}
+  if (!manifestText) return result
+  const lines = manifestText.split(/\r?\n/)
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (!trimmed || trimmed.startsWith('#')) continue
+    const match = trimmed.match(/^([a-fA-F0-9]{64})\s+[*]?(.+)$/)
+    if (match) {
+      const hash = match[1].toLowerCase()
+      const filename = path.basename(match[2].trim())
+      result[filename] = hash
+    }
+  }
+  return result
+}
+
+/**
+ * Validates that an executable to run is an .exe inside the updates directory,
+ * preventing path traversal or execution of arbitrary files.
+ */
+export function validateUpdateInstallPath(filePath: string, updatesDir: string): boolean {
+  if (!filePath || typeof filePath !== 'string') return false
+  if (!filePath.toLowerCase().endsWith('.exe')) return false
+
+  const resolvedPath = path.resolve(filePath)
+  const resolvedUpdatesDir = path.resolve(updatesDir)
+
+  const relative = path.relative(resolvedUpdatesDir, resolvedPath)
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    return false
+  }
+
+  return true
+}
+
+/**
+ * Verifies that a file on disk matches the expected SHA-256 hash.
+ */
+export async function verifyFileSha256(filePath: string, expectedHash: string): Promise<boolean> {
+  if (!expectedHash || !fs.existsSync(filePath)) return false
+  const expected = expectedHash.trim().toLowerCase()
+  return new Promise((resolve) => {
+    const hash = crypto.createHash('sha256')
+    const stream = fs.createReadStream(filePath)
+    stream.on('data', (chunk) => hash.update(chunk))
+    stream.on('end', () => {
+      const actual = hash.digest('hex').toLowerCase()
+      resolve(actual === expected)
+    })
+    stream.on('error', () => resolve(false))
+  })
 }
 
 /**
@@ -85,6 +147,15 @@ export function parseReleaseInfo(release: Record<string, unknown>, currentVersio
   const installerAsset = assets.find(
     (a) => (a.name.toLowerCase().includes('setup') || a.name.toLowerCase().includes('installer')) && a.name.endsWith('.exe')
   )
+  const checksumsAsset = assets.find((a) => a.name.toLowerCase() === 'sha256sums.txt' || a.name.toLowerCase() === 'checksums.txt')
+
+  const bodyChecksums = parseChecksums(String(release?.body || ''))
+  if (portableAsset && bodyChecksums[portableAsset.name]) {
+    portableAsset.sha256 = bodyChecksums[portableAsset.name]
+  }
+  if (installerAsset && bodyChecksums[installerAsset.name]) {
+    installerAsset.sha256 = bodyChecksums[installerAsset.name]
+  }
 
   const updateAvailable = isNewerVersion(currentVersion, cleanVersion)
 
@@ -99,7 +170,8 @@ export function parseReleaseInfo(release: Record<string, unknown>, currentVersio
     htmlUrl: String(release?.html_url || ''),
     assets,
     portableAsset,
-    installerAsset
+    installerAsset,
+    checksumsAsset
   }
 }
 
@@ -138,6 +210,25 @@ export function migrateLegacySettings(legacyDir?: string, targetDir?: string): b
   }
 }
 
+function fetchText(url: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    https
+      .get(url, { headers: { 'User-Agent': 'Dota2SkinForge' } }, (res) => {
+        if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+          return fetchText(res.headers.location).then(resolve).catch(reject)
+        }
+        if (res.statusCode !== 200) {
+          return resolve('')
+        }
+        let data = ''
+        res.on('data', (c) => (data += c))
+        res.on('end', () => resolve(data))
+        res.on('error', () => resolve(''))
+      })
+      .on('error', () => resolve(''))
+  })
+}
+
 /**
  * Fetch the latest release from GitHub API
  */
@@ -172,10 +263,24 @@ export async function checkForUpdates(currentVersion: string, repo: string = 'ja
           rawData += chunk
         })
 
-        res.on('end', () => {
+        res.on('end', async () => {
           try {
             const json = JSON.parse(rawData)
             const info = parseReleaseInfo(json, currentVersion)
+            if (info.checksumsAsset?.browser_download_url && (!info.portableAsset?.sha256 || !info.installerAsset?.sha256)) {
+              try {
+                const checksumsText = await fetchText(info.checksumsAsset.browser_download_url)
+                if (checksumsText) {
+                  const checksumMap = parseChecksums(checksumsText)
+                  if (info.portableAsset && checksumMap[info.portableAsset.name]) {
+                    info.portableAsset.sha256 = checksumMap[info.portableAsset.name]
+                  }
+                  if (info.installerAsset && checksumMap[info.installerAsset.name]) {
+                    info.installerAsset.sha256 = checksumMap[info.installerAsset.name]
+                  }
+                }
+              } catch {}
+            }
             resolve(info)
           } catch (err) {
             reject(new Error(`Failed to parse release response: ${err}`))
@@ -209,7 +314,8 @@ function downloadFileWithRedirects(
         return reject(new Error('Too many redirects while downloading update.'))
       }
 
-      const req = https.get(
+      const client = urlStr.startsWith('http://') ? http : https
+      const req = client.get(
         urlStr,
         {
           headers: {
@@ -282,22 +388,36 @@ function downloadFileWithRedirects(
   })
 }
 
+export interface DownloadUpdateOptions {
+  updatesDir?: string
+}
+
 /**
- * Downloads update asset to userData/updates/ directory
+ * Downloads update asset to userData/updates/ directory and verifies checksum if provided.
  */
 export async function downloadUpdate(
   assetDownloadUrl: string,
   filename: string,
-  onProgress?: (progress: DownloadProgress) => void
-): Promise<{ ok: boolean; filePath?: string; error?: string }> {
+  onProgress?: (progress: DownloadProgress) => void,
+  expectedSha256?: string,
+  options?: DownloadUpdateOptions
+): Promise<{ ok: boolean; filePath?: string; sha256?: string; error?: string }> {
   try {
-    const { app } = require('electron')
-    const updatesDir = path.join(app.getPath('userData'), 'updates')
+    let updatesDir = options?.updatesDir
+    if (!updatesDir) {
+      const { app } = require('electron')
+      updatesDir = path.join(app.getPath('userData'), 'updates')
+    }
     if (!fs.existsSync(updatesDir)) {
       fs.mkdirSync(updatesDir, { recursive: true })
     }
 
-    const destPath = path.join(updatesDir, filename)
+    const safeFilename = path.basename(filename)
+    const destPath = path.join(updatesDir, safeFilename)
+    if (!validateUpdateInstallPath(destPath, updatesDir)) {
+      return { ok: false, error: 'Security violation: invalid update filename.' }
+    }
+
     // Remove old downloaded file if it exists
     if (fs.existsSync(destPath)) {
       try {
@@ -306,23 +426,82 @@ export async function downloadUpdate(
     }
 
     const savedPath = await downloadFileWithRedirects(assetDownloadUrl, destPath, onProgress)
-    return { ok: true, filePath: savedPath }
+
+    // Compute actual hash
+    const actualSha = await new Promise<string>((resolve, reject) => {
+      const hash = crypto.createHash('sha256')
+      const stream = fs.createReadStream(savedPath)
+      stream.on('data', (c) => hash.update(c))
+      stream.on('end', () => resolve(hash.digest('hex').toLowerCase()))
+      stream.on('error', reject)
+    })
+
+    if (expectedSha256) {
+      const normalizedExpected = expectedSha256.trim().toLowerCase()
+      if (actualSha !== normalizedExpected) {
+        try {
+          fs.unlinkSync(savedPath)
+        } catch {}
+        return {
+          ok: false,
+          error: `Integrity check failed: SHA-256 mismatch (expected ${normalizedExpected.slice(0, 8)}..., got ${actualSha.slice(0, 8)}...). Download discarded.`
+        }
+      }
+    }
+
+    return { ok: true, filePath: savedPath, sha256: actualSha }
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
     return { ok: false, error: msg }
   }
 }
 
+export interface InstallUpdateOptions {
+  updatesDir?: string
+  skipSpawn?: boolean
+}
+
 /**
- * Launches the newly downloaded executable and exits current app.
+ * Validates integrity and launches the newly downloaded executable, then exits current app.
  */
-export function installUpdate(filePath: string): { ok: boolean; error?: string } {
+export async function installUpdate(
+  filePath: string,
+  expectedSha256?: string,
+  options?: InstallUpdateOptions
+): Promise<{ ok: boolean; error?: string }> {
   try {
+    let updatesDir = options?.updatesDir
+    if (!updatesDir) {
+      const { app } = require('electron')
+      updatesDir = path.join(app.getPath('userData'), 'updates')
+    }
+
+    if (!validateUpdateInstallPath(filePath, updatesDir)) {
+      return {
+        ok: false,
+        error: 'Security violation: update executable must be a valid .exe inside the updates directory.'
+      }
+    }
+
     if (!fs.existsSync(filePath)) {
       return { ok: false, error: 'Downloaded update file not found.' }
     }
 
-    console.log(`[UpdateService] Launching update installer: ${filePath}`)
+    if (expectedSha256) {
+      const isValid = await verifyFileSha256(filePath, expectedSha256)
+      if (!isValid) {
+        return {
+          ok: false,
+          error: 'Integrity check failed: binary SHA-256 does not match release checksum.'
+        }
+      }
+    }
+
+    if (options?.skipSpawn) {
+      return { ok: true }
+    }
+
+    console.log(`[UpdateService] Launching verified update installer: ${filePath}`)
     const child = spawn(filePath, [], {
       detached: true,
       stdio: 'ignore'
@@ -344,6 +523,9 @@ export function installUpdate(filePath: string): { ok: boolean; error?: string }
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     isNewerVersion,
+    parseChecksums,
+    validateUpdateInstallPath,
+    verifyFileSha256,
     parseReleaseInfo,
     migrateLegacySettings,
     checkForUpdates,
