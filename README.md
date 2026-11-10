@@ -100,8 +100,8 @@ dota2-skinforge/
 ├── data/
 │   ├── heroes.json             # Official Dota 2 hero catalog (127 heroes)
 │   ├── categories.json         # Non-hero cosmetic categories (World & Interface)
-│   ├── heroes_catalog.json     # Compiled hero slots & items catalog
-│   ├── other_catalog.json      # Non-hero cosmetic items catalog
+│   ├── heroes_armory.json     # Generated hero slots & items armory
+│   ├── other_armory.json      # Non-hero cosmetic items armory
 │   ├── hero_sets.json          # Pre-assembled cosmetic sets per hero
 │   ├── cosmetic-assets.json    # Arcana/Persona overlays and companion refits
 │   ├── cosmetic-packages.json  # Remote asset package manifest for R2

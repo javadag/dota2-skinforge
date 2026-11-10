@@ -1,4 +1,5 @@
 import heroSetsData from '../../../data/hero_sets.json'
+import { normalizeTag } from '../components/slotGenerator'
 import { rarityRank } from './itemImages'
 
 export interface HeroSetItem {
@@ -18,10 +19,6 @@ export interface HeroSet {
 }
 
 const setsMap = (heroSetsData as unknown as Record<string, HeroSet[]>) || {}
-
-function normalizeTag(tag: string): string {
-  return tag.toLowerCase().replace(/[^a-z0-9]/g, '')
-}
 
 const normalizedSets = new Map<string, HeroSet[]>()
 for (const [tag, sets] of Object.entries(setsMap)) {

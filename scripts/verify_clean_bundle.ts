@@ -32,12 +32,12 @@ async function main(): Promise<void> {
   const vpkDirPath = path.join(dotaPath, 'dota', 'pak01_dir.vpk')
   const vpkIndex = loadIndex(vpkDirPath)
 
-  const catalog = JSON.parse(fs.readFileSync(path.resolve('data/heroes_catalog.json'), 'utf-8'))
-  const catalogIds = new Set<string>()
-  for (const entry of Object.values<{ slots?: Array<{ mods?: Array<{ id?: number }> }> }>(catalog)) {
+  const armory = JSON.parse(fs.readFileSync(path.resolve('data/heroes_armory.json'), 'utf-8'))
+  const armoryIds = new Set<string>()
+  for (const entry of Object.values<{ slots?: Array<{ mods?: Array<{ id?: number }> }> }>(armory)) {
     for (const s of entry.slots ?? []) {
       for (const m of s.mods ?? []) {
-        if (m.id) catalogIds.add(String(m.id))
+        if (m.id) armoryIds.add(String(m.id))
       }
     }
   }
@@ -60,8 +60,8 @@ async function main(): Promise<void> {
   }
 
   for (const [itemId, entry] of Object.entries(manifest.items)) {
-    if (!catalogIds.has(itemId)) {
-      console.error(`[ERROR] [${entry.group}] Item ID ${itemId} (${entry.name}) not found in data/heroes_catalog.json`)
+    if (!armoryIds.has(itemId)) {
+      console.error(`[ERROR] [${entry.group}] Item ID ${itemId} (${entry.name}) not found in data/heroes_armory.json`)
       errors++
     }
     const groupDir = path.join(bundleDir, entry.group)

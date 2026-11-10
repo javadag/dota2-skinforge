@@ -13,7 +13,7 @@ import {
   resolveEmptySlotImage,
   type ItemDescriptor
 } from '../utils/itemImages'
-import { formatHeroName, getHeroSlotsDefinition, type CatalogSlot } from './slotGenerator'
+import { formatHeroName, getHeroSlotsDefinition, type ArmorySlot } from './slotGenerator'
 import { Button } from './ui/Button'
 
 const fallbackHeroSvg =
@@ -56,26 +56,26 @@ export const SlotEditor: React.FC = () => {
     selectedHero.img || (isHero ? `../assets/heroes/${getCanonicalHero(selectedHero.tag)}.png` : '../assets/categories/default.svg')
   const catMeta = selectedHero.g && isCategoryKey(selectedHero.g) ? CATEGORY_META[selectedHero.g] : null
 
-  const catalog = getHeroSlotsDefinition(selectedHero.tag, selectedHero)
+  const armory = getHeroSlotsDefinition(selectedHero.tag, selectedHero)
   const currentSlots = heroSlots[selectedHero.tag] || {}
-  const catalogSlots = catalog?.slots ?? []
+  const armorySlots = armory?.slots ?? []
 
   // A hero with a persona has two slot sets at once. Split them by the slot id the game
-  // itself uses (`persona`, `persona_head`, ...) instead of the catalog's variant lists,
+  // itself uses (`persona`, `persona_head`, ...) instead of the armory's variant lists,
   // which lump base slots like the head or the weapon in with the persona.
   const currentStance = heroActiveStance[selectedHero.tag] || 'default'
   const isPersonaSlotId = (id: string): boolean =>
     id === 'persona' || id === 'persona_selector' || id.startsWith('persona_') || id.includes('_persona_')
-  const personaSlots = catalogSlots.filter((s) => isPersonaSlotId(s.slot) && s.mods.length > 0)
+  const personaSlots = armorySlots.filter((s) => isPersonaSlotId(s.slot) && s.mods.length > 0)
   const hasPersona = personaSlots.length > 0
   const showPersona = hasPersona && currentStance === 'persona'
-  const visibleSlots = hasPersona ? catalogSlots.filter((s) => (isPersonaSlotId(s.slot) ? showPersona : !showPersona)) : catalogSlots
+  const visibleSlots = hasPersona ? armorySlots.filter((s) => (isPersonaSlotId(s.slot) ? showPersona : !showPersona)) : armorySlots
 
   const heroSets = getHeroSets(selectedHero.tag)
   const visibleSets = heroSets.filter((s) => (hasPersona && showPersona ? s.isPersona : !s.isPersona))
   const equippedSet = visibleSets.find((s) => isSetEquipped(s, currentSlots))
 
-  const completeSetSlot: CatalogSlot | null =
+  const completeSetSlot: ArmorySlot | null =
     visibleSets.length > 0
       ? {
           slot: 'complete_set',
@@ -92,7 +92,7 @@ export const SlotEditor: React.FC = () => {
   const displaySlots = completeSetSlot ? [completeSetSlot, ...visibleSlots] : visibleSlots
 
   let modifiedCount = 0
-  catalogSlots.forEach((s) => {
+  armorySlots.forEach((s) => {
     if (currentSlots[s.slot]) modifiedCount++
   })
 
@@ -303,7 +303,7 @@ export const SlotEditor: React.FC = () => {
               {equippedSet
                 ? `${equippedSet.name} (${getRarityConfig({ rarity: equippedSet.rarity }).name} Set)`
                 : modifiedCount > 0
-                  ? `Custom Loadout (${modifiedCount}/${catalogSlots.length} modified)`
+                  ? `Custom Loadout (${modifiedCount}/${armorySlots.length} modified)`
                   : 'Default Equipment Loadout'}
             </span>
           </div>

@@ -4,7 +4,7 @@
  * Generated from items_game.txt via `npm run build:styles`.
  */
 
-import itemStylesCatalog from '../../../data/itemStyles.json'
+import itemStylesData from '../../../data/itemStyles.json'
 
 export interface StyleOption {
   index: number
@@ -25,7 +25,7 @@ interface StylesEntry {
   styles: StyleOption[]
 }
 
-const items: Record<string, StylesEntry> = (itemStylesCatalog as { items?: Record<string, StylesEntry> })?.items ?? {}
+const items: Record<string, StylesEntry> = (itemStylesData as { items?: Record<string, StylesEntry> })?.items ?? {}
 
 /** Every item the schema gives styles to (used by tests and diagnostics). */
 export function styledItemNames(): string[] {
@@ -54,7 +54,7 @@ export function getItemStyleOptions(heroTag?: string, slotId?: string, itemName?
   return { hasStyles: true, styles: entry.styles }
 }
 
-/** Style metadata declared by the generated catalog, without the hero/slot guard. */
+/** Style metadata declared by the generated armory styles, without the hero/slot guard. */
 export function getStyleOptionsByName(itemName?: string): StyleOption[] {
   if (!itemName) return []
   const entry = items[itemName] ?? items[normalizeItemName(itemName)]

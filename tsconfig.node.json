@@ -19,6 +19,11 @@
     "src/data/**/*",
     "scripts/**/*",
     "test/**/*",
+    // The armory resolver lives in the renderer but is unit tested from `test/`; listing it
+    // (and what it imports) here keeps that test inside the type check.
+    "src/renderer/components/slotGenerator.ts",
+    "src/renderer/utils/itemImages.ts",
+    "src/renderer/env.d.ts",
     "workers/**/*",
     "electron.vite.config.*",
     "package.json"

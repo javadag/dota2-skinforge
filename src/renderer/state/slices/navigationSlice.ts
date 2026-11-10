@@ -1,7 +1,7 @@
 import type { StateCreator } from 'zustand'
 import type { CategoryKey } from '../../../data/categoryMeta'
 import type { HeroAttribute } from '../../../shared/constants/attributes'
-import { getHeroSlotsDefinition, type CatalogSlot } from '../../components/slotGenerator'
+import { getHeroSlotsDefinition, type ArmorySlot } from '../../components/slotGenerator'
 import type { HeroEntry } from '../../env'
 import type { AppStoreState } from '../useAppStore'
 
@@ -17,7 +17,7 @@ export interface NavigationSlice {
   searchQuery: string
 
   // Modals & Panels State
-  activeModalSlot: CatalogSlot | null
+  activeModalSlot: ArmorySlot | null
   modalRarityFilter: string
   modalSearchQuery: string
   isPresetModalOpen: boolean
@@ -33,7 +33,7 @@ export interface NavigationSlice {
   setSearchQuery: (query: string) => void
 
   // Modal Actions
-  openSlotModal: (hero: HeroEntry, slot: CatalogSlot) => void
+  openSlotModal: (hero: HeroEntry, slot: ArmorySlot) => void
   closeSlotModal: () => void
   setModalRarityFilter: (rarity: string) => void
   setModalSearchQuery: (query: string) => void
@@ -76,10 +76,10 @@ export const createNavigationSlice: StateCreator<AppStoreState, [], [], Navigati
   setSearchQuery: (query) => set({ searchQuery: query }),
 
   openSlotModal: (hero, slot) => {
-    const catalog = getHeroSlotsDefinition(hero.tag, hero)
+    const armory = getHeroSlotsDefinition(hero.tag, hero)
     set({
       selectedHero: hero,
-      activeCatalog: catalog,
+      activeArmory: armory,
       activeModalSlot: slot,
       modalRarityFilter: 'all',
       modalSearchQuery: ''

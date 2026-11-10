@@ -1,5 +1,5 @@
 /**
- * Cleans `data/heroes_catalog.json` after it is generated from the external catalog dataset.
+ * Cleans `data/heroes_armory.json` after it is generated from the external dataset.
  *
  *  - drops `is_hero` (this file only ever contains heroes),
  *  - drops `base_rc` (the dataset's internal resource-collection folder),
@@ -10,11 +10,11 @@
  *    `Drowned Horseman's`) so names match Valve's `items_game.txt`,
  *  - drops the unused per-item `iw` and `f` flags and the `title` key (always a copy of `name`),
  *  - resolves every item and taunt against `items_game.txt`, writes its numeric item id and
- *    drops entries that are not in the schema (community / catalog-only items).
+ *    drops entries that are not in the schema (community / armory-only items).
  *
  * Usage:
- *   npm run clean:catalog            # write
- *   tsx scripts/clean_hero_catalog.ts --dry-run
+ *   npm run clean:armory            # write
+ *   tsx scripts/clean_hero_armory.ts --dry-run
  */
 
 import fs from 'fs'
@@ -54,7 +54,7 @@ interface CatalogHero {
 
 type Catalog = Record<string, CatalogHero>
 
-const CATALOG_PATH = path.resolve(__dirname, '../data/heroes_catalog.json')
+const CATALOG_PATH = path.resolve(__dirname, '../data/heroes_armory.json')
 const ITEMS_GAME_PATH = path.resolve(__dirname, 'items/items_game.txt')
 const DRY_RUN = process.argv.includes('--dry-run')
 

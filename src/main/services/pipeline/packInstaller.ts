@@ -86,7 +86,7 @@ export async function installFromBundle(
 }
 
 /**
- * Catalog-driven install. User's slot selections are compiled into items_game.txt
+ * Armory-driven install. User's slot selections are compiled into items_game.txt
  * and packed into Source 2 VPK.
  */
 export async function installMods(

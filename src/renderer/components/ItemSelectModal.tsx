@@ -8,7 +8,7 @@ import { formatHeroName } from './slotGenerator'
 
 export const ItemSelectModal = () => {
   const selectedHero = useAppStore((s) => s.selectedHero)
-  const activeCatalog = useAppStore((s) => s.activeCatalog)
+  const activeArmory = useAppStore((s) => s.activeArmory)
   const activeModalSlot = useAppStore((s) => s.activeModalSlot)
   const modalRarityFilter = useAppStore((s) => s.modalRarityFilter)
   const modalSearchQuery = useAppStore((s) => s.modalSearchQuery)
@@ -34,7 +34,7 @@ export const ItemSelectModal = () => {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [activeModalSlot, closeSlotModal])
 
-  if (!activeModalSlot || !selectedHero || !activeCatalog) {
+  if (!activeModalSlot || !selectedHero || !activeArmory) {
     return <div id="slotModal" className="hidden" />
   }
 
@@ -46,8 +46,8 @@ export const ItemSelectModal = () => {
   const currentStance = heroActiveStance[selectedHero.tag] || 'default'
   const isPersonaSlotId = (id: string): boolean =>
     id === 'persona' || id === 'persona_selector' || id.startsWith('persona_') || id.includes('_persona_')
-  const catalogSlots = activeCatalog.slots ?? []
-  const hasPersona = catalogSlots.some((s) => isPersonaSlotId(s.slot) && s.mods.length > 0)
+  const armorySlots = activeArmory.slots ?? []
+  const hasPersona = armorySlots.some((s) => isPersonaSlotId(s.slot) && s.mods.length > 0)
   const showPersona = hasPersona && currentStance === 'persona'
 
   const heroSets = isCompleteSetSlot ? getHeroSets(selectedHero.tag) : []

@@ -2,9 +2,9 @@
  * Replace externally hosted catalog images with local/Valve sources.
  *
  * - `data/heroes.json`          drops `img` (the UI falls back to `assets/heroes/<canonical>.png`)
- * - `data/heroes_catalog.json`  drops `portrait`, `taunt`, `gamesets` (taunts come from the
+ * - `data/heroes_armory.json`   drops `portrait`, `taunt`, `gamesets` (taunts come from the
  *                               generated `taunt` slot; sets are unused)
- * - `data/other_catalog.json`   rewrites each mod's `img` to its Valve `image_inventory`
+ * - `data/other_armory.json`    rewrites each mod's `img` to its Valve `image_inventory`
  *                               (an R2 icon key) and drops slot `empty_img`
  *
  *   npm run build:strip-images
@@ -37,7 +37,7 @@ async function main(): Promise<void> {
     for (const hero of heroes) delete hero.img
   })
 
-  rewrite('heroes_catalog.json', (value) => {
+  rewrite('heroes_armory.json', (value) => {
     for (const entry of Object.values(value as Record<string, Record<string, unknown>>)) {
       delete entry.portrait
       delete entry.taunt
@@ -50,7 +50,7 @@ async function main(): Promise<void> {
 
   let rewritten = 0
   let dropped = 0
-  rewrite('other_catalog.json', (value) => {
+  rewrite('other_armory.json', (value) => {
     for (const entry of Object.values(value as Record<string, Record<string, unknown>>)) {
       for (const slot of (entry.slots as Array<Record<string, unknown>>) ?? []) {
         delete slot.empty_img
@@ -69,7 +69,7 @@ async function main(): Promise<void> {
     }
   })
 
-  console.log(`other_catalog images: ${rewritten} -> Valve icon, ${dropped} dropped (no image_inventory)`)
+  console.log(`other_armory images: ${rewritten} -> Valve icon, ${dropped} dropped (no image_inventory)`)
 }
 
 main().catch((error) => {

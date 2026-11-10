@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Item asset receipt (CLI).
  *
  *   tsx scripts/item_assets.ts --item 7247        one item, file by file
@@ -63,7 +63,7 @@ function printReceipt(r: AssetReceipt): void {
 function scanCatalog(schemaText: string): void {
   const spans = readItemsSection(schemaText).blocks
   const ids = new Set<string>()
-  for (const file of ['heroes_catalog.json', 'other_catalog.json']) {
+  for (const file of ['heroes_armory.json', 'other_armory.json']) {
     const catalog = JSON.parse(fs.readFileSync(path.join('data', file), 'utf-8')) as Record<
       string,
       { slots?: Array<{ mods?: Array<{ id?: number }> }> }
@@ -136,7 +136,7 @@ function scanCatalog(schemaText: string): void {
 function listPrepared(schemaText: string): void {
   const spans = readItemsSection(schemaText).blocks
   const ids = new Map<string, string>()
-  for (const file of ['heroes_catalog.json', 'other_catalog.json']) {
+  for (const file of ['heroes_armory.json', 'other_armory.json']) {
     const catalog = JSON.parse(fs.readFileSync(path.join('data', file), 'utf-8')) as Record<
       string,
       { slots?: Array<{ mods?: Array<{ id?: number; name?: string }> }> }

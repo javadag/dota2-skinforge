@@ -84,7 +84,7 @@ export function personaItemFor(schema: SchemaIndex, hero: string): SchemaItem | 
 }
 
 /**
- * Map a UI hero tag to the name the schema uses. The catalog and `items_game.txt` use
+ * Map a UI hero tag to the name the schema uses. The armory and `items_game.txt` use
  * internal names (`windrunner`, `zuus`, `skeleton_king`) while the UI exposes display
  * names (`windranger`, `zeus`, `wraith king`), so aliases are resolved here rather than
  * being duplicated per hero elsewhere.
@@ -188,9 +188,9 @@ export function buildPlan(
         continue
       }
 
-      // The item's own declared slot wins when the hero has a default for it. The UI catalog
+      // The item's own declared slot wins when the hero has a default for it. The UI armory
       // and the schema can disagree: after Valve migrated Legion Commander's arcana from her
-      // blades to a `hero_base` item, the shipped catalog still listed it under `weapon`, so
+      // blades to a `hero_base` item, the shipped armory still listed it under `weapon`, so
       // acting on the requested slot wrote the arcana onto the weapon default instead of the
       // base. Slot-less items (music packs, wards, ...) declare nothing, so the requested slot
       // is used for them.

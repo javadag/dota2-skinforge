@@ -2,7 +2,7 @@ import type { StateCreator } from 'zustand'
 import type { HeroCustomizationsMap, ItemCustomization } from '../../../shared/types/customization'
 import { isPersonaSlotId } from '../../../shared/constants/personaSlots'
 import { RARITY_RANK, rarityRank } from '../../../shared/armory/rarityConfig'
-import { formatHeroName, getHeroSlotsDefinition, type HeroCatalogEntry } from '../../components/slotGenerator'
+import { formatHeroName, getHeroSlotsDefinition, type HeroArmoryEntry } from '../../components/slotGenerator'
 import type { HeroEntry } from '../../env'
 import type { HeroSet } from '../../utils/heroSets'
 import type { AppStoreState } from '../useAppStore'
@@ -115,7 +115,7 @@ export interface LoadoutSlice {
   heroStanceSlots: Record<string, { default?: Record<string, string>; persona?: Record<string, string> }>
   heroActiveStance: Record<string, 'default' | 'persona'>
   heroCustomizations: HeroCustomizationsMap
-  activeCatalog: HeroCatalogEntry | null
+  activeArmory: HeroArmoryEntry | null
 
   setSelectedHero: (hero: HeroEntry | null) => void
   setHeroSlot: (heroTag: string, slotId: string, itemName: string) => void
@@ -139,15 +139,15 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
     heroStanceSlots: initial.heroStanceSlots,
     heroActiveStance: initial.heroActiveStance,
     heroCustomizations: initial.heroCustomizations,
-    activeCatalog: null,
+    activeArmory: null,
 
     setSelectedHero: (hero) => {
       if (!hero) {
-        set({ selectedHero: null, activeCatalog: null })
+        set({ selectedHero: null, activeArmory: null })
         return
       }
-      const catalog = getHeroSlotsDefinition(hero.tag, hero)
-      set({ selectedHero: hero, activeCatalog: catalog })
+      const armory = getHeroSlotsDefinition(hero.tag, hero)
+      set({ selectedHero: hero, activeArmory: armory })
     },
 
     setHeroSlot: (heroTag, slotId, itemName) => {
@@ -253,8 +253,8 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
 
         // If resetting while in persona stance, auto-re-equip the persona base model
         if (currentStance === 'persona') {
-          const catalog = getHeroSlotsDefinition(heroTag)
-          const personaSlot = catalog?.slots.find((s) => s.slot === 'persona')
+          const armory = getHeroSlotsDefinition(heroTag)
+          const personaSlot = armory?.slots.find((s) => s.slot === 'persona')
           const personaMod = personaSlot?.mods?.[0]
           if (personaMod) {
             updatedHeroSlots[heroTag] = { persona: personaMod.name }
@@ -342,8 +342,8 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
 
       // 3. Auto-equip persona if switching to persona stance
       if (stance === 'persona') {
-        const catalog = getHeroSlotsDefinition(heroTag)
-        const personaSlot = catalog?.slots.find((s) => s.slot === 'persona')
+        const armory = getHeroSlotsDefinition(heroTag)
+        const personaSlot = armory?.slots.find((s) => s.slot === 'persona')
         const personaMod = personaSlot?.mods?.[0]
         if (personaMod && !targetSlots['persona']) {
           targetSlots['persona'] = personaMod.name
@@ -405,8 +405,8 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
 
       // If persona set, ensure persona base is equipped
       if (setObj.isPersona && !targetSlots['persona']) {
-        const catalog = getHeroSlotsDefinition(heroTag)
-        const personaSlot = catalog?.slots.find((s) => s.slot === 'persona')
+        const armory = getHeroSlotsDefinition(heroTag)
+        const personaSlot = armory?.slots.find((s) => s.slot === 'persona')
         const personaMod = personaSlot?.mods?.[0]
         if (personaMod) targetSlots['persona'] = personaMod.name
       }
@@ -447,13 +447,13 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
     },
 
     unlockBestSet: (hero) => {
-      const catalog = getHeroSlotsDefinition(hero.tag, hero)
-      if (!catalog) return
+      const armory = getHeroSlotsDefinition(hero.tag, hero)
+      if (!armory) return
       let count = 0
       const newHeroSlots = { ...(get().heroSlots[hero.tag] || {}) }
 
-      catalog.slots.forEach((slot) => {
-        // The catalog lists items alphabetically, so pick the rarest explicitly.
+      armory.slots.forEach((slot) => {
+        // The armory lists items alphabetically, so pick the rarest explicitly.
         const bestItem = [...slot.mods].sort((a, b) => rarityRank(b.rarity) - rarityRank(a.rarity))[0]
         if (bestItem) {
           newHeroSlots[slot.slot] = bestItem.name

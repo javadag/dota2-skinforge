@@ -1,5 +1,5 @@
 /**
- * Cleans `data/other_catalog.json` after it is generated from the external catalog dataset.
+ * Cleans `data/other_armory.json` after it is generated from the external catalog dataset.
  *
  *  - drops `is_hero` (always false) and per-item `iw` / `snd` (the first is always 1, the
  *    second is implied by the category),
@@ -11,7 +11,7 @@
  *  - de-duplicates items by name inside a merged slot,
  *  - normalises slot titles (`Siegedire` -> `Dire Siege Creeps`),
  *  - resolves every item against Valve's `items_game.txt`, writes its numeric item id and
- *    drops entries that are not in the schema (community / catalog-only items).
+ *    drops entries that are not in the schema (community / armory-only items).
  *
  * Usage:
  *   npm run clean:other
@@ -47,7 +47,7 @@ interface CatalogCategory {
 
 type Catalog = Record<string, CatalogCategory>
 
-const CATALOG_PATH = path.resolve(__dirname, '../data/other_catalog.json')
+const CATALOG_PATH = path.resolve(__dirname, '../data/other_armory.json')
 const ITEMS_GAME_PATH = path.resolve(__dirname, 'items/items_game.txt')
 
 /** Categories SkinForge does not support. */

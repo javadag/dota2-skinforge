@@ -29,7 +29,7 @@ export interface SchemaItem {
   /** `model_player`, empty when absent (common for voice/misc/visual-only pieces). */
   model: string
   particleFolder: string
-  /** `image_inventory`, the icon path the UI catalog uses. */
+  /** `image_inventory`, the icon path the UI armory uses. */
   image: string
   /**
    * Slots this item forces back to their default when it is equipped, declared through
@@ -85,7 +85,7 @@ export type SlotSource = 'declared' | 'prefab' | 'fallback' | 'none'
 
 /**
  * `baseitem` items are the default for a non-hero category. The schema declares the
- * category through `prefab`; the slot ids here are the ones `data/other_catalog.json`
+ * category through `prefab`; the slot ids here are the ones `data/other_armory.json`
  * exposes, so a pick from the UI lands on the right default block.
  *
  * `announcer` is the one prefab with two defaults (normal and mega-kills), so its entries

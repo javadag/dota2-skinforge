@@ -9,7 +9,7 @@ import { getStyleOptionsByName } from '../../../shared/constants/itemStyles'
 import { getStagingPackPath } from '../appPathService'
 import { ensurePackagesForItems } from '../assetDeliveryService'
 import { receiptFor } from '../assetReceipt'
-import * as catalogService from '../catalogService'
+import * as armoryService from '../armoryService'
 import * as cosmeticAssets from '../cosmeticAssets'
 import { checkDrift, writeBaseline } from '../itemsGameBaseline'
 import * as modifier from '../modifier'
@@ -59,7 +59,7 @@ export interface BuildSelectionResult extends BuildPackResult {
 /**
  * Compile the user's slot selections into an items_game-only pack.
  *
- * Catalog ids are converted to schema names and handed to the planner, which
+ * Armory ids are converted to schema names and handed to the planner, which
  * knows about sets, persona pieces and `force_default_item_into_slot_index_when_equipped`.
  * Assets stay in Valve's VPK; only arcana/persona root models and overlays are copied in.
  */
@@ -86,7 +86,7 @@ export async function buildSelectionPack(
   // Compare against the baseline copy to detect Dota patches
   const drift = checkDrift(baseText)
 
-  // The planner keys off schema names, the catalog keys off ids. Bridge them here.
+  // The planner keys off schema names, the armory keys off ids. Bridge them here.
   const equipped: Record<string, Record<string, string>> = {}
   const customizations: Record<string, Record<string, { style?: number }>> = {}
   const unresolved: SelectionReport['skipped'] = []
@@ -95,9 +95,9 @@ export async function buildSelectionPack(
   const overlayPicks: Array<{ hero: string; slot: string; id: number }> = []
 
   for (const pick of picks) {
-    const id = catalogService.resolveModId(pick.hero, pick.slot, pick.item)
+    const id = armoryService.resolveModId(pick.hero, pick.slot, pick.item)
     if (!id) {
-      unresolved.push({ hero: pick.hero, slot: pick.slot, itemName: pick.item, reason: 'not found in the catalog' })
+      unresolved.push({ hero: pick.hero, slot: pick.slot, itemName: pick.item, reason: 'not found in the armory' })
       continue
     }
     const item = schema.items.get(String(id))
@@ -210,7 +210,7 @@ export async function buildSelectionPack(
 
   // Ensure all equipped cosmetic models (including additional_wearable / anchored models) exist in the pack VPK
   for (const pick of picks) {
-    const id = catalogService.resolveModId(pick.hero, pick.slot, pick.item)
+    const id = armoryService.resolveModId(pick.hero, pick.slot, pick.item)
     if (!id) continue
     const item = schema.items.get(String(id))
     if (!item?.model) continue
@@ -229,7 +229,7 @@ export async function buildSelectionPack(
   // the file itself becomes the arcana hair).
   const itemStylesMap = new Map<number, number>()
   for (const pick of picks) {
-    const id = catalogService.resolveModId(pick.hero, pick.slot, pick.item)
+    const id = armoryService.resolveModId(pick.hero, pick.slot, pick.item)
     if (!id) continue
     const st = customizations[pick.hero]?.[pick.slot]?.style
     if (typeof st === 'number') itemStylesMap.set(id, st)

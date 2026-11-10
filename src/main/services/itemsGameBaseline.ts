@@ -1,7 +1,7 @@
 /**
  * Watch the game's own item file for changes between builds.
  *
- * A Dota patch can add cosmetics (which our catalogue will not know about until it is
+ * A Dota patch can add cosmetics (which our armory will not know about until it is
  * rebuilt) or rewrite items we patch. Without a stored copy of what the file looked like
  * last time, the first sign of either is a bug report. This keeps a compact fingerprint of
  * every item entry — id plus a hash of its content — and reports what moved.
@@ -91,7 +91,7 @@ export function checkDrift(text: string): { note: string | null; current: Baseli
   return {
     note:
       `Dota's item file changed since the last build (${parts.join(', ')} entries). ` +
-      (drift.added.length ? 'New cosmetics will not appear in the app until the catalogue is rebuilt. ' : '') +
+      (drift.added.length ? 'New cosmetics will not appear in the app until the armory is rebuilt. ' : '') +
       'If something you applied looks wrong, rebuild after the update.',
     current
   }
