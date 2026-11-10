@@ -74,12 +74,3 @@ export function detectDotaPath(): string | null {
 
   return null
 }
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    detectDotaPath,
-    isValidDotaGameDir,
-    parseLibraryFolders,
-    getSteamPathFromRegistry
-  }
-}

@@ -113,15 +113,3 @@ export function getStatePath(...subpaths: string[]): string {
 export function getStagingIconsPath(...subpaths: string[]): string {
   return path.join(getAppRoot(), '.staging_icons', 'webp', ...subpaths)
 }
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    getAppRoot,
-    getDataPath,
-    getToolsPath,
-    getAssetsPath,
-    getStagingPackPath,
-    getStatePath,
-    getStagingIconsPath
-  }
-}

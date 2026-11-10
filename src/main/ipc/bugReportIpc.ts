@@ -50,7 +50,7 @@ export function registerBugReportIpc(getMainWindow: () => BrowserWindow | null) 
   ipcMain.handle('bug-report:context', (_event, input?: ContextInput) => {
     const diagnostics: BugReportDiagnostics = collectDiagnostics({
       appName: APP_CONFIG.name,
-      appVersion: APP_CONFIG.version,
+      appVersion: (typeof app?.getVersion === 'function' && app.getVersion()) || APP_CONFIG.version,
       packaged: app.isPackaged,
       locale: app.getLocale(),
       activeTab: input?.activeTab,
@@ -99,8 +99,4 @@ export function registerBugReportIpc(getMainWindow: () => BrowserWindow | null) 
   } catch {
     // Non-fatal; submit recreates it.
   }
-}
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { registerBugReportIpc }
 }

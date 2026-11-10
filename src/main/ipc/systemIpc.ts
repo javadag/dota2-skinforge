@@ -3,7 +3,7 @@
  */
 
 import { spawn } from 'child_process'
-import { ipcMain, shell } from 'electron'
+import { app, ipcMain, shell } from 'electron'
 import fs from 'fs'
 import path from 'path'
 import { APP_CONFIG } from '../../shared/constants/appConfig'
@@ -111,8 +111,15 @@ export function registerSystemIpc() {
       ])
     ]
 
+    const runtimeVersion = (typeof app?.getVersion === 'function' && app.getVersion()) || APP_CONFIG.version
+    const appInfo = {
+      ...APP_CONFIG,
+      version: runtimeVersion,
+      displayVersion: `v${runtimeVersion.replace(/^v/, '')}`
+    }
+
     return {
-      appInfo: APP_CONFIG,
+      appInfo,
       dotaPath,
       status,
       heroes: heroesData.heroes || [],
@@ -154,8 +161,4 @@ export function registerSystemIpc() {
       return { success: false, error: msg }
     }
   })
-}
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { registerSystemIpc, loadHeroesData, loadCategoriesData }
 }

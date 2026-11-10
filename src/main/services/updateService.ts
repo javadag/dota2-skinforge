@@ -11,6 +11,15 @@ import https from 'https'
 import crypto from 'crypto'
 import { spawn } from 'child_process'
 
+function getElectronApp(): typeof import('electron').app | null {
+  try {
+    const electron = require('electron')
+    return electron?.app || null
+  } catch {
+    return null
+  }
+}
+
 export interface ReleaseAsset {
   name: string
   size: number
@@ -185,8 +194,8 @@ export function migrateLegacySettings(legacyDir?: string, targetDir?: string): b
     let tgtDir = targetDir
 
     if (!legDir || !tgtDir) {
-      const { app } = require('electron')
-      const appData = app.getPath('appData')
+      const electronApp = getElectronApp()
+      const appData = electronApp?.getPath('appData') || ''
       legDir = legDir || path.join(appData, 'Electron')
       tgtDir = tgtDir || path.join(appData, 'Dota 2 SkinForge')
     }
@@ -405,8 +414,8 @@ export async function downloadUpdate(
   try {
     let updatesDir = options?.updatesDir
     if (!updatesDir) {
-      const { app } = require('electron')
-      updatesDir = path.join(app.getPath('userData'), 'updates')
+      const electronApp = getElectronApp()
+      updatesDir = path.join(electronApp?.getPath('userData') || '', 'updates')
     }
     if (!fs.existsSync(updatesDir)) {
       fs.mkdirSync(updatesDir, { recursive: true })
@@ -472,8 +481,8 @@ export async function installUpdate(
   try {
     let updatesDir = options?.updatesDir
     if (!updatesDir) {
-      const { app } = require('electron')
-      updatesDir = path.join(app.getPath('userData'), 'updates')
+      const electronApp = getElectronApp()
+      updatesDir = path.join(electronApp?.getPath('userData') || '', 'updates')
     }
 
     if (!validateUpdateInstallPath(filePath, updatesDir)) {
@@ -508,28 +517,14 @@ export async function installUpdate(
     })
     child.unref()
 
-    const { app } = require('electron')
+    const electronApp = getElectronApp()
     setTimeout(() => {
-      app.quit()
+      electronApp?.quit()
     }, 500)
 
     return { ok: true }
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
     return { ok: false, error: msg }
-  }
-}
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    isNewerVersion,
-    parseChecksums,
-    validateUpdateInstallPath,
-    verifyFileSha256,
-    parseReleaseInfo,
-    migrateLegacySettings,
-    checkForUpdates,
-    downloadUpdate,
-    installUpdate
   }
 }

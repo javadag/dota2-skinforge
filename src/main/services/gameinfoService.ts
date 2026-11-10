@@ -188,12 +188,3 @@ export function restoreGameinfo(dotaGameDir: string, backupDir: string | null = 
 
 /** Backwards-compatible alias. */
 export const restoreCleanGameinfo = restoreGameinfo
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    getGameinfoPath,
-    injectSearchPaths,
-    restoreGameinfo,
-    restoreCleanGameinfo
-  }
-}

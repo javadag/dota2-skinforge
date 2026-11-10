@@ -2,14 +2,15 @@
  * Update Domain IPC Handlers
  */
 
-import { BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import { checkForUpdates, downloadUpdate, installUpdate } from '../services/updateService'
 import { APP_CONFIG } from '../../shared/constants/appConfig'
 
 export function registerUpdateIpc(getMainWindow: () => BrowserWindow | null) {
   ipcMain.handle('check-for-updates', async () => {
     try {
-      return await checkForUpdates(APP_CONFIG.version)
+      const currentVersion = (typeof app?.getVersion === 'function' && app.getVersion()) || APP_CONFIG.version
+      return await checkForUpdates(currentVersion)
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : String(e)
       return { updateAvailable: false, error: msg }
@@ -33,8 +34,4 @@ export function registerUpdateIpc(getMainWindow: () => BrowserWindow | null) {
   ipcMain.handle('install-update', async (_event, payload: { filePath: string; expectedSha256?: string }) => {
     return await installUpdate(payload.filePath, payload.expectedSha256)
   })
-}
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { registerUpdateIpc }
 }

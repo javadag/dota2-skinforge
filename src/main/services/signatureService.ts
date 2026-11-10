@@ -135,12 +135,3 @@ export function restoreSignatures(dotaGameDir: string, backupDir: string | null 
 
   return { success: false, status: 'no_backup_found' }
 }
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    getSignaturesPath,
-    getGameinfoPath,
-    updateSignaturesForGameinfo,
-    restoreSignatures
-  }
-}

@@ -51,7 +51,3 @@ export function registerSettingsIpc(getMainWindow: () => BrowserWindow | null) {
     return await clearIconCache()
   })
 }
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { registerSettingsIpc }
-}

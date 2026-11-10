@@ -16,7 +16,3 @@ export function registerIpcHandlers(getMainWindow: () => BrowserWindow | null) {
   registerUpdateIpc(getMainWindow)
   registerBugReportIpc(getMainWindow)
 }
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { registerIpcHandlers }
-}

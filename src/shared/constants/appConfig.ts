@@ -1,3 +1,5 @@
+import pkg from '../../../package.json'
+
 export interface AppConfig {
   name: string
   shortName: string
@@ -15,13 +17,13 @@ export interface AppConfig {
 }
 
 export const APP_CONFIG: AppConfig = {
-  name: 'Dota 2 SkinForge',
-  shortName: 'SkinForge',
-  modFolder: 'skinforge',
-  version: '1.3.2',
-  displayVersion: 'v1.3.2',
-  tagline: 'Cosmetic Suite',
-  description: 'Local Dota 2 cosmetic suite via VPK modding',
+  name: pkg.productName || 'Dota 2 SkinForge',
+  shortName: pkg.shortName || 'SkinForge',
+  modFolder: pkg.modFolder || 'skinforge',
+  version: pkg.version,
+  displayVersion: `v${pkg.version}`,
+  tagline: pkg.tagline || 'Cosmetic Suite',
+  description: pkg.description || 'Local Dota 2 cosmetic suite via VPK modding',
   cdnUrl: 'https://pub-0e63b59220954d098346c54bdc0b2563.r2.dev',
   bugReportUrl: 'https://skinforge-bug-report.j-aghebati93.workers.dev'
 }

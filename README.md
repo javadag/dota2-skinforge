@@ -100,8 +100,12 @@ dota2-skinforge/
 ├── data/
 │   ├── heroes.json             # Official Dota 2 hero catalog (127 heroes)
 │   ├── categories.json         # Non-hero cosmetic categories (World & Interface)
-│   ├── valveHeroCatalog.json   # Authentic Valve loadout catalog
-│   └── mod_template.zip        # Base schema & assets template
+│   ├── heroes_catalog.json     # Compiled hero slots & items catalog
+│   ├── other_catalog.json      # Non-hero cosmetic items catalog
+│   ├── hero_sets.json          # Pre-assembled cosmetic sets per hero
+│   ├── cosmetic-assets.json    # Arcana/Persona overlays and companion refits
+│   ├── cosmetic-packages.json  # Remote asset package manifest for R2
+│   └── itemStyles.json         # Per-item style configurations
 └── src/
     ├── main/                   # Electron main process (TypeScript)
     │   ├── index.ts            # App lifecycle & window manager

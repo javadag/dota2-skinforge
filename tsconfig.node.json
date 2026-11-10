@@ -20,6 +20,7 @@
     "scripts/**/*",
     "test/**/*",
     "workers/**/*",
-    "electron.vite.config.*"
+    "electron.vite.config.*",
+    "package.json"
   ]
 }

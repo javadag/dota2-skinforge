@@ -81,7 +81,3 @@ export function registerModsIpc(getMainWindow: () => BrowserWindow | null) {
     })
   })
 }
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { registerModsIpc }
-}

@@ -268,16 +268,3 @@ export async function pack(src: string | VpkPackEntry[], outVpkPath: string): Pr
   }
   return await runVpkTool(['pack', path.resolve(src), resolvedOutVpk])
 }
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    list,
-    extract,
-    unpack,
-    pack,
-    packMultiChunk,
-    getOrLoadVpkIndex,
-    clearVpkIndexCache,
-    VPKTOOL_PATH
-  }
-}
