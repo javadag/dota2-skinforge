@@ -13,6 +13,7 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import fs from 'fs'
 import path from 'path'
 import { computeFileSha256, createZipFromDir } from '../src/main/services/zipUtils'
+import { createTarBrotliFromDir } from '../src/main/services/tarUtils'
 import type { AssetPackageManifest, AssetPackageEntry } from '../src/shared/types/assetPackages'
 import { loadEnvFile } from './sync_r2_icons'
 
@@ -23,6 +24,7 @@ interface CliOptions {
   skipUpload: boolean
   force: boolean
   group?: string
+  format: 'tar.br' | 'zip'
 }
 
 function parseArgs(): CliOptions {
@@ -32,7 +34,8 @@ function parseArgs(): CliOptions {
     distDir: path.resolve(process.cwd(), 'scratch/dist_packages'),
     dryRun: false,
     skipUpload: false,
-    force: false
+    force: false,
+    format: 'tar.br'
   }
 
   for (let i = 0; i < args.length; i++) {
@@ -49,6 +52,13 @@ function parseArgs(): CliOptions {
       options.force = true
     } else if (arg === '--group' && i + 1 < args.length) {
       options.group = args[++i]
+    } else if (arg === '--format' && i + 1 < args.length) {
+      const fmt = args[++i].toLowerCase()
+      if (fmt === 'zip' || fmt === 'tar.br') {
+        options.format = fmt
+      } else {
+        console.warn(`Unknown format "${fmt}", defaulting to "tar.br"`)
+      }
     }
   }
   return options
@@ -133,12 +143,16 @@ async function main() {
 
   for (const group of targets) {
     const groupPath = path.join(opts.srcDir, group)
-    const zipName = `${group}.zip`
-    const outZipPath = path.join(opts.distDir, zipName)
+    const isTarBr = opts.format === 'tar.br'
+    const fileName = `${group}.${isTarBr ? 'tar.br' : 'zip'}`
+    const outPkgPath = path.join(opts.distDir, fileName)
+    const contentType = isTarBr ? 'application/x-brotli' : 'application/zip'
 
-    process.stdout.write(`Packaging [${group}]... `)
-    const { size, fileCount } = await createZipFromDir(groupPath, outZipPath)
-    const sha256 = await computeFileSha256(outZipPath)
+    process.stdout.write(`Packaging [${group}] (${opts.format})... `)
+    const { size, fileCount } = isTarBr
+      ? await createTarBrotliFromDir(groupPath, outPkgPath)
+      : await createZipFromDir(groupPath, outPkgPath)
+    const sha256 = await computeFileSha256(outPkgPath)
     totalPackedBytes += size
 
     const uncompressedSize = fs.readdirSync(groupPath, { recursive: true }).reduce((acc, sub) => {
@@ -152,11 +166,11 @@ async function main() {
     }, 0)
 
     const existing = packages[group]
-    const hasChanged = !existing || existing.sha256 !== sha256
+    const hasChanged = !existing || existing.file !== fileName || existing.sha256 !== sha256
     const shouldUpload = hasChanged || opts.force
 
     packages[group] = {
-      file: zipName,
+      file: fileName,
       version: hasChanged ? (existing ? bumpVersion(existing.version) : '1.0.0') : existing.version,
       sha256,
       size,
@@ -168,10 +182,10 @@ async function main() {
     console.log(`${(size / (1024 * 1024)).toFixed(2)} MB (${fileCount} files) - ${hasChanged ? 'UPDATED' : 'UNCHANGED'}`)
 
     if (s3 && shouldUpload && !opts.skipUpload) {
-      const r2Key = `cosmetic-assets/packages/${zipName}`
+      const r2Key = `cosmetic-assets/packages/${fileName}`
       process.stdout.write(`  -> Uploading to R2 (${r2Key})... `)
-      const data = fs.readFileSync(outZipPath)
-      await uploadToR2(s3, bucketName, r2Key, data, 'application/zip')
+      const data = fs.readFileSync(outPkgPath)
+      await uploadToR2(s3, bucketName, r2Key, data, contentType)
       console.log('DONE')
     }
   }

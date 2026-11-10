@@ -20,7 +20,6 @@ release/
 scratch*
 scratch_*.txt
 # Standalone Binaries
-tools/Source2Viewer-CLI.exe
 tools/*.dll
 *.temp
 temp/
@@ -65,6 +64,5 @@ desktop.ini
 *.sln
 *.sw?
 
-# Executable binaries (preserve bundled tools)
+# Executable binaries
 *.exe
-!tools/vpktool.exe

@@ -9,7 +9,7 @@ import { APP_CONFIG } from '../shared/constants/appConfig'
 import { registerIpcHandlers } from './ipc'
 import { registerIconScheme, registerIconProtocol } from './services/iconCacheService'
 import { getAssetsPath } from './services/appPathService'
-import { migrateLegacySettings } from './services/updateService'
+import { migrateLegacySettings } from './services/settingsStore'
 import { installMainErrorCapture } from './services/bugReportService'
 
 // Start collecting main-process errors early so bug reports can include them

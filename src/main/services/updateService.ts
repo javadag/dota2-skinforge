@@ -10,6 +10,7 @@ import http from 'http'
 import https from 'https'
 import crypto from 'crypto'
 import { spawn } from 'child_process'
+import { computeFileSha256 } from './zipUtils'
 
 function getElectronApp(): typeof import('electron').app | null {
   try {
@@ -94,17 +95,12 @@ export function validateUpdateInstallPath(filePath: string, updatesDir: string):
  */
 export async function verifyFileSha256(filePath: string, expectedHash: string): Promise<boolean> {
   if (!expectedHash || !fs.existsSync(filePath)) return false
-  const expected = expectedHash.trim().toLowerCase()
-  return new Promise((resolve) => {
-    const hash = crypto.createHash('sha256')
-    const stream = fs.createReadStream(filePath)
-    stream.on('data', (chunk) => hash.update(chunk))
-    stream.on('end', () => {
-      const actual = hash.digest('hex').toLowerCase()
-      resolve(actual === expected)
-    })
-    stream.on('error', () => resolve(false))
-  })
+  try {
+    const actual = await computeFileSha256(filePath)
+    return actual.toLowerCase() === expectedHash.trim().toLowerCase()
+  } catch {
+    return false
+  }
 }
 
 /**
@@ -184,40 +180,7 @@ export function parseReleaseInfo(release: Record<string, unknown>, currentVersio
   }
 }
 
-/**
- * Migrates legacy settings from %APPDATA%/Electron to %APPDATA%/Dota 2 SkinForge
- * if the destination does not already have settings.
- */
-export function migrateLegacySettings(legacyDir?: string, targetDir?: string): boolean {
-  try {
-    let legDir = legacyDir
-    let tgtDir = targetDir
-
-    if (!legDir || !tgtDir) {
-      const electronApp = getElectronApp()
-      const appData = electronApp?.getPath('appData') || ''
-      legDir = legDir || path.join(appData, 'Electron')
-      tgtDir = tgtDir || path.join(appData, 'Dota 2 SkinForge')
-    }
-
-    const legacyFile = path.join(legDir, 'skinforge_settings.json')
-    const targetFile = path.join(tgtDir, 'skinforge_settings.json')
-
-    if (!fs.existsSync(legacyFile)) return false
-    if (fs.existsSync(targetFile)) return false
-
-    if (!fs.existsSync(tgtDir)) {
-      fs.mkdirSync(tgtDir, { recursive: true })
-    }
-
-    fs.copyFileSync(legacyFile, targetFile)
-    console.log(`[UpdateService] Migrated legacy settings from ${legacyFile} to ${targetFile}`)
-    return true
-  } catch (err) {
-    console.warn('[UpdateService] Failed to migrate legacy settings:', err)
-    return false
-  }
-}
+export { migrateLegacySettings } from './settingsStore'
 
 function fetchText(url: string): Promise<string> {
   return new Promise((resolve, reject) => {

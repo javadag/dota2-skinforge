@@ -2,20 +2,26 @@
  * Valve Source 2 VPK Packing & Extraction Service
  */
 
-import { execFile } from 'child_process'
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 import { crc32 } from '../../shared/utils/crc32'
-import { getToolsPath } from './appPathService'
 import { loadIndex, readEntry, type VpkIndex } from './vpkIndex'
 
-export const VPKTOOL_PATH = getToolsPath('vpktool.exe')
-
-export interface VpkToolResult {
+export interface VpkExtractResult {
   ok: boolean
+  files: string[]
+}
+
+export interface VpkListResult {
+  ok: boolean
+  count: number
+  totalBytes: number
+  entries: Array<{ path: string; len: number }>
+}
+
+export type VpkToolResult = VpkExtractResult & {
   error?: string
-  files?: string[]
   [key: string]: unknown
 }
 
@@ -46,62 +52,44 @@ export function clearVpkIndexCache(): void {
   indexCache.clear()
 }
 
-function runVpkTool(args: string[]): Promise<VpkToolResult | string> {
-  return new Promise((resolve, reject) => {
-    execFile(VPKTOOL_PATH, args, { maxBuffer: 1024 * 1024 * 32 }, (error, stdout, stderr) => {
-      if (error && !stdout) {
-        return reject(new Error(stderr || error.message))
-      }
-      try {
-        const parsed = JSON.parse(stdout.trim()) as VpkToolResult
-        if (!parsed.ok) {
-          return reject(new Error(parsed.error || 'VPK tool error'))
-        }
-        resolve(parsed)
-      } catch {
-        if (error) return reject(error)
-        resolve(stdout)
-      }
-    })
-  })
-}
-
-export async function list(vpkPath: string): Promise<VpkToolResult | string> {
-  return await runVpkTool(['list', path.resolve(vpkPath)])
-}
-
 /**
- * Extract a single file from a VPK. Uses the in-process pure TypeScript reader first
- * for 0.5ms extraction, falling back to vpktool.exe if needed.
+ * Extract a single file from a VPK using the pure TypeScript in-process reader.
  */
-export async function extract(vpkPath: string, internalPath: string, outFilePath: string): Promise<VpkToolResult | string> {
+export async function extract(vpkPath: string, internalPath: string, outFilePath: string): Promise<VpkExtractResult> {
   const resolvedOut = path.resolve(outFilePath)
   const outDir = path.dirname(resolvedOut)
   if (!fs.existsSync(outDir)) {
     fs.mkdirSync(outDir, { recursive: true })
   }
 
-  try {
-    const index = getOrLoadVpkIndex(vpkPath)
-    const clean = internalPath.replace(/\\/g, '/').replace(/^\//, '')
-    const bytes = readEntry(index, clean) ?? (clean.endsWith('_c') ? null : readEntry(index, `${clean}_c`))
-    if (bytes) {
-      fs.writeFileSync(resolvedOut, bytes)
-      return { ok: true, files: [resolvedOut] }
-    }
-  } catch {
-    // Pure TypeScript reader fallback to vpktool.exe
+  const index = getOrLoadVpkIndex(vpkPath)
+  const clean = internalPath.replace(/\\/g, '/').replace(/^\//, '')
+  const bytes = readEntry(index, clean) ?? (clean.endsWith('_c') ? null : readEntry(index, `${clean}_c`))
+  if (bytes) {
+    fs.writeFileSync(resolvedOut, bytes)
+    return { ok: true, files: [resolvedOut] }
   }
 
-  return await runVpkTool(['extract', path.resolve(vpkPath), internalPath, resolvedOut])
+  throw new Error(`File "${internalPath}" not found in VPK "${vpkPath}"`)
 }
 
-export async function unpack(vpkPath: string, outDir: string): Promise<VpkToolResult | string> {
-  const resolvedOutDir = path.resolve(outDir)
-  if (!fs.existsSync(resolvedOutDir)) {
-    fs.mkdirSync(resolvedOutDir, { recursive: true })
+/**
+ * List files inside a VPK using the pure TypeScript in-process index loader.
+ */
+export async function list(vpkPath: string): Promise<VpkListResult> {
+  const index = getOrLoadVpkIndex(vpkPath)
+  const entries: Array<{ path: string; len: number }> = []
+  let totalBytes = 0
+  for (const [filePath, entry] of index.entries.entries()) {
+    entries.push({ path: filePath, len: entry.length })
+    totalBytes += entry.length
   }
-  return await runVpkTool(['unpack', path.resolve(vpkPath), resolvedOutDir])
+  return {
+    ok: true,
+    count: entries.length,
+    totalBytes,
+    entries
+  }
 }
 
 interface FileEntry {
@@ -261,10 +249,7 @@ export function packMultiChunk(src: string | VpkPackEntry[], outDirVpkPath: stri
   }
 }
 
-export async function pack(src: string | VpkPackEntry[], outVpkPath: string): Promise<PackMultiChunkResult | VpkToolResult | string> {
+export async function pack(src: string | VpkPackEntry[], outVpkPath: string): Promise<PackMultiChunkResult> {
   const resolvedOutVpk = path.resolve(outVpkPath)
-  if (Array.isArray(src) || resolvedOutVpk.toLowerCase().endsWith('_dir.vpk')) {
-    return packMultiChunk(src, resolvedOutVpk)
-  }
-  return await runVpkTool(['pack', path.resolve(src), resolvedOutVpk])
+  return packMultiChunk(src, resolvedOutVpk)
 }

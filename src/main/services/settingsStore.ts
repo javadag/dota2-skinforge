@@ -47,3 +47,44 @@ export function storedModFolder(fallback = 'skinforge'): string {
   const name = raw.trim().replace(/[\\/:*?"<>|]/g, '')
   return name || fallback
 }
+
+/**
+ * Migrates legacy settings from %appData%/Electron to %appData%/Dota 2 SkinForge
+ * if the destination does not already have settings.
+ */
+export function migrateLegacySettings(legacyDir?: string, targetDir?: string): boolean {
+  try {
+    let legDir = legacyDir
+    let tgtDir = targetDir
+
+    if (!legDir || !tgtDir) {
+      const electronApp = userDataDir()
+      if (!electronApp) return false
+      try {
+        const { app } = require('electron') as { app?: { getPath?: (name: string) => string } }
+        const appData = app?.getPath?.('appData') || ''
+        legDir = legDir || path.join(appData, 'Electron')
+        tgtDir = tgtDir || path.join(appData, 'Dota 2 SkinForge')
+      } catch {
+        return false
+      }
+    }
+
+    const legacyFile = path.join(legDir, 'skinforge_settings.json')
+    const targetFile = path.join(tgtDir, 'skinforge_settings.json')
+
+    if (!fs.existsSync(legacyFile)) return false
+    if (fs.existsSync(targetFile)) return false
+
+    if (!fs.existsSync(tgtDir)) {
+      fs.mkdirSync(tgtDir, { recursive: true })
+    }
+
+    fs.copyFileSync(legacyFile, targetFile)
+    console.log(`[SettingsStore] Migrated legacy settings from ${legacyFile} to ${targetFile}`)
+    return true
+  } catch (err) {
+    console.warn('[SettingsStore] Failed to migrate legacy settings:', err)
+    return false
+  }
+}

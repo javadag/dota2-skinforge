@@ -16,6 +16,7 @@ import { APP_CONFIG } from '../../shared/constants/appConfig'
 import type { AssetPackageManifest, AssetPackageEntry } from '../../shared/types/assetPackages'
 import { getAppRoot, getDataPath } from './appPathService'
 import { extractZipSafely } from './zipUtils'
+import { extractTarBrotliSafely } from './tarUtils'
 
 export interface DownloadProgress {
   group: string
@@ -141,7 +142,8 @@ export async function downloadAndInstallPackage(
   await fs.promises.mkdir(stagingDir, { recursive: true })
 
   const tempId = crypto.randomUUID()
-  const tempZipPath = path.join(stagingDir, `${group}-${tempId}.zip`)
+  const archiveExt = entry.file.endsWith('.tar.br') ? '.tar.br' : path.extname(entry.file) || '.zip'
+  const tempPkgPath = path.join(stagingDir, `${group}-${tempId}${archiveExt}`)
   const tempExtractDir = path.join(stagingDir, `${group}-${tempId}`)
 
   const packageUrl = `${APP_CONFIG.cdnUrl}/cosmetic-assets/packages/${entry.file}`
@@ -164,7 +166,7 @@ export async function downloadAndInstallPackage(
     const totalBytes = Number(res.headers.get('content-length')) || entry.size
     let receivedBytes = 0
 
-    const fileStream = fs.createWriteStream(tempZipPath)
+    const fileStream = fs.createWriteStream(tempPkgPath)
     const hasher = crypto.createHash('sha256')
 
     const reader = res.body.getReader()
@@ -208,7 +210,11 @@ export async function downloadAndInstallPackage(
       message: `Extracting ${group} assets...`
     })
 
-    await extractZipSafely(tempZipPath, tempExtractDir)
+    if (archiveExt === '.tar.br') {
+      await extractTarBrotliSafely(tempPkgPath, tempExtractDir)
+    } else {
+      await extractZipSafely(tempPkgPath, tempExtractDir)
+    }
 
     // Write package state verification marker
     const state = {
@@ -234,9 +240,9 @@ export async function downloadAndInstallPackage(
     await fs.promises.rename(tempExtractDir, finalGroupDir)
     return finalGroupDir
   } finally {
-    // Cleanup temporary zip and staging directory
-    if (fs.existsSync(tempZipPath)) {
-      fs.promises.unlink(tempZipPath).catch(() => {})
+    // Cleanup temporary package archive and staging directory
+    if (fs.existsSync(tempPkgPath)) {
+      fs.promises.unlink(tempPkgPath).catch(() => {})
     }
     if (fs.existsSync(tempExtractDir)) {
       fs.promises.rm(tempExtractDir, { recursive: true, force: true }).catch(() => {})

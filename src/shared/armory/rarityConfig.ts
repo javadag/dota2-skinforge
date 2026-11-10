@@ -141,10 +141,12 @@ export const RARITY_CONFIG: Record<ItemRarity, RarityConfigItem> = {
   }
 }
 
-/** Rarest-first ordering used by "Unlock Best Set". */
+/** Canonical rarest-first ranking (higher number = rarer). Single source of truth. */
 export const RARITY_RANK: Record<string, number> = {
   arcana: 8,
   immortal: 7,
+  golden: 7,
+  crimson: 7,
   legendary: 6,
   mythical: 5,
   rare: 4,
@@ -152,11 +154,14 @@ export const RARITY_RANK: Record<string, number> = {
   common: 2,
   seasonal: 1,
   persona: 1,
-  taunt: 0
+  taunt: 0,
+  voice: 0,
+  ambient: 0,
+  default: 0
 }
 
 export function rarityRank(rarity?: string): number {
-  return RARITY_RANK[(rarity || '').toLowerCase()] ?? 0
+  return RARITY_RANK[(rarity || '').toLowerCase().trim()] ?? 0
 }
 
 export function getItemRarityKey(item?: ItemDescriptor | null): ItemRarity {

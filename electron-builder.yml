@@ -13,10 +13,6 @@ files:
 extraResources:
   - from: data
     to: data
-  - from: tools
-    to: tools
-    filter:
-      - "vpktool.exe"
   - from: assets
     to: assets
 

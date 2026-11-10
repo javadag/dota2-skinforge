@@ -4,7 +4,6 @@
  */
 
 import { create } from 'zustand'
-import { initCatalog } from '../components/slotGenerator'
 import type { InstallProgress } from '../env'
 import { createLoadoutSlice, type LoadoutSlice } from './slices/loadoutSlice'
 import { createLogsSlice, type LogsSlice } from './slices/logsSlice'
@@ -62,9 +61,6 @@ export const useAppStore = create<AppStoreState>((set, get, store) => ({
           }
         })
       }
-
-      // Initialize catalog
-      await initCatalog()
 
       if (!window.skinforge || typeof window.skinforge.getInitialData !== 'function') {
         throw new Error('IPC bridge window.skinforge is not available.')

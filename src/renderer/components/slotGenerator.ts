@@ -12,7 +12,7 @@
 
 import heroesCatalogData from '../../../data/heroes_catalog.json'
 import otherCatalogData from '../../../data/other_catalog.json'
-import { getItemRarityKey } from '../utils/itemImages'
+import { getItemRarityKey, rarityRank } from '../utils/itemImages'
 import type { HeroEntry } from '../env'
 
 export interface SlotMod {
@@ -113,10 +113,6 @@ export function formatHeroName(tag?: string | null): string {
     .join(' ')
 }
 
-export async function initCatalog(): Promise<Record<string, HeroCatalogEntry>> {
-  return catalog
-}
-
 /** Filter out removed slots (taunt, Diretide shimmer costumes). */
 function cleanSlots(entry: HeroCatalogEntry): HeroCatalogEntry {
   return {
@@ -143,24 +139,8 @@ for (const [key, entry] of Object.entries(otherCatalog)) {
   if (entry?.tag) otherCatalogIndex.set(catalogKey(entry.tag), entry)
 }
 
-/** Rarest first. Anything unrecognised sorts last. */
-const RARITY_RANK: Record<string, number> = {
-  arcana: 0,
-  persona: 1,
-  immortal: 2,
-  legendary: 3,
-  mythical: 4,
-  rare: 5,
-  uncommon: 6,
-  common: 7,
-  taunt: 8,
-  voice: 9,
-  ambient: 10,
-  default: 11
-}
-
 function byRarity(a: SlotMod, b: SlotMod): number {
-  return (RARITY_RANK[getItemRarityKey(a)] ?? 99) - (RARITY_RANK[getItemRarityKey(b)] ?? 99)
+  return rarityRank(getItemRarityKey(b)) - rarityRank(getItemRarityKey(a))
 }
 
 /**

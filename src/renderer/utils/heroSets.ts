@@ -1,4 +1,5 @@
 import heroSetsData from '../../../data/hero_sets.json'
+import { rarityRank } from './itemImages'
 
 export interface HeroSetItem {
   slot: string
@@ -27,42 +28,29 @@ for (const [tag, sets] of Object.entries(setsMap)) {
   normalizedSets.set(normalizeTag(tag), sets)
 }
 
-export const SET_RARITY_RANK: Record<string, number> = {
-  arcana: 0,
-  persona: 1,
-  immortal: 2,
-  legendary: 3,
-  mythical: 4,
-  rare: 5,
-  uncommon: 6,
-  common: 7,
-  seasonal: 8
-}
-
 /** Determine the highest/effective rarity of a set (accounting for Arcana/Immortal pieces). */
 export function getSetEffectiveRarity(set: HeroSet): string {
   if (set.isPersona) return 'persona'
-  const rawSetRarity = (set.rarity || '').toLowerCase().trim()
-  let bestRank = SET_RARITY_RANK[rawSetRarity] ?? 99
+  let bestRarity = (set.rarity || '').toLowerCase().trim() || 'common'
+  let bestScore = rarityRank(bestRarity)
 
   for (const it of set.items || []) {
     const itRarity = (it.rarity || '').toLowerCase().trim()
-    const itRank = SET_RARITY_RANK[itRarity] ?? 99
-    if (itRank < bestRank) bestRank = itRank
+    const itScore = rarityRank(itRarity)
+    if (itScore > bestScore) {
+      bestScore = itScore
+      bestRarity = itRarity
+    }
   }
 
-  for (const [key, rank] of Object.entries(SET_RARITY_RANK)) {
-    if (rank === bestRank) return key
-  }
-  return rawSetRarity || 'common'
+  return bestRarity
 }
 
 /** Sort hero sets by rarity (rarest first), then alphabetically by name. */
 export function sortSetsByRarity(sets: HeroSet[]): HeroSet[] {
   return [...sets].sort((a, b) => {
-    const rankA = SET_RARITY_RANK[getSetEffectiveRarity(a)] ?? 99
-    const rankB = SET_RARITY_RANK[getSetEffectiveRarity(b)] ?? 99
-    if (rankA !== rankB) return rankA - rankB
+    const diff = rarityRank(getSetEffectiveRarity(b)) - rarityRank(getSetEffectiveRarity(a))
+    if (diff !== 0) return diff
     return a.name.localeCompare(b.name, 'en')
   })
 }
