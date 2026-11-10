@@ -1,60 +1,57 @@
 /**
- * The armory now carries set membership itself, so this runs while `hero_sets.json` still
- * exists: hydrating the merged armory has to reproduce the legacy file set for set and
- * piece for piece. That is the proof that folding the two files together changed nothing
- * the picker, the set badges or "Equip Entire Set" can see.
+ * Set hydration from the armory: `data/hero_sets.json` used to be the second copy of this
+ * data, and the merge that removed it was proven equal against the legacy file first
+ * (see the merge commit). What stays under test afterwards is the invariant that makes
+ * the join safe — every hydrated piece comes back as a real armory row.
  */
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import legacyData from '../data/hero_sets.json'
-import { getHeroSets, type HeroSet } from '../src/renderer/utils/heroSets'
+import armoryData from '../data/heroes_armory.json'
+import { getHeroSets } from '../src/renderer/utils/heroSets'
 
-interface LegacySet {
-  id: string
+interface ArmoryMod {
+  id?: number
   name: string
-  rarity?: string
-  img?: string
-  isPersona?: boolean
-  items: Array<{ slot: string; name: string; rarity?: string; img?: string }>
 }
 
-const legacy = legacyData as unknown as Record<string, LegacySet[]>
-
-function byId(sets: HeroSet[]): Map<string, HeroSet> {
-  return new Map(sets.map((set) => [set.id, set]))
+interface ArmoryEntry {
+  tag?: string
+  slots: Array<{ slot: string; mods: ArmoryMod[] }>
+  sets?: Array<{ id: string; items: Array<{ slot: string; id: number }> }>
 }
 
-test('hydrating the armory reproduces hero_sets.json exactly', () => {
+const armory = armoryData as unknown as Record<string, ArmoryEntry>
+
+test('every hydrated piece resolves to an armory row of the same hero', () => {
   let setsChecked = 0
   let piecesChecked = 0
 
-  for (const [hero, expected] of Object.entries(legacy)) {
-    const hydrated = byId(getHeroSets(hero))
-    assert.equal(hydrated.size, expected.length, `${hero}: ${expected.length} sets expected, ${hydrated.size} hydrated`)
+  for (const [hero, entry] of Object.entries(armory)) {
+    const rowNames = new Map<string, Set<string>>()
+    for (const slot of entry.slots) {
+      const names = new Set(slot.mods.map((mod) => mod.name))
+      rowNames.set(slot.slot, names)
+    }
 
-    for (const want of expected) {
-      const got = hydrated.get(want.id)
-      assert.ok(got, `${hero}: set ${want.id} did not hydrate`)
-      assert.equal(got.name, want.name, `${hero}/${want.id}: name`)
-      assert.equal(got.rarity, want.rarity, `${hero}/${want.id}: rarity`)
-      assert.equal(got.img, want.img, `${hero}/${want.id}: image`)
-      assert.equal(got.isPersona, want.isPersona, `${hero}/${want.id}: isPersona`)
+    const sets = getHeroSets(entry.tag ?? hero)
+    assert.equal(sets.length, (entry.sets ?? []).length, `${hero}: hydrated set count differs from the armory`)
 
-      assert.equal(got.items.length, want.items.length, `${hero}/${want.id}: piece count`)
-      want.items.forEach((piece, index) => {
-        const gotPiece = got.items[index]
-        assert.equal(gotPiece.slot, piece.slot, `${hero}/${want.id}: piece ${index} slot`)
-        assert.equal(gotPiece.name, piece.name, `${hero}/${want.id}: piece ${index} name`)
-        assert.equal(gotPiece.rarity, piece.rarity, `${hero}/${want.id}: piece ${index} rarity`)
-        assert.equal(gotPiece.img, piece.img, `${hero}/${want.id}: piece ${index} image`)
+    for (const set of sets) {
+      assert.ok(set.items.length > 0, `${hero}/${set.id} hydrated with no pieces`)
+      assert.ok(set.name && set.img, `${hero}/${set.id} lost its name or image`)
+      for (const piece of set.items) {
+        assert.ok(
+          rowNames.get(piece.slot)?.has(piece.name),
+          `${hero}/${set.id}: "${piece.name}" is not an armory row in slot "${piece.slot}"`
+        )
+        assert.ok(piece.rarity || set.rarity, `${hero}/${set.id}: piece "${piece.name}" has no rarity anywhere`)
         piecesChecked++
-      })
+      }
       setsChecked++
     }
   }
 
-  // Guard against a test that quietly stopped comparing anything.
   assert.ok(setsChecked > 1900, `only ${setsChecked} sets checked`)
   assert.ok(piecesChecked > 9500, `only ${piecesChecked} pieces checked`)
 })
@@ -62,6 +59,12 @@ test('hydrating the armory reproduces hero_sets.json exactly', () => {
 test('heroes with no sets stay empty instead of disappearing from the API', () => {
   for (const hero of ['io', 'kez', 'largo']) {
     assert.deepEqual(getHeroSets(hero), [], `${hero} should have no sets`)
+  }
+})
+
+test('heroes with sets expose them', () => {
+  for (const hero of ['abaddon', 'lina', 'phantom assassin']) {
+    assert.ok(getHeroSets(hero).length > 0, `${hero} lost its sets`)
   }
 })
 

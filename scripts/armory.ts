@@ -227,41 +227,13 @@ function pruneExternal<T>(value: T): T {
 function withoutExternalFields(entry: HeroEntry | undefined): Record<string, unknown> {
   const out = pruneExternal({ ...(entry ?? {}) }) as Record<string, unknown>
   // Hero art comes from `assets/heroes/<canonical>.png`, taunts come from the generated
-  // `taunt` slot, and portrait/sets metadata from the old dataset — none of it needs an
+  // `taunt` slot, and portrait metadata from the old dataset — none of it needs an
   // external image host. `empty_img` survives here only as Valve `econ/...` paths (http
   // variants are pruned above); the renderer resolves those through R2 like mod icons.
   delete out.portrait
   delete out.taunt
   delete out.gamesets
   return out
-}
-
-/** A set as `hero_sets.json` stored it: every piece carrying its own name and icon. */
-interface LegacySet {
-  id: string
-  name: string
-  rarity?: string
-  img?: string
-  isPersona?: boolean
-  items: Array<{ slot: string; name: string; img?: string }>
-}
-
-/**
- * Set membership belongs to the armory: a piece points at the item it equips with
- * `{slot, id}`, and the name/rarity/icon come from that row instead of being stored a
- * second time. `hero_sets.json` is the one-time source; afterwards `prev.sets` carries.
- */
-function rewriteSets(sets: LegacySet[] | undefined, slots: Slot[]): ArmorySet[] {
-  if (!sets?.length) return []
-  const bySlot = new Map(slots.map((slot) => [slot.slot, slot]))
-  return sets.map((set) => ({
-    ...set,
-    items: set.items.map((piece) => {
-      const mod = bySlot.get(piece.slot)?.mods.find((m) => m.name === piece.name && m.img === piece.img)
-      if (!mod) throw new Error(`set ${set.id}: "${piece.name}" (${piece.slot}) is not in the armory being written`)
-      return { slot: piece.slot, id: mod.id }
-    })
-  }))
 }
 
 const ARMORY_FILE = 'heroes_armory.json'
@@ -383,13 +355,6 @@ async function main(): Promise<void> {
   const armoryPath = dataPath(ARMORY_FILE)
   const { raw, value: previous } = readJsonFile<Armory>(armoryPath, 'Armory file (run `npm run armory` to generate it)')
 
-  // Set membership migrates in from hero_sets.json the first time this runs; after that
-  // the armory carries it and the legacy file is ignored (and gone).
-  const legacySetsPath = dataPath('hero_sets.json')
-  const legacySets = fs.existsSync(legacySetsPath)
-    ? (JSON.parse(fs.readFileSync(legacySetsPath, 'utf-8')) as Record<string, LegacySet[]>)
-    : null
-
   // Match existing keys so the hero cards keep their extra fields.
   const keyOf = (tag: string): string => tag.toLowerCase().replace(/[^a-z0-9]/g, '')
   const previousByKey = new Map(Object.entries(previous).map(([key, entry]) => [keyOf(key), entry]))
@@ -404,7 +369,8 @@ async function main(): Promise<void> {
     const prev = previousByKey.get(keyOf(hero.tag)) ?? previousByKey.get(keyOf(canonical))
     const slots = buildSlots(schema, text, canonical, prev)
     const key = previousKeyByCanonical.get(keyOf(canonical)) ?? hero.tag
-    const sets = prev?.sets ?? rewriteSets(legacySets?.[key] ?? legacySets?.[hero.tag], slots)
+    // Set membership travels with the armory: pieces are {slot, id} rows into `slots`.
+    const sets: ArmorySet[] = prev?.sets ?? []
 
     if (!slots.length) {
       // A hero the installed schema knows nothing about (newly shipped) keeps its old list
@@ -436,7 +402,7 @@ async function main(): Promise<void> {
   if (preserved.length) console.log(`  kept previous list for: ${preserved.join(', ')}`)
   if (empty.length) console.log(`  empty: ${empty.join(', ')}`)
   console.log(`entries: ${count(previous)} (was) -> ${count(ordered)} (now)`)
-  console.log(`sets:    ${setCount}${legacySets ? ` (migrated from hero_sets.json)` : ''}`)
+  console.log(`sets:    ${setCount}`)
 
   const sample = ['lina', 'legion commander', 'tidehunter']
   for (const name of sample) {

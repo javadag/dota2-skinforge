@@ -102,7 +102,6 @@ dota2-skinforge/
 │   ├── categories.json         # Non-hero cosmetic categories (World & Interface)
 │   ├── heroes_armory.json     # Generated hero slots & items armory
 │   ├── other_armory.json      # Non-hero cosmetic items armory
-│   ├── hero_sets.json          # Pre-assembled cosmetic sets per hero
 │   ├── cosmetic-assets.json    # Arcana/Persona overlays and companion refits
 │   ├── cosmetic-packages.json  # Remote asset package manifest for R2
 │   └── itemStyles.json         # Per-item style configurations

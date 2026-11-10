@@ -9,7 +9,6 @@ import { test } from 'node:test'
 
 import assetsData from '../data/cosmetic-assets.json'
 import categoriesData from '../data/categories.json'
-import heroSetsData from '../data/hero_sets.json'
 import heroesData from '../data/heroes.json'
 import styleData from '../data/itemStyles.json'
 import otherArmoryData from '../data/other_armory.json'
@@ -32,27 +31,11 @@ interface Slot {
 interface Entry {
   tag?: string
   slots: Slot[]
-}
-
-interface SetPiece {
-  slot: string
-  name: string
-  rarity?: string
-  img?: string
-}
-
-interface HeroSet {
-  id: string
-  name: string
-  rarity?: string
-  img?: string
-  isPersona?: boolean
-  items: SetPiece[]
+  sets?: Array<{ id: string; name: string; img?: string; items: Array<{ slot: string; id: number }> }>
 }
 
 const armory = armoryData as unknown as Record<string, Entry>
 const otherArmory = otherArmoryData as unknown as Record<string, Entry>
-const heroSets = heroSetsData as unknown as Record<string, HeroSet[]>
 const heroes = (heroesData as unknown as { heroes: Array<{ tag: string; name?: string; alias?: string[]; mods?: number }> }).heroes
 const categories = (categoriesData as unknown as { categories: Array<{ tag: string; name: string }> }).categories
 const packages = (packagesData as unknown as { packages: Record<string, unknown> }).packages
@@ -61,12 +44,11 @@ const assetGroups = new Set(
   Object.values((assetsData as unknown as { items: Record<string, { group: string }> }).items).map((i) => i.group)
 )
 
-test('heroes.json, the armory and hero_sets describe the same heroes', () => {
+test('heroes.json and the armory describe the same heroes', () => {
   const tags = heroes.map((hero) => hero.tag)
   assert.equal(new Set(tags).size, tags.length, 'duplicate hero tag in heroes.json')
 
   assert.deepEqual(new Set(tags), new Set(Object.keys(armory)), 'heroes.json and heroes_armory.json disagree')
-  assert.deepEqual(new Set(tags), new Set(Object.keys(heroSets)), 'heroes.json and hero_sets.json disagree')
 
   for (const hero of heroes) {
     assert.ok(!('mods' in hero), `${hero.tag} carries a mods count again — it is derived and was never displayed`)
@@ -75,36 +57,28 @@ test('heroes.json, the armory and hero_sets describe the same heroes', () => {
   }
 })
 
-test('every set piece resolves to exactly one armory row, and by id too', () => {
-  for (const [hero, sets] of Object.entries(heroSets)) {
-    const entry = armory[hero]
-    assert.ok(entry, `${hero} has sets but no armory entry`)
-
-    const byNameAndImg = new Map<string, Mod[]>()
-    for (const slot of entry.slots) {
-      for (const mod of slot.mods) {
-        const key = `${mod.name}|${mod.img}`
-        const list = byNameAndImg.get(key)
-        if (list) list.push(mod)
-        else byNameAndImg.set(key, [mod])
-      }
-    }
-
-    for (const set of sets) {
+test('every set in the armory points at slots and items the armory has', () => {
+  let setsChecked = 0
+  let piecesChecked = 0
+  for (const [hero, entry] of Object.entries(armory)) {
+    const slots = new Map(entry.slots.map((slot) => [slot.slot, slot]))
+    for (const set of entry.sets ?? []) {
       assert.ok(set.img, `${hero}/${set.id} has no set image (the picker renders it from R2)`)
+      assert.ok(set.items.length > 0, `${hero}/${set.id} has no pieces`)
       for (const piece of set.items) {
-        const matches = byNameAndImg.get(`${piece.name}|${piece.img}`) ?? []
-        assert.equal(matches.length, 1, `${hero}/${set.id}: "${piece.name}" matched ${matches.length} armory rows by name+img`)
-
-        // The merged format stores {slot, id} only: resolving the first row carrying that id
-        // must land on this exact piece (style variants share an id within a slot).
-        const slot = entry.slots.find((s) => s.slot === piece.slot)
-        assert.ok(slot, `${hero}/${set.id}: "${piece.name}" claims slot "${piece.slot}" the armory does not have`)
-        const sharing = slot.mods.filter((m) => m.id === matches[0].id)
-        assert.equal(sharing[0].name, piece.name, `${hero}/${set.id}: id ${matches[0].id} does not resolve to "${piece.name}"`)
+        const slot = slots.get(piece.slot)
+        assert.ok(slot, `${hero}/${set.id}: slot "${piece.slot}" does not exist`)
+        assert.ok(
+          slot.mods.some((mod) => mod.id === piece.id),
+          `${hero}/${set.id}: #${piece.id} is not in slot "${piece.slot}"`
+        )
+        piecesChecked++
       }
+      setsChecked++
     }
   }
+  assert.ok(setsChecked > 1900, `only ${setsChecked} sets found`)
+  assert.ok(piecesChecked > 9500, `only ${piecesChecked} pieces found`)
 })
 
 test('categories.json and other_armory.json describe the same categories', () => {
@@ -139,17 +113,6 @@ test('armory rows are well formed: no empty slots, no missing ids, no duplicate 
         const key = `${mod.id}:${mod.name}`
         assert.ok(!seen.has(key), `${hero}.${slot.slot} lists #${mod.id} "${mod.name}" twice`)
         seen.add(key)
-      }
-    }
-  }
-})
-
-test('every set item sits in a slot its hero actually has', () => {
-  for (const [hero, sets] of Object.entries(heroSets)) {
-    const slots = new Set(armory[hero].slots.map((slot) => slot.slot))
-    for (const set of sets) {
-      for (const piece of set.items) {
-        assert.ok(slots.has(piece.slot), `${hero}/${set.id}: slot "${piece.slot}" does not exist`)
       }
     }
   }
