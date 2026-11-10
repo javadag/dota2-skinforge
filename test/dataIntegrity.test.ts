@@ -9,12 +9,13 @@ import { test } from 'node:test'
 
 import assetsData from '../data/cosmetic-assets.json'
 import categoriesData from '../data/categories.json'
-import heroesData from '../data/heroes.json'
 import styleData from '../data/itemStyles.json'
 import otherArmoryData from '../data/other_armory.json'
 import armoryData from '../data/heroes_armory.json'
 import packagesData from '../data/cosmetic-packages.json'
+import { getCanonicalHero } from '../src/shared/constants/heroAliases'
 import { getStyleOptionsByName } from '../src/shared/constants/itemStyles'
+import { listHeroes } from '../src/renderer/components/slotGenerator'
 
 interface Mod {
   id: number
@@ -36,7 +37,6 @@ interface Entry {
 
 const armory = armoryData as unknown as Record<string, Entry>
 const otherArmory = otherArmoryData as unknown as Record<string, Entry>
-const heroes = (heroesData as unknown as { heroes: Array<{ tag: string; name?: string; alias?: string[]; mods?: number }> }).heroes
 const categories = (categoriesData as unknown as { categories: Array<{ tag: string; name: string }> }).categories
 const packages = (packagesData as unknown as { packages: Record<string, unknown> }).packages
 const styleItems = (styleData as unknown as { items: Record<string, unknown> }).items
@@ -44,17 +44,27 @@ const assetGroups = new Set(
   Object.values((assetsData as unknown as { items: Record<string, { group: string }> }).items).map((i) => i.group)
 )
 
-test('heroes.json and the armory describe the same heroes', () => {
-  const tags = heroes.map((hero) => hero.tag)
-  assert.equal(new Set(tags).size, tags.length, 'duplicate hero tag in heroes.json')
-
-  assert.deepEqual(new Set(tags), new Set(Object.keys(armory)), 'heroes.json and heroes_armory.json disagree')
+test('the hero list is derived from the armory and stays searchable by alias', () => {
+  const heroes = listHeroes()
+  assert.equal(new Set(heroes.map((hero) => hero.tag)).size, heroes.length, 'duplicate hero tag')
+  assert.deepEqual(
+    new Set(heroes.map((hero) => hero.tag)),
+    new Set(Object.keys(armory)),
+    'listHeroes() disagrees with the armory it is derived from'
+  )
 
   for (const hero of heroes) {
-    assert.ok(!('mods' in hero), `${hero.tag} carries a mods count again — it is derived and was never displayed`)
     assert.ok(hero.name, `${hero.tag} has no display name`)
-    assert.ok(Array.isArray(hero.alias), `${hero.tag} has no alias list`)
+    for (const alias of hero.alias ?? []) {
+      assert.notEqual(alias, hero.tag, `${hero.tag} lists itself as an alias`)
+      assert.equal(getCanonicalHero(alias), getCanonicalHero(hero.tag), `${hero.tag}: alias "${alias}" resolves to a different hero`)
+    }
   }
+
+  // The one real alias in HERO_ALIASES — the derivation must not lose it.
+  const antimage = heroes.find((hero) => hero.tag === 'antimage')
+  assert.deepEqual(antimage?.alias, ['anti-mage'])
+  assert.ok(heroes.length > 120, `only ${heroes.length} heroes`)
 })
 
 test('every set in the armory points at slots and items the armory has', () => {

@@ -1,7 +1,6 @@
 /**
  * Replace externally hosted catalog images with local/Valve sources.
  *
- * - `data/heroes.json`          drops `img` (the UI falls back to `assets/heroes/<canonical>.png`)
  * - `data/heroes_armory.json`   drops `portrait`, `taunt`, `gamesets` (taunts come from the
  *                               generated `taunt` slot; sets are unused)
  * - `data/other_armory.json`    rewrites each mod's `img` to its Valve `image_inventory`
@@ -31,11 +30,6 @@ function rewrite(file: string, mutate: (value: unknown) => void): void {
 async function main(): Promise<void> {
   const files = await resolveSchemaFiles()
   const { schema } = loadSchema(files)
-
-  rewrite('heroes.json', (value) => {
-    const heroes = (value as { heroes: Array<Record<string, unknown>> }).heroes
-    for (const hero of heroes) delete hero.img
-  })
 
   rewrite('heroes_armory.json', (value) => {
     for (const entry of Object.values(value as Record<string, Record<string, unknown>>)) {

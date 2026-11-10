@@ -19,11 +19,6 @@ export interface HeroItem {
   [key: string]: unknown
 }
 
-export interface HeroesData {
-  heroes: HeroItem[]
-  groups?: Array<{ key: string; title: string }>
-}
-
 export interface CategoryItem {
   tag: string
   name?: string
@@ -41,18 +36,6 @@ export interface CategoryGroupItem {
 export interface CategoriesData {
   categories: CategoryItem[]
   groups: CategoryGroupItem[]
-}
-
-export function loadHeroesData(): HeroesData {
-  const heroesJsonPath = getDataPath('heroes.json')
-  if (fs.existsSync(heroesJsonPath)) {
-    try {
-      return JSON.parse(fs.readFileSync(heroesJsonPath, 'utf8')) as HeroesData
-    } catch (e: unknown) {
-      console.error('Failed to read heroes.json:', e)
-    }
-  }
-  return { heroes: [], groups: [] }
 }
 
 export function loadCategoriesData(): CategoriesData {
@@ -99,7 +82,6 @@ export function registerSystemIpc() {
   ipcMain.handle('get-initial-data', async () => {
     const dotaPath = dotaPathModule.detectDotaPath()
     const status = pipeline.checkStatus(dotaPath, storedModFolder())
-    const heroesData = loadHeroesData()
     const categoriesData = loadCategoriesData()
 
     const groups: CategoryGroupItem[] = [
@@ -121,7 +103,6 @@ export function registerSystemIpc() {
       appInfo,
       dotaPath,
       status,
-      heroes: heroesData.heroes || [],
       categories: categoriesData.categories || [],
       groups
     }

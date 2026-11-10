@@ -98,7 +98,6 @@ dota2-skinforge/
 ├── tools/
 │   └── vpktool.exe             # Standalone VPK pack/unpack utility
 ├── data/
-│   ├── heroes.json             # Official Dota 2 hero catalog (127 heroes)
 │   ├── categories.json         # Non-hero cosmetic categories (World & Interface)
 │   ├── heroes_armory.json     # Generated hero slots & items armory
 │   ├── other_armory.json      # Non-hero cosmetic items armory

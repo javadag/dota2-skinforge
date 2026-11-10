@@ -238,12 +238,6 @@ function withoutExternalFields(entry: HeroEntry | undefined): Record<string, unk
 
 const ARMORY_FILE = 'heroes_armory.json'
 
-interface HeroIndexEntry {
-  tag: string
-  name: string
-  img?: string
-}
-
 /** Read a data file, failing with an actionable message instead of a stack trace. */
 function readJsonFile<T>(path: string, notFoundHint: string): { raw: string; value: T } {
   if (!fs.existsSync(path)) throw new Error(`${notFoundHint} not found: ${path}`)
@@ -271,29 +265,15 @@ function reportFindings(findings: Finding[]): number {
   return errors.length
 }
 
-/** The hero list and the armory must agree on which heroes exist, or the picker looks up nothing. */
-function heroIndexFindings(heroes: HeroIndexEntry[], armory: Armory): Finding[] {
-  const findings: Finding[] = []
-  const tags = new Set(heroes.map((hero) => hero.tag))
-  for (const tag of tags) {
-    if (!armory[tag]) findings.push({ level: 'error', where: tag, message: 'listed in heroes.json but missing from the armory' })
-  }
-  for (const key of Object.keys(armory)) {
-    if (!tags.has(key)) findings.push({ level: 'error', where: key, message: 'in the armory but missing from heroes.json' })
-  }
-  return findings
-}
-
 /** `--check` / `--fix`: validate the shipped armory against the schema, optionally repairing it. */
 function checkArmory(schema: SchemaIndex): void {
   const armoryPath = dataPath(ARMORY_FILE)
   const { raw, value: armory } = readJsonFile<Armory>(armoryPath, 'Armory file (run `npm run armory` to generate it)')
-  const { value: heroes } = readJsonFile<{ heroes: HeroIndexEntry[] }>(dataPath('heroes.json'), 'Hero index')
 
   console.log(`schema:  ${schema.items.size} items, ${schema.defaults.size} owners`)
   console.log(`armory:  ${Object.keys(armory).length} owners, ${armoryEntryCount(armory)} items`)
 
-  const findings = [...collectArmoryFindings(armory, schema), ...heroIndexFindings(heroes.heroes, armory)]
+  const findings = collectArmoryFindings(armory, schema)
   const errors = reportFindings(findings)
   const fix = hasFlag('--fix')
 
@@ -335,9 +315,7 @@ function checkArmory(schema: SchemaIndex): void {
   console.log(`\nRepaired ${repairable.length} finding(s); wrote ${armoryPath}`)
 
   const reread = readJsonFile<Armory>(armoryPath, 'Armory file').value
-  const remaining = [...collectArmoryFindings(reread, schema), ...heroIndexFindings(heroes.heroes, reread)].filter(
-    (finding) => finding.level === 'error'
-  )
+  const remaining = collectArmoryFindings(reread, schema).filter((finding) => finding.level === 'error')
   console.log(`Re-check: ${remaining.length} problem(s) remaining.`)
   for (const finding of remaining) console.log(`  ERROR ${finding.where}: ${finding.message}`)
   process.exitCode = remaining.length > 0 ? 1 : 0
@@ -350,43 +328,34 @@ async function main(): Promise<void> {
 
   if (hasFlag('--check') || hasFlag('--fix')) return checkArmory(schema)
 
-  const { value: heroIndex } = readJsonFile<{ heroes: HeroIndexEntry[] }>(dataPath('heroes.json'), 'Hero index')
-  const heroes = heroIndex.heroes
   const armoryPath = dataPath(ARMORY_FILE)
   const { raw, value: previous } = readJsonFile<Armory>(armoryPath, 'Armory file (run `npm run armory` to generate it)')
 
-  // Match existing keys so the hero cards keep their extra fields.
+  // The armory is its own roster: its keys are the heroes this build maintains, so a new
+  // hero arrives as a stub entry here (see docs/extending-heroes-and-arcanas.md).
   const keyOf = (tag: string): string => tag.toLowerCase().replace(/[^a-z0-9]/g, '')
-  const previousByKey = new Map(Object.entries(previous).map(([key, entry]) => [keyOf(key), entry]))
-  const previousKeyByCanonical = new Map(Object.entries(previous).map(([key, entry]) => [keyOf(entry.tag ?? key), key]))
 
   const next: Armory = {}
-  const empty: string[] = []
   const preserved: string[] = []
 
-  for (const hero of heroes) {
-    const canonical = getCanonicalHero(hero.tag)
-    const prev = previousByKey.get(keyOf(hero.tag)) ?? previousByKey.get(keyOf(canonical))
+  for (const key of Object.keys(previous)) {
+    const prev = previous[key]
+    const canonical = getCanonicalHero(prev.tag ?? key)
     const slots = buildSlots(schema, text, canonical, prev)
-    const key = previousKeyByCanonical.get(keyOf(canonical)) ?? hero.tag
     // Set membership travels with the armory: pieces are {slot, id} rows into `slots`.
-    const sets: ArmorySet[] = prev?.sets ?? []
+    const sets: ArmorySet[] = prev.sets ?? []
 
     if (!slots.length) {
-      // A hero the installed schema knows nothing about (newly shipped) keeps its old list
-      // rather than vanishing from the picker.
-      if (prev) {
-        next[key] = { ...(withoutExternalFields(prev) as unknown as HeroEntry), sets }
-        preserved.push(hero.tag)
-      } else {
-        empty.push(hero.tag)
-      }
+      // A hero the installed schema knows nothing about keeps its old list rather than
+      // vanishing from the picker.
+      next[key] = { ...(withoutExternalFields(prev) as unknown as HeroEntry), sets }
+      preserved.push(prev.tag ?? key)
       continue
     }
 
     next[key] = {
       ...withoutExternalFields(prev),
-      tag: prev?.tag ?? hero.tag,
+      tag: prev.tag ?? key,
       slots,
       sets
     } as HeroEntry
@@ -398,9 +367,8 @@ async function main(): Promise<void> {
   const setCount = Object.values(ordered).reduce((sum, hero) => sum + (hero.sets?.length ?? 0), 0)
 
   console.log(`schema:  ${schema.items.size} items, ${schema.defaults.size} owners`)
-  console.log(`heroes:  ${Object.keys(ordered).length} written, ${empty.length} without items`)
+  console.log(`heroes:  ${Object.keys(ordered).length} written`)
   if (preserved.length) console.log(`  kept previous list for: ${preserved.join(', ')}`)
-  if (empty.length) console.log(`  empty: ${empty.join(', ')}`)
   console.log(`entries: ${count(previous)} (was) -> ${count(ordered)} (now)`)
   console.log(`sets:    ${setCount}`)
 
@@ -429,7 +397,7 @@ async function main(): Promise<void> {
   }
 
   const target = argValue('--out') ?? armoryPath
-  const findings = [...collectArmoryFindings(ordered, schema), ...heroIndexFindings(heroes, ordered)]
+  const findings = collectArmoryFindings(ordered, schema)
   const errors = reportFindings(findings)
   if (errors > 0) {
     console.log('\nRefusing to write: the rebuilt armory does not match the schema (see above).')

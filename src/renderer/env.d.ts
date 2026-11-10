@@ -83,7 +83,6 @@ export interface InitialDataPayload {
   appInfo: import('../shared/constants/appConfig').AppConfig
   dotaPath: string
   status: PipelineStatus
-  heroes: HeroEntry[]
   categories?: HeroEntry[]
   groups: Array<{ key: string; title: string }> | string[]
 }

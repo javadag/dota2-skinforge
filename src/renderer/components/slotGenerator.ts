@@ -17,6 +17,7 @@
 import heroesArmoryData from '../../../data/heroes_armory.json'
 import otherArmoryData from '../../../data/other_armory.json'
 import categoriesData from '../../../data/categories.json'
+import { HERO_ALIASES, getCanonicalHero } from '../../shared/constants/heroAliases'
 import { getItemRarityKey, rarityRank } from '../utils/itemImages'
 import type { HeroEntry } from '../env'
 
@@ -143,4 +144,27 @@ export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEn
 
   prepared.set(key, resolved)
   return resolved
+}
+
+/** Other names that resolve to this hero's schema owner, so search can match them. */
+function aliasesFor(tag: string): string[] {
+  const canonical = getCanonicalHero(tag)
+  return Object.entries(HERO_ALIASES)
+    .filter(([key, target]) => target === canonical && key !== tag)
+    .map(([key]) => key)
+}
+
+/**
+ * The hero list, derived from the armory: its keys are the roster, the display name is the
+ * tag title-cased, and the aliases come from the schema-name map. Computed once, since the
+ * armory is already in memory the moment this module loads.
+ */
+const heroes: HeroEntry[] = Object.keys(armory).map((tag) => ({
+  tag,
+  name: formatHeroName(tag),
+  alias: aliasesFor(tag)
+}))
+
+export function listHeroes(): HeroEntry[] {
+  return heroes
 }
