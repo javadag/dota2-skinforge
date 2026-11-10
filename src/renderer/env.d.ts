@@ -77,7 +77,6 @@ export interface HeroEntry {
   g?: string
   alias?: string[]
   img?: string
-  mods?: number
 }
 
 export interface InitialDataPayload {

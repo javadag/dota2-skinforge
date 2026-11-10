@@ -147,15 +147,11 @@ export const HeroList: React.FC = () => {
                   )}
                 </div>
               </div>
-              {heroModCount > 0 ? (
+              {heroModCount > 0 && (
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 shrink-0">
                   {heroModCount} {heroModCount === 1 ? 'slot' : 'slots'}
                 </span>
-              ) : !isHero && h.mods ? (
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/5 text-slate-400 border border-white/10 shrink-0">
-                  {h.mods}
-                </span>
-              ) : null}
+              )}
             </div>
           )
         })}

@@ -3,25 +3,21 @@
     {
       "tag": "abaddon",
       "name": "Abaddon",
-      "mods": 112,
       "alias": []
     },
     {
       "tag": "alchemist",
       "name": "Alchemist",
-      "mods": 163,
       "alias": []
     },
     {
       "tag": "ancient apparition",
       "name": "Ancient Apparition",
-      "mods": 65,
       "alias": []
     },
     {
       "tag": "antimage",
       "name": "Antimage",
-      "mods": 289,
       "alias": [
         "anti-mage",
         "antimage"
@@ -30,67 +26,56 @@
     {
       "tag": "arc warden",
       "name": "Arc Warden",
-      "mods": 57,
       "alias": []
     },
     {
       "tag": "axe",
       "name": "Axe",
-      "mods": 195,
       "alias": []
     },
     {
       "tag": "bane",
       "name": "Bane",
-      "mods": 69,
       "alias": []
     },
     {
       "tag": "batrider",
       "name": "Batrider",
-      "mods": 80,
       "alias": []
     },
     {
       "tag": "beastmaster",
       "name": "Beastmaster",
-      "mods": 113,
       "alias": []
     },
     {
       "tag": "bloodseeker",
       "name": "Bloodseeker",
-      "mods": 146,
       "alias": []
     },
     {
       "tag": "bounty hunter",
       "name": "Bounty Hunter",
-      "mods": 147,
       "alias": []
     },
     {
       "tag": "brewmaster",
       "name": "Brewmaster",
-      "mods": 100,
       "alias": []
     },
     {
       "tag": "bristleback",
       "name": "Bristleback",
-      "mods": 72,
       "alias": []
     },
     {
       "tag": "broodmother",
       "name": "Broodmother",
-      "mods": 149,
       "alias": []
     },
     {
       "tag": "centaur warrunner",
       "name": "Centaur Warrunner",
-      "mods": 172,
       "alias": [
         "centaur warrunner"
       ]
@@ -98,25 +83,21 @@
     {
       "tag": "chaos knight",
       "name": "Chaos Knight",
-      "mods": 134,
       "alias": []
     },
     {
       "tag": "chen",
       "name": "Chen",
-      "mods": 80,
       "alias": []
     },
     {
       "tag": "clinkz",
       "name": "Clinkz",
-      "mods": 95,
       "alias": []
     },
     {
       "tag": "clockwerk",
       "name": "Clockwerk",
-      "mods": 147,
       "alias": [
         "clockwerk"
       ]
@@ -124,49 +105,41 @@
     {
       "tag": "crystal maiden",
       "name": "Crystal Maiden",
-      "mods": 188,
       "alias": []
     },
     {
       "tag": "dark seer",
       "name": "Dark Seer",
-      "mods": 91,
       "alias": []
     },
     {
       "tag": "dark willow",
       "name": "Dark Willow",
-      "mods": 117,
       "alias": []
     },
     {
       "tag": "dawnbreaker",
       "name": "Dawnbreaker",
-      "mods": 43,
       "alias": []
     },
     {
       "tag": "dazzle",
       "name": "Dazzle",
-      "mods": 84,
       "alias": []
     },
     {
       "tag": "death prophet",
       "name": "Death Prophet",
-      "mods": 214,
       "alias": []
     },
     {
       "tag": "disruptor",
       "name": "Disruptor",
-      "mods": 136,
       "alias": []
     },
     {
       "tag": "doom",
       "name": "Doom",
-      "mods": 181,
       "alias": [
         "doom"
       ]
@@ -174,91 +147,76 @@
     {
       "tag": "dragon knight",
       "name": "Dragon Knight",
-      "mods": 256,
       "alias": []
     },
     {
       "tag": "drow ranger",
       "name": "Drow Ranger",
-      "mods": 273,
       "alias": []
     },
     {
       "tag": "earth spirit",
       "name": "Earth Spirit",
-      "mods": 71,
       "alias": []
     },
     {
       "tag": "earthshaker",
       "name": "Earthshaker",
-      "mods": 86,
       "alias": []
     },
     {
       "tag": "elder titan",
       "name": "Elder Titan",
-      "mods": 50,
       "alias": []
     },
     {
       "tag": "ember spirit",
       "name": "Ember Spirit",
-      "mods": 110,
       "alias": []
     },
     {
       "tag": "enchantress",
       "name": "Enchantress",
-      "mods": 89,
       "alias": []
     },
     {
       "tag": "enigma",
       "name": "Enigma",
-      "mods": 45,
       "alias": []
     },
     {
       "tag": "faceless void",
       "name": "Faceless Void",
-      "mods": 112,
       "alias": []
     },
     {
       "tag": "grimstroke",
       "name": "Grimstroke",
-      "mods": 55,
       "alias": []
     },
     {
       "tag": "gyrocopter",
       "name": "Gyrocopter",
-      "mods": 90,
       "alias": []
     },
     {
       "tag": "hoodwink",
       "name": "Hoodwink",
-      "mods": 65,
       "alias": []
     },
     {
       "tag": "huskar",
       "name": "Huskar",
-      "mods": 89,
       "alias": []
     },
     {
       "tag": "invoker",
       "name": "Invoker",
-      "mods": 222,
       "alias": []
     },
     {
       "tag": "io",
       "name": "Io",
-      "mods": 17,
       "alias": [
         "io"
       ]
@@ -266,61 +224,51 @@
     {
       "tag": "jakiro",
       "name": "Jakiro",
-      "mods": 33,
       "alias": []
     },
     {
       "tag": "juggernaut",
       "name": "Juggernaut",
-      "mods": 271,
       "alias": []
     },
     {
       "tag": "keeper of the light",
       "name": "Keeper Of The Light",
-      "mods": 76,
       "alias": []
     },
     {
       "tag": "kez",
       "name": "Kez",
-      "mods": 20,
       "alias": []
     },
     {
       "tag": "kunkka",
       "name": "Kunkka",
-      "mods": 207,
       "alias": []
     },
     {
       "tag": "largo",
       "name": "Largo",
-      "mods": 0,
       "alias": []
     },
     {
       "tag": "legion commander",
       "name": "Legion Commander",
-      "mods": 205,
       "alias": []
     },
     {
       "tag": "leshrac",
       "name": "Leshrac",
-      "mods": 72,
       "alias": []
     },
     {
       "tag": "lich",
       "name": "Lich",
-      "mods": 105,
       "alias": []
     },
     {
       "tag": "lifestealer",
       "name": "Lifestealer",
-      "mods": 75,
       "alias": [
         "lifestealer"
       ]
@@ -328,37 +276,31 @@
     {
       "tag": "lina",
       "name": "Lina",
-      "mods": 133,
       "alias": []
     },
     {
       "tag": "lion",
       "name": "Lion",
-      "mods": 86,
       "alias": []
     },
     {
       "tag": "lone druid",
       "name": "Lone Druid",
-      "mods": 80,
       "alias": []
     },
     {
       "tag": "luna",
       "name": "Luna",
-      "mods": 157,
       "alias": []
     },
     {
       "tag": "lycan",
       "name": "Lycan",
-      "mods": 114,
       "alias": []
     },
     {
       "tag": "magnus",
       "name": "Magnus",
-      "mods": 79,
       "alias": [
         "magnus"
       ]
@@ -366,67 +308,56 @@
     {
       "tag": "marci",
       "name": "Marci",
-      "mods": 69,
       "alias": []
     },
     {
       "tag": "mars",
       "name": "Mars",
-      "mods": 60,
       "alias": []
     },
     {
       "tag": "medusa",
       "name": "Medusa",
-      "mods": 71,
       "alias": []
     },
     {
       "tag": "meepo",
       "name": "Meepo",
-      "mods": 117,
       "alias": []
     },
     {
       "tag": "mirana",
       "name": "Mirana",
-      "mods": 140,
       "alias": []
     },
     {
       "tag": "monkey king",
       "name": "Monkey King",
-      "mods": 61,
       "alias": []
     },
     {
       "tag": "morphling",
       "name": "Morphling",
-      "mods": 82,
       "alias": []
     },
     {
       "tag": "muerta",
       "name": "Muerta",
-      "mods": 24,
       "alias": []
     },
     {
       "tag": "naga siren",
       "name": "Naga Siren",
-      "mods": 126,
       "alias": []
     },
     {
       "tag": "natures prophet",
       "name": "Natures Prophet",
-      "mods": 179,
       "alias": []
     },
     {
       "tag": "necrophos",
       "name": "Necrophos",
-      "mods": 110,
       "alias": [
         "necrophos"
       ]
@@ -434,37 +365,31 @@
     {
       "tag": "night stalker",
       "name": "Night Stalker",
-      "mods": 64,
       "alias": []
     },
     {
       "tag": "nyx assassin",
       "name": "Nyx Assassin",
-      "mods": 147,
       "alias": []
     },
     {
       "tag": "ogre magi",
       "name": "Ogre Magi",
-      "mods": 100,
       "alias": []
     },
     {
       "tag": "omniknight",
       "name": "Omniknight",
-      "mods": 104,
       "alias": []
     },
     {
       "tag": "oracle",
       "name": "Oracle",
-      "mods": 67,
       "alias": []
     },
     {
       "tag": "outworld devourer",
       "name": "Outworld Devourer",
-      "mods": 52,
       "alias": [
         "outworld devourer"
       ]
@@ -472,55 +397,46 @@
     {
       "tag": "pangolier",
       "name": "Pangolier",
-      "mods": 46,
       "alias": []
     },
     {
       "tag": "phantom assassin",
       "name": "Phantom Assassin",
-      "mods": 220,
       "alias": []
     },
     {
       "tag": "phantom lancer",
       "name": "Phantom Lancer",
-      "mods": 111,
       "alias": []
     },
     {
       "tag": "phoenix",
       "name": "Phoenix",
-      "mods": 39,
       "alias": []
     },
     {
       "tag": "primal beast",
       "name": "Primal Beast",
-      "mods": 50,
       "alias": []
     },
     {
       "tag": "puck",
       "name": "Puck",
-      "mods": 76,
       "alias": []
     },
     {
       "tag": "pudge",
       "name": "Pudge",
-      "mods": 362,
       "alias": []
     },
     {
       "tag": "pugna",
       "name": "Pugna",
-      "mods": 107,
       "alias": []
     },
     {
       "tag": "queen of pain",
       "name": "Queen Of Pain",
-      "mods": 150,
       "alias": [
         "queen of pain"
       ]
@@ -528,43 +444,36 @@
     {
       "tag": "razor",
       "name": "Razor",
-      "mods": 110,
       "alias": []
     },
     {
       "tag": "riki",
       "name": "Riki",
-      "mods": 139,
       "alias": []
     },
     {
       "tag": "ringmaster",
       "name": "Ringmaster",
-      "mods": 42,
       "alias": []
     },
     {
       "tag": "rubick",
       "name": "Rubick",
-      "mods": 136,
       "alias": []
     },
     {
       "tag": "sand king",
       "name": "Sand King",
-      "mods": 79,
       "alias": []
     },
     {
       "tag": "shadow demon",
       "name": "Shadow Demon",
-      "mods": 39,
       "alias": []
     },
     {
       "tag": "shadow fiend",
       "name": "Shadow Fiend",
-      "mods": 59,
       "alias": [
         "shadow fiend"
       ]
@@ -572,97 +481,81 @@
     {
       "tag": "shadow shaman",
       "name": "Shadow Shaman",
-      "mods": 120,
       "alias": []
     },
     {
       "tag": "silencer",
       "name": "Silencer",
-      "mods": 108,
       "alias": []
     },
     {
       "tag": "skywrath mage",
       "name": "Skywrath Mage",
-      "mods": 149,
       "alias": []
     },
     {
       "tag": "slardar",
       "name": "Slardar",
-      "mods": 70,
       "alias": []
     },
     {
       "tag": "slark",
       "name": "Slark",
-      "mods": 100,
       "alias": []
     },
     {
       "tag": "snapfire",
       "name": "Snapfire",
-      "mods": 70,
       "alias": []
     },
     {
       "tag": "sniper",
       "name": "Sniper",
-      "mods": 180,
       "alias": []
     },
     {
       "tag": "spectre",
       "name": "Spectre",
-      "mods": 98,
       "alias": []
     },
     {
       "tag": "spirit breaker",
       "name": "Spirit Breaker",
-      "mods": 148,
       "alias": []
     },
     {
       "tag": "storm spirit",
       "name": "Storm Spirit",
-      "mods": 68,
       "alias": []
     },
     {
       "tag": "sven",
       "name": "Sven",
-      "mods": 258,
       "alias": []
     },
     {
       "tag": "techies",
       "name": "Techies",
-      "mods": 153,
       "alias": []
     },
     {
       "tag": "templar assassin",
       "name": "Templar Assassin",
-      "mods": 111,
       "alias": []
     },
     {
       "tag": "terrorblade",
       "name": "Terrorblade",
-      "mods": 93,
       "alias": []
     },
     {
       "tag": "tidehunter",
       "name": "Tidehunter",
-      "mods": 160,
       "alias": []
     },
     {
       "tag": "timbersaw",
       "name": "Timbersaw",
-      "mods": 124,
       "alias": [
         "timbersaw"
       ]
@@ -670,19 +563,16 @@
     {
       "tag": "tinker",
       "name": "Tinker",
-      "mods": 53,
       "alias": []
     },
     {
       "tag": "tiny",
       "name": "Tiny",
-      "mods": 72,
       "alias": []
     },
     {
       "tag": "treant protector",
       "name": "Treant Protector",
-      "mods": 81,
       "alias": [
         "treant protector"
       ]
@@ -690,19 +580,16 @@
     {
       "tag": "troll warlord",
       "name": "Troll Warlord",
-      "mods": 33,
       "alias": []
     },
     {
       "tag": "tusk",
       "name": "Tusk",
-      "mods": 114,
       "alias": []
     },
     {
       "tag": "underlord",
       "name": "Underlord",
-      "mods": 28,
       "alias": [
         "underlord"
       ]
@@ -710,19 +597,16 @@
     {
       "tag": "undying",
       "name": "Undying",
-      "mods": 90,
       "alias": []
     },
     {
       "tag": "ursa",
       "name": "Ursa",
-      "mods": 89,
       "alias": []
     },
     {
       "tag": "vengeful spirit",
       "name": "Vengeful Spirit",
-      "mods": 93,
       "alias": [
         "vengeful spirit"
       ]
@@ -730,43 +614,36 @@
     {
       "tag": "venomancer",
       "name": "Venomancer",
-      "mods": 83,
       "alias": []
     },
     {
       "tag": "viper",
       "name": "Viper",
-      "mods": 32,
       "alias": []
     },
     {
       "tag": "visage",
       "name": "Visage",
-      "mods": 32,
       "alias": []
     },
     {
       "tag": "void spirit",
       "name": "Void Spirit",
-      "mods": 41,
       "alias": []
     },
     {
       "tag": "warlock",
       "name": "Warlock",
-      "mods": 115,
       "alias": []
     },
     {
       "tag": "weaver",
       "name": "Weaver",
-      "mods": 67,
       "alias": []
     },
     {
       "tag": "windranger",
       "name": "Windranger",
-      "mods": 165,
       "alias": [
         "windranger"
       ]
@@ -774,19 +651,16 @@
     {
       "tag": "winter wyvern",
       "name": "Winter Wyvern",
-      "mods": 27,
       "alias": []
     },
     {
       "tag": "witch doctor",
       "name": "Witch Doctor",
-      "mods": 153,
       "alias": []
     },
     {
       "tag": "wraith king",
       "name": "Wraith King",
-      "mods": 173,
       "alias": [
         "wraith king"
       ]
@@ -794,7 +668,6 @@
     {
       "tag": "zeus",
       "name": "Zeus",
-      "mods": 57,
       "alias": [
         "zeus"
       ]

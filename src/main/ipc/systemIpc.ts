@@ -27,7 +27,6 @@ export interface HeroesData {
 export interface CategoryItem {
   tag: string
   name?: string
-  mods?: number
   available?: number
   img?: string
   g?: string

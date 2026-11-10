@@ -146,17 +146,6 @@
         "_global"
       ]
     },
-    "legion_commander_hells_legion": {
-      "file": "legion_commander_hells_legion.tar.br",
-      "version": "1.0.1",
-      "sha256": "67905d2ae43e57893fe7af362639e1f00031320c071e72bab5956a705f8de4b3",
-      "size": 472,
-      "uncompressedSize": 848,
-      "fileCount": 1,
-      "dependencies": [
-        "_global"
-      ]
-    },
     "legion_commander_persona": {
       "file": "legion_commander_persona.tar.br",
       "version": "1.0.1",
