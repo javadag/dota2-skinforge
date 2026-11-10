@@ -19,9 +19,11 @@
     "src/data/**/*",
     "scripts/**/*",
     "test/**/*",
-    // The armory resolver lives in the renderer but is unit tested from `test/`; listing it
-    // (and what it imports) here keeps that test inside the type check.
+    // The armory resolver and the set hydration live in the renderer but are unit tested
+    // from `test/`; listing them (and what they import) here keeps those tests inside the
+    // type check.
     "src/renderer/components/slotGenerator.ts",
+    "src/renderer/utils/heroSets.ts",
     "src/renderer/utils/itemImages.ts",
     "src/renderer/env.d.ts",
     "workers/**/*",

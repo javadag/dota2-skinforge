@@ -28,9 +28,26 @@ export interface ArmorySlot {
   mods: ArmoryMod[]
 }
 
+export interface ArmorySetPiece {
+  /** Armory slot the piece sits in. */
+  slot: string
+  /** Valve schema item id of the piece. */
+  id: number
+}
+
+export interface ArmorySet {
+  id: string
+  name: string
+  rarity?: string
+  img?: string
+  isPersona?: boolean
+  items: ArmorySetPiece[]
+}
+
 export interface ArmoryOwner {
   tag?: string
   slots?: ArmorySlot[]
+  sets?: ArmorySet[]
   [key: string]: unknown
 }
 
@@ -210,6 +227,30 @@ export function collectArmoryFindings(armory: Armory, schema: SchemaIndex): Find
           where: `${ownerKey}.${current.slot.slot} #${id} "${schemaItem.name}"`,
           message: `declared as slot "${declared}", which this owner has no slot for — left alone`
         })
+      }
+    }
+
+    // Sets live in the armory and reference pieces by {slot, id}: both halves have to
+    // exist here or "Equip Entire Set" equips nothing for that piece.
+    for (const set of entry.sets ?? []) {
+      const where = `${ownerKey} set ${set.id}`
+      for (const piece of set.items ?? []) {
+        const slot = slotById.get(piece.slot)
+        if (!slot) {
+          findings.push({
+            level: 'error',
+            where,
+            message: `piece #${piece.id} claims slot "${piece.slot}", which this owner does not have`
+          })
+          continue
+        }
+        if (!slot.mods.some((mod) => mod.id === piece.id)) {
+          findings.push({
+            level: 'error',
+            where,
+            message: `piece #${piece.id} is not in slot "${piece.slot}"`
+          })
+        }
       }
     }
   }
