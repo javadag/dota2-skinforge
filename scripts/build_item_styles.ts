@@ -9,8 +9,12 @@
  * Entries are keyed the way the armory names things, because that is the string the
  * install pipeline looks styles up by (`getStyleOptionsByName(pick.item)`):
  *
- *   - only items the armory actually lists get an entry, so taunts, treasures and
- *     loading screens — which have styles in the schema but no slot in the app — drop out;
+ *   - only items the armory actually lists get an entry, so taunts and treasures — which
+ *     have styles in the schema but no slot in the app — drop out, and `loadscreen` slots
+ *     are skipped explicitly on top of that (clean:other drops the whole loadscreens
+ *     category today; the skip keeps them out if it ever comes back);
+ *   - each style carries its `alternate_icons` icon path, the same source the armory's
+ *     style-variant rows use, so the UI can show per-style art;
  *   - the key is that armory row's name, not the schema's, so dataset-named rows
  *     ("Terrain - Desert" vs the schema's "Desert Terrain") resolve;
  *   - an id's first row is its base name and carries the entry; sibling rows of the same
@@ -35,7 +39,7 @@ import { getNode, getString, isNode, materializeDeep, parseVdf } from '../src/ma
 interface StylesEntry {
   hero: string
   slot: string
-  styles: Array<StyleOption & { model?: string }>
+  styles: Array<StyleOption & { model?: string; img?: string }>
 }
 
 /**
@@ -48,10 +52,13 @@ function armoryNamesById(): Map<string, string[]> {
   for (const file of ['heroes_armory.json', 'other_armory.json']) {
     const armory = JSON.parse(fs.readFileSync(dataPath(file), 'utf-8')) as Record<
       string,
-      { slots?: Array<{ mods?: Array<{ id?: number; name?: string }> }> }
+      { slots?: Array<{ slot?: string; mods?: Array<{ id?: number; name?: string }> }> }
     >
     for (const entry of Object.values(armory)) {
       for (const slot of entry.slots ?? []) {
+        // Loading screens get no style UI in this app: clean:other drops the whole
+        // loadscreens category today, and this keeps them out if it ever comes back.
+        if (slot.slot === 'loadscreen') continue
         for (const mod of slot.mods ?? []) {
           if (mod.id == null || !mod.name) continue
           const key = String(mod.id)
@@ -112,6 +119,7 @@ async function main(): Promise<void> {
 
     // Valve gives some styles one label and one skin for every index; the armory shows a
     // single row for those, so the catalog keeps a single entry — the first index wins.
+    const alternateIcons = getNode(visuals, 'alternate_icons')
     const seen = new Set<string>()
     const deduped: StylesEntry['styles'] = []
     for (const style of styles) {
@@ -120,7 +128,11 @@ async function main(): Promise<void> {
         continue
       }
       seen.add(style.name)
-      deduped.push({ ...style, model: models.get(style.index) })
+      // Per-style art from the shop's style picker (`alternate_icons.<index>.icon_path`),
+      // extracted exactly like armory.ts does for its style-variant rows.
+      const icon = alternateIcons && !alternateIcons.opaque ? getNode(alternateIcons, String(style.index)) : undefined
+      const iconPath = icon ? getString(icon, 'icon_path') : undefined
+      deduped.push({ ...style, model: models.get(style.index), img: iconPath })
     }
 
     const styled: StylesEntry = {

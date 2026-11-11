@@ -1,5 +1,6 @@
 import type { StateCreator } from 'zustand'
 import type { AppStoreState } from '../useAppStore'
+import { dropStaleStyles } from '../../../shared/types/customization'
 
 export interface Preset {
   id: string
@@ -49,7 +50,27 @@ export const createPresetsSlice: StateCreator<AppStoreState, [], [], PresetsSlic
 
   applyPreset: (preset) => {
     const slots = JSON.parse(JSON.stringify(preset.heroSlots || {})) as Record<string, Record<string, string>>
-    set({ heroSlots: slots })
+    set((state) => {
+      // A preset swaps items out wholesale: drop the styles chosen for what it replaced,
+      // and the customizations of heroes the snapshot does not carry at all.
+      let cust = state.heroCustomizations
+      for (const [heroTag, before] of Object.entries(state.heroSlots)) {
+        cust = dropStaleStyles(cust, heroTag, before, slots[heroTag] || {})
+      }
+      for (const heroTag of Object.keys(cust)) {
+        if (slots[heroTag]) continue
+        if (cust === state.heroCustomizations) cust = { ...cust }
+        delete cust[heroTag]
+      }
+      if (cust !== state.heroCustomizations) {
+        try {
+          localStorage.setItem('skinforge_hero_customizations', JSON.stringify(cust))
+        } catch {
+          // ignore
+        }
+      }
+      return { heroSlots: slots, heroCustomizations: cust }
+    })
     try {
       localStorage.setItem('skinforge_hero_slots', JSON.stringify(slots))
     } catch {

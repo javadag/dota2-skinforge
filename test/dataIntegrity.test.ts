@@ -15,7 +15,7 @@ import otherArmoryData from '../data/other_armory.json'
 import armoryData from '../data/heroes_armory.json'
 import packagesData from '../data/cosmetic-packages.json'
 import { getCanonicalHero } from '../src/shared/constants/heroAliases'
-import { getStyleOptionsByName } from '../src/shared/constants/itemStyles'
+import { getItemStyleOptions, getStyleOptionsByName } from '../src/shared/constants/itemStyles'
 import { CATEGORY_SVG_MAP } from '../src/shared/armory/slotSvgIcons'
 import { listHeroes } from '../src/renderer/components/slotGenerator'
 
@@ -210,5 +210,46 @@ test('every styled item is reachable from every armory row carrying it', () => {
         `#${id} "${name}" has styles in the schema but no armory row can reach them`
       )
     }
+  }
+})
+
+test('every styled armory row resolves through the UI style lookup', () => {
+  // The lookup used to guard on the schema's owner name against the armory tag, which
+  // rejected every multi-word hero (drow_ranger vs "drow ranger") and every persona slot
+  // (weapon_persona_1 vs persona_weapon). It is name-only now; this locks that in.
+  let checked = 0
+  let withImg = 0
+  for (const entry of [...Object.values(armory), ...Object.values(otherArmory)]) {
+    for (const slot of entry.slots) {
+      for (const mod of slot.mods) {
+        const options = getStyleOptionsByName(mod.name)
+        if (options.length === 0) continue
+        checked++
+        withImg += options.filter((option) => option.img).length
+        assert.ok(
+          getItemStyleOptions(entry.tag, slot.slot, mod.name),
+          `${entry.tag}/${slot.slot} "${mod.name}" has styles but the UI lookup rejects it`
+        )
+      }
+    }
+  }
+  assert.ok(checked > 1200, `only ${checked} styled rows checked`)
+  assert.ok(withImg > 2000, `only ${withImg} style options carry art — the alternate_icons extraction broke`)
+})
+
+test('loading screens never carry styles', () => {
+  // clean:other drops the whole loadscreens category ("not supported"), which is what
+  // keeps screen items out of the armory — and build:styles skips `loadscreen` slots on
+  // top of that. If the category ever ships rows again, no screen name may pick up styles.
+  assert.ok(!('loadscreens' in otherArmory), 'the loadscreens category must stay out of the armory')
+  const loadscreenNames = new Set<string>()
+  for (const entry of Object.values(otherArmory)) {
+    for (const slot of entry.slots) {
+      if (slot.slot !== 'loadscreen') continue
+      for (const mod of slot.mods) loadscreenNames.add(mod.name)
+    }
+  }
+  for (const name of loadscreenNames) {
+    assert.ok(!(name in styleItems), `loading screen "${name}" has style entries — it must not`)
   }
 })

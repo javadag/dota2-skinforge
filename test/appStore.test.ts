@@ -3,6 +3,23 @@ import assert from 'node:assert/strict'
 import { isPersonaSlotId } from '../src/shared/constants/personaSlots'
 import { RARITY_RANK, rarityRank } from '../src/shared/armory/rarityConfig'
 import { buildLaunchArgsString, DEFAULT_LAUNCH_OPTIONS } from '../src/shared/constants/launchOptions'
+import { dropStaleStyles } from '../src/shared/types/customization'
+
+test('dropStaleStyles clears a slot style only when its item changes', () => {
+  const cust = { earthshaker: { arms: { style: 2 }, belt: { style: 1 } } }
+  const armsAndBelt = { arms: 'Arms A', belt: 'Belt B' }
+
+  // Re-equipping the same item keeps the saved style, by identity: no write, no re-render.
+  assert.equal(dropStaleStyles(cust, 'earthshaker', armsAndBelt, { ...armsAndBelt }), cust)
+
+  // A different item in the slot takes its style choice with it; untouched slots stay.
+  const changed = dropStaleStyles(cust, 'earthshaker', armsAndBelt, { arms: 'Arms C', belt: 'Belt B' })
+  assert.deepEqual(changed, { earthshaker: { belt: { style: 1 } } })
+  assert.deepEqual(cust.earthshaker.arms, { style: 2 }, 'the input map must not be mutated')
+
+  // A hero with no saved styles is left alone.
+  assert.equal(dropStaleStyles(cust, 'zeus', { weapon: 'A' }, { weapon: 'B' }), cust)
+})
 
 test('isPersonaSlotId correctly identifies persona slots and excludes base slots', () => {
   assert.equal(isPersonaSlotId('persona'), true)

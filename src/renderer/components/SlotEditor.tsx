@@ -15,6 +15,7 @@ import {
 } from '../utils/itemImages'
 import { formatHeroName, getHeroSlotsDefinition, type ArmorySlot } from './slotGenerator'
 import { ItemPicker } from './ItemPicker'
+import { StyleSelect } from './StyleSelect'
 import { Button } from './ui/Button'
 
 const fallbackHeroSvg =
@@ -311,6 +312,10 @@ export const SlotEditor: React.FC = () => {
                               : 'Valve Official Base'}
                         </div>
                       </div>
+
+                      {isEquipped && !isCompleteSet && selectedItemName && equippedItemObj && (
+                        <StyleSelect hero={selectedHero} slotId={slot.slot} itemName={selectedItemName} item={equippedItemObj} />
+                      )}
                     </div>
                   </div>
                 )

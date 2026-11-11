@@ -3,6 +3,7 @@ import { useAppStore } from '../state/useAppStore'
 import { findSetForItem, getHeroSets, getSetEffectiveRarity, isSetEquipped } from '../utils/heroSets'
 import { generateItemSvg, getCategorySvg, getItemImage, getItemRarityKey, getRarityConfig } from '../utils/itemImages'
 import { formatHeroName, type ArmorySlot } from './slotGenerator'
+import { StyleSelect } from './StyleSelect'
 import { getCanonicalHero } from '../../shared/constants/heroAliases'
 import type { HeroEntry } from '../env'
 
@@ -350,9 +351,12 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
                 </div>
 
                 {isSelected && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 shrink-0">
-                    Active
-                  </span>
+                  <>
+                    <StyleSelect hero={hero} slotId={slot.slot} itemName={it.name} item={it} />
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 shrink-0">
+                      Active
+                    </span>
+                  </>
                 )}
               </div>
             )

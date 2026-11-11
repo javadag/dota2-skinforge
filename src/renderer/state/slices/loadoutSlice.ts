@@ -1,5 +1,6 @@
 import type { StateCreator } from 'zustand'
 import type { HeroCustomizationsMap, ItemCustomization } from '../../../shared/types/customization'
+import { dropStaleStyles } from '../../../shared/types/customization'
 import { isPersonaSlotId } from '../../../shared/constants/personaSlots'
 import { RARITY_RANK, rarityRank } from '../../../shared/armory/rarityConfig'
 import { formatHeroName, getHeroSlotsDefinition, type HeroArmoryEntry } from '../../components/slotGenerator'
@@ -78,6 +79,14 @@ export function getStoredHeroCustomizations(): HeroCustomizationsMap {
     return data ? (JSON.parse(data) as HeroCustomizationsMap) : {}
   } catch {
     return {}
+  }
+}
+
+function persistCustomizations(cust: HeroCustomizationsMap): void {
+  try {
+    localStorage.setItem('skinforge_hero_customizations', JSON.stringify(cust))
+  } catch {
+    // ignore
   }
 }
 
@@ -175,13 +184,16 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
             [currentStance]: updatedHero
           }
         }
+        const updatedCust = dropStaleStyles(state.heroCustomizations, heroTag, currentSlots, updatedHero)
+        if (updatedCust !== state.heroCustomizations) persistCustomizations(updatedCust)
+
         try {
           localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
           localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
         } catch {
           // ignore localStorage errors
         }
-        return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots }
+        return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots, heroCustomizations: updatedCust }
       })
     },
 
@@ -400,6 +412,7 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
           targetSlots[s] = it
         }
       }
+      const beforeSlots = { ...targetSlots }
 
       // Equip each set item into its respective slot
       for (const item of setObj.items) {
@@ -413,6 +426,9 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
         const personaMod = personaSlot?.mods?.[0]
         if (personaMod) targetSlots['persona'] = personaMod.name
       }
+
+      const updatedCust = dropStaleStyles(state.heroCustomizations, heroTag, beforeSlots, targetSlots)
+      if (updatedCust !== state.heroCustomizations) persistCustomizations(updatedCust)
 
       const updatedStanceSlots = {
         ...state.heroStanceSlots,
@@ -443,7 +459,8 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
       set({
         heroActiveStance: updatedActiveStance,
         heroStanceSlots: updatedStanceSlots,
-        heroSlots: updatedHeroSlots
+        heroSlots: updatedHeroSlots,
+        heroCustomizations: updatedCust
       })
 
       get().addLog(`Equipped entire set "${setObj.name}" for ${formatHeroName(heroTag)} (${setObj.items.length} pieces).`, 'success')
@@ -469,12 +486,14 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
           ...state.heroSlots,
           [hero.tag]: newHeroSlots
         }
+        const updatedCust = dropStaleStyles(state.heroCustomizations, hero.tag, state.heroSlots[hero.tag] || {}, newHeroSlots)
+        if (updatedCust !== state.heroCustomizations) persistCustomizations(updatedCust)
         try {
           localStorage.setItem('skinforge_hero_slots', JSON.stringify(updated))
         } catch {
           // ignore
         }
-        return { heroSlots: updated }
+        return { heroSlots: updated, heroCustomizations: updatedCust }
       })
 
       get().addLog(`Equipped best cosmetics set for ${formatHeroName(hero.tag)} (${count} slots).`, 'success')
