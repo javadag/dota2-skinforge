@@ -31,6 +31,7 @@ interface Slot {
 
 interface Entry {
   tag?: string
+  attribute?: string
   slots: Slot[]
   sets?: Array<{ id: string; name: string; img?: string; items: Array<{ slot: string; id: number }> }>
 }
@@ -65,6 +66,18 @@ test('the hero list is derived from the armory and stays searchable by alias', (
   const antimage = heroes.find((hero) => hero.tag === 'antimage')
   assert.deepEqual(antimage?.alias, ['anti-mage'])
   assert.ok(heroes.length > 120, `only ${heroes.length} heroes`)
+})
+
+test('every hero carries a primary attribute the UI can filter on', () => {
+  const valid = new Set(['str', 'agi', 'int', 'uni'])
+  let checked = 0
+  for (const [hero, entry] of Object.entries(armory)) {
+    assert.ok(valid.has(entry.attribute ?? ''), `${hero}: attribute is ${JSON.stringify(entry.attribute)}`)
+    checked++
+  }
+  // Which attribute each hero has is the game's business (`npm run armory:check` compares
+  // against it); what matters here is that none is missing or malformed.
+  assert.ok(checked > 120, `only ${checked} heroes checked`)
 })
 
 test('every set in the armory points at slots and items the armory has', () => {

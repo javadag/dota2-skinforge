@@ -12,6 +12,7 @@
  */
 
 import { getCanonicalHero } from '../../src/shared/constants/heroAliases'
+import type { HeroAttribute } from '../../src/shared/constants/attributes'
 import type { SchemaIndex, SchemaItem } from '../../src/main/services/modifier/schema'
 
 export interface ArmoryMod {
@@ -46,12 +47,16 @@ export interface ArmorySet {
 
 export interface ArmoryOwner {
   tag?: string
+  /** Primary attribute, written from the game's `AttributePrimary` by `npm run armory`. */
+  attribute?: string
   slots?: ArmorySlot[]
   sets?: ArmorySet[]
   [key: string]: unknown
 }
 
 export type Armory = Record<string, ArmoryOwner>
+
+const VALID_ATTRIBUTES = new Set<string>(['str', 'agi', 'int', 'uni'])
 
 export interface Finding {
   level: 'error' | 'info'
@@ -86,7 +91,7 @@ export function schemaSlotForArmorySlot(slot: string): string {
  * Error-level findings are drift the armory must not contain and that we can repair.
  * Info-level findings are reported but never touched, because they may be deliberate.
  */
-export function collectArmoryFindings(armory: Armory, schema: SchemaIndex): Finding[] {
+export function collectArmoryFindings(armory: Armory, schema: SchemaIndex, gameAttributes?: Map<string, HeroAttribute>): Finding[] {
   const findings: Finding[] = []
   const unmatchedOwners: string[] = []
 
@@ -98,6 +103,45 @@ export function collectArmoryFindings(armory: Armory, schema: SchemaIndex): Find
       continue
     }
     if (!schema.defaults.has(ownerKey) && !schema.defaults.has(getCanonicalHero(ownerKey))) unmatchedOwners.push(ownerKey)
+
+    // Attribute: insist on the game's value when we can read one, and only report an
+    // absence as drift when there is nothing to fill it from — otherwise a build run
+    // without a game install would refuse to write its own output.
+    const attribute = entry.attribute
+    const gameAttribute = gameAttributes?.get(getCanonicalHero(entry.tag ?? ownerKey))
+    if (!attribute) {
+      if (gameAttribute) {
+        findings.push({
+          level: 'error',
+          where: ownerKey,
+          message: `has no attribute (the game says ${gameAttribute})`,
+          repair: () => {
+            entry.attribute = gameAttribute
+          }
+        })
+      } else {
+        findings.push({
+          level: 'info',
+          where: ownerKey,
+          message: gameAttributes ? 'the game declares no attribute for it' : 'no game install to read attributes from'
+        })
+      }
+    } else if (!VALID_ATTRIBUTES.has(attribute as HeroAttribute)) {
+      findings.push({
+        level: 'error',
+        where: ownerKey,
+        message: `attribute "${attribute}" is not one of str/agi/int/uni`
+      })
+    } else if (gameAttribute && gameAttribute !== attribute) {
+      findings.push({
+        level: 'error',
+        where: ownerKey,
+        message: `attribute is "${attribute}" but the game says "${gameAttribute}"`,
+        repair: () => {
+          entry.attribute = gameAttribute
+        }
+      })
+    }
 
     const slotById = new Map<string, ArmorySlot>()
     for (const slot of slots) {

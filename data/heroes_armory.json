@@ -1279,7 +1279,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "alchemist": {
     "tag": "alchemist",
@@ -2915,7 +2916,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "ancient apparition": {
     "tag": "ancient apparition",
@@ -3508,7 +3510,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "antimage": {
     "tag": "antimage",
@@ -6049,7 +6052,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "arc warden": {
     "tag": "arc warden",
@@ -6599,7 +6603,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "axe": {
     "tag": "axe",
@@ -8655,7 +8660,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "bane": {
     "tag": "bane",
@@ -9066,7 +9072,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "batrider": {
     "tag": "batrider",
@@ -9800,7 +9807,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "beastmaster": {
     "tag": "beastmaster",
@@ -10897,7 +10905,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "bloodseeker": {
     "tag": "bloodseeker",
@@ -12295,7 +12304,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "bounty hunter": {
     "tag": "bounty hunter",
@@ -13751,7 +13761,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "brewmaster": {
     "tag": "brewmaster",
@@ -14674,7 +14685,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "bristleback": {
     "tag": "bristleback",
@@ -15433,7 +15445,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "broodmother": {
     "tag": "broodmother",
@@ -16728,7 +16741,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "centaur warrunner": {
     "tag": "centaur warrunner",
@@ -18472,7 +18486,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "chaos knight": {
     "tag": "chaos knight",
@@ -19761,7 +19776,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "chen": {
     "tag": "chen",
@@ -20601,7 +20617,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "clinkz": {
     "tag": "clinkz",
@@ -21498,7 +21515,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "clockwerk": {
     "tag": "clockwerk",
@@ -23022,7 +23040,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "crystal maiden": {
     "tag": "crystal maiden",
@@ -24856,7 +24875,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "dark seer": {
     "tag": "dark seer",
@@ -25572,7 +25592,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "dark willow": {
     "tag": "dark willow",
@@ -26427,7 +26448,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "dawnbreaker": {
     "tag": "dawnbreaker",
@@ -26873,7 +26895,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "dazzle": {
     "tag": "dazzle",
@@ -27746,7 +27769,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "death prophet": {
     "tag": "death prophet",
@@ -29827,7 +29851,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "disruptor": {
     "tag": "disruptor",
@@ -31182,7 +31207,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "doom": {
     "tag": "doom",
@@ -32943,7 +32969,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "dragon knight": {
     "tag": "dragon knight",
@@ -35170,7 +35197,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "drow ranger": {
     "tag": "drow ranger",
@@ -37775,7 +37803,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "earth spirit": {
     "tag": "earth spirit",
@@ -38402,7 +38431,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "earthshaker": {
     "tag": "earthshaker",
@@ -39585,7 +39615,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "elder titan": {
     "tag": "elder titan",
@@ -40073,7 +40104,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "ember spirit": {
     "tag": "ember spirit",
@@ -41213,7 +41245,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "enchantress": {
     "tag": "enchantress",
@@ -42076,7 +42109,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "enigma": {
     "tag": "enigma",
@@ -42632,7 +42666,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "faceless void": {
     "tag": "faceless void",
@@ -43749,7 +43784,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "grimstroke": {
     "tag": "grimstroke",
@@ -44091,7 +44127,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "gyrocopter": {
     "tag": "gyrocopter",
@@ -45097,7 +45134,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "hoodwink": {
     "tag": "hoodwink",
@@ -45445,7 +45483,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "huskar": {
     "tag": "huskar",
@@ -46419,7 +46458,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "invoker": {
     "tag": "invoker",
@@ -48532,7 +48572,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "io": {
     "tag": "io",
@@ -48564,7 +48605,8 @@
         "empty_img": "econ/heroes/io/io_head"
       }
     ],
-    "sets": []
+    "sets": [],
+    "attribute": "uni"
   },
   "jakiro": {
     "tag": "jakiro",
@@ -48961,7 +49003,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "juggernaut": {
     "tag": "juggernaut",
@@ -50988,7 +51031,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "keeper of the light": {
     "tag": "keeper of the light",
@@ -51707,13 +51751,15 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "kez": {
     "tag": "kez",
     "variant_default": "hero",
     "slots": [],
-    "sets": []
+    "sets": [],
+    "attribute": "agi"
   },
   "kunkka": {
     "tag": "kunkka",
@@ -53478,13 +53524,15 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "largo": {
     "tag": "largo",
     "variant_default": "hero",
     "slots": [],
-    "sets": []
+    "sets": [],
+    "attribute": "str"
   },
   "legion commander": {
     "tag": "legion commander",
@@ -55558,7 +55606,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "leshrac": {
     "tag": "leshrac",
@@ -56181,7 +56230,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "lich": {
     "tag": "lich",
@@ -57269,7 +57319,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "lifestealer": {
     "tag": "lifestealer",
@@ -57857,7 +57908,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "lina": {
     "tag": "lina",
@@ -59197,7 +59249,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "lion": {
     "tag": "lion",
@@ -59988,7 +60041,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "lone druid": {
     "tag": "lone druid",
@@ -60646,7 +60700,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "luna": {
     "tag": "luna",
@@ -62393,7 +62448,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "lycan": {
     "tag": "lycan",
@@ -63330,7 +63386,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "magnus": {
     "tag": "magnus",
@@ -64225,7 +64282,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "marci": {
     "tag": "marci",
@@ -64725,7 +64783,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "mars": {
     "tag": "mars",
@@ -65285,7 +65344,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "medusa": {
     "tag": "medusa",
@@ -65981,7 +66041,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "meepo": {
     "tag": "meepo",
@@ -66977,7 +67038,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "mirana": {
     "tag": "mirana",
@@ -68502,7 +68564,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "monkey king": {
     "tag": "monkey king",
@@ -69124,7 +69187,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "morphling": {
     "tag": "morphling",
@@ -70044,7 +70108,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "muerta": {
     "tag": "muerta",
@@ -70264,7 +70329,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "naga siren": {
     "tag": "naga siren",
@@ -71611,7 +71677,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "natures prophet": {
     "tag": "natures prophet",
@@ -73309,7 +73376,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "necrophos": {
     "tag": "necrophos",
@@ -74386,7 +74454,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "night stalker": {
     "tag": "night stalker",
@@ -75177,7 +75246,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "nyx assassin": {
     "tag": "nyx assassin",
@@ -76631,7 +76701,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "ogre magi": {
     "tag": "ogre magi",
@@ -77399,7 +77470,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "omniknight": {
     "tag": "omniknight",
@@ -78429,7 +78501,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "oracle": {
     "tag": "oracle",
@@ -79076,7 +79149,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "outworld devourer": {
     "tag": "outworld devourer",
@@ -79546,7 +79620,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "pangolier": {
     "tag": "pangolier",
@@ -79923,7 +79998,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "phantom assassin": {
     "tag": "phantom assassin",
@@ -81719,7 +81795,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "phantom lancer": {
     "tag": "phantom lancer",
@@ -82798,7 +82875,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "phoenix": {
     "tag": "phoenix",
@@ -83200,7 +83278,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "primal beast": {
     "tag": "primal beast",
@@ -83683,7 +83762,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "puck": {
     "tag": "puck",
@@ -84297,7 +84377,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "pudge": {
     "tag": "pudge",
@@ -87303,7 +87384,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "pugna": {
     "tag": "pugna",
@@ -88027,7 +88109,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "queen of pain": {
     "tag": "queen of pain",
@@ -89320,7 +89403,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "razor": {
     "tag": "razor",
@@ -90303,7 +90387,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "riki": {
     "tag": "riki",
@@ -91582,7 +91667,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "ringmaster": {
     "tag": "ringmaster",
@@ -91722,7 +91808,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "rubick": {
     "tag": "rubick",
@@ -93264,7 +93351,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "sand king": {
     "tag": "sand king",
@@ -94174,7 +94262,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "shadow demon": {
     "tag": "shadow demon",
@@ -94662,7 +94751,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "shadow fiend": {
     "tag": "shadow fiend",
@@ -95233,7 +95323,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "shadow shaman": {
     "tag": "shadow shaman",
@@ -96382,7 +96473,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "silencer": {
     "tag": "silencer",
@@ -97495,7 +97587,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "skywrath mage": {
     "tag": "skywrath mage",
@@ -99020,7 +99113,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "slardar": {
     "tag": "slardar",
@@ -99690,7 +99784,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "slark": {
     "tag": "slark",
@@ -100584,7 +100679,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "snapfire": {
     "tag": "snapfire",
@@ -101099,7 +101195,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "sniper": {
     "tag": "sniper",
@@ -102764,7 +102861,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "spectre": {
     "tag": "spectre",
@@ -103762,7 +103860,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "spirit breaker": {
     "tag": "spirit breaker",
@@ -105313,7 +105412,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "storm spirit": {
     "tag": "storm spirit",
@@ -105956,7 +106056,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "sven": {
     "tag": "sven",
@@ -108012,7 +108113,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "techies": {
     "tag": "techies",
@@ -109071,7 +109173,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "templar assassin": {
     "tag": "templar assassin",
@@ -110268,7 +110371,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "terrorblade": {
     "tag": "terrorblade",
@@ -110777,7 +110881,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "tidehunter": {
     "tag": "tidehunter",
@@ -111930,7 +112035,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "timbersaw": {
     "tag": "timbersaw",
@@ -113079,7 +113185,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "tinker": {
     "tag": "tinker",
@@ -113455,7 +113562,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "tiny": {
     "tag": "tiny",
@@ -114245,7 +114353,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "treant protector": {
     "tag": "treant protector",
@@ -115325,7 +115434,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "troll warlord": {
     "tag": "troll warlord",
@@ -115668,7 +115778,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "tusk": {
     "tag": "tusk",
@@ -116668,7 +116779,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "underlord": {
     "tag": "underlord",
@@ -116949,7 +117061,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "undying": {
     "tag": "undying",
@@ -117798,7 +117911,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "ursa": {
     "tag": "ursa",
@@ -118742,7 +118856,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "vengeful spirit": {
     "tag": "vengeful spirit",
@@ -119782,7 +119897,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "venomancer": {
     "tag": "venomancer",
@@ -120666,7 +120782,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "viper": {
     "tag": "viper",
@@ -121054,7 +121171,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "visage": {
     "tag": "visage",
@@ -121359,7 +121477,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "void spirit": {
     "tag": "void spirit",
@@ -121676,7 +121795,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "warlock": {
     "tag": "warlock",
@@ -122949,7 +123069,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "weaver": {
     "tag": "weaver",
@@ -123623,7 +123744,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "agi"
   },
   "windranger": {
     "tag": "windranger",
@@ -125223,7 +125345,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "uni"
   },
   "winter wyvern": {
     "tag": "winter wyvern",
@@ -125582,7 +125705,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "witch doctor": {
     "tag": "witch doctor",
@@ -127018,7 +127142,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   },
   "wraith king": {
     "tag": "wraith king",
@@ -128616,7 +128741,8 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "str"
   },
   "zeus": {
     "tag": "zeus",
@@ -129238,6 +129364,7 @@
           }
         ]
       }
-    ]
+    ],
+    "attribute": "int"
   }
 }

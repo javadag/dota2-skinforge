@@ -39,6 +39,7 @@ import {
   type Finding
 } from './lib/armoryCheck'
 import { getCanonicalHero } from '../src/shared/constants/heroAliases'
+import { loadHeroAttributes } from './lib/heroAttributes'
 import { defaultFor, type SchemaIndex, type SchemaItem } from '../src/main/services/modifier/schema'
 import { getNode, getString, materializeDeep, type VdfNode } from '../src/main/services/modifier/vdf'
 import { styleOptions } from '../src/main/services/modifier/visuals'
@@ -269,11 +270,12 @@ function reportFindings(findings: Finding[]): number {
 function checkArmory(schema: SchemaIndex): void {
   const armoryPath = dataPath(ARMORY_FILE)
   const { raw, value: armory } = readJsonFile<Armory>(armoryPath, 'Armory file (run `npm run armory` to generate it)')
+  const gameAttributes = loadHeroAttributes(Object.keys(armory).map((key) => getCanonicalHero(armory[key].tag ?? key)))
 
   console.log(`schema:  ${schema.items.size} items, ${schema.defaults.size} owners`)
   console.log(`armory:  ${Object.keys(armory).length} owners, ${armoryEntryCount(armory)} items`)
 
-  const findings = collectArmoryFindings(armory, schema)
+  const findings = collectArmoryFindings(armory, schema, gameAttributes)
   const errors = reportFindings(findings)
   const fix = hasFlag('--fix')
 
@@ -315,7 +317,7 @@ function checkArmory(schema: SchemaIndex): void {
   console.log(`\nRepaired ${repairable.length} finding(s); wrote ${armoryPath}`)
 
   const reread = readJsonFile<Armory>(armoryPath, 'Armory file').value
-  const remaining = collectArmoryFindings(reread, schema).filter((finding) => finding.level === 'error')
+  const remaining = collectArmoryFindings(reread, schema, gameAttributes).filter((finding) => finding.level === 'error')
   console.log(`Re-check: ${remaining.length} problem(s) remaining.`)
   for (const finding of remaining) console.log(`  ERROR ${finding.where}: ${finding.message}`)
   process.exitCode = remaining.length > 0 ? 1 : 0
@@ -337,6 +339,9 @@ async function main(): Promise<void> {
 
   const next: Armory = {}
   const preserved: string[] = []
+  // The game's own `AttributePrimary` is the only source for a hero's attribute, and the
+  // armory carries it from here on (items_game.txt has no attribute data at all).
+  const gameAttributes = loadHeroAttributes(Object.keys(previous).map((key) => getCanonicalHero(previous[key].tag ?? key)))
 
   for (const key of Object.keys(previous)) {
     const prev = previous[key]
@@ -344,21 +349,19 @@ async function main(): Promise<void> {
     const slots = buildSlots(schema, text, canonical, prev)
     // Set membership travels with the armory: pieces are {slot, id} rows into `slots`.
     const sets: ArmorySet[] = prev.sets ?? []
+    const attribute = gameAttributes.get(canonical) ?? prev.attribute
+    const carried = withoutExternalFields(prev) as unknown as HeroEntry
+    if (attribute) carried.attribute = attribute
 
     if (!slots.length) {
       // A hero the installed schema knows nothing about keeps its old list rather than
       // vanishing from the picker.
-      next[key] = { ...(withoutExternalFields(prev) as unknown as HeroEntry), sets }
+      next[key] = { ...carried, sets }
       preserved.push(prev.tag ?? key)
       continue
     }
 
-    next[key] = {
-      ...withoutExternalFields(prev),
-      tag: prev.tag ?? key,
-      slots,
-      sets
-    } as HeroEntry
+    next[key] = { ...carried, tag: prev.tag ?? key, slots, sets } as HeroEntry
   }
 
   const ordered = Object.fromEntries(Object.entries(next).sort(([a], [b]) => a.localeCompare(b, 'en')))
@@ -397,7 +400,7 @@ async function main(): Promise<void> {
   }
 
   const target = argValue('--out') ?? armoryPath
-  const findings = collectArmoryFindings(ordered, schema)
+  const findings = collectArmoryFindings(ordered, schema, gameAttributes)
   const errors = reportFindings(findings)
   if (errors > 0) {
     console.log('\nRefusing to write: the rebuilt armory does not match the schema (see above).')
