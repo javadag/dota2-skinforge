@@ -5,6 +5,8 @@
  * `items_game.txt`, this is the one that runs with every `npm test`.
  */
 import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import path from 'node:path'
 import { test } from 'node:test'
 
 import assetsData from '../data/cosmetic-assets.json'
@@ -14,6 +16,7 @@ import armoryData from '../data/heroes_armory.json'
 import packagesData from '../data/cosmetic-packages.json'
 import { getCanonicalHero } from '../src/shared/constants/heroAliases'
 import { getStyleOptionsByName } from '../src/shared/constants/itemStyles'
+import { CATEGORY_SVG_MAP } from '../src/shared/armory/slotSvgIcons'
 import { listHeroes } from '../src/renderer/components/slotGenerator'
 
 interface Mod {
@@ -119,6 +122,16 @@ test('every category entry carries its own display metadata and slots', () => {
     assert.ok(entry.g === 'world' || entry.g === 'interface', `${tag} has unexpected group ${JSON.stringify(entry.g)}`)
     assert.ok(entry.slots.length > 0, `${tag} has no slots`)
     for (const slot of entry.slots) assert.ok(slot.mods.length > 0, `${tag}.${slot.slot} is empty`)
+  }
+})
+
+test('every referenced category SVG ships in assets/categories', () => {
+  // default.svg was referenced by three components and the SVG map while not existing —
+  // the browser only shows that on error paths, so nothing else catches it.
+  const targets = [...Object.values(CATEGORY_SVG_MAP), ...Object.values(otherArmory).map((entry) => entry.img)]
+  for (const target of targets) {
+    assert.ok(target, 'empty asset target')
+    assert.ok(fs.existsSync(path.resolve(__dirname, '..', target.replace(/^\.\.\//, ''))), `${target} is referenced but missing`)
   }
 })
 

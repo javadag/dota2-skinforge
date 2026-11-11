@@ -55,6 +55,10 @@ export const SlotEditor: React.FC = () => {
   const heroAttr = getHeroAttribute(selectedHero.tag)
   const heroImg =
     selectedHero.img || (isHero ? `../assets/heroes/${getCanonicalHero(selectedHero.tag)}.png` : '../assets/categories/default.svg')
+  // Category art ships as a 24px white glyph — framed and padded so it reads as an icon
+  // tile instead of a stretched blob; portraits and renders stay full-bleed.
+  const heroImgFrame = 'w-28 h-28 rounded-lg object-contain p-5 bg-[#0f172a] border-2 border-white/15 shadow-xl shrink-0'
+  const heroImgPhoto = 'w-28 rounded-lg object-cover border-2 border-white/15 shadow-xl shrink-0'
   const catMeta = selectedHero.g && isCategoryKey(selectedHero.g) ? CATEGORY_META[selectedHero.g] : null
 
   const armory = getHeroSlotsDefinition(selectedHero.tag, selectedHero)
@@ -110,9 +114,10 @@ export const SlotEditor: React.FC = () => {
             id="hspHeroImg"
             src={heroImg}
             alt={selectedHero.tag}
-            className="w-28 rounded-lg object-cover border-2 border-white/15 shadow-xl shrink-0"
+            className={heroImg.endsWith('.svg') ? heroImgFrame : heroImgPhoto}
             onError={(e) => {
               e.currentTarget.onerror = null
+              e.currentTarget.className = heroImgFrame
               e.currentTarget.src = fallbackHeroSvg
             }}
           />
@@ -215,6 +220,15 @@ export const SlotEditor: React.FC = () => {
                     ? getItemImage(equippedItemObj, slot.slot, selectedHero.tag, selectedHero)
                     : resolveEmptySlotImage(slot.empty_img, slot.slot)
 
+                // With no Valve image the empty slot gets local 80px icon art; center it
+                // at its native size instead of stretching it across the whole card.
+                const mutedEmpty = 'grayscale opacity-70 group-hover:opacity-85'
+                const emptyThumbClass = `slot-thumb-img h-20 w-20 object-contain transition-all duration-300 ${mutedEmpty}`
+                const thumbClass =
+                  !isEquipped && itemImg.startsWith('data:')
+                    ? emptyThumbClass
+                    : `slot-thumb-img size-full object-cover transition-all duration-300 ${isEquipped ? 'grayscale-0' : mutedEmpty}`
+
                 return (
                   <div
                     key={slot.slot}
@@ -264,16 +278,17 @@ export const SlotEditor: React.FC = () => {
                         }}
                       >
                         <img
-                          className={`slot-thumb-img size-full object-cover transition-all duration-300 ${
-                            isEquipped ? 'grayscale-0' : 'grayscale opacity-70 group-hover:opacity-85'
-                          }`}
+                          className={thumbClass}
                           src={itemImg}
                           alt={isEquipped ? selectedItemName : slot.title}
                           onError={(e) => {
                             e.currentTarget.onerror = null
-                            e.currentTarget.src = equippedItemObj
-                              ? generateItemSvg(equippedItemObj, isCompleteSet ? 'set' : slot.slot, selectedHero.tag)
-                              : getSlotImage(isCompleteSet ? 'set' : slot.slot)
+                            if (equippedItemObj) {
+                              e.currentTarget.src = generateItemSvg(equippedItemObj, isCompleteSet ? 'set' : slot.slot, selectedHero.tag)
+                            } else {
+                              e.currentTarget.className = emptyThumbClass
+                              e.currentTarget.src = getSlotImage(isCompleteSet ? 'set' : slot.slot)
+                            }
                           }}
                         />
                       </div>

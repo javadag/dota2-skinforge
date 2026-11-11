@@ -59,7 +59,13 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
   const matchesDefaultQuery = !query || 'official base model'.includes(query) || 'default'.includes(query)
   const showDefaultItem = matchesDefaultFilter && matchesDefaultQuery
 
-  const baseThumbSrc = hero.img || getCategorySvg(hero.tag) || `../assets/heroes/${getCanonicalHero(hero.tag)}.png`
+  // Heroes use their portrait; a category's own art ships as a small white glyph, so it
+  // is framed as an icon (also on error) instead of stretched full-bleed.
+  const isHeroBase = !hero.g || hero.g === 'hero'
+  const baseThumbSrc =
+    hero.img ||
+    (isHeroBase ? `../assets/heroes/${getCanonicalHero(hero.tag)}.png` : getCategorySvg(hero.tag) || '../assets/categories/default.svg')
+  const baseGlyphClass = 'w-24 h-24 object-contain'
 
   // Filter items (regular slots)
   const filteredItems = isCompleteSetSlot
@@ -182,9 +188,12 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
               <img
                 src={baseThumbSrc}
                 alt="Official Base Model"
-                className="w-full h-full object-contain"
+                className={
+                  baseThumbSrc.endsWith('.svg') || baseThumbSrc.startsWith('data:') ? baseGlyphClass : 'w-full h-full object-contain'
+                }
                 onError={(e) => {
                   e.currentTarget.onerror = null
+                  e.currentTarget.className = baseGlyphClass
                   e.currentTarget.src = '../assets/categories/default.svg'
                 }}
               />
