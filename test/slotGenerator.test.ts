@@ -14,7 +14,7 @@ test('normalizeTag ignores case and punctuation', () => {
   assert.equal(normalizeTag('antimage'), 'antimage')
 })
 
-test('formatHeroName uses categories.json for category tags', () => {
+test('formatHeroName looks up category display names from other_armory', () => {
   assert.equal(formatHeroName('music_packs'), 'Music Packs')
   assert.equal(formatHeroName('kill_streak'), 'Kill Streak Effects')
   assert.equal(formatHeroName('terrain'), 'Terrain')

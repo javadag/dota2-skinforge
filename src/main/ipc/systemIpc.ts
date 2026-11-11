@@ -7,48 +7,9 @@ import { app, ipcMain, shell } from 'electron'
 import fs from 'fs'
 import path from 'path'
 import { APP_CONFIG } from '../../shared/constants/appConfig'
-import { getDataPath } from '../services/appPathService'
 import * as dotaPathModule from '../services/dotaPathService'
 import * as pipeline from '../services/pipelineService'
 import { storedModFolder } from '../services/settingsStore'
-
-export interface HeroItem {
-  id?: number | string
-  name?: string
-  tag?: string
-  [key: string]: unknown
-}
-
-export interface CategoryItem {
-  tag: string
-  name?: string
-  available?: number
-  img?: string
-  g?: string
-  [key: string]: unknown
-}
-
-export interface CategoryGroupItem {
-  key: string
-  title: string
-}
-
-export interface CategoriesData {
-  categories: CategoryItem[]
-  groups: CategoryGroupItem[]
-}
-
-export function loadCategoriesData(): CategoriesData {
-  const categoriesJsonPath = getDataPath('categories.json')
-  if (fs.existsSync(categoriesJsonPath)) {
-    try {
-      return JSON.parse(fs.readFileSync(categoriesJsonPath, 'utf8')) as CategoriesData
-    } catch (e: unknown) {
-      console.error('Failed to read categories.json:', e)
-    }
-  }
-  return { categories: [], groups: [] }
-}
 
 function findSteamExe(): string | null {
   const regPath = dotaPathModule.getSteamPathFromRegistry()
@@ -82,16 +43,9 @@ export function registerSystemIpc() {
   ipcMain.handle('get-initial-data', async () => {
     const dotaPath = dotaPathModule.detectDotaPath()
     const status = pipeline.checkStatus(dotaPath, storedModFolder())
-    const categoriesData = loadCategoriesData()
 
-    const groups: CategoryGroupItem[] = [
-      { key: 'hero', title: 'Heroes' },
-      ...(categoriesData.groups || [
-        { key: 'world', title: 'World' },
-        { key: 'interface', title: 'Interface' }
-      ])
-    ]
-
+    // The hero list and the categories are derived in the renderer from the armory files
+    // it already bundles; only app/session state crosses this bridge now.
     const runtimeVersion = (typeof app?.getVersion === 'function' && app.getVersion()) || APP_CONFIG.version
     const appInfo = {
       ...APP_CONFIG,
@@ -102,9 +56,7 @@ export function registerSystemIpc() {
     return {
       appInfo,
       dotaPath,
-      status,
-      categories: categoriesData.categories || [],
-      groups
+      status
     }
   })
 

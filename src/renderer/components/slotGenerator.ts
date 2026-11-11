@@ -8,15 +8,15 @@
  *   hero.slots[] -> { slot, title, empty_img, mods[] }
  *   mod          -> { id, name, rarity, img }
  *
- * Non-hero categories come from `data/other_armory.json`, which uses the same shape; their
- * display names come from `data/categories.json`.
+ * Non-hero categories come from `data/other_armory.json`, which uses the same shape; each
+ * entry carries its own display metadata (`name`, `img`, `g`), so there is no second file
+ * to keep in step with it.
  *
  * Results are memoised per tag and shared between callers, so treat them as read-only.
  */
 
 import heroesArmoryData from '../../../data/heroes_armory.json'
 import otherArmoryData from '../../../data/other_armory.json'
-import categoriesData from '../../../data/categories.json'
 import { HERO_ALIASES, getCanonicalHero } from '../../shared/constants/heroAliases'
 import { getItemRarityKey, rarityRank } from '../utils/itemImages'
 import type { HeroEntry } from '../env'
@@ -63,16 +63,6 @@ for (const [key, entry] of Object.entries(armory)) {
   if (entry?.tag) armoryIndex.set(normalizeTag(entry.tag), entry)
 }
 
-interface CategoryLabel {
-  tag: string
-  name: string
-}
-
-/** Category labels live in `categories.json`; this only looks them up. */
-const categoryNames = new Map<string, string>(
-  ((categoriesData as unknown as { categories?: CategoryLabel[] }).categories ?? []).map((category) => [category.tag, category.name])
-)
-
 export function formatHeroName(tag?: string | null): string {
   if (!tag) return ''
   const category = categoryNames.get(tag.toLowerCase())
@@ -99,6 +89,9 @@ function cleanSlots(entry: HeroArmoryEntry): HeroArmoryEntry {
 
 interface OtherCategoryEntry {
   tag: string
+  name?: string
+  img?: string
+  g?: string
   slots: ArmorySlot[]
 }
 
@@ -107,6 +100,24 @@ const otherArmoryIndex = new Map<string, OtherCategoryEntry>()
 for (const [key, entry] of Object.entries(otherArmory)) {
   otherArmoryIndex.set(normalizeTag(key), entry)
   if (entry?.tag) otherArmoryIndex.set(normalizeTag(entry.tag), entry)
+}
+
+/**
+ * Category display metadata lives on the armory entries themselves, so the labels and the
+ * nav list are derived from the same file the slots come from. Keyed by the raw lowercase
+ * tag because `formatHeroName` looks up exactly what it is given.
+ */
+const categoryNames = new Map<string, string>()
+const categories: HeroEntry[] = []
+for (const [key, entry] of Object.entries(otherArmory)) {
+  const tag = entry.tag ?? key
+  if (entry.name) categoryNames.set(tag.toLowerCase(), entry.name)
+  categories.push({ tag, name: entry.name, img: entry.img, g: entry.g })
+}
+
+/** The non-hero categories, for the nav list. Computed once, like `listHeroes`. */
+export function listCategories(): HeroEntry[] {
+  return categories
 }
 
 function byRarity(a: SlotMod, b: SlotMod): number {
@@ -140,7 +151,13 @@ export function getHeroSlotsDefinition(heroTag?: string | null, heroObj?: HeroEn
 
   const entry = armoryIndex.get(key) ?? (heroObj?.tag ? armoryIndex.get(normalizeTag(heroObj.tag)) : undefined)
   const other = entry ? undefined : otherArmoryIndex.get(key)
-  const resolved = entry ? sortModsByRarity(cleanSlots(entry)) : other ? sortModsByRarity(other as unknown as HeroArmoryEntry) : null
+  // cleanSlots runs for categories too: it drops empty slots (creeps ships a 0-item
+  // `effect` slot) along with the taunt/Diretide rows heroes must not show.
+  const resolved = entry
+    ? sortModsByRarity(cleanSlots(entry))
+    : other
+      ? sortModsByRarity(cleanSlots(other as unknown as HeroArmoryEntry))
+      : null
 
   prepared.set(key, resolved)
   return resolved

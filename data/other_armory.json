@@ -1,6 +1,9 @@
 {
   "courier": {
     "tag": "courier",
+    "name": "Couriers",
+    "img": "../assets/categories/courier.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "courier",
@@ -2245,6 +2248,9 @@
   },
   "wards": {
     "tag": "wards",
+    "name": "Wards",
+    "img": "../assets/categories/wards.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "ward",
@@ -2900,6 +2906,9 @@
   },
   "terrain": {
     "tag": "terrain",
+    "name": "Terrain",
+    "img": "../assets/categories/terrain.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "map",
@@ -2988,6 +2997,9 @@
   },
   "creeps": {
     "tag": "creeps",
+    "name": "Creeps",
+    "img": "../assets/categories/creeps.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "dire",
@@ -3138,16 +3150,14 @@
             "id": 12463
           }
         ]
-      },
-      {
-        "slot": "effect",
-        "title": "Mega Creeps",
-        "mods": []
       }
     ]
   },
   "towers": {
     "tag": "towers",
+    "name": "Towers",
+    "img": "../assets/categories/tower.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "dire",
@@ -3235,6 +3245,9 @@
   },
   "ancient": {
     "tag": "ancient",
+    "name": "Ancient Structures",
+    "img": "../assets/categories/ancient.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "effect",
@@ -3253,6 +3266,9 @@
   },
   "roshan": {
     "tag": "roshan",
+    "name": "Roshan",
+    "img": "../assets/categories/roshan.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "effect",
@@ -3317,6 +3333,9 @@
   },
   "tormentor": {
     "tag": "tormentor",
+    "name": "Tormentor",
+    "img": "../assets/categories/tormentor.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "effect",
@@ -3349,6 +3368,9 @@
   },
   "weather": {
     "tag": "weather",
+    "name": "Weather Effects",
+    "img": "../assets/categories/weather.svg",
+    "g": "world",
     "slots": [
       {
         "slot": "weather",
@@ -3423,6 +3445,9 @@
   },
   "music_packs": {
     "tag": "music_packs",
+    "name": "Music Packs",
+    "img": "../assets/categories/music.svg",
+    "g": "interface",
     "slots": [
       {
         "slot": "sound",
@@ -3602,6 +3627,9 @@
   },
   "announcers": {
     "tag": "announcers",
+    "name": "Announcers",
+    "img": "../assets/categories/announcers.svg",
+    "g": "interface",
     "slots": [
       {
         "slot": "announcer",
@@ -4039,6 +4067,9 @@
   },
   "versus_screen": {
     "tag": "versus_screen",
+    "name": "Versus Screens",
+    "img": "../assets/categories/versus_screen.svg",
+    "g": "interface",
     "slots": [
       {
         "slot": "effect",
@@ -4099,6 +4130,9 @@
   },
   "huds": {
     "tag": "huds",
+    "name": "HUD Skins",
+    "img": "../assets/categories/huds.svg",
+    "g": "interface",
     "slots": [
       {
         "slot": "hud",
@@ -4810,6 +4844,9 @@
   },
   "kill_streak": {
     "tag": "kill_streak",
+    "name": "Kill Streak Effects",
+    "img": "../assets/categories/kill_streak.svg",
+    "g": "interface",
     "slots": [
       {
         "slot": "effect",
@@ -4849,6 +4886,9 @@
   },
   "cursor": {
     "tag": "cursor",
+    "name": "Cursor Packs",
+    "img": "../assets/categories/cursor.svg",
+    "g": "interface",
     "slots": [
       {
         "slot": "cursor",

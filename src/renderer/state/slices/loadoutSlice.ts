@@ -142,12 +142,15 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
     activeArmory: null,
 
     setSelectedHero: (hero) => {
+      // Filter state is reset on every navigation: the inline picker on a single-slot
+      // category bypasses openSlotModal, which would otherwise leave a hero-modal filter
+      // behind and empty the grid.
       if (!hero) {
-        set({ selectedHero: null, activeArmory: null })
+        set({ selectedHero: null, activeArmory: null, modalRarityFilter: 'all', modalSearchQuery: '' })
         return
       }
       const armory = getHeroSlotsDefinition(hero.tag, hero)
-      set({ selectedHero: hero, activeArmory: armory })
+      set({ selectedHero: hero, activeArmory: armory, modalRarityFilter: 'all', modalSearchQuery: '' })
     },
 
     setHeroSlot: (heroTag, slotId, itemName) => {

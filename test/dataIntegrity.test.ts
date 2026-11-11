@@ -8,7 +8,6 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
 import assetsData from '../data/cosmetic-assets.json'
-import categoriesData from '../data/categories.json'
 import styleData from '../data/itemStyles.json'
 import otherArmoryData from '../data/other_armory.json'
 import armoryData from '../data/heroes_armory.json'
@@ -31,6 +30,9 @@ interface Slot {
 
 interface Entry {
   tag?: string
+  name?: string
+  img?: string
+  g?: string
   attribute?: string
   slots: Slot[]
   sets?: Array<{ id: string; name: string; img?: string; items: Array<{ slot: string; id: number }> }>
@@ -38,7 +40,6 @@ interface Entry {
 
 const armory = armoryData as unknown as Record<string, Entry>
 const otherArmory = otherArmoryData as unknown as Record<string, Entry>
-const categories = (categoriesData as unknown as { categories: Array<{ tag: string; name: string }> }).categories
 const packages = (packagesData as unknown as { packages: Record<string, unknown> }).packages
 const styleItems = (styleData as unknown as { items: Record<string, unknown> }).items
 const assetGroups = new Set(
@@ -104,11 +105,21 @@ test('every set in the armory points at slots and items the armory has', () => {
   assert.ok(piecesChecked > 9500, `only ${piecesChecked} pieces found`)
 })
 
-test('categories.json and other_armory.json describe the same categories', () => {
-  const tags = categories.map((category) => category.tag)
-  assert.equal(new Set(tags).size, tags.length, 'duplicate category tag')
-  assert.deepEqual(new Set(tags), new Set(Object.keys(otherArmory)), 'categories.json and other_armory.json disagree')
-  for (const category of categories) assert.ok(category.name, `${category.tag} has no display name`)
+test('every category entry carries its own display metadata and slots', () => {
+  const entries = Object.entries(otherArmory)
+  assert.equal(entries.length, 15, `expected the 15 shipped categories, got ${entries.length}`)
+
+  const seen = new Set<string>()
+  for (const [key, entry] of entries) {
+    const tag = entry.tag ?? key
+    assert.ok(!seen.has(tag), `duplicate category tag ${tag}`)
+    seen.add(tag)
+    assert.ok(entry.name, `${tag} has no display name`)
+    assert.ok(entry.img, `${tag} has no icon`)
+    assert.ok(entry.g === 'world' || entry.g === 'interface', `${tag} has unexpected group ${JSON.stringify(entry.g)}`)
+    assert.ok(entry.slots.length > 0, `${tag} has no slots`)
+    for (const slot of entry.slots) assert.ok(slot.mods.length > 0, `${tag}.${slot.slot} is empty`)
+  }
 })
 
 test('every asset group has a package, and every package has a group', () => {

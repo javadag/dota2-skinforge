@@ -14,6 +14,7 @@ import {
   type ItemDescriptor
 } from '../utils/itemImages'
 import { formatHeroName, getHeroSlotsDefinition, type ArmorySlot } from './slotGenerator'
+import { ItemPicker } from './ItemPicker'
 import { Button } from './ui/Button'
 
 const fallbackHeroSvg =
@@ -91,6 +92,10 @@ export const SlotEditor: React.FC = () => {
 
   const displaySlots = completeSetSlot ? [completeSetSlot, ...visibleSlots] : visibleSlots
 
+  // A non-hero category with a single slot is a flat list — showing one card that only
+  // exists to open that same list is a wasted click, so the items render right here.
+  const inlineSlot: ArmorySlot | null = !isHero && visibleSlots.length === 1 ? visibleSlots[0] : null
+
   let modifiedCount = 0
   armorySlots.forEach((s) => {
     if (currentSlots[s.slot]) modifiedCount++
@@ -136,164 +141,168 @@ export const SlotEditor: React.FC = () => {
           </div>
         </div>
 
-        {/* Slot Grid View */}
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-3 flex-wrap min-h-7">
-            <div className="flex items-center gap-2 text-xs text-slate-400">
-              <span>
-                {visibleSlots.length} equipment slot{visibleSlots.length === 1 ? '' : 's'}
-              </span>
-              {visibleSets.length > 0 && (
-                <>
-                  <span>•</span>
-                  <span>
-                    {visibleSets.length} complete set{visibleSets.length === 1 ? '' : 's'}
-                  </span>
-                </>
+        {/* Slot Grid View — a category with a single slot shows its items right here */}
+        {inlineSlot ? (
+          <ItemPicker hero={selectedHero} slot={inlineSlot} slots={armorySlots} />
+        ) : (
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between gap-3 flex-wrap min-h-7">
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <span>
+                  {visibleSlots.length} equipment slot{visibleSlots.length === 1 ? '' : 's'}
+                </span>
+                {visibleSets.length > 0 && (
+                  <>
+                    <span>•</span>
+                    <span>
+                      {visibleSets.length} complete set{visibleSets.length === 1 ? '' : 's'}
+                    </span>
+                  </>
+                )}
+              </div>
+
+              {hasPersona && (
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-black/30 border border-white/10 ml-auto" id="variantTabs">
+                  {(['default', 'persona'] as const).map((id) => {
+                    const isActive = currentStance === id
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        data-variant={id}
+                        className={`px-3 py-1 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${
+                          isActive
+                            ? 'bg-purple-500/25 text-white border border-purple-500/50 shadow-[0_0_8px_rgba(139,92,246,0.3)]'
+                            : 'text-slate-400 border border-transparent hover:text-white hover:bg-white/5'
+                        }`}
+                        onClick={() => setHeroActiveStance(selectedHero.tag, id)}
+                      >
+                        {id === 'default' ? 'Default Model' : 'Persona'}
+                      </button>
+                    )
+                  })}
+                </div>
               )}
             </div>
 
-            {hasPersona && (
-              <div className="flex items-center gap-1 p-0.5 rounded-lg bg-black/30 border border-white/10 ml-auto" id="variantTabs">
-                {(['default', 'persona'] as const).map((id) => {
-                  const isActive = currentStance === id
-                  return (
-                    <button
-                      key={id}
-                      type="button"
-                      data-variant={id}
-                      className={`px-3 py-1 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-purple-500/25 text-white border border-purple-500/50 shadow-[0_0_8px_rgba(139,92,246,0.3)]'
-                          : 'text-slate-400 border border-transparent hover:text-white hover:bg-white/5'
-                      }`}
-                      onClick={() => setHeroActiveStance(selectedHero.tag, id)}
-                    >
-                      {id === 'default' ? 'Default Model' : 'Persona'}
-                    </button>
-                  )
-                })}
-              </div>
-            )}
-          </div>
+            <div id="slotsGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {displaySlots.map((slot) => {
+                const isCompleteSet = slot.slot === 'complete_set'
+                const selectedItemName = isCompleteSet ? equippedSet?.name : currentSlots[slot.slot]
+                const isEquipped = isCompleteSet ? !!equippedSet : !!selectedItemName
 
-          <div id="slotsGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {displaySlots.map((slot) => {
-              const isCompleteSet = slot.slot === 'complete_set'
-              const selectedItemName = isCompleteSet ? equippedSet?.name : currentSlots[slot.slot]
-              const isEquipped = isCompleteSet ? !!equippedSet : !!selectedItemName
+                const equippedItemObj: ItemDescriptor | null = isEquipped
+                  ? isCompleteSet && equippedSet
+                    ? { name: equippedSet.name, rarity: equippedSet.rarity, img: equippedSet.img }
+                    : slot.mods.find((it) => it.name === selectedItemName) || {
+                        name: selectedItemName,
+                        tag: 'Custom'
+                      }
+                  : null
 
-              const equippedItemObj: ItemDescriptor | null = isEquipped
-                ? isCompleteSet && equippedSet
-                  ? { name: equippedSet.name, rarity: equippedSet.rarity, img: equippedSet.img }
-                  : slot.mods.find((it) => it.name === selectedItemName) || {
-                      name: selectedItemName,
-                      tag: 'Custom'
-                    }
-                : null
+                const conf = getRarityConfig(equippedItemObj)
+                const setRarity = equippedSet ? getSetEffectiveRarity(equippedSet) : undefined
+                const itemImg = isCompleteSet
+                  ? isEquipped && equippedSet
+                    ? getItemImage(
+                        { name: equippedSet.name, img: equippedSet.img, rarity: setRarity },
+                        'set',
+                        selectedHero.tag,
+                        selectedHero
+                      )
+                    : resolveEmptySlotImage(slot.empty_img, 'set')
+                  : isEquipped
+                    ? getItemImage(equippedItemObj, slot.slot, selectedHero.tag, selectedHero)
+                    : resolveEmptySlotImage(slot.empty_img, slot.slot)
 
-              const conf = getRarityConfig(equippedItemObj)
-              const setRarity = equippedSet ? getSetEffectiveRarity(equippedSet) : undefined
-              const itemImg = isCompleteSet
-                ? isEquipped && equippedSet
-                  ? getItemImage(
-                      { name: equippedSet.name, img: equippedSet.img, rarity: setRarity },
-                      'set',
-                      selectedHero.tag,
-                      selectedHero
-                    )
-                  : resolveEmptySlotImage(slot.empty_img, 'set')
-                : isEquipped
-                  ? getItemImage(equippedItemObj, slot.slot, selectedHero.tag, selectedHero)
-                  : resolveEmptySlotImage(slot.empty_img, slot.slot)
-
-              return (
-                <div
-                  key={slot.slot}
-                  className={`slot-card p-3 rounded-xl border transition-all cursor-pointer bg-[#121826]/70 hover:bg-[#1c263c]/90 flex flex-col justify-between ${
-                    isEquipped ? 'border-purple-500/40 shadow-[0_0_12px_rgba(139,92,246,0.15)]' : 'border-white/5 hover:border-white/15'
-                  }`}
-                  data-slot-id={slot.slot}
-                  onClick={() => openSlotModal(selectedHero, slot)}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="slot-name text-xs font-bold text-white truncate">{slot.title}</span>
-                    <span
-                      className="text-[10px] font-semibold px-2 py-0.5 rounded-full border truncate shrink-0"
-                      style={{
-                        borderColor: isEquipped ? conf.color : 'rgba(255,255,255,0.1)',
-                        color: isEquipped ? conf.color : 'var(--text-muted)',
-                        background: isEquipped ? conf.bg1 : 'rgba(255,255,255,0.03)'
-                      }}
-                    >
-                      {isEquipped ? conf.name : 'Default'}
-                    </span>
-                    {isEquipped && (
-                      <button
-                        className="p-1 ml-auto mr-0 text-slate-400 hover:text-white rounded hover:bg-white/10 transition-colors shrink-0"
-                        title={isCompleteSet ? 'Reset loadout to official base' : 'Reset to default Base'}
-                        data-reset-slot={slot.slot}
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          if (isCompleteSet) {
-                            resetAllHeroSlots(selectedHero.tag)
-                          } else {
-                            resetHeroSlot(selectedHero.tag, slot.slot)
-                          }
+                return (
+                  <div
+                    key={slot.slot}
+                    className={`slot-card p-3 rounded-xl border transition-all cursor-pointer bg-[#121826]/70 hover:bg-[#1c263c]/90 flex flex-col justify-between ${
+                      isEquipped ? 'border-purple-500/40 shadow-[0_0_12px_rgba(139,92,246,0.15)]' : 'border-white/5 hover:border-white/15'
+                    }`}
+                    data-slot-id={slot.slot}
+                    onClick={() => openSlotModal(selectedHero, slot)}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="slot-name text-xs font-bold text-white truncate">{slot.title}</span>
+                      <span
+                        className="text-[10px] font-semibold px-2 py-0.5 rounded-full border truncate shrink-0"
+                        style={{
+                          borderColor: isEquipped ? conf.color : 'rgba(255,255,255,0.1)',
+                          color: isEquipped ? conf.color : 'var(--text-muted)',
+                          background: isEquipped ? conf.bg1 : 'rgba(255,255,255,0.03)'
                         }}
                       >
-                        <X size={14} />
-                      </button>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col gap-2.5">
-                    <div
-                      className="w-full aspect-4/3 rounded-lg border flex items-center justify-center relative shrink-0 overflow-hidden bg-[#0a0e18]"
-                      style={{
-                        borderColor: isEquipped ? conf.color : 'rgba(255,255,255,0.1)',
-                        boxShadow: `0 0 14px ${isEquipped ? conf.glow : 'transparent'}`
-                      }}
-                    >
-                      <img
-                        className={`slot-thumb-img size-full object-cover transition-all duration-300 ${
-                          isEquipped ? 'grayscale-0' : 'grayscale opacity-70 group-hover:opacity-85'
-                        }`}
-                        src={itemImg}
-                        alt={isEquipped ? selectedItemName : slot.title}
-                        onError={(e) => {
-                          e.currentTarget.onerror = null
-                          e.currentTarget.src = equippedItemObj
-                            ? generateItemSvg(equippedItemObj, isCompleteSet ? 'set' : slot.slot, selectedHero.tag)
-                            : getSlotImage(isCompleteSet ? 'set' : slot.slot)
-                        }}
-                      />
+                        {isEquipped ? conf.name : 'Default'}
+                      </span>
+                      {isEquipped && (
+                        <button
+                          className="p-1 ml-auto mr-0 text-slate-400 hover:text-white rounded hover:bg-white/10 transition-colors shrink-0"
+                          title={isCompleteSet ? 'Reset loadout to official base' : 'Reset to default Base'}
+                          data-reset-slot={slot.slot}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            if (isCompleteSet) {
+                              resetAllHeroSlots(selectedHero.tag)
+                            } else {
+                              resetHeroSlot(selectedHero.tag, slot.slot)
+                            }
+                          }}
+                        >
+                          <X size={14} />
+                        </button>
+                      )}
                     </div>
 
-                    <div className="w-full min-w-0">
+                    <div className="flex flex-col gap-2.5">
                       <div
-                        className="text-xs font-semibold truncate"
-                        style={{ color: isEquipped ? conf.color : 'var(--text-main)' }}
-                        title={isEquipped ? selectedItemName : 'Official Base Model'}
+                        className="w-full aspect-4/3 rounded-lg border flex items-center justify-center relative shrink-0 overflow-hidden bg-[#0a0e18]"
+                        style={{
+                          borderColor: isEquipped ? conf.color : 'rgba(255,255,255,0.1)',
+                          boxShadow: `0 0 14px ${isEquipped ? conf.glow : 'transparent'}`
+                        }}
                       >
-                        {isEquipped ? selectedItemName : 'Official Base Model'}
+                        <img
+                          className={`slot-thumb-img size-full object-cover transition-all duration-300 ${
+                            isEquipped ? 'grayscale-0' : 'grayscale opacity-70 group-hover:opacity-85'
+                          }`}
+                          src={itemImg}
+                          alt={isEquipped ? selectedItemName : slot.title}
+                          onError={(e) => {
+                            e.currentTarget.onerror = null
+                            e.currentTarget.src = equippedItemObj
+                              ? generateItemSvg(equippedItemObj, isCompleteSet ? 'set' : slot.slot, selectedHero.tag)
+                              : getSlotImage(isCompleteSet ? 'set' : slot.slot)
+                          }}
+                        />
                       </div>
-                      <div className="text-[11px] text-slate-400 truncate mt-0.5">
-                        {isCompleteSet
-                          ? isEquipped && equippedSet
-                            ? `${conf.name} Cosmetic Set (${equippedSet.items.length} pieces)`
-                            : 'Valve Official Base'
-                          : isEquipped
-                            ? `${conf.name} Cosmetic`
-                            : 'Valve Official Base'}
+
+                      <div className="w-full min-w-0">
+                        <div
+                          className="text-xs font-semibold truncate"
+                          style={{ color: isEquipped ? conf.color : 'var(--text-main)' }}
+                          title={isEquipped ? selectedItemName : 'Official Base Model'}
+                        >
+                          {isEquipped ? selectedItemName : 'Official Base Model'}
+                        </div>
+                        <div className="text-[11px] text-slate-400 truncate mt-0.5">
+                          {isCompleteSet
+                            ? isEquipped && equippedSet
+                              ? `${conf.name} Cosmetic Set (${equippedSet.items.length} pieces)`
+                              : 'Valve Official Base'
+                            : isEquipped
+                              ? `${conf.name} Cosmetic`
+                              : 'Valve Official Base'}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Active Set Preview */}
         <div className="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 mt-auto">

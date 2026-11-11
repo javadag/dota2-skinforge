@@ -4,7 +4,7 @@
  */
 
 import { create } from 'zustand'
-import { listHeroes } from '../components/slotGenerator'
+import { listCategories, listHeroes } from '../components/slotGenerator'
 import type { InstallProgress } from '../env'
 import { createLoadoutSlice, type LoadoutSlice } from './slices/loadoutSlice'
 import { createLogsSlice, type LogsSlice } from './slices/logsSlice'
@@ -70,7 +70,7 @@ export const useAppStore = create<AppStoreState>((set, get, store) => ({
       const initial = await window.skinforge.getInitialData()
       const dotaPath = initial.dotaPath || ''
       const heroes = listHeroes()
-      const categories = initial.categories || []
+      const categories = listCategories()
       const status = initial.status
 
       let savedSettings: Partial<AppSettings> = {}
