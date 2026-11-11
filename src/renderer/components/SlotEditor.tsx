@@ -16,6 +16,7 @@ import {
 import { formatHeroName, getHeroSlotsDefinition, type ArmorySlot } from './slotGenerator'
 import { ItemPicker } from './ItemPicker'
 import { StyleSelect } from './StyleSelect'
+import { styleThumbFor } from '../../shared/constants/itemStyles'
 import { Button } from './ui/Button'
 
 const fallbackHeroSvg =
@@ -28,6 +29,7 @@ export const SlotEditor: React.FC = () => {
   const selectedHero = useAppStore((s) => s.selectedHero)
   const heroSlots = useAppStore((s) => s.heroSlots)
   const heroActiveStance = useAppStore((s) => s.heroActiveStance)
+  const heroCustomizations = useAppStore((s) => s.heroCustomizations)
   const setHeroActiveStance = useAppStore((s) => s.setHeroActiveStance)
   const resetAllHeroSlots = useAppStore((s) => s.resetAllHeroSlots)
   const resetHeroSlot = useAppStore((s) => s.resetHeroSlot)
@@ -208,6 +210,9 @@ export const SlotEditor: React.FC = () => {
 
                 const conf = getRarityConfig(equippedItemObj)
                 const setRarity = equippedSet ? getSetEffectiveRarity(equippedSet) : undefined
+                // The selected style's art wins over the item's own image.
+                const styleImg =
+                  isEquipped && !isCompleteSet ? styleThumbFor(heroCustomizations, selectedHero.tag, slot.slot, selectedItemName) : null
                 const itemImg = isCompleteSet
                   ? isEquipped && equippedSet
                     ? getItemImage(
@@ -218,7 +223,14 @@ export const SlotEditor: React.FC = () => {
                       )
                     : resolveEmptySlotImage(slot.empty_img, 'set')
                   : isEquipped
-                    ? getItemImage(equippedItemObj, slot.slot, selectedHero.tag, selectedHero)
+                    ? styleImg
+                      ? getItemImage(
+                          { name: selectedItemName, img: styleImg, rarity: equippedItemObj?.rarity },
+                          slot.slot,
+                          selectedHero.tag,
+                          selectedHero
+                        )
+                      : getItemImage(equippedItemObj, slot.slot, selectedHero.tag, selectedHero)
                     : resolveEmptySlotImage(slot.empty_img, slot.slot)
 
                 // With no Valve image the empty slot gets local 80px icon art; center it

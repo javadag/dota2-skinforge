@@ -6,6 +6,7 @@
  */
 
 import itemStylesData from '../../../data/itemStyles.json'
+import type { HeroCustomizationsMap } from '../types/customization'
 
 export interface StyleOption {
   index: number
@@ -100,4 +101,47 @@ export function inferStyleIndex(itemName: string | undefined, options: StyleOpti
     if (options.some((option) => option.index === wanted)) return wanted
   }
   return 0
+}
+
+/**
+ * What the picker should offer for a style list: the schema's options, with an explicit
+ * Default prepended when they skip index 0. A list of one means there is no choice.
+ */
+export function displayStyleOptions(styles: StyleOption[]): StyleOption[] {
+  if (styles.length === 0) return []
+  return styles[0].index !== 0 ? [{ index: 0, name: 'Default' }, ...styles] : styles
+}
+
+/**
+ * The base item name when `itemName` is a style-variant row the armory emits
+ * (`<base> - <style name>`, or `<base> - Style <n>`), else null. The suffix must match
+ * one of the base's style names so set-piece rows like "Blightfall - Back" are never
+ * mistaken for variants.
+ */
+export function styleVariantBaseName(itemName?: string): string | null {
+  if (!itemName) return null
+  if (items[itemName]) return null
+  const dashIndex = itemName.lastIndexOf(' - ')
+  if (dashIndex <= 0) return null
+  const base = itemName.slice(0, dashIndex).trim()
+  const entry = items[base] ?? items[normalizeItemName(base)]
+  if (!entry || entry.styles.length === 0) return null
+  const suffix = itemName.slice(dashIndex + 3).trim()
+  const matchesStyle = entry.styles.some((style) => style.name.toLowerCase() === suffix.toLowerCase())
+  return matchesStyle || /^style\s*\d+$/i.test(suffix) ? base : null
+}
+
+/**
+ * The image for the style currently in effect on an equipped slot: the saved choice
+ * wins, an equipped ` - <style name>` variant name implies its own style, and a single
+ * style (or the default) has no art of its own — null keeps the caller on the item's
+ * own image.
+ */
+export function styleThumbFor(customizations: HeroCustomizationsMap, heroTag: string, slotId: string, itemName?: string): string | null {
+  const styles = getStyleOptionsByName(itemName)
+  const options = displayStyleOptions(styles)
+  if (options.length < 2) return null
+  const saved = customizations[heroTag]?.[slotId]?.style
+  const index = options.some((option) => option.index === saved) ? (saved as number) : inferStyleIndex(itemName, styles)
+  return options.find((option) => option.index === index)?.img ?? null
 }

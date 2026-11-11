@@ -5,6 +5,7 @@ import { generateItemSvg, getCategorySvg, getItemImage, getItemRarityKey, getRar
 import { formatHeroName, type ArmorySlot } from './slotGenerator'
 import { StyleSelect } from './StyleSelect'
 import { getCanonicalHero } from '../../shared/constants/heroAliases'
+import { getStyleOptionsByName, inferStyleIndex, styleThumbFor, styleVariantBaseName } from '../../shared/constants/itemStyles'
 import type { HeroEntry } from '../env'
 
 interface ItemPickerProps {
@@ -31,6 +32,8 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
   const setModalRarityFilter = useAppStore((s) => s.setModalRarityFilter)
   const setModalSearchQuery = useAppStore((s) => s.setModalSearchQuery)
   const setHeroSlot = useAppStore((s) => s.setHeroSlot)
+  const setSlotCustomization = useAppStore((s) => s.setSlotCustomization)
+  const heroCustomizations = useAppStore((s) => s.heroCustomizations)
   const equipSet = useAppStore((s) => s.equipSet)
   const resetHeroSlot = useAppStore((s) => s.resetHeroSlot)
   const resetAllHeroSlots = useAppStore((s) => s.resetAllHeroSlots)
@@ -54,6 +57,17 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
   const currentEquippedName = isCompleteSetSlot ? equippedSet?.name : currentSlots[slot.slot]
   const items = slot.mods || []
 
+  // Style-variant rows (<base> - <style name>) collapse into their base card: the
+  // dropdown on the equipped card is their picker now. A variant only hides when its
+  // base row is right there in the same slot, so nothing can become unreachable.
+  const rowNames = new Set(items.map((it) => it.name))
+  const visibleItems = items.filter((it) => {
+    const variantOf = styleVariantBaseName(it.name)
+    return variantOf === null || !rowNames.has(variantOf)
+  })
+  // The equipped name may be one of the hidden variants; its base card shows as Active.
+  const equippedBaseName = currentEquippedName ? (styleVariantBaseName(currentEquippedName) ?? currentEquippedName) : undefined
+
   // Check default item visibility
   const isDefaultSelected = !currentEquippedName
   const matchesDefaultFilter = modalRarityFilter === 'all' || modalRarityFilter === 'default'
@@ -71,7 +85,7 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
   // Filter items (regular slots)
   const filteredItems = isCompleteSetSlot
     ? []
-    : items.filter((it) => {
+    : visibleItems.filter((it) => {
         const conf = getRarityConfig(it)
         const rarityKey = getItemRarityKey(it)
 
@@ -89,7 +103,9 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
           query &&
           !it.name.toLowerCase().includes(query) &&
           !(it.rarity && it.rarity.toLowerCase().includes(query)) &&
-          !conf.name.toLowerCase().includes(query)
+          !conf.name.toLowerCase().includes(query) &&
+          // Hidden variant rows still findable: search their style names too.
+          !getStyleOptionsByName(it.name).some((style) => style.name.toLowerCase().includes(query))
         ) {
           return false
         }
@@ -287,8 +303,12 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
         {!isCompleteSetSlot &&
           filteredItems.map((it) => {
             const conf = getRarityConfig(it)
-            const isSelected = currentEquippedName === it.name
-            const itemImg = getItemImage(it, slot.slot, hero.tag, hero)
+            const isSelected = equippedBaseName === it.name
+            // The selected style's art wins over the item's own image.
+            const styleImg = isSelected ? styleThumbFor(heroCustomizations, hero.tag, slot.slot, currentEquippedName) : null
+            const itemImg = styleImg
+              ? getItemImage({ name: it.name, img: styleImg, rarity: it.rarity }, slot.slot, hero.tag, hero)
+              : getItemImage(it, slot.slot, hero.tag, hero)
 
             return (
               <div
@@ -297,7 +317,16 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
                   isSelected ? 'border-purple-500/50 bg-purple-500/10' : 'border-white/5'
                 }`}
                 onClick={() => {
+                  // Re-clicking the visible base while its variant is equipped keeps the
+                  // style that variant's name stood for: setHeroSlot sees a name change
+                  // and would clear it.
+                  const equippedNow = currentEquippedName
+                  const impliedStyle =
+                    equippedNow && styleVariantBaseName(equippedNow) === it.name
+                      ? inferStyleIndex(equippedNow, getStyleOptionsByName(it.name))
+                      : 0
                   setHeroSlot(hero.tag, slot.slot, it.name)
+                  if (impliedStyle) setSlotCustomization(hero.tag, slot.slot, { style: impliedStyle })
                   onEquipped?.()
                   addLog(`Equipped ${it.name} on ${formatHeroName(hero.tag)} [${slot.title}].`, 'success')
                 }}
@@ -352,7 +381,7 @@ export const ItemPicker = ({ hero, slot, slots, onEquipped }: ItemPickerProps) =
 
                 {isSelected && (
                   <>
-                    <StyleSelect hero={hero} slotId={slot.slot} itemName={it.name} item={it} />
+                    <StyleSelect hero={hero} slotId={slot.slot} itemName={currentEquippedName || it.name} item={it} />
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 shrink-0">
                       Active
                     </span>

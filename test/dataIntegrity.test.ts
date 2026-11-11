@@ -15,7 +15,7 @@ import otherArmoryData from '../data/other_armory.json'
 import armoryData from '../data/heroes_armory.json'
 import packagesData from '../data/cosmetic-packages.json'
 import { getCanonicalHero } from '../src/shared/constants/heroAliases'
-import { getItemStyleOptions, getStyleOptionsByName } from '../src/shared/constants/itemStyles'
+import { getItemStyleOptions, getStyleOptionsByName, styleThumbFor, styleVariantBaseName } from '../src/shared/constants/itemStyles'
 import { CATEGORY_SVG_MAP } from '../src/shared/armory/slotSvgIcons'
 import { listHeroes } from '../src/renderer/components/slotGenerator'
 
@@ -252,4 +252,48 @@ test('loading screens never carry styles', () => {
   for (const name of loadscreenNames) {
     assert.ok(!(name in styleItems), `loading screen "${name}" has style entries — it must not`)
   }
+})
+
+test('style-variant rows collapse to their base card without losing anything', () => {
+  // The picker hides `<base> - <style name>` rows because the dropdown on the equipped
+  // card replaces them; every hidden row must keep its base visible in the same slot,
+  // and set-piece rows like "Blightfall - Back" must never be classified as variants.
+  let hidden = 0
+  let keptDash = 0
+  for (const entry of [...Object.values(armory), ...Object.values(otherArmory)]) {
+    for (const slot of entry.slots) {
+      const rowNames = new Set(slot.mods.map((mod) => mod.name))
+      for (const mod of slot.mods) {
+        const variantOf = styleVariantBaseName(mod.name)
+        if (variantOf) {
+          hidden++
+          assert.ok(rowNames.has(variantOf), `${mod.name} collapses but its base ${variantOf} is not in ${slot.slot}`)
+        } else if (mod.name.includes(' - ')) {
+          keptDash++
+        }
+      }
+    }
+  }
+  assert.ok(hidden > 700, `only ${hidden} rows classified as style variants`)
+  assert.ok(keptDash > 2000, `only ${keptDash} set-piece/alias rows kept — the predicate is misfiring`)
+  assert.equal(styleVariantBaseName('Blightfall - Back'), null)
+})
+
+test('styleThumbFor follows the saved style or the equipped variant name', () => {
+  type StyleEntry = { hero: string; slot: string; styles: Array<{ index: number; name: string; img?: string }> }
+  const entries = Object.entries(styleItems as Record<string, StyleEntry>)
+
+  // An item with real art on at least two styles: the variant name implies its style...
+  const withArt = entries.find(([, entry]) => entry.styles.filter((style) => style.img).length >= 2)
+  assert.ok(withArt, 'expected at least one item with art on two styles')
+  const [baseName, entry] = withArt
+  const [styleA, styleB] = entry.styles.filter((style) => style.img)
+  assert.equal(styleVariantBaseName(`${baseName} - ${styleB.name}`), baseName)
+  assert.equal(styleThumbFor({}, entry.hero, entry.slot, `${baseName} - ${styleB.name}`), styleB.img)
+  // ...and a saved choice wins over the default...
+  assert.equal(styleThumbFor({ [entry.hero]: { [entry.slot]: { style: styleA.index } } }, entry.hero, entry.slot, baseName), styleA.img)
+  // ...while a single-style item has no choice and no override.
+  const single = entries.find(([, entry2]) => entry2.styles.length === 1)
+  assert.ok(single, 'expected single-style items to exist')
+  assert.equal(styleThumbFor({ [single[1].hero]: { [single[1].slot]: { style: 0 } } }, single[1].hero, single[1].slot, single[0]), null)
 })

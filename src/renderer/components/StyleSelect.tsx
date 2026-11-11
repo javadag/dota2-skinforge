@@ -1,6 +1,6 @@
 import { Check, ChevronDown, Sparkles } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { getItemStyleOptions, inferStyleIndex, type StyleOption } from '../../shared/constants/itemStyles'
+import { displayStyleOptions, getItemStyleOptions, inferStyleIndex, type StyleOption } from '../../shared/constants/itemStyles'
 import { useAppStore } from '../state/useAppStore'
 import { generateItemSvg, getItemImage, type ItemDescriptor } from '../utils/itemImages'
 import type { HeroEntry } from '../env'
@@ -61,10 +61,10 @@ export const StyleSelect = ({ hero, slotId, itemName, item }: StyleSelectProps) 
 
   const info = getItemStyleOptions(hero.tag, slotId, itemName)
   const styles = info?.styles ?? []
-  if (!info || styles.length === 0) return null
+  // One option is no choice — a dropdown would only be noise.
+  const options = displayStyleOptions(styles)
+  if (options.length < 2) return null
 
-  // The list must offer the default explicitly when the schema's options skip index 0.
-  const options: StyleOption[] = styles[0].index !== 0 ? [{ index: 0, name: 'Default' }, ...styles] : styles
   const saved = heroCustomizations[hero.tag]?.[slotId]?.style
   const activeIndex = options.some((option) => option.index === saved) ? (saved as number) : inferStyleIndex(itemName, styles)
 
