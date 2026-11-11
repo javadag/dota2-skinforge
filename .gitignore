@@ -66,3 +66,7 @@ desktop.ini
 
 # Executable binaries
 *.exe
+
+# Local documentation
+docs/
+
