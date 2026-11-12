@@ -43,10 +43,30 @@ function normalizeItemName(itemName: string): string {
     .trim()
 }
 
+/** Lowercased, punctuation-free form of a style name, for tolerant suffix matching. */
+function styleKey(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, '')
+}
+
+/**
+ * The suffix of a genuine style-variant row: one of the base's style names compared
+ * without case or punctuation (the armory writes "Lefty - Linkens Sphere" where the
+ * schema says "Lefty - Linken's Sphere Style Unlock"), or `Style N`. Set pieces share
+ * the prefix too ("Dread Retribution - Cape") but their suffix matches no style, so
+ * they stay their own items instead of inheriting the base's styles.
+ */
+function isVariantSuffix(entry: StylesEntry, suffix: string): boolean {
+  if (!suffix) return false
+  if (/^style\s*\d+$/i.test(suffix)) return true
+  const needle = styleKey(suffix)
+  return needle.length > 0 && entry.styles.some((style) => styleKey(style.name).includes(needle))
+}
+
 /**
  * Resolve an equipped display name to its styles entry: exact name, ` - Style N`
- * normalized form, then the base item before a ` - <variant>` suffix (how style-variant
- * rows are equipped).
+ * normalized form, then the base item — but only when the name really is a variant row
+ * (`<base> - <style name>`). Set pieces share the prefix ("Dread Retribution - Cape")
+ * and must stay their own items instead of inheriting the base's styles.
  */
 function findEntry(itemName: string): StylesEntry | undefined {
   const direct = items[itemName] ?? items[normalizeItemName(itemName)]
@@ -54,7 +74,8 @@ function findEntry(itemName: string): StylesEntry | undefined {
   const dashIndex = itemName.lastIndexOf(' - ')
   if (dashIndex > 0) {
     const base = itemName.slice(0, dashIndex).trim()
-    return items[base] ?? items[normalizeItemName(base)]
+    const entry = items[base] ?? items[normalizeItemName(base)]
+    if (entry && isVariantSuffix(entry, itemName.slice(dashIndex + 3).trim())) return entry
   }
   return undefined
 }
@@ -115,8 +136,8 @@ export function displayStyleOptions(styles: StyleOption[]): StyleOption[] {
 /**
  * The base item name when `itemName` is a style-variant row the armory emits
  * (`<base> - <style name>`, or `<base> - Style <n>`), else null. The suffix must match
- * one of the base's style names so set-piece rows like "Blightfall - Back" are never
- * mistaken for variants.
+ * one of the base's style names (see `isVariantSuffix`) so set-piece rows like
+ * "Blightfall - Back" are never mistaken for variants.
  */
 export function styleVariantBaseName(itemName?: string): string | null {
   if (!itemName) return null
@@ -126,9 +147,7 @@ export function styleVariantBaseName(itemName?: string): string | null {
   const base = itemName.slice(0, dashIndex).trim()
   const entry = items[base] ?? items[normalizeItemName(base)]
   if (!entry || entry.styles.length === 0) return null
-  const suffix = itemName.slice(dashIndex + 3).trim()
-  const matchesStyle = entry.styles.some((style) => style.name.toLowerCase() === suffix.toLowerCase())
-  return matchesStyle || /^style\s*\d+$/i.test(suffix) ? base : null
+  return isVariantSuffix(entry, itemName.slice(dashIndex + 3).trim()) ? base : null
 }
 
 /**

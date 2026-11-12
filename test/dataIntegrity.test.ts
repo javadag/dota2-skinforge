@@ -297,3 +297,18 @@ test('styleThumbFor follows the saved style or the equipped variant name', () =>
   assert.ok(single, 'expected single-style items to exist')
   assert.equal(styleThumbFor({ [single[1].hero]: { [single[1].slot]: { style: 0 } } }, single[1].hero, single[1].slot, single[0]), null)
 })
+
+test('set pieces that share a styled base do not inherit its styles', () => {
+  // The Drow arcana's pieces ("Dread Retribution - Cape") share the arcana's prefix; an
+  // eager dash fallback gave every piece the arcana's dropdown and its art.
+  for (const name of ['Dread Retribution - Cape', 'Dread Retribution - Weapon', 'Planetfall - Belt', 'Feast of Abscession - Back']) {
+    assert.equal(getStyleOptionsByName(name).length, 0, `${name} must not inherit the base's styles`)
+    assert.equal(getItemStyleOptions(undefined, undefined, name), null, `${name} must not offer a style dropdown`)
+  }
+  // Real variant rows of the same base still resolve — including the courier's legacy
+  // look rows, whose suffix is only contained in the schema's style name
+  // ("Lefty - Linkens Sphere" vs "Lefty - Linken's Sphere Style Unlock").
+  assert.ok(getStyleOptionsByName('Dread Retribution - Master of Madness').length > 0)
+  assert.ok(getStyleOptionsByName('Lefty - Aegis of the Immortal').length > 0)
+  assert.ok(styleThumbFor({}, 'drow ranger', 'hero_base', 'Dread Retribution - Master of Madness'))
+})
