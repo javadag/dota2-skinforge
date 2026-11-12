@@ -77,6 +77,25 @@ test('resolveSlot prioritizes explicit item_slot and infers from prefab', () => 
   assert.equal(fallback.source, 'fallback')
 })
 
+test('buildSchema lowercases item_slot so one hero never gets two slot groups', () => {
+  // Valve writes "Legs" with a capital L for Drow's Death Shadow Boots — the only mixed-case
+  // item_slot in items_game.txt.
+  const schema = buildSchema(`"items_game"
+{
+  "items"
+  {
+    "5844"
+    {
+      "name" "Death Shadow Boots"
+      "item_slot" "Legs"
+      "prefab" "wearable"
+      "used_by_heroes" { "drow_ranger" "1" }
+    }
+  }
+}`)
+  assert.equal(schema.items.get('5844')?.resolvedSlot, 'legs')
+})
+
 test('isPersonaSlot accurately identifies persona slots vs standard wearable slots', () => {
   assert.equal(isPersonaSlot('persona_selector'), true)
   assert.equal(isPersonaSlot('head_persona_1'), true)

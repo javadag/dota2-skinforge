@@ -95,6 +95,20 @@ export function getInitialLoadoutState() {
   const initialStanceSlots = getStoredStanceSlots(initialSlots)
   const initialActiveStance = getStoredActiveStances()
 
+  // Slot ids are lowercase by design; a legacy stored map can still hold Valve's mixed-case
+  // "Legs" (Drow's Death Shadow Boots), which no longer exists as a slot.
+  const lowerKeys = <T>(slots: Record<string, T>): Record<string, T> =>
+    Object.fromEntries(Object.entries(slots).map(([slot, item]) => [slot.toLowerCase(), item]))
+  for (const heroTag of Object.keys(initialSlots)) initialSlots[heroTag] = lowerKeys(initialSlots[heroTag])
+  for (const stances of Object.values(initialStanceSlots)) {
+    if (stances.default) stances.default = lowerKeys(stances.default)
+    if (stances.persona) stances.persona = lowerKeys(stances.persona)
+  }
+  const initialCustomizations = getStoredHeroCustomizations()
+  for (const heroTag of Object.keys(initialCustomizations)) {
+    initialCustomizations[heroTag] = lowerKeys(initialCustomizations[heroTag])
+  }
+
   // Align initialHeroSlots with each hero's active stance so it never holds cross-stance leftovers
   for (const heroTag of Object.keys(initialSlots)) {
     const stance = initialActiveStance[heroTag] || 'default'
@@ -112,7 +126,7 @@ export function getInitialLoadoutState() {
     heroSlots: initialSlots,
     heroStanceSlots: initialStanceSlots,
     heroActiveStance: initialActiveStance,
-    heroCustomizations: getStoredHeroCustomizations()
+    heroCustomizations: initialCustomizations
   }
 }
 

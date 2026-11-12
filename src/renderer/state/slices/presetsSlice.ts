@@ -12,7 +12,16 @@ export interface Preset {
 export function getStoredPresets(): Preset[] {
   try {
     const data = localStorage.getItem('skinforge_presets')
-    return data ? (JSON.parse(data) as Preset[]) : []
+    const presets = data ? (JSON.parse(data) as Preset[]) : []
+    // Legacy presets can hold a slot id Valve spelled "Legs"; slots are lowercase now.
+    for (const preset of presets) {
+      for (const heroTag of Object.keys(preset.heroSlots ?? {})) {
+        preset.heroSlots[heroTag] = Object.fromEntries(
+          Object.entries(preset.heroSlots[heroTag]).map(([slot, item]) => [slot.toLowerCase(), item])
+        )
+      }
+    }
+    return presets
   } catch {
     return []
   }

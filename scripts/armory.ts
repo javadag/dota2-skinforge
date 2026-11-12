@@ -348,7 +348,12 @@ async function main(): Promise<void> {
     const canonical = getCanonicalHero(prev.tag ?? key)
     const slots = buildSlots(schema, text, canonical, prev)
     // Set membership travels with the armory: pieces are {slot, id} rows into `slots`.
-    const sets: ArmorySet[] = prev.sets ?? []
+    // The carried rows predate slot-id normalization, so re-key them to the rebuilt list
+    // (Valve once wrote item_slot "Legs" with a capital L).
+    const sets: ArmorySet[] = (prev.sets ?? []).map((set) => ({
+      ...set,
+      items: (set.items ?? []).map((piece) => ({ ...piece, slot: piece.slot.toLowerCase() }))
+    }))
     const attribute = gameAttributes.get(canonical) ?? prev.attribute
     const carried = withoutExternalFields(prev) as unknown as HeroEntry
     if (attribute) carried.attribute = attribute

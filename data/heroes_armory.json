@@ -35937,6 +35937,11 @@
             "img": "econ/items/drow/arvalias_legacy_legs/arvalias_legacy_legs"
           },
           {
+            "id": 5844,
+            "name": "Death Shadow Boots",
+            "img": "econ/items/drow/death_shadow_boots/death_shadow_boots"
+          },
+          {
             "id": 13843,
             "name": "Discipline of the Dark Star Legs",
             "rarity": "rare",
@@ -36683,17 +36688,6 @@
           }
         ],
         "empty_img": "econ/heroes/drow/drow_weapon"
-      },
-      {
-        "slot": "Legs",
-        "title": "Legs",
-        "mods": [
-          {
-            "id": 5844,
-            "name": "Death Shadow Boots",
-            "img": "econ/items/drow/death_shadow_boots/death_shadow_boots"
-          }
-        ]
       }
     ],
     "sets": [
@@ -36869,7 +36863,7 @@
             "id": 5845
           },
           {
-            "slot": "Legs",
+            "slot": "legs",
             "id": 5844
           },
           {

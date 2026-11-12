@@ -203,7 +203,9 @@ function readItem(entry: VdfEntry): RawItem | null {
     id: entry.key,
     name,
     prefab: getString(node, 'prefab') ?? '',
-    slot: getString(node, 'item_slot') ?? '',
+    // Valve writes `item_slot` lowercase everywhere except item 5844 ("Legs"), which would
+    // otherwise give Drow Ranger a second slot group and no default item to apply it to.
+    slot: (getString(node, 'item_slot') ?? '').toLowerCase(),
     rarity: getString(node, 'item_rarity') ?? '',
     heroes: readHeroes(getNode(node, 'used_by_heroes')),
     model: getString(node, 'model_player') ?? '',
