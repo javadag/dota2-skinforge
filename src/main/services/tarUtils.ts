@@ -147,13 +147,18 @@ export async function createTarBrotliFromDir(
 /**
  * Parses and extracts a raw TAR buffer safely into targetDir.
  */
-export async function extractTarBufferSafely(tarBuffer: Buffer, targetDir: string): Promise<{ fileCount: number; bytesExtracted: number }> {
+export async function extractTarBufferSafely(
+  tarBuffer: Buffer,
+  targetDir: string,
+  concurrency = 1
+): Promise<{ fileCount: number; bytesExtracted: number }> {
   await fs.promises.mkdir(targetDir, { recursive: true })
 
   let offset = 0
   let pendingLongLinkName: string | null = null
   let fileCount = 0
   let bytesExtracted = 0
+  const pendingWrites: Promise<void>[] = []
 
   while (offset + 512 <= tarBuffer.length) {
     const header = tarBuffer.subarray(offset, offset + 512)
@@ -219,15 +224,19 @@ export async function extractTarBufferSafely(tarBuffer: Buffer, targetDir: strin
     // Normal file entry ('0' or null)
     const safeRel = sanitizeTarEntryPath(entryName)
     const destPath = path.join(targetDir, safeRel.replace(/\//g, path.sep))
-    await fs.promises.mkdir(path.dirname(destPath), { recursive: true })
 
     const fileData = tarBuffer.subarray(offset, dataEnd)
-    await fs.promises.writeFile(destPath, fileData)
+    pendingWrites.push(fs.promises.mkdir(path.dirname(destPath), { recursive: true }).then(() => fs.promises.writeFile(destPath, fileData)))
+    if (pendingWrites.length >= concurrency) {
+      await pendingWrites.shift()
+    }
 
     fileCount++
     bytesExtracted += fileData.length
     offset = nextOffset
   }
+
+  await Promise.all(pendingWrites)
 
   return { fileCount, bytesExtracted }
 }
@@ -235,8 +244,12 @@ export async function extractTarBufferSafely(tarBuffer: Buffer, targetDir: strin
 /**
  * Safely extracts a `.tar.br` archive to targetDir with path traversal checks.
  */
-export async function extractTarBrotliSafely(tarBrPath: string, targetDir: string): Promise<{ fileCount: number; bytesExtracted: number }> {
+export async function extractTarBrotliSafely(
+  tarBrPath: string,
+  targetDir: string,
+  concurrency = 1
+): Promise<{ fileCount: number; bytesExtracted: number }> {
   const compressed = await fs.promises.readFile(tarBrPath)
   const tarBuffer = zlib.brotliDecompressSync(compressed)
-  return extractTarBufferSafely(tarBuffer, targetDir)
+  return extractTarBufferSafely(tarBuffer, targetDir, concurrency)
 }

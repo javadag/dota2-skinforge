@@ -11,7 +11,7 @@ import { createLogsSlice, type LogsSlice } from './slices/logsSlice'
 import { createNavigationSlice, type NavigationSlice } from './slices/navigationSlice'
 import { createPipelineSlice, type PipelineSlice } from './slices/pipelineSlice'
 import { createPresetsSlice, type PresetsSlice } from './slices/presetsSlice'
-import { createSettingsSlice, DEFAULT_LAUNCH_OPTIONS, type AppSettings, type CacheStats, type SettingsSlice } from './slices/settingsSlice'
+import { createSettingsSlice, DEFAULT_LAUNCH_OPTIONS, type AppSettings, type SettingsSlice } from './slices/settingsSlice'
 import { createUpdateSlice, type UpdateSlice } from './slices/updateSlice'
 
 export interface InitAppSlice {
@@ -67,10 +67,13 @@ export const useAppStore = create<AppStoreState>((set, get, store) => ({
         throw new Error('IPC bridge window.skinforge is not available.')
       }
 
-      const initial = await window.skinforge.getInitialData()
-      const dotaPath = initial.dotaPath || ''
+      // The roster comes from bundled data, so render it without waiting on IPC.
       const heroes = listHeroes()
       const categories = listCategories()
+      set({ heroes, categories })
+
+      const initial = await window.skinforge.getInitialData()
+      const dotaPath = initial.dotaPath || ''
       const status = initial.status
 
       let savedSettings: Partial<AppSettings> = {}
@@ -80,19 +83,9 @@ export const useAppStore = create<AppStoreState>((set, get, store) => ({
         // ignore
       }
 
-      let cacheStats: CacheStats | null = null
-      try {
-        cacheStats = await window.skinforge.getCacheStats()
-      } catch {
-        // ignore
-      }
-
       set((state) => ({
         dotaPath,
-        heroes,
-        categories,
         status,
-        cacheStats,
         settings: {
           ...state.settings,
           dotaPath: typeof savedSettings.dotaPath === 'string' ? savedSettings.dotaPath : dotaPath,
@@ -107,6 +100,12 @@ export const useAppStore = create<AppStoreState>((set, get, store) => ({
           }
         }
       }))
+
+      // Cache stats only appear in Settings; never block startup on them.
+      window.skinforge
+        .getCacheStats()
+        .then((cacheStats) => set({ cacheStats }))
+        .catch(() => {})
 
       // CRITICAL: Log for smoke test pattern /Loaded (\d+) heroes/
       addLog(`Loaded ${heroes.length} heroes from local database.`, 'success')

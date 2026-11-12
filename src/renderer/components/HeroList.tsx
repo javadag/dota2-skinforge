@@ -126,6 +126,8 @@ export const HeroList: React.FC = () => {
               <img
                 src={imgSrc}
                 alt={h.tag}
+                loading="lazy"
+                decoding="async"
                 className={`hero-item-thumb w-16 h-9 rounded-md ${isHero ? 'object-cover' : 'object-contain p-1.5 bg-[#0f172a]'} border border-white/10 shrink-0`}
                 onError={(e) => {
                   e.currentTarget.onerror = null

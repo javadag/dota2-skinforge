@@ -113,3 +113,24 @@ export function getStatePath(...subpaths: string[]): string {
 export function getStagingIconsPath(...subpaths: string[]): string {
   return path.join(getAppRoot(), '.staging_icons', 'webp', ...subpaths)
 }
+
+/** Runtime directory where the bundled icon pack is extracted. */
+export function getIconPackDir(): string {
+  try {
+    const { app } = require('electron')
+    if (app && typeof app.getPath === 'function') {
+      return path.join(app.getPath('userData'), 'icon_pack')
+    }
+  } catch {
+    // Non-electron context (tests / CLI)
+  }
+  return path.join(getAppRoot(), '.state', 'icon_pack')
+}
+
+export function getBundledIconPackPath(): string {
+  return getAssetsPath('icon-pack.tar.br')
+}
+
+export function getBundledIconPackManifestPath(): string {
+  return getAssetsPath('icon-pack.json')
+}

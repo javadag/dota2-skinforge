@@ -7,7 +7,7 @@ import fs from 'fs'
 import path from 'path'
 import { APP_CONFIG } from '../shared/constants/appConfig'
 import { registerIpcHandlers } from './ipc'
-import { registerIconScheme, registerIconProtocol } from './services/iconCacheService'
+import { registerIconScheme, registerIconProtocol, ensureIconPack } from './services/iconCacheService'
 import { getAssetsPath } from './services/appPathService'
 import { migrateLegacySettings } from './services/settingsStore'
 import { installMainErrorCapture } from './services/bugReportService'
@@ -108,6 +108,10 @@ if (!gotTheLock) {
     })
 
     registerIpcHandlers(() => mainWindow)
+
+    // Start extracting the bundled icon pack while the window boots instead of
+    // waiting for the first icon request.
+    void ensureIconPack()
     createWindow()
 
     app.on('activate', () => {
