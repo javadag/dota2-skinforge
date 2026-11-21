@@ -1,29 +1,14 @@
 import type { StateCreator } from 'zustand'
 import { buildLaunchArgsString, DEFAULT_LAUNCH_OPTIONS, type LaunchOptionsSettings } from '../../../shared/constants/launchOptions'
+import type { AppSettings, IconCacheStats } from '../../../shared/types/ipc'
 import type { AppStoreState } from '../useAppStore'
 
 export { buildLaunchArgsString, DEFAULT_LAUNCH_OPTIONS, type LaunchOptionsSettings }
 
-export interface AppSettings {
-  dotaPath: string
-  modFolder: string
-  autoDetect: boolean
-  launchAfter: boolean
-  confirmRestore: boolean
-  autoCheckUpdates: boolean
-  launchOptions?: LaunchOptionsSettings
-}
-
-export interface CacheStats {
-  count: number
-  sizeBytes: number
-  formattedSize: string
-}
-
 export interface SettingsSlice {
   dotaPath: string
   settings: AppSettings
-  cacheStats: CacheStats | null
+  cacheStats: IconCacheStats | null
 
   updateSettings: (newSettings: Partial<AppSettings>) => void
   saveSettings: () => Promise<boolean>
@@ -61,6 +46,7 @@ export const createSettingsSlice: StateCreator<AppStoreState, [], [], SettingsSl
       if (window.skinforge && typeof window.skinforge.writeSettings === 'function') {
         await window.skinforge.writeSettings(settings)
       }
+      await get().refreshStatus()
       get().addLog('Settings saved successfully.', 'success')
       return true
     } catch (e: unknown) {
@@ -77,10 +63,12 @@ export const createSettingsSlice: StateCreator<AppStoreState, [], [], SettingsSl
       autoDetect: true,
       launchAfter: false,
       confirmRestore: true,
-      autoCheckUpdates: true
+      autoCheckUpdates: true,
+      lastSeenWhatsNewVersion: get().settings.lastSeenWhatsNewVersion,
+      launchOptions: DEFAULT_LAUNCH_OPTIONS
     }
     set({ settings: defaults })
-    get().saveSettings()
+    void get().saveSettings()
     get().addLog('Settings reset to defaults.', 'info')
   },
 
@@ -89,11 +77,11 @@ export const createSettingsSlice: StateCreator<AppStoreState, [], [], SettingsSl
     try {
       const res = await window.skinforge.selectDirectory()
       if (res && res.path) {
-        set({ dotaPath: res.path })
-        get().updateSettings({ dotaPath: res.path })
+        set((state) => ({
+          dotaPath: res.path,
+          settings: { ...state.settings, dotaPath: res.path }
+        }))
         await get().saveSettings()
-        const status = await window.skinforge.checkStatus(res.path)
-        set({ status })
         get().addLog(`Game directory updated: ${res.path}`, 'info')
       }
     } catch (e: unknown) {

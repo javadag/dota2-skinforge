@@ -1,125 +1,101 @@
 import type { StateCreator } from 'zustand'
+import { formatCatalogName, resolveArmoryEntry, type ArmoryEntry, type CatalogEntry } from '../../../shared/armory/armoryCatalog'
+import { countEquippedSlots, isPersonaSlotId } from '../../../shared/armory/armoryTypes'
+import type { HeroSet } from '../../../shared/armory/heroSets'
+import { countAbilityIconOverrides, type HeroAbilityIconOverrides } from '../../../shared/types/abilityIcons'
 import type { HeroCustomizationsMap, ItemCustomization } from '../../../shared/types/customization'
 import { dropStaleStyles } from '../../../shared/types/customization'
-import { isPersonaSlotId } from '../../../shared/constants/personaSlots'
-import { RARITY_RANK, rarityRank } from '../../../shared/armory/rarityConfig'
-import { formatHeroName, getHeroSlotsDefinition, type HeroArmoryEntry } from '../../components/slotGenerator'
-import type { HeroEntry } from '../../env'
-import type { HeroSet } from '../../utils/heroSets'
+import { isPlainObject, lowercaseSlotKeys, readJsonStorage, removeStorageKeys, STORAGE_KEYS, writeJsonStorage } from '../storage'
 import type { AppStoreState } from '../useAppStore'
 
-export { isPersonaSlotId, RARITY_RANK, rarityRank }
+export type HeroStance = 'default' | 'persona'
 
-export function getStoredHeroSlots(): Record<string, Record<string, string>> {
-  try {
-    const data = localStorage.getItem('skinforge_hero_slots')
-    return data ? (JSON.parse(data) as Record<string, Record<string, string>>) : {}
-  } catch {
-    return {}
+export function splitStanceSlots(slots: Record<string, string>): Record<HeroStance, Record<string, string>> {
+  const result: Record<HeroStance, Record<string, string>> = { default: {}, persona: {} }
+  for (const [slot, item] of Object.entries(slots)) {
+    result[isPersonaSlotId(slot) ? 'persona' : 'default'][slot] = item
   }
+  return result
 }
 
-export function getStoredActiveStances(): Record<string, 'default' | 'persona'> {
-  try {
-    const data = localStorage.getItem('skinforge_hero_active_stance')
-    return data ? (JSON.parse(data) as Record<string, 'default' | 'persona'>) : {}
-  } catch {
-    return {}
+/** Return only the slots belonging to `stance` (`persona` vs `default`). */
+export function filterSlotsForStance(slots: Record<string, string>, stance: HeroStance): Record<string, string> {
+  const filtered: Record<string, string> = {}
+  for (const [slot, item] of Object.entries(slots)) {
+    if (!item) continue
+    if (stance === 'persona' ? isPersonaSlotId(slot) : !isPersonaSlotId(slot)) {
+      filtered[slot] = item
+    }
   }
+  return filtered
 }
 
-export function getStoredStanceSlots(
+function getDefaultPersonaModName(heroTag: string): string | undefined {
+  const armory = resolveArmoryEntry(heroTag)
+  return armory?.slots.find((s) => s.slot === 'persona')?.mods?.[0]?.name
+}
+
+function loadStoredStanceSlots(
   initialSlots: Record<string, Record<string, string>>
 ): Record<string, { default?: Record<string, string>; persona?: Record<string, string> }> {
-  try {
-    const data = localStorage.getItem('skinforge_hero_stance_slots')
-    if (data) {
-      const parsed = JSON.parse(data) as Record<string, { default?: Record<string, string>; persona?: Record<string, string> }>
-      for (const stances of Object.values(parsed)) {
-        if (stances.default) {
-          for (const s of Object.keys(stances.default)) {
-            if (isPersonaSlotId(s)) delete stances.default[s]
-          }
-        }
-        if (stances.persona) {
-          for (const s of Object.keys(stances.persona)) {
-            if (!isPersonaSlotId(s)) delete stances.persona[s]
-          }
-        }
+  const parsed = readJsonStorage<unknown>(STORAGE_KEYS.heroStanceSlots, null)
+  if (isPlainObject(parsed)) {
+    const clean: Record<string, { default?: Record<string, string>; persona?: Record<string, string> }> = {}
+    for (const [heroTag, stances] of Object.entries(parsed)) {
+      if (!isPlainObject(stances)) continue
+      const entry: { default?: Record<string, string>; persona?: Record<string, string> } = {}
+      if (isPlainObject(stances.default)) {
+        entry.default = filterSlotsForStance(stances.default as Record<string, string>, 'default')
       }
-      return parsed
+      if (isPlainObject(stances.persona)) {
+        entry.persona = filterSlotsForStance(stances.persona as Record<string, string>, 'persona')
+      }
+      clean[heroTag] = entry
     }
-  } catch {
-    // ignore
+    return clean
   }
 
-  // Migrate existing single-dictionary heroSlots if any
+  // Migrate legacy single-dictionary heroSlots into partitioned stance slots.
   const migrated: Record<string, { default?: Record<string, string>; persona?: Record<string, string> }> = {}
   for (const [heroTag, slots] of Object.entries(initialSlots)) {
-    const defSlots: Record<string, string> = {}
-    const pSlots: Record<string, string> = {}
-    for (const [slot, item] of Object.entries(slots)) {
-      if (isPersonaSlotId(slot)) {
-        pSlots[slot] = item
-      } else {
-        defSlots[slot] = item
-      }
-    }
-    migrated[heroTag] = {
-      default: defSlots,
-      persona: pSlots
-    }
+    if (!isPlainObject(slots)) continue
+    migrated[heroTag] = splitStanceSlots(slots)
   }
   return migrated
 }
 
-export function getStoredHeroCustomizations(): HeroCustomizationsMap {
-  try {
-    const data = localStorage.getItem('skinforge_hero_customizations')
-    return data ? (JSON.parse(data) as HeroCustomizationsMap) : {}
-  } catch {
-    return {}
+function getInitialLoadoutState() {
+  const rawSlots = readJsonStorage<Record<string, unknown>>(STORAGE_KEYS.heroSlots, {})
+  const initialSlots: Record<string, Record<string, string>> = {}
+  for (const [heroTag, slots] of Object.entries(rawSlots)) {
+    if (isPlainObject(slots)) initialSlots[heroTag] = lowercaseSlotKeys(slots as Record<string, string>)
   }
-}
 
-function persistCustomizations(cust: HeroCustomizationsMap): void {
-  try {
-    localStorage.setItem('skinforge_hero_customizations', JSON.stringify(cust))
-  } catch {
-    // ignore
+  const initialStanceSlots = loadStoredStanceSlots(initialSlots)
+  const rawActiveStance = readJsonStorage<Record<string, unknown>>(STORAGE_KEYS.heroActiveStance, {})
+  const initialActiveStance: Record<string, HeroStance> = {}
+  for (const [heroTag, stance] of Object.entries(rawActiveStance)) {
+    if (stance === 'default' || stance === 'persona') initialActiveStance[heroTag] = stance
   }
-}
 
-export function getInitialLoadoutState() {
-  const initialSlots = getStoredHeroSlots()
-  const initialStanceSlots = getStoredStanceSlots(initialSlots)
-  const initialActiveStance = getStoredActiveStances()
+  const rawCustomizations = readJsonStorage<Record<string, unknown>>(STORAGE_KEYS.heroCustomizations, {})
+  const initialCustomizations: HeroCustomizationsMap = {}
+  for (const [heroTag, cust] of Object.entries(rawCustomizations)) {
+    if (isPlainObject(cust)) initialCustomizations[heroTag] = lowercaseSlotKeys(cust as Record<string, ItemCustomization>)
+  }
 
-  // Slot ids are lowercase by design; a legacy stored map can still hold Valve's mixed-case
-  // "Legs" (Drow's Death Shadow Boots), which no longer exists as a slot.
-  const lowerKeys = <T>(slots: Record<string, T>): Record<string, T> =>
-    Object.fromEntries(Object.entries(slots).map(([slot, item]) => [slot.toLowerCase(), item]))
-  for (const heroTag of Object.keys(initialSlots)) initialSlots[heroTag] = lowerKeys(initialSlots[heroTag])
+  // Normalize legacy mixed-case slot keys (e.g. Valve's "Legs" on Drow Ranger).
   for (const stances of Object.values(initialStanceSlots)) {
-    if (stances.default) stances.default = lowerKeys(stances.default)
-    if (stances.persona) stances.persona = lowerKeys(stances.persona)
-  }
-  const initialCustomizations = getStoredHeroCustomizations()
-  for (const heroTag of Object.keys(initialCustomizations)) {
-    initialCustomizations[heroTag] = lowerKeys(initialCustomizations[heroTag])
+    if (stances.default) stances.default = lowercaseSlotKeys(stances.default)
+    if (stances.persona) stances.persona = lowercaseSlotKeys(stances.persona)
   }
 
-  // Align initialHeroSlots with each hero's active stance so it never holds cross-stance leftovers
+  // Align active heroSlots with each hero's active stance so cross-stance leftovers never leak in.
   for (const heroTag of Object.keys(initialSlots)) {
     const stance = initialActiveStance[heroTag] || 'default'
-    const stanceData = initialStanceSlots[heroTag]?.[stance] || {}
-    const cleanSlots: Record<string, string> = {}
-    for (const [slot, item] of Object.entries(stanceData)) {
-      if (stance === 'persona' ? isPersonaSlotId(slot) : !isPersonaSlotId(slot)) {
-        cleanSlots[slot] = item
-      }
-    }
-    initialSlots[heroTag] = cleanSlots
+    const filtered = filterSlotsForStance(initialStanceSlots[heroTag]?.[stance] || {}, stance)
+    if (Object.keys(filtered).length > 0) initialSlots[heroTag] = filtered
+    else delete initialSlots[heroTag]
   }
 
   return {
@@ -131,24 +107,26 @@ export function getInitialLoadoutState() {
 }
 
 export interface LoadoutSlice {
-  heroes: HeroEntry[]
-  categories: HeroEntry[]
-  selectedHero: HeroEntry | null
+  heroes: CatalogEntry[]
+  categories: CatalogEntry[]
+  selectedHero: CatalogEntry | null
   heroSlots: Record<string, Record<string, string>>
   heroStanceSlots: Record<string, { default?: Record<string, string>; persona?: Record<string, string> }>
-  heroActiveStance: Record<string, 'default' | 'persona'>
+  heroActiveStance: Record<string, HeroStance>
   heroCustomizations: HeroCustomizationsMap
-  activeArmory: HeroArmoryEntry | null
+  heroAbilityIcons: HeroAbilityIconOverrides
+  activeArmory: ArmoryEntry | null
 
-  setSelectedHero: (hero: HeroEntry | null) => void
+  setSelectedHero: (hero: CatalogEntry | null) => void
   setHeroSlot: (heroTag: string, slotId: string, itemName: string) => void
   setSlotCustomization: (heroTag: string, slotId: string, customization: Partial<ItemCustomization>) => void
+  setAbilityIcon: (heroTag: string, ability: string, icon?: string) => void
+  resetHeroAbilityIcons: (heroTag: string) => void
   resetHeroSlot: (heroTag: string, slotId: string) => void
   resetAllHeroSlots: (heroTag: string) => void
   clearAllEquippedSlots: () => void
-  setHeroActiveStance: (heroTag: string, stance: 'default' | 'persona') => void
+  setHeroActiveStance: (heroTag: string, stance: HeroStance) => void
   equipSet: (heroTag: string, set: HeroSet) => void
-  unlockBestSet: (hero: HeroEntry) => void
 }
 
 export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlice> = (set, get) => {
@@ -162,51 +140,39 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
     heroStanceSlots: initial.heroStanceSlots,
     heroActiveStance: initial.heroActiveStance,
     heroCustomizations: initial.heroCustomizations,
+    heroAbilityIcons: readJsonStorage<HeroAbilityIconOverrides>(STORAGE_KEYS.abilityIcons, {}),
     activeArmory: null,
 
     setSelectedHero: (hero) => {
-      // Filter state is reset on every navigation: the inline picker on a single-slot
-      // category bypasses openSlotModal, which would otherwise leave a hero-modal filter
-      // behind and empty the grid.
+      // Reset picker filters on every navigation so a modal filter never empties a single-slot category view.
       if (!hero) {
         set({ selectedHero: null, activeArmory: null, modalRarityFilter: 'all', modalSearchQuery: '' })
         return
       }
-      const armory = getHeroSlotsDefinition(hero.tag, hero)
-      set({ selectedHero: hero, activeArmory: armory, modalRarityFilter: 'all', modalSearchQuery: '' })
+      set({
+        selectedHero: hero,
+        activeArmory: resolveArmoryEntry(hero.tag, hero),
+        modalRarityFilter: 'all',
+        modalSearchQuery: ''
+      })
     },
 
     setHeroSlot: (heroTag, slotId, itemName) => {
       set((state) => {
         const currentStance = state.heroActiveStance[heroTag] || 'default'
         const currentSlots = state.heroSlots[heroTag] || {}
-        const updatedHero: Record<string, string> = {}
-        for (const [s, it] of Object.entries(currentSlots)) {
-          if (currentStance === 'persona' ? isPersonaSlotId(s) : !isPersonaSlotId(s)) {
-            updatedHero[s] = it
-          }
-        }
-        updatedHero[slotId] = itemName
-        const updatedHeroSlots = {
-          ...state.heroSlots,
-          [heroTag]: updatedHero
-        }
+        const updatedHero = { ...filterSlotsForStance(currentSlots, currentStance), [slotId]: itemName }
+        const updatedHeroSlots = { ...state.heroSlots, [heroTag]: updatedHero }
         const updatedStanceSlots = {
           ...state.heroStanceSlots,
-          [heroTag]: {
-            ...(state.heroStanceSlots[heroTag] || {}),
-            [currentStance]: updatedHero
-          }
+          [heroTag]: { ...(state.heroStanceSlots[heroTag] || {}), [currentStance]: updatedHero }
         }
         const updatedCust = dropStaleStyles(state.heroCustomizations, heroTag, currentSlots, updatedHero)
-        if (updatedCust !== state.heroCustomizations) persistCustomizations(updatedCust)
 
-        try {
-          localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
-          localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
-        } catch {
-          // ignore localStorage errors
-        }
+        writeJsonStorage(STORAGE_KEYS.heroSlots, updatedHeroSlots)
+        writeJsonStorage(STORAGE_KEYS.heroStanceSlots, updatedStanceSlots)
+        if (updatedCust !== state.heroCustomizations) writeJsonStorage(STORAGE_KEYS.heroCustomizations, updatedCust)
+
         return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots, heroCustomizations: updatedCust }
       })
     },
@@ -214,20 +180,35 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
     setSlotCustomization: (heroTag, slotId, update) => {
       set((state) => {
         const heroCurrent = state.heroCustomizations[heroTag] || {}
-        const slotCurrent = heroCurrent[slotId] || {}
         const updated = {
           ...state.heroCustomizations,
-          [heroTag]: {
-            ...heroCurrent,
-            [slotId]: { ...slotCurrent, ...update }
-          }
+          [heroTag]: { ...heroCurrent, [slotId]: { ...(heroCurrent[slotId] || {}), ...update } }
         }
-        try {
-          localStorage.setItem('skinforge_hero_customizations', JSON.stringify(updated))
-        } catch {
-          // ignore
-        }
+        writeJsonStorage(STORAGE_KEYS.heroCustomizations, updated)
         return { heroCustomizations: updated }
+      })
+    },
+
+    setAbilityIcon: (heroTag, ability, icon) => {
+      set((state) => {
+        const heroAbilityIcons = { ...state.heroAbilityIcons }
+        const choices = { ...heroAbilityIcons[heroTag] }
+        if (icon) choices[ability] = icon
+        else delete choices[ability]
+        if (Object.keys(choices).length) heroAbilityIcons[heroTag] = choices
+        else delete heroAbilityIcons[heroTag]
+        writeJsonStorage(STORAGE_KEYS.abilityIcons, heroAbilityIcons)
+        return { heroAbilityIcons }
+      })
+    },
+
+    resetHeroAbilityIcons: (heroTag) => {
+      set((state) => {
+        if (!state.heroAbilityIcons[heroTag]) return state
+        const heroAbilityIcons = { ...state.heroAbilityIcons }
+        delete heroAbilityIcons[heroTag]
+        writeJsonStorage(STORAGE_KEYS.abilityIcons, heroAbilityIcons)
+        return { heroAbilityIcons }
       })
     },
 
@@ -235,34 +216,27 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
       set((state) => {
         if (!state.heroSlots[heroTag]) return state
         const currentStance = state.heroActiveStance[heroTag] || 'default'
-        const currentSlots = { ...state.heroSlots[heroTag] }
+        const previousSlots = state.heroSlots[heroTag]
+        const currentSlots = { ...previousSlots }
         delete currentSlots[slotId]
-        const updatedHeroSlots = {
-          ...state.heroSlots,
-          [heroTag]: currentSlots
-        }
+        const updatedHeroSlots = { ...state.heroSlots }
+        if (Object.keys(currentSlots).length > 0) updatedHeroSlots[heroTag] = currentSlots
+        else delete updatedHeroSlots[heroTag]
         const updatedStanceSlots = {
           ...state.heroStanceSlots,
-          [heroTag]: {
-            ...(state.heroStanceSlots[heroTag] || {}),
-            [currentStance]: currentSlots
-          }
+          [heroTag]: { ...(state.heroStanceSlots[heroTag] || {}), [currentStance]: currentSlots }
         }
 
-        const updatedCust = { ...state.heroCustomizations }
+        const updatedCust = { ...dropStaleStyles(state.heroCustomizations, heroTag, previousSlots, currentSlots) }
         if (updatedCust[heroTag]) {
           const curCust = { ...updatedCust[heroTag] }
           delete curCust[slotId]
           updatedCust[heroTag] = curCust
         }
 
-        try {
-          localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
-          localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
-          localStorage.setItem('skinforge_hero_customizations', JSON.stringify(updatedCust))
-        } catch {
-          // ignore
-        }
+        writeJsonStorage(STORAGE_KEYS.heroSlots, updatedHeroSlots)
+        writeJsonStorage(STORAGE_KEYS.heroStanceSlots, updatedStanceSlots)
+        writeJsonStorage(STORAGE_KEYS.heroCustomizations, updatedCust)
         return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots, heroCustomizations: updatedCust }
       })
     },
@@ -280,62 +254,51 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
           updatedStanceSlots[heroTag] = heroStances
         }
 
-        // If resetting while in persona stance, auto-re-equip the persona base model
+        // If resetting while in persona stance, keep the persona base model active.
         if (currentStance === 'persona') {
-          const armory = getHeroSlotsDefinition(heroTag)
-          const personaSlot = armory?.slots.find((s) => s.slot === 'persona')
-          const personaMod = personaSlot?.mods?.[0]
+          const personaMod = getDefaultPersonaModName(heroTag)
           if (personaMod) {
-            updatedHeroSlots[heroTag] = { persona: personaMod.name }
-            updatedStanceSlots[heroTag] = {
-              ...(updatedStanceSlots[heroTag] || {}),
-              persona: { persona: personaMod.name }
-            }
+            updatedHeroSlots[heroTag] = { persona: personaMod }
+            updatedStanceSlots[heroTag] = { ...(updatedStanceSlots[heroTag] || {}), persona: { persona: personaMod } }
           }
         }
 
         const updatedCust = { ...state.heroCustomizations }
         delete updatedCust[heroTag]
+        const heroAbilityIcons = { ...state.heroAbilityIcons }
+        delete heroAbilityIcons[heroTag]
 
-        try {
-          localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
-          localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
-          localStorage.setItem('skinforge_hero_customizations', JSON.stringify(updatedCust))
-        } catch {
-          // ignore
-        }
-        return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots, heroCustomizations: updatedCust }
+        writeJsonStorage(STORAGE_KEYS.heroSlots, updatedHeroSlots)
+        writeJsonStorage(STORAGE_KEYS.heroStanceSlots, updatedStanceSlots)
+        writeJsonStorage(STORAGE_KEYS.heroCustomizations, updatedCust)
+        writeJsonStorage(STORAGE_KEYS.abilityIcons, heroAbilityIcons)
+        return { heroSlots: updatedHeroSlots, heroStanceSlots: updatedStanceSlots, heroCustomizations: updatedCust, heroAbilityIcons }
       })
-      get().addLog(`Reset active slots for ${formatHeroName(heroTag)} to default.`, 'info')
+      get().addLog(`Reset active slots for ${formatCatalogName(heroTag)} to default.`, 'info')
     },
 
     clearAllEquippedSlots: () => {
       const state = get()
-      const totalEquipped = Object.values(state.heroSlots || {}).reduce((acc, slots) => acc + Object.keys(slots || {}).length, 0)
-      if (totalEquipped === 0) {
-        state.addLog('No items are currently equipped in your loadout.', 'info')
+      const totalEquipped = countEquippedSlots(state.heroSlots)
+      const totalIcons = countAbilityIconOverrides(state.heroAbilityIcons)
+      if (totalEquipped + totalIcons === 0) {
+        state.addLog('No cosmetics or ability icon overrides are selected.', 'info')
         return
       }
 
-      if (!confirm(`Are you sure you want to clear all ${totalEquipped} equipped cosmetic item(s) from your loadout?`)) {
+      if (!confirm('Clear all equipped cosmetics and ability icon overrides from your loadout?')) {
         return
       }
 
-      set({
-        heroSlots: {},
-        heroStanceSlots: {},
-        heroCustomizations: {}
-      })
-
-      try {
-        localStorage.removeItem('skinforge_hero_slots')
-        localStorage.removeItem('skinforge_hero_stance_slots')
-        localStorage.removeItem('skinforge_hero_customizations')
-      } catch {
-        // ignore
-      }
-
-      get().addLog(`Cleared all ${totalEquipped} equipped cosmetic slot(s) from loadout.`, 'info')
+      set({ heroSlots: {}, heroStanceSlots: {}, heroActiveStance: {}, heroCustomizations: {}, heroAbilityIcons: {} })
+      removeStorageKeys(
+        STORAGE_KEYS.heroSlots,
+        STORAGE_KEYS.heroStanceSlots,
+        STORAGE_KEYS.heroActiveStance,
+        STORAGE_KEYS.heroCustomizations,
+        STORAGE_KEYS.abilityIcons
+      )
+      get().addLog(`Cleared ${totalEquipped} equipped cosmetic slot(s) and ${totalIcons} ability icon override(s).`, 'info')
     },
 
     setHeroActiveStance: (heroTag, stance) => {
@@ -343,132 +306,62 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
       const currentStance = state.heroActiveStance[heroTag] || 'default'
       if (currentStance === stance) return
 
-      // 1. Save current active slots into previous stance storage (cleanly partitioned)
-      const currentSlots = state.heroSlots[heroTag] || {}
-      const sanitizedCurrent: Record<string, string> = {}
-      for (const [s, it] of Object.entries(currentSlots)) {
-        if (currentStance === 'persona' ? isPersonaSlotId(s) : !isPersonaSlotId(s)) {
-          sanitizedCurrent[s] = it
-        }
-      }
-
+      const sanitizedCurrent = filterSlotsForStance(state.heroSlots[heroTag] || {}, currentStance)
       const updatedStanceSlots = {
         ...state.heroStanceSlots,
-        [heroTag]: {
-          ...(state.heroStanceSlots[heroTag] || {}),
-          [currentStance]: sanitizedCurrent
-        }
+        [heroTag]: { ...(state.heroStanceSlots[heroTag] || {}), [currentStance]: sanitizedCurrent }
       }
 
-      // 2. Retrieve slots for the new stance (cleanly partitioned)
-      const rawTarget = updatedStanceSlots[heroTag]?.[stance] || {}
-      const targetSlots: Record<string, string> = {}
-      for (const [s, it] of Object.entries(rawTarget)) {
-        if (stance === 'persona' ? isPersonaSlotId(s) : !isPersonaSlotId(s)) {
-          targetSlots[s] = it
-        }
+      const targetSlots = filterSlotsForStance(updatedStanceSlots[heroTag]?.[stance] || {}, stance)
+      if (stance === 'persona' && !targetSlots['persona']) {
+        const personaMod = getDefaultPersonaModName(heroTag)
+        if (personaMod) targetSlots['persona'] = personaMod
       }
 
-      // 3. Auto-equip persona if switching to persona stance
-      if (stance === 'persona') {
-        const armory = getHeroSlotsDefinition(heroTag)
-        const personaSlot = armory?.slots.find((s) => s.slot === 'persona')
-        const personaMod = personaSlot?.mods?.[0]
-        if (personaMod && !targetSlots['persona']) {
-          targetSlots['persona'] = personaMod.name
-        }
-      }
+      const updatedActiveStance: Record<string, HeroStance> = { ...state.heroActiveStance, [heroTag]: stance }
+      updatedStanceSlots[heroTag] = { ...(updatedStanceSlots[heroTag] || {}), [stance]: targetSlots }
+      const updatedHeroSlots = { ...state.heroSlots }
+      if (Object.keys(targetSlots).length > 0) updatedHeroSlots[heroTag] = targetSlots
+      else delete updatedHeroSlots[heroTag]
 
-      // 4. Update active stance and slots
-      const updatedActiveStance: Record<string, 'default' | 'persona'> = {
-        ...state.heroActiveStance,
-        [heroTag]: stance
-      }
-      updatedStanceSlots[heroTag] = {
-        ...(updatedStanceSlots[heroTag] || {}),
-        [stance]: targetSlots
-      }
+      writeJsonStorage(STORAGE_KEYS.heroActiveStance, updatedActiveStance)
+      writeJsonStorage(STORAGE_KEYS.heroStanceSlots, updatedStanceSlots)
+      writeJsonStorage(STORAGE_KEYS.heroSlots, updatedHeroSlots)
 
-      const updatedHeroSlots = {
-        ...state.heroSlots,
-        [heroTag]: targetSlots
-      }
-
-      try {
-        localStorage.setItem('skinforge_hero_active_stance', JSON.stringify(updatedActiveStance))
-        localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
-        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
-      } catch {
-        // ignore
-      }
-
-      set({
-        heroActiveStance: updatedActiveStance,
-        heroStanceSlots: updatedStanceSlots,
-        heroSlots: updatedHeroSlots
-      })
-
-      const stanceLabel = stance === 'persona' ? 'Persona' : 'Default'
-      get().addLog(`Switched ${formatHeroName(heroTag)} to ${stanceLabel} stance.`, 'info')
+      set({ heroActiveStance: updatedActiveStance, heroStanceSlots: updatedStanceSlots, heroSlots: updatedHeroSlots })
+      get().addLog(`Switched ${formatCatalogName(heroTag)} to ${stance === 'persona' ? 'Persona' : 'Default'} stance.`, 'info')
     },
 
     equipSet: (heroTag, setObj) => {
       const state = get()
-      const targetStance = setObj.isPersona ? 'persona' : 'default'
-      const currentStance = state.heroActiveStance[heroTag] || 'default'
+      const targetStance: HeroStance = setObj.isPersona ? 'persona' : 'default'
+      const targetSlots = Object.fromEntries(setObj.items.map(({ slot, name }) => [slot, name]))
 
-      const rawTarget =
-        currentStance === targetStance ? state.heroSlots[heroTag] || {} : state.heroStanceSlots[heroTag]?.[targetStance] || {}
+      if (setObj.isPersona && !targetSlots['persona']) {
+        const personaMod = getDefaultPersonaModName(heroTag)
+        if (personaMod) targetSlots['persona'] = personaMod
+      }
 
-      const targetSlots: Record<string, string> = {}
-      for (const [s, it] of Object.entries(rawTarget)) {
-        if (targetStance === 'persona' ? isPersonaSlotId(s) : !isPersonaSlotId(s)) {
-          targetSlots[s] = it
+      const currentStyles = state.heroCustomizations[heroTag]
+      let updatedCust = state.heroCustomizations
+      if (currentStyles) {
+        const inactiveStyles = Object.entries(currentStyles).filter(([slot]) => isPersonaSlotId(slot) !== Boolean(setObj.isPersona))
+        if (inactiveStyles.length !== Object.keys(currentStyles).length) {
+          updatedCust = { ...state.heroCustomizations, [heroTag]: Object.fromEntries(inactiveStyles) }
+          writeJsonStorage(STORAGE_KEYS.heroCustomizations, updatedCust)
         }
       }
-      const beforeSlots = { ...targetSlots }
-
-      // Equip each set item into its respective slot
-      for (const item of setObj.items) {
-        targetSlots[item.slot] = item.name
-      }
-
-      // If persona set, ensure persona base is equipped
-      if (setObj.isPersona && !targetSlots['persona']) {
-        const armory = getHeroSlotsDefinition(heroTag)
-        const personaSlot = armory?.slots.find((s) => s.slot === 'persona')
-        const personaMod = personaSlot?.mods?.[0]
-        if (personaMod) targetSlots['persona'] = personaMod.name
-      }
-
-      const updatedCust = dropStaleStyles(state.heroCustomizations, heroTag, beforeSlots, targetSlots)
-      if (updatedCust !== state.heroCustomizations) persistCustomizations(updatedCust)
 
       const updatedStanceSlots = {
         ...state.heroStanceSlots,
-        [heroTag]: {
-          ...(state.heroStanceSlots[heroTag] || {}),
-          [targetStance]: targetSlots
-        }
+        [heroTag]: { ...(state.heroStanceSlots[heroTag] || {}), [targetStance]: targetSlots }
       }
+      const updatedActiveStance: Record<string, HeroStance> = { ...state.heroActiveStance, [heroTag]: targetStance }
+      const updatedHeroSlots = { ...state.heroSlots, [heroTag]: targetSlots }
 
-      const updatedActiveStance: Record<string, 'default' | 'persona'> = {
-        ...state.heroActiveStance,
-        [heroTag]: targetStance
-      }
-
-      const updatedHeroSlots = {
-        ...state.heroSlots,
-        [heroTag]: targetSlots
-      }
-
-      try {
-        localStorage.setItem('skinforge_hero_active_stance', JSON.stringify(updatedActiveStance))
-        localStorage.setItem('skinforge_hero_stance_slots', JSON.stringify(updatedStanceSlots))
-        localStorage.setItem('skinforge_hero_slots', JSON.stringify(updatedHeroSlots))
-      } catch {
-        // ignore
-      }
+      writeJsonStorage(STORAGE_KEYS.heroActiveStance, updatedActiveStance)
+      writeJsonStorage(STORAGE_KEYS.heroStanceSlots, updatedStanceSlots)
+      writeJsonStorage(STORAGE_KEYS.heroSlots, updatedHeroSlots)
 
       set({
         heroActiveStance: updatedActiveStance,
@@ -476,41 +369,7 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
         heroSlots: updatedHeroSlots,
         heroCustomizations: updatedCust
       })
-
-      get().addLog(`Equipped entire set "${setObj.name}" for ${formatHeroName(heroTag)} (${setObj.items.length} pieces).`, 'success')
-    },
-
-    unlockBestSet: (hero) => {
-      const armory = getHeroSlotsDefinition(hero.tag, hero)
-      if (!armory) return
-      let count = 0
-      const newHeroSlots = { ...(get().heroSlots[hero.tag] || {}) }
-
-      armory.slots.forEach((slot) => {
-        // The armory lists items alphabetically, so pick the rarest explicitly.
-        const bestItem = [...slot.mods].sort((a, b) => rarityRank(b.rarity) - rarityRank(a.rarity))[0]
-        if (bestItem) {
-          newHeroSlots[slot.slot] = bestItem.name
-          count++
-        }
-      })
-
-      set((state) => {
-        const updated = {
-          ...state.heroSlots,
-          [hero.tag]: newHeroSlots
-        }
-        const updatedCust = dropStaleStyles(state.heroCustomizations, hero.tag, state.heroSlots[hero.tag] || {}, newHeroSlots)
-        if (updatedCust !== state.heroCustomizations) persistCustomizations(updatedCust)
-        try {
-          localStorage.setItem('skinforge_hero_slots', JSON.stringify(updated))
-        } catch {
-          // ignore
-        }
-        return { heroSlots: updated, heroCustomizations: updatedCust }
-      })
-
-      get().addLog(`Equipped best cosmetics set for ${formatHeroName(hero.tag)} (${count} slots).`, 'success')
+      get().addLog(`Equipped entire set "${setObj.name}" for ${formatCatalogName(heroTag)} (${setObj.items.length} pieces).`, 'success')
     }
   }
 }

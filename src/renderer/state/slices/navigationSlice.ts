@@ -1,13 +1,12 @@
 import type { StateCreator } from 'zustand'
-import type { CategoryKey } from '../../../data/categoryMeta'
-import type { HeroAttribute } from '../../../shared/constants/attributes'
-import { getHeroSlotsDefinition, type ArmorySlot } from '../../components/slotGenerator'
-import type { HeroEntry } from '../../env'
+import { resolveArmoryEntry, type ArmorySlot, type CatalogEntry } from '../../../shared/armory/armoryCatalog'
+import type { HeroAttribute } from '../../../shared/armory/attributes'
+import type { ArmoryCategoryGroup } from '../../../shared/constants/categories'
 import type { AppStoreState } from '../useAppStore'
 
 export type AppTab = 'heroes' | 'presets' | 'launch' | 'settings' | 'about'
 export type AttributeFilter = 'all' | HeroAttribute
-export type CategoryGroup = CategoryKey
+export type CategoryGroup = ArmoryCategoryGroup
 
 export interface NavigationSlice {
   // Navigation & Filtering State
@@ -28,12 +27,11 @@ export interface NavigationSlice {
 
   // Navigation Actions
   setTab: (tab: AppTab, category?: CategoryGroup | null) => void
-  setCategoryGroup: (group: CategoryGroup) => void
   setAttrFilter: (attr: AttributeFilter) => void
   setSearchQuery: (query: string) => void
 
   // Modal Actions
-  openSlotModal: (hero: HeroEntry, slot: ArmorySlot) => void
+  openSlotModal: (hero: CatalogEntry, slot: ArmorySlot) => void
   closeSlotModal: () => void
   setModalRarityFilter: (rarity: string) => void
   setModalSearchQuery: (query: string) => void
@@ -67,16 +65,12 @@ export const createNavigationSlice: StateCreator<AppStoreState, [], [], Navigati
     }))
   },
 
-  setCategoryGroup: (group) => {
-    set({ activeCategoryGroup: group, activeTab: 'heroes' })
-  },
-
   setAttrFilter: (attr) => set({ attrFilter: attr }),
 
   setSearchQuery: (query) => set({ searchQuery: query }),
 
   openSlotModal: (hero, slot) => {
-    const armory = getHeroSlotsDefinition(hero.tag, hero)
+    const armory = resolveArmoryEntry(hero.tag, hero)
     set({
       selectedHero: hero,
       activeArmory: armory,

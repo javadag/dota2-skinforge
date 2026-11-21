@@ -4,7 +4,22 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import crypto from 'node:crypto'
-import { parseChecksums, validateUpdateInstallPath, verifyFileSha256, parseReleaseInfo } from '../src/main/services/updateService'
+import {
+  isNewerVersion,
+  parseChecksums,
+  validateUpdateInstallPath,
+  verifyFileSha256,
+  parseReleaseInfo
+} from '../src/main/services/app/updateService'
+
+test('isNewerVersion accurately handles semver comparison and prereleases', () => {
+  assert.equal(isNewerVersion('1.3.0', '1.4.0'), true)
+  assert.equal(isNewerVersion('v1.3.1', 'v1.3.2'), true)
+  assert.equal(isNewerVersion('1.4.0', '1.3.9'), false)
+  assert.equal(isNewerVersion('1.4.0', '1.4.0'), false)
+  // Prerelease comparison: stable release is newer than prerelease of same version
+  assert.equal(isNewerVersion('1.4.0-beta.1', '1.4.0'), true)
+})
 
 test('parseChecksums parses standard sha256sum output format', () => {
   const manifest = `
@@ -35,8 +50,9 @@ test('validateUpdateInstallPath prevents path traversal and non-exe files', () =
   assert.equal(validateUpdateInstallPath(badExt, tmpDir), false)
 })
 
-test('verifyFileSha256 validates file matches expected hash', async () => {
+test('verifyFileSha256 validates file matches expected hash', async (t) => {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-hash-test-'))
+  t.after(() => fs.rmSync(tmpDir, { recursive: true, force: true }))
   const testFile = path.join(tmpDir, 'test.bin')
   const content = Buffer.from('SkinForge Update Payload 12345')
   fs.writeFileSync(testFile, content)
@@ -48,8 +64,6 @@ test('verifyFileSha256 validates file matches expected hash', async () => {
   const wrongSha = '0000000000000000000000000000000000000000000000000000000000000000'
   const mismatch = await verifyFileSha256(testFile, wrongSha)
   assert.equal(mismatch, false)
-
-  fs.rmSync(tmpDir, { recursive: true, force: true })
 })
 
 test('parseReleaseInfo associates checksums when SHA256SUMS asset exists or body has checksums', () => {
@@ -79,9 +93,10 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  Dota2SkinForge
   assert.equal(info.portableAsset?.sha256, 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855')
 })
 
-test('installUpdate rejects path traversal or files outside updates directory', async () => {
-  const { installUpdate } = await import('../src/main/services/updateService')
+test('installUpdate rejects path traversal or files outside updates directory', async (t) => {
+  const { installUpdate } = await import('../src/main/services/app/updateService')
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-install-test-'))
+  t.after(() => fs.rmSync(tmpDir, { recursive: true, force: true }))
   const evilFile = path.join(tmpDir, 'evil.bat')
   fs.writeFileSync(evilFile, 'echo evil')
 
@@ -93,13 +108,12 @@ test('installUpdate rejects path traversal or files outside updates directory', 
   const res2 = await installUpdate(traversalFile, undefined, { updatesDir: tmpDir, skipSpawn: true })
   assert.equal(res2.ok, false)
   assert.match(res2.error || '', /security violation/i)
-
-  fs.rmSync(tmpDir, { recursive: true, force: true })
 })
 
-test('installUpdate verifies SHA-256 before launching', async () => {
-  const { installUpdate } = await import('../src/main/services/updateService')
+test('installUpdate verifies SHA-256 before launching', async (t) => {
+  const { installUpdate } = await import('../src/main/services/app/updateService')
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-install-hash-'))
+  t.after(() => fs.rmSync(tmpDir, { recursive: true, force: true }))
   const updateExe = path.join(tmpDir, 'Dota2SkinForge-Portable.exe')
   fs.writeFileSync(updateExe, Buffer.from('Legit skinforge binary'))
 
@@ -111,13 +125,11 @@ test('installUpdate verifies SHA-256 before launching', async () => {
   const correctSha = crypto.createHash('sha256').update(Buffer.from('Legit skinforge binary')).digest('hex')
   const passRes = await installUpdate(updateExe, correctSha, { updatesDir: tmpDir, skipSpawn: true })
   assert.equal(passRes.ok, true)
-
-  fs.rmSync(tmpDir, { recursive: true, force: true })
 })
 
-test('downloadUpdate rejects corrupted payload when SHA mismatch occurs', async () => {
+test('downloadUpdate rejects corrupted payload when SHA mismatch occurs', async (t) => {
   const http = await import('node:http')
-  const { downloadUpdate } = await import('../src/main/services/updateService')
+  const { downloadUpdate } = await import('../src/main/services/app/updateService')
 
   const server = http.createServer((_req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/octet-stream' })
@@ -125,19 +137,63 @@ test('downloadUpdate rejects corrupted payload when SHA mismatch occurs', async 
   })
 
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve))
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-dl-test-'))
+  t.after(() => {
+    server.close()
+    fs.rmSync(tmpDir, { recursive: true, force: true })
+  })
+
   const addr = server.address()
   const port = typeof addr === 'object' && addr ? addr.port : 0
   const downloadUrl = `http://127.0.0.1:${port}/update.exe`
 
-  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-dl-test-'))
   const expectedSha = 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
-  const result = await downloadUpdate(downloadUrl, 'test-download.exe', undefined, expectedSha, {
+  const blockedLoopback = await downloadUpdate(downloadUrl, 'test-download.exe', undefined, expectedSha, {
     updatesDir: tmpDir
   })
+  assert.equal(blockedLoopback.ok, false)
+  assert.match(blockedLoopback.error || '', /untrusted update download URL/i)
 
-  server.close()
-  fs.rmSync(tmpDir, { recursive: true, force: true })
+  const result = await downloadUpdate(downloadUrl, 'test-download.exe', undefined, expectedSha, {
+    updatesDir: tmpDir,
+    allowLoopbackHttp: true
+  })
 
   assert.equal(result.ok, false)
   assert.match(result.error || '', /integrity check failed/i)
+})
+
+test('downloadUpdate and installUpdate reject missing SHA-256 and untrusted download URLs', async () => {
+  const { downloadUpdate, installUpdate } = await import('../src/main/services/app/updateService')
+
+  const untrustedUrlRes = await downloadUpdate('http://evil.example.com/update.exe', 'update.exe', undefined, 'a'.repeat(64))
+  assert.equal(untrustedUrlRes.ok, false)
+  assert.match(untrustedUrlRes.error || '', /untrusted update download URL/i)
+
+  const foreignRepoRes = await downloadUpdate(
+    'https://github.com/attacker/evil-repo/releases/download/v1.0.0/setup.exe',
+    'setup.exe',
+    undefined,
+    'a'.repeat(64)
+  )
+  assert.equal(foreignRepoRes.ok, false)
+  assert.match(foreignRepoRes.error || '', /untrusted update download URL/i)
+
+  const missingShaDownload = await downloadUpdate(
+    'https://github.com/javadag/dota2-skinforge/releases/download/v1.0.0/setup.exe',
+    'setup.exe'
+  )
+  assert.equal(missingShaDownload.ok, false)
+  assert.match(missingShaDownload.error || '', /missing release SHA-256/i)
+
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-inst-test-'))
+  try {
+    const exePath = path.join(tmpDir, 'setup.exe')
+    fs.writeFileSync(exePath, 'dummy')
+    const missingShaInstall = await installUpdate(exePath, undefined, { updatesDir: tmpDir })
+    assert.equal(missingShaInstall.ok, false)
+    assert.match(missingShaInstall.error || '', /missing release SHA-256/i)
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true })
+  }
 })

@@ -1,100 +1,87 @@
-/**
- * Dota 2 SkinForge — Bundled Icon Pack Builder
- *
- * Resizes every icon referenced by the armory/style data to the size the UI
- * actually renders and packs them into a single `assets/icon-pack.tar.br`.
- * The app extracts that pack once per version instead of asking R2 for each
- * icon individually.
- *
- * Usage: npm run build:icon-pack
- */
-
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 import sharp from 'sharp'
-import { collectIconKeys } from '../src/shared/armory/iconKeys'
-import { createTarBrotliFromDir } from '../src/main/services/tarUtils'
+import { getIconFallback } from '../src/shared/armory/iconKeys'
+import { computeFileSha256, createTarBrotliFromDir } from '../src/main/services/assets/archiveUtils'
+import { readIconPackManifest, type IconPackManifest } from '../src/main/services/assets/iconPackService'
+import { readIconCatalog } from './lib/iconCatalog'
 
 const ROOT = process.cwd()
 const SOURCE_DIR = path.join(ROOT, '.staging_icons', 'webp')
-const STAGING_DIR = path.join(ROOT, '.staging_icons', 'pack')
 const OUT_PACK = path.join(ROOT, 'assets', 'icon-pack.tar.br')
 const OUT_MANIFEST = path.join(ROOT, 'assets', 'icon-pack.json')
-const DATA_FILES = ['heroes_armory.json', 'other_armory.json', 'itemStyles.json']
-
-// Item cards render at ~176px; 192px keeps them sharp at 100% scaling.
+// Item cards render at ~176px. Allow room for scaling while keeping the pack small.
 const ICON_PX = 192
 const WEBP_QUALITY = 78
 const CONCURRENCY = 8
 
-function collectAllKeys(): string[] {
-  const keys = new Set<string>()
-  for (const file of DATA_FILES) {
-    const full = path.join(ROOT, 'data', file)
-    if (!fs.existsSync(full)) throw new Error(`Missing data file: ${full}`)
-    collectIconKeys(JSON.parse(fs.readFileSync(full, 'utf8')), keys)
-  }
-  return [...keys].sort()
+async function checkPack(catalogHash: string): Promise<IconPackManifest> {
+  const manifest = readIconPackManifest(OUT_MANIFEST)
+  if (manifest.catalogHash !== catalogHash) throw new Error('The bundled icon pack is out of date with the catalog.')
+  if ((await computeFileSha256(OUT_PACK)) !== manifest.sha256) throw new Error('The bundled icon pack checksum does not match.')
+  return manifest
 }
 
 async function main(): Promise<void> {
-  if (!fs.existsSync(SOURCE_DIR)) {
-    // CI and fresh clones have no Dota 2 extraction; they ship the committed pack.
-    if (fs.existsSync(OUT_PACK) && fs.existsSync(OUT_MANIFEST)) {
-      console.log(`[Icon Pack] ${path.relative(ROOT, SOURCE_DIR)} not present; reusing the committed pack.`)
-      return
-    }
-    throw new Error(`Missing ${SOURCE_DIR}. Run "npm run sync:icons -- --dry-run" first to populate it.`)
-  }
-
-  const keys = collectAllKeys()
-
-  // Collect sources first so the pack version reflects both the icon list and the
-  // source textures. Without the sizes, a re-extracted game build would never rebuild.
-  const missing: string[] = []
-  const sources: string[] = []
-  const sourceSizes: number[] = []
-  for (const key of keys) {
-    const src = path.join(SOURCE_DIR, `${key}.webp`)
-    const stat = fs.statSync(src, { throwIfNoEntry: false })
-    if (!stat) {
-      missing.push(key)
-      continue
-    }
-    sources.push(src)
-    sourceSizes.push(stat.size)
-  }
-
-  const version = crypto
-    .createHash('sha1')
-    .update(keys.join('\n'))
-    .update(`|${ICON_PX}|${WEBP_QUALITY}|${sourceSizes.join(',')}`)
-    .digest('hex')
-    .slice(0, 12)
-
-  // The pack is committed, so skip the 90s rebuild when nothing actually changed.
-  if (!process.argv.includes('--force') && fs.existsSync(OUT_PACK) && readManifestVersion() === version) {
-    console.log(`[Icon Pack] Up to date (version ${version}); pass --force to rebuild.`)
+  const keys = readIconCatalog()
+  const catalogHash = crypto.createHash('sha256').update(keys.join('\n')).digest('hex')
+  const check = process.argv.includes('--check')
+  const force = process.argv.includes('--force')
+  if (check || !fs.existsSync(SOURCE_DIR)) {
+    if (force && !check) throw new Error(`Missing ${SOURCE_DIR}. Run "npm run extract:icons" first.`)
+    const manifest = await checkPack(catalogHash)
+    console.log(`[Icon Pack] Verified ${manifest.count} bundled icons.`)
     return
   }
 
-  console.log(`[Icon Pack] ${keys.length} icons referenced by data`)
+  const missing: string[] = []
+  const sources = new Map<string, string>()
+  const inputHash = crypto.createHash('sha256').update(`${ICON_PX}|${WEBP_QUALITY}|`)
+  for (const key of keys) {
+    const src = path.join(SOURCE_DIR, `${key}.webp`)
+    const stat = fs.statSync(src, { throwIfNoEntry: false })
+    if (!stat?.isFile() || !stat.size) {
+      missing.push(key)
+      continue
+    }
+    sources.set(key, src)
+    inputHash
+      .update(key)
+      .update('\0')
+      .update(crypto.createHash('sha256').update(fs.readFileSync(src)).digest())
+  }
 
-  fs.rmSync(STAGING_DIR, { recursive: true, force: true })
+  const uncovered = missing.filter((key) => {
+    const fallback = getIconFallback(key)
+    return fallback === undefined || (fallback !== null && !sources.has(fallback))
+  })
+  if (uncovered.length) {
+    throw new Error(
+      `${uncovered.length} catalog icons are missing. Run "npm run extract:icons" first.\n${uncovered.slice(0, 20).join('\n')}`
+    )
+  }
+  if (!sources.size) throw new Error('No icons to pack.')
+  const sourceHash = inputHash.digest('hex')
+  if (!force) {
+    const committed = await checkPack(catalogHash).catch(() => null)
+    if (committed?.sourceHash === sourceHash) {
+      console.log('[Icon Pack] Up to date.')
+      return
+    }
+  }
 
+  const tempDir = fs.mkdtempSync(path.join(path.dirname(SOURCE_DIR), 'pack-'))
+  const staging = path.join(tempDir, 'icons')
+  const entries = [...sources]
   let done = 0
   let bytes = 0
   let next = 0
 
   async function worker(): Promise<void> {
-    while (next < sources.length) {
-      const src = sources[next++]
-      const key = path
-        .relative(SOURCE_DIR, src)
-        .replace(/\\/g, '/')
-        .replace(/\.webp$/i, '')
-      const dest = path.join(STAGING_DIR, `${key}.webp`)
+    while (next < entries.length) {
+      const [key, src] = entries[next++]
+      const dest = path.join(staging, `${key}.webp`)
       await fs.promises.mkdir(path.dirname(dest), { recursive: true })
       const buf = await sharp(src)
         .resize(ICON_PX, ICON_PX, { fit: 'inside', withoutEnlargement: true })
@@ -103,37 +90,29 @@ async function main(): Promise<void> {
       await fs.promises.writeFile(dest, buf)
       bytes += buf.length
       done++
-      if (done % 2000 === 0) console.log(`[Icon Pack] ${done}/${sources.length} (${(bytes / 1048576).toFixed(1)} MB)`)
+      if (done % 2000 === 0) console.log(`[Icon Pack] ${done}/${entries.length} (${(bytes / 1048576).toFixed(1)} MB)`)
     }
   }
 
-  await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()))
-
-  if (missing.length) {
-    console.warn(`[Icon Pack] ${missing.length} referenced icons have no source file and were skipped:`)
-    for (const key of missing) console.warn(`  - ${key}`)
-  }
-  if (done === 0) throw new Error('No icons were packed. Is .staging_icons/webp populated?')
-
-  const { size, fileCount } = await createTarBrotliFromDir(STAGING_DIR, OUT_PACK, 4)
-
-  fs.writeFileSync(OUT_MANIFEST, JSON.stringify({ version, count: fileCount, bytes, px: ICON_PX, quality: WEBP_QUALITY }, null, 2) + '\n')
-
-  fs.rmSync(STAGING_DIR, { recursive: true, force: true })
-
-  console.log(`[Icon Pack] Wrote ${fileCount} icons, ${(size / 1048576).toFixed(1)} MB`)
-  console.log(`[Icon Pack] ${path.relative(ROOT, OUT_PACK)}  (version ${version})`)
-}
-
-function readManifestVersion(): string | null {
   try {
-    return String(JSON.parse(fs.readFileSync(OUT_MANIFEST, 'utf8')).version ?? '')
-  } catch {
-    return null
+    const workers = await Promise.allSettled(Array.from({ length: CONCURRENCY }, () => worker()))
+    for (const result of workers) if (result.status === 'rejected') throw result.reason
+
+    const archive = path.join(tempDir, 'icon-pack.tar.br')
+    const manifestPath = path.join(tempDir, 'icon-pack.json')
+    const { size, fileCount } = await createTarBrotliFromDir(staging, archive, 4)
+    const sha256 = await computeFileSha256(archive)
+    const manifest: IconPackManifest = { sha256, catalogHash, sourceHash, count: fileCount, bytes, px: ICON_PX, quality: WEBP_QUALITY }
+    fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n')
+    fs.renameSync(archive, OUT_PACK)
+    fs.renameSync(manifestPath, OUT_MANIFEST)
+    console.log(`[Icon Pack] Wrote ${fileCount} icons, ${(size / 1048576).toFixed(1)} MB. ${missing.length} paths use local fallbacks.`)
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true })
   }
 }
 
 main().catch((err) => {
   console.error('[Icon Pack] Failed:', err instanceof Error ? err.message : err)
-  process.exit(1)
+  process.exitCode = 1
 })

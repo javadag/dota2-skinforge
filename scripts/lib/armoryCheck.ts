@@ -12,7 +12,7 @@
  */
 
 import { getCanonicalHero } from '../../src/shared/constants/heroAliases'
-import type { HeroAttribute } from '../../src/shared/constants/attributes'
+import type { HeroAttribute } from '../../src/shared/armory/armoryTypes'
 import type { SchemaIndex, SchemaItem } from '../../src/main/services/modifier/schema'
 
 export interface ArmoryMod {

@@ -1,227 +1,161 @@
-/**
- * Cloudflare R2 Asset Packaging and Synchronization CLI
- *
- * Scans `skinforge_assets` (or custom `--src`), creates individual deterministic
- * ZIP archives for each group, generates `packages.json`, and uploads them to
- * the Cloudflare R2 bucket.
- *
- * Usage:
- *   npx tsx scripts/package_and_sync_assets.ts [--src D:\skinforge_assets] [--dry-run] [--skip-upload]
- */
-
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
-import fs from 'fs'
-import path from 'path'
-import { computeFileSha256, createZipFromDir } from '../src/main/services/zipUtils'
-import { createTarBrotliFromDir } from '../src/main/services/tarUtils'
-import type { AssetPackageManifest, AssetPackageEntry } from '../src/shared/types/assetPackages'
-import { loadEnvFile } from './sync_r2_icons'
+import fs from 'node:fs'
+import path from 'node:path'
+import { parseArgs } from 'node:util'
+import { computeFileSha256, createTarBrotliFromDir } from '../src/main/services/assets/archiveUtils'
+import { ASSET_PACKAGE_BASE_PATH, type AssetPackageEntry } from '../src/shared/types/assetPackages'
+import {
+  DEFAULT_ASSET_SOURCE,
+  hashOverlayManifest,
+  inspectPackageSource,
+  readOverlayManifest,
+  readPackageManifest,
+  requiredPackageFiles,
+  verifyPublishedPackage,
+  writePackageManifest
+} from './lib/cosmeticPackages'
 
-interface CliOptions {
-  srcDir: string
-  distDir: string
-  dryRun: boolean
-  skipUpload: boolean
-  force: boolean
-  group?: string
-  format: 'tar.br' | 'zip'
-}
-
-function parseArgs(): CliOptions {
-  const args = process.argv.slice(2)
-  const options: CliOptions = {
-    srcDir: 'D:\\skinforge_assets',
-    distDir: path.resolve(process.cwd(), 'scratch/dist_packages'),
-    dryRun: false,
-    skipUpload: false,
-    force: false,
-    format: 'tar.br'
-  }
-
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i]
-    if (arg === '--src' && i + 1 < args.length) {
-      options.srcDir = path.resolve(args[++i])
-    } else if (arg === '--dist' && i + 1 < args.length) {
-      options.distDir = path.resolve(args[++i])
-    } else if (arg === '--dry-run') {
-      options.dryRun = true
-    } else if (arg === '--skip-upload') {
-      options.skipUpload = true
-    } else if (arg === '--force' || arg === '-f') {
-      options.force = true
-    } else if (arg === '--group' && i + 1 < args.length) {
-      options.group = args[++i]
-    } else if (arg === '--format' && i + 1 < args.length) {
-      const fmt = args[++i].toLowerCase()
-      if (fmt === 'zip' || fmt === 'tar.br') {
-        options.format = fmt
-      } else {
-        console.warn(`Unknown format "${fmt}", defaulting to "tar.br"`)
-      }
+function connectToR2(): { s3: S3Client; bucket: string } {
+  const env: Record<string, string | undefined> = {}
+  if (fs.existsSync('.env')) {
+    for (const line of fs.readFileSync('.env', 'utf8').split('\n')) {
+      const match = /^\s*(R2_[A-Z_]+)\s*=\s*(.*?)\s*$/.exec(line)
+      if (match) env[match[1]] = match[2]
     }
   }
-  return options
-}
-
-async function uploadToR2(s3: S3Client, bucket: string, key: string, body: Buffer, contentType: string): Promise<void> {
-  await s3.send(
-    new PutObjectCommand({
-      Bucket: bucket,
-      Key: key,
-      Body: body,
-      ContentType: contentType
-    })
-  )
-}
-
-async function main() {
-  const opts = parseArgs()
-  console.log('=== Dota 2 SkinForge Asset Packager & R2 Sync ===')
-  console.log(`Source directory: ${opts.srcDir}`)
-  console.log(`Package output:   ${opts.distDir}`)
-
-  if (!fs.existsSync(opts.srcDir)) {
-    console.error(`Error: Source directory does not exist: ${opts.srcDir}`)
-    process.exit(1)
+  const {
+    R2_ACCOUNT_ID: accountId,
+    R2_ACCESS_KEY_ID: accessKeyId,
+    R2_SECRET_ACCESS_KEY: secretAccessKey,
+    R2_BUCKET_NAME: bucket
+  } = {
+    ...env,
+    ...process.env
   }
-
-  const env = loadEnvFile()
-  const accountId = env.R2_ACCOUNT_ID
-  const accessKeyId = env.R2_ACCESS_KEY_ID
-  const secretAccessKey = env.R2_SECRET_ACCESS_KEY
-  const bucketName = env.R2_BUCKET_NAME || 'skinforge'
-
-  let s3: S3Client | null = null
-  if (!opts.skipUpload && !opts.dryRun) {
-    if (!accountId || !accessKeyId || !secretAccessKey) {
-      console.error('Error: Missing Cloudflare R2 credentials in .env file.')
-      console.error('Required: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY')
-      process.exit(1)
-    }
-    s3 = new S3Client({
+  if (!accountId || !accessKeyId || !secretAccessKey || !bucket) throw new Error('Set the four R2 credentials before uploading.')
+  return {
+    s3: new S3Client({
       region: 'auto',
       endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
       credentials: { accessKeyId, secretAccessKey }
-    })
+    }),
+    bucket
   }
-
-  fs.mkdirSync(opts.distDir, { recursive: true })
-
-  // Find all group directories
-  const entries = fs.readdirSync(opts.srcDir, { withFileTypes: true })
-  const groupDirs = entries.filter((e) => e.isDirectory()).map((e) => e.name)
-
-  if (opts.group) {
-    if (!groupDirs.includes(opts.group)) {
-      console.error(`Group "${opts.group}" not found in ${opts.srcDir}`)
-      process.exit(1)
-    }
-  }
-
-  const targets = opts.group ? [opts.group] : groupDirs
-  console.log(`Found ${targets.length} group(s) to process.`)
-
-  const manifestPath = path.resolve(process.cwd(), 'data/cosmetic-packages.json')
-  let existingManifest: AssetPackageManifest = {
-    version: 1,
-    generatedAt: new Date().toISOString(),
-    baseUrl: 'cosmetic-assets/packages',
-    packages: {}
-  }
-
-  if (fs.existsSync(manifestPath)) {
-    try {
-      existingManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
-    } catch {
-      // Use blank if unreadable
-    }
-  }
-
-  const packages: Record<string, AssetPackageEntry> = { ...existingManifest.packages }
-  let totalPackedBytes = 0
-
-  for (const group of targets) {
-    const groupPath = path.join(opts.srcDir, group)
-    const isTarBr = opts.format === 'tar.br'
-    const fileName = `${group}.${isTarBr ? 'tar.br' : 'zip'}`
-    const outPkgPath = path.join(opts.distDir, fileName)
-    const contentType = isTarBr ? 'application/x-brotli' : 'application/zip'
-
-    process.stdout.write(`Packaging [${group}] (${opts.format})... `)
-    const { size, fileCount } = isTarBr
-      ? await createTarBrotliFromDir(groupPath, outPkgPath)
-      : await createZipFromDir(groupPath, outPkgPath)
-    const sha256 = await computeFileSha256(outPkgPath)
-    totalPackedBytes += size
-
-    const uncompressedSize = fs.readdirSync(groupPath, { recursive: true }).reduce((acc, sub) => {
-      const p = path.join(groupPath, String(sub))
-      try {
-        const s = fs.statSync(p)
-        return acc + (s.isFile() ? s.size : 0)
-      } catch {
-        return acc
-      }
-    }, 0)
-
-    const existing = packages[group]
-    const hasChanged = !existing || existing.file !== fileName || existing.sha256 !== sha256
-    const shouldUpload = hasChanged || opts.force
-
-    packages[group] = {
-      file: fileName,
-      version: hasChanged ? (existing ? bumpVersion(existing.version) : '1.0.0') : existing.version,
-      sha256,
-      size,
-      uncompressedSize,
-      fileCount,
-      ...(group !== '_global' ? { dependencies: ['_global'] } : {})
-    }
-
-    console.log(`${(size / (1024 * 1024)).toFixed(2)} MB (${fileCount} files) - ${hasChanged ? 'UPDATED' : 'UNCHANGED'}`)
-
-    if (s3 && shouldUpload && !opts.skipUpload) {
-      const r2Key = `cosmetic-assets/packages/${fileName}`
-      process.stdout.write(`  -> Uploading to R2 (${r2Key})... `)
-      const data = fs.readFileSync(outPkgPath)
-      await uploadToR2(s3, bucketName, r2Key, data, contentType)
-      console.log('DONE')
-    }
-  }
-
-  const finalManifest: AssetPackageManifest = {
-    version: 1,
-    generatedAt: new Date().toISOString(),
-    baseUrl: 'cosmetic-assets/packages',
-    packages
-  }
-
-  // Save local copy to data/cosmetic-packages.json for bundling with app
-  fs.writeFileSync(manifestPath, JSON.stringify(finalManifest, null, 2), 'utf8')
-  console.log(`Saved local manifest to ${manifestPath}`)
-
-  if (s3 && !opts.skipUpload) {
-    const manifestBuffer = Buffer.from(JSON.stringify(finalManifest, null, 2), 'utf8')
-    const manifestKey = 'cosmetic-assets/packages.json'
-    process.stdout.write(`Uploading manifest to R2 (${manifestKey})... `)
-    await uploadToR2(s3, bucketName, manifestKey, manifestBuffer, 'application/json')
-    console.log('DONE')
-  }
-
-  console.log(`\nAll done! Total package data: ${(totalPackedBytes / (1024 * 1024)).toFixed(2)} MB across ${targets.length} packages.`)
 }
 
-function bumpVersion(v: string): string {
-  const parts = v.split('.').map((n) => parseInt(n, 10) || 0)
-  while (parts.length < 3) parts.push(0)
-  parts[2]++
-  return parts.join('.')
-}
-
-if (require.main === module) {
-  main().catch((err) => {
-    console.error('Fatal error:', err)
-    process.exit(1)
+async function main(): Promise<void> {
+  const { values } = parseArgs({
+    options: {
+      src: { type: 'string', default: DEFAULT_ASSET_SOURCE },
+      dist: { type: 'string', default: 'scratch/dist_packages' },
+      group: { type: 'string', multiple: true },
+      force: { type: 'boolean', short: 'f' },
+      'dry-run': { type: 'boolean' },
+      'skip-upload': { type: 'boolean' },
+      upload: { type: 'boolean' }
+    }
   })
+  const { src, dist, group: requested, force, upload } = values
+  if (upload && (values['skip-upload'] || values['dry-run'])) throw new Error('Use --upload by itself to send packages to R2.')
+
+  const overlay = readOverlayManifest()
+  const groups = requiredPackageFiles(overlay)
+  const targets = requested ? [...new Set(requested)].sort() : [...groups.keys()].sort()
+  const sources = targets.map((group) => {
+    const required = groups.get(group)
+    if (!required) throw new Error(`Group is not in the overlay manifest: ${group}`)
+    const dir = path.join(src, group)
+    return { group, dir, required, ...inspectPackageSource(dir, required) }
+  })
+  const existing = readPackageManifest()
+  const packages = Object.fromEntries(Object.entries(existing.packages).filter(([group]) => groups.has(group)))
+  const matchesSource = (group: string, entry: AssetPackageEntry | undefined, hash: string): entry is AssetPackageEntry =>
+    entry?.sourceSha256 === hash && entry.file === `${group}-${entry.sha256}.tar.br`
+
+  if (values['dry-run']) {
+    for (const source of sources) {
+      const entry = packages[source.group]
+      const current = matchesSource(source.group, entry, source.sha256) && fs.existsSync(path.join(dist, entry.file))
+      console.log(`${source.group}: ${current && !force ? 'current' : 'needs packaging'} (${source.fileCount} files)`)
+    }
+    return
+  }
+
+  const remote = upload ? connectToR2() : undefined
+  fs.mkdirSync(dist, { recursive: true })
+  for (const source of sources) {
+    const { group, dir, sha256: sourceSha256 } = source
+    let entry = packages[group]
+    const current = matchesSource(group, entry, sourceSha256)
+    const staged = current && fs.existsSync(path.join(dist, entry.file))
+    if (remote && !force && current && !staged) {
+      const published = await verifyPublishedPackage(entry).then(
+        () => true,
+        () => false
+      )
+      if (published) {
+        console.log(`Already published ${entry.file}.`)
+        continue
+      }
+    }
+    if (force || !staged) {
+      const temporary = path.join(dist, `.${group}-${process.pid}.tmp`)
+      try {
+        const { size, fileCount } = await createTarBrotliFromDir(dir, temporary)
+        if (fileCount !== source.fileCount || inspectPackageSource(dir, source.required).sha256 !== sourceSha256) {
+          throw new Error(`${group} changed while being packaged. Run the command again.`)
+        }
+        const sha256 = await computeFileSha256(temporary)
+        const file = `${group}-${sha256}.tar.br`
+        fs.renameSync(temporary, path.join(dist, file))
+        entry = packages[group] = {
+          file,
+          version: sha256.slice(0, 12),
+          sha256,
+          sourceSha256,
+          size,
+          fileCount,
+          uncompressedSize: source.bytes,
+          ...(group === '_global' ? {} : { dependencies: ['_global'] })
+        }
+        console.log(`Packaged ${group} (${entry.version}).`)
+      } finally {
+        fs.rmSync(temporary, { force: true })
+      }
+    } else {
+      console.log(`Reusing ${group} (${entry.version}).`)
+    }
+
+    if (remote) {
+      const archive = path.join(dist, entry.file)
+      if ((await computeFileSha256(archive)) !== entry.sha256)
+        throw new Error(`Local archive has changed: ${archive}. Rebuild with --force.`)
+      await remote.s3.send(
+        new PutObjectCommand({
+          Bucket: remote.bucket,
+          Key: `${ASSET_PACKAGE_BASE_PATH}/${entry.file}`,
+          Body: fs.readFileSync(archive),
+          ContentType: 'application/x-brotli',
+          CacheControl: 'public, max-age=31536000, immutable'
+        })
+      )
+      console.log(`Uploaded ${entry.file}.`)
+    }
+  }
+
+  if (JSON.stringify(existing.packages) !== JSON.stringify(packages)) {
+    if (
+      hashOverlayManifest(readOverlayManifest()) !== hashOverlayManifest(overlay) ||
+      JSON.stringify(readPackageManifest()) !== JSON.stringify(existing)
+    ) {
+      throw new Error('A manifest changed during packaging. Run the command again.')
+    }
+    writePackageManifest({ version: 1, generatedAt: new Date().toISOString(), baseUrl: ASSET_PACKAGE_BASE_PATH, packages })
+    console.log('Updated data/cosmetic-packages.json. Prepare the manifest before creating a release tag.')
+  }
 }
+
+main().catch((error) => {
+  console.error(error instanceof Error ? error.message : error)
+  process.exitCode = 1
+})

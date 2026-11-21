@@ -4,9 +4,8 @@
  */
 import fs from 'fs'
 import path from 'path'
-import * as gameinfo from '../src/main/services/gameinfoService'
+import * as gameinfo from '../src/main/services/dota/gameinfoService'
 
-const REAL = 'D:\\SteamLibrary\\steamapps\\common\\dota 2 beta\\game\\dota\\gameinfo_branchspecific.gi'
 const ROOT = path.resolve('scratch', 'gameinfo_test')
 
 function makeDir(name: string, content: string): string {
@@ -35,12 +34,30 @@ check('clean file still mounts dota and core', /Game\s+dota/.test(aText) && /Gam
 check('backup written', fs.existsSync(path.join(a, 'backup', 'gameinfo_branchspecific.gi')))
 
 // B. gameinfo that already mounts another mod
-const other = fs.readFileSync(REAL, 'utf-8')
+const other = `"GameInfo"
+{
+\tgame \t\t"Dota 2"
+\ttitle \t\t"Dota 2"
+
+\tFileSystem
+\t{
+\t\tSteamAppId\t\t\t\t570
+\t\tSearchPaths
+\t\t{
+\t\t\tGame\t\t\t\tOtherCustomMod
+\t\t\tGame\t\t\t\tdota
+\t\t\tGame\t\t\t\tcore
+\t\t\tMod\t\t\t\tOtherCustomMod
+\t\t\tMod\t\t\t\tdota
+\t\t}
+\t}
+}
+`
 const b = makeDir('other', other)
 gameinfo.injectSearchPaths(b, 'skinforge', path.join(b, 'backup'))
 const bText = fs.readFileSync(path.join(b, 'dota', 'gameinfo_branchspecific.gi'), 'utf-8')
 const bLines = lines(bText)
-check('existing mount preserved', /Game\s+Dota2SkinChanger/.test(bText))
+check('existing mount preserved', /Game\s+OtherCustomMod/.test(bText))
 check('new mount added', /Game\s+skinforge/.test(bText))
 const firstGame = bLines.find((l) => /^\s*Game\s+\S/.test(l) && !/Game_/.test(l)) ?? ''
 check('new mount takes priority', /skinforge/.test(firstGame), `first Game line = ${firstGame.trim()}`)

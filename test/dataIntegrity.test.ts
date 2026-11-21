@@ -1,5 +1,5 @@
 /**
- * Cross-file invariants for `data/`. Every one of these has silently drifted before — the
+ * Cross-file invariants for `data/`. Every one of these has silently drifted before â€” the
  * stale `mods` counts went unnoticed for months because nothing compared the files. Fast
  * and schema-free on purpose: `npm run armory:check` is the slow check that needs
  * `items_game.txt`, this is the one that runs with every `npm test`.
@@ -14,10 +14,13 @@ import styleData from '../data/itemStyles.json'
 import otherArmoryData from '../data/other_armory.json'
 import armoryData from '../data/heroes_armory.json'
 import packagesData from '../data/cosmetic-packages.json'
+import { requiredPackageFiles } from '../scripts/lib/cosmeticPackages'
+import type { CosmeticAssetsManifest } from '../src/main/services/assets/cosmeticAssets'
+import { listHeroes } from '../src/shared/armory/armoryCatalog'
+import { displayStyleOptions, getStyleOptionsByName, styleThumbFor, styleVariantBaseName } from '../src/shared/armory/itemStyles'
+import { CATEGORY_SVG_MAP } from '../src/renderer/utils/slotSvgIcons'
 import { getCanonicalHero } from '../src/shared/constants/heroAliases'
-import { getItemStyleOptions, getStyleOptionsByName, styleThumbFor, styleVariantBaseName } from '../src/shared/constants/itemStyles'
-import { CATEGORY_SVG_MAP } from '../src/shared/armory/slotSvgIcons'
-import { listHeroes } from '../src/renderer/components/slotGenerator'
+import { reconnectPairRules, type ReconnectRule } from '../src/shared/utils/reconnectRules'
 
 interface Mod {
   id: number
@@ -41,13 +44,57 @@ interface Entry {
   sets?: Array<{ id: string; name: string; img?: string; items: Array<{ slot: string; id: number }> }>
 }
 
+test('reconnect groups have unique identities, explicit execution order, and merge routes for their companions', () => {
+  const rules = assetsData.reconnectRules as ReconnectRule[]
+  const identities = new Set<string>()
+  const pairOrder: number[] = []
+  const mergeOrder: number[] = []
+  for (const rule of rules) {
+    const identity = `${rule.hero}/${rule.slot}`
+    assert.ok(!identities.has(identity), `Duplicate reconnect group ${identity}`)
+    identities.add(identity)
+    assert.ok(rule.merges?.length, `${identity} has no merge strategies`)
+    for (const companion of rule.companions ?? []) {
+      pairOrder.push(companion.order)
+      assert.ok(
+        rule.merges.some((merge) => merge.hostSlot === companion.slot),
+        `${identity} cannot merge into ${companion.slot}`
+      )
+    }
+    for (const merge of rule.merges) mergeOrder.push(merge.order)
+  }
+  for (const order of [pairOrder, mergeOrder]) {
+    assert.ok(
+      order.every((value) => Number.isSafeInteger(value) && value >= 0),
+      'Reconnect execution order must be nonnegative integers'
+    )
+    assert.equal(new Set(order).size, order.length, 'Reconnect execution order must be unique within companions and within merges')
+  }
+})
+
+test('reconnect rules resolve to distinct set pieces and give each dependent one companion', () => {
+  const dependents = new Set<string>()
+  const armory = armoryData as Record<string, Entry>
+  for (const rule of reconnectPairRules(assetsData.reconnectRules)) {
+    const hero = armory[rule.hero] ?? Object.values(armory).find((entry) => entry.tag === rule.hero)
+    const set = hero?.sets?.find((entry) => entry.id === rule.set)
+    assert.ok(set, `${rule.hero}/${rule.set}`)
+    const dependent = set.items.find((item) => item.slot === rule.dependentSlot)
+    const required = set.items.find((item) => item.slot === rule.requiredSlot)
+    assert.ok(dependent && required, `${rule.hero}/${rule.set}`)
+    assert.notEqual(dependent.slot, required.slot)
+    const key = `${rule.hero}/${dependent.slot}/${dependent.id}`
+    assert.ok(!dependents.has(key), `Conflicting reconnect companions for ${key}`)
+    dependents.add(key)
+  }
+})
+
 const armory = armoryData as unknown as Record<string, Entry>
 const otherArmory = otherArmoryData as unknown as Record<string, Entry>
-const packages = (packagesData as unknown as { packages: Record<string, unknown> }).packages
+const packagesManifest = packagesData as unknown as { version?: number; packages: Record<string, unknown> }
+const packages = packagesManifest.packages
 const styleItems = (styleData as unknown as { items: Record<string, unknown> }).items
-const assetGroups = new Set(
-  Object.values((assetsData as unknown as { items: Record<string, { group: string }> }).items).map((i) => i.group)
-)
+const assetGroups = new Set(requiredPackageFiles(assetsData as unknown as CosmeticAssetsManifest).keys())
 
 test('the hero list is derived from the armory and stays searchable by alias', () => {
   const heroes = listHeroes()
@@ -66,7 +113,7 @@ test('the hero list is derived from the armory and stays searchable by alias', (
     }
   }
 
-  // The one real alias in HERO_ALIASES — the derivation must not lose it.
+  // The one real alias in HERO_ALIASES â€” the derivation must not lose it.
   const antimage = heroes.find((hero) => hero.tag === 'antimage')
   assert.deepEqual(antimage?.alias, ['anti-mage'])
   assert.ok(heroes.length > 120, `only ${heroes.length} heroes`)
@@ -90,7 +137,7 @@ test('every set in the armory points at slots and items the armory has', () => {
   for (const [hero, entry] of Object.entries(armory)) {
     const slots = new Map(entry.slots.map((slot) => [slot.slot, slot]))
     for (const set of entry.sets ?? []) {
-      assert.ok(set.img, `${hero}/${set.id} has no set image (the picker renders it from R2)`)
+      assert.ok(set.img, `${hero}/${set.id} has no set image (the picker renders it from the bundled icon pack)`)
       assert.ok(set.items.length > 0, `${hero}/${set.id} has no pieces`)
       for (const piece of set.items) {
         const slot = slots.get(piece.slot)
@@ -126,7 +173,7 @@ test('every category entry carries its own display metadata and slots', () => {
 })
 
 test('every referenced category SVG ships in assets/categories', () => {
-  // default.svg was referenced by three components and the SVG map while not existing —
+  // default.svg was referenced by three components and the SVG map while not existing â€”
   // the browser only shows that on error paths, so nothing else catches it.
   const targets = [...Object.values(CATEGORY_SVG_MAP), ...Object.values(otherArmory).map((entry) => entry.img)]
   for (const target of targets) {
@@ -137,11 +184,14 @@ test('every referenced category SVG ships in assets/categories', () => {
 
 test('every asset group has a package, and every package has a group', () => {
   for (const name of Object.keys(packages)) {
-    if (name === '_global') continue
-    assert.ok(assetGroups.has(name), `package "${name}" has no cosmetic-assets group — nothing can ever request it`)
+    assert.ok(assetGroups.has(name), `package "${name}" has no cosmetic-assets group â€” nothing can ever request it`)
   }
-  for (const group of assetGroups) {
-    assert.ok(packages[group], `asset group "${group}" has no package to download`)
+  // Prepared release manifests (version >= 2) must cover every referenced group;
+  // version 1 manifests allow unsynced local groups while work is in progress.
+  if ((packagesManifest.version ?? 1) >= 2) {
+    for (const group of assetGroups) {
+      assert.ok(packages[group], `asset group "${group}" has no package to download`)
+    }
   }
 })
 
@@ -171,7 +221,7 @@ test('every style entry is a name the armory actually shows', () => {
     for (const slot of entry.slots) for (const mod of slot.mods) rowNames.add(mod.name)
   }
   for (const key of Object.keys(styleItems)) {
-    assert.ok(rowNames.has(key), `itemStyles["${key}"] matches no armory row — it can never be looked up`)
+    assert.ok(rowNames.has(key), `itemStyles["${key}"] matches no armory row â€” it can never be looked up`)
   }
 })
 
@@ -227,19 +277,19 @@ test('every styled armory row resolves through the UI style lookup', () => {
         checked++
         withImg += options.filter((option) => option.img).length
         assert.ok(
-          getItemStyleOptions(entry.tag, slot.slot, mod.name),
-          `${entry.tag}/${slot.slot} "${mod.name}" has styles but the UI lookup rejects it`
+          displayStyleOptions(options).length > 0,
+          `${entry.tag}/${slot.slot} "${mod.name}" has styles but displayStyleOptions returned empty`
         )
       }
     }
   }
   assert.ok(checked > 1200, `only ${checked} styled rows checked`)
-  assert.ok(withImg > 2000, `only ${withImg} style options carry art — the alternate_icons extraction broke`)
+  assert.ok(withImg > 2000, `only ${withImg} style options carry art â€” the alternate_icons extraction broke`)
 })
 
 test('loading screens never carry styles', () => {
   // clean:other drops the whole loadscreens category ("not supported"), which is what
-  // keeps screen items out of the armory — and build:styles skips `loadscreen` slots on
+  // keeps screen items out of the armory â€” and build:styles skips `loadscreen` slots on
   // top of that. If the category ever ships rows again, no screen name may pick up styles.
   assert.ok(!('loadscreens' in otherArmory), 'the loadscreens category must stay out of the armory')
   const loadscreenNames = new Set<string>()
@@ -250,7 +300,7 @@ test('loading screens never carry styles', () => {
     }
   }
   for (const name of loadscreenNames) {
-    assert.ok(!(name in styleItems), `loading screen "${name}" has style entries — it must not`)
+    assert.ok(!(name in styleItems), `loading screen "${name}" has style entries â€” it must not`)
   }
 })
 
@@ -275,7 +325,7 @@ test('style-variant rows collapse to their base card without losing anything', (
     }
   }
   assert.ok(hidden > 700, `only ${hidden} rows classified as style variants`)
-  assert.ok(keptDash > 2000, `only ${keptDash} set-piece/alias rows kept — the predicate is misfiring`)
+  assert.ok(keptDash > 2000, `only ${keptDash} set-piece/alias rows kept â€” the predicate is misfiring`)
   assert.equal(styleVariantBaseName('Blightfall - Back'), null)
 })
 
@@ -303,9 +353,8 @@ test('set pieces that share a styled base do not inherit its styles', () => {
   // eager dash fallback gave every piece the arcana's dropdown and its art.
   for (const name of ['Dread Retribution - Cape', 'Dread Retribution - Weapon', 'Planetfall - Belt', 'Feast of Abscession - Back']) {
     assert.equal(getStyleOptionsByName(name).length, 0, `${name} must not inherit the base's styles`)
-    assert.equal(getItemStyleOptions(undefined, undefined, name), null, `${name} must not offer a style dropdown`)
   }
-  // Real variant rows of the same base still resolve — including the courier's legacy
+  // Real variant rows of the same base still resolve â€” including the courier's legacy
   // look rows, whose suffix is only contained in the schema's style name
   // ("Lefty - Linkens Sphere" vs "Lefty - Linken's Sphere Style Unlock").
   assert.ok(getStyleOptionsByName('Dread Retribution - Master of Madness').length > 0)

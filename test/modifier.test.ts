@@ -1,16 +1,33 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { parseVdf, serializeValue, isNode } from '../src/main/services/modifier/vdf'
-import {
-  buildSchema,
-  resolveSlot,
-  tokenizeName,
-  isPersonaSlot,
-  personaVariantSlots,
-  personaHeroes
-} from '../src/main/services/modifier/schema'
+import { parseVdf, serializeValue, isNode, materialize } from '../src/main/services/modifier/vdf'
+import { buildSchema, itemByName, localize, resolveSlot, isPersonaSlot, personaVariantSlots } from '../src/main/services/modifier/schema'
 import { HERO_BASE_MODELS, baseModelForHero } from '../src/main/services/modifier/heroBaseModels'
-import { isNewerVersion } from '../src/main/services/updateService'
+import { compileItemsGame } from '../src/main/services/modifier/compile'
+
+test('item lookup accepts surrounding whitespace while preserving exact names and rejecting ambiguous aliases', () => {
+  const source = `"items_game" { "items" {
+    "1" { "name" "Default Head" "prefab" "default_item" "item_slot" "head"
+      "used_by_heroes" { "axe" "1" } "model_player" "models/default.vmdl" }
+    "2" { "name" "Padded Head " "prefab" "wearable" "item_slot" "head"
+      "used_by_heroes" { "axe" "1" } "model_player" "models/padded.vmdl" }
+    "3" { "name" "Exact" "prefab" "wearable" }
+    "4" { "name" " Exact " "prefab" "wearable" }
+    "5" { "name" " Ambiguous" "prefab" "wearable" }
+    "6" { "name" "Ambiguous " "prefab" "wearable" }
+  } }`
+  const schema = buildSchema(source)
+  assert.equal(itemByName(schema, 'Padded Head')?.id, '2')
+  assert.equal(itemByName(schema, ' Padded Head ')?.id, '2')
+  assert.equal(itemByName(schema, 'Exact')?.id, '3')
+  assert.equal(itemByName(schema, ' Exact ')?.id, '4')
+  assert.equal(itemByName(schema, 'Ambiguous'), undefined)
+  for (const name of ['Padded Head', 'Padded Head ']) {
+    const result = compileItemsGame(source, { axe: { head: name } })
+    assert.deepEqual(result.report.skipped, [])
+    assert.equal(result.report.modelSwaps[0]?.sourceModel, 'models/padded.vmdl')
+  }
+})
 
 test('VDF parser correctly parses KeyValues tree and preserves spans', () => {
   const vdfText = `"items_game"
@@ -32,6 +49,27 @@ test('VDF parser correctly parses KeyValues tree and preserves spans', () => {
   assert.equal(doc.root.entries[0].key, 'items')
 })
 
+test('a style with its own model uses that model at the stock wearable path', () => {
+  const source = `"items_game" { "items" {
+    "1" { "name" "Default Head" "prefab" "default_item" "item_slot" "head"
+      "used_by_heroes" { "axe" "1" } "model_player" "models/stock.vmdl" }
+    "2" { "name" "Styled Head" "prefab" "wearable" "item_slot" "head"
+      "used_by_heroes" { "axe" "1" } "model_player" "models/regular.vmdl"
+      "visuals" { "styles" {
+        "0" { "skin" "0" }
+        "1" { "model_player" "models/alternate.vmdl" "skin" "1" }
+      } } }
+  } }`
+
+  const picks = { axe: { head: 'Styled Head' } }
+  const regular = compileItemsGame(source, picks)
+  const alternate = compileItemsGame(source, picks, { axe: { head: { style: 1 } } })
+  assert.equal(regular.report.modelSwaps[0]?.sourceModel, 'models/regular.vmdl')
+  assert.equal(alternate.report.modelSwaps[0]?.sourceModel, 'models/alternate.vmdl')
+  assert.equal(alternate.report.modelSwaps[0]?.destModel, 'models/stock.vmdl')
+  assert.equal(alternate.report.validation.ok, true)
+})
+
 test('serializeValue converts string values and VDF nodes to KeyValues syntax', () => {
   assert.equal(serializeValue('hello', 0, '\n'), '"hello"')
 
@@ -51,14 +89,6 @@ test('serializeValue converts string values and VDF nodes to KeyValues syntax', 
   }
   const serialized = serializeValue(node, 0, '\n')
   assert.match(serialized, /"test_key"\s+"test_value"/)
-})
-
-test('tokenizeName splits item and set names into stemmed alphanumeric tokens', () => {
-  const tokens = tokenizeName("Juggernaut's Bladeform Legacy - Style 2")
-  assert.equal(tokens.has('juggernaut'), true)
-  assert.equal(tokens.has('bladeform'), true)
-  assert.equal(tokens.has('legacy'), true)
-  assert.equal(tokens.has('style'), true)
 })
 
 test('resolveSlot prioritizes explicit item_slot and infers from prefab', () => {
@@ -153,10 +183,98 @@ test('schema indexing maps persona variants and filters stray persona items', ()
   // Clockwerk has stray head_persona_1 but NO persona_selector, so personaVariantSlots is empty
   const clockVariants = personaVariantSlots(schema, 'rattletrap')
   assert.equal(clockVariants.size, 0)
+})
 
-  const heroesWithPersona = personaHeroes(schema)
-  assert.equal(heroesWithPersona.includes('crystal_maiden'), true)
-  assert.equal(heroesWithPersona.includes('rattletrap'), false)
+test('a replacement Persona mirrors official gear and rejects regular gear in the same build', () => {
+  const personaModel = 'models/heroes/antimage_female/antimage_female.vmdl'
+  const item = (id: number, name: string, slot: string, prefab: string, model?: string) => `
+    "${id}" {
+      "name" "${name}"
+      "item_slot" "${slot}"
+      "prefab" "${prefab}"
+      "used_by_heroes" { "antimage" "1" }
+      ${model ? `"model_player" "${model}"` : ''}
+    }`
+  const source = `"items_game" {
+    "items" {
+      ${item(1, 'Default Weapon', 'weapon', 'default_item', 'models/male_weapon.vmdl')}
+      ${item(2, 'Default Persona Weapon', 'weapon_persona_1', 'default_item', 'models/persona_weapon.vmdl')}
+      ${item(3, 'Default Persona Selector', 'persona_selector', 'default_item')}
+      ${item(4, 'Regular Weapon', 'weapon', 'wearable', 'models/regular_weapon.vmdl')}
+      ${item(5, 'Official Persona Weapon', 'weapon_persona_1', 'wearable', 'models/official_weapon.vmdl')}
+      "13783" {
+        "name" "The Disciple's Path"
+        "item_slot" "persona_selector"
+        "prefab" "wearable"
+        "used_by_heroes" { "antimage" "1" }
+        "visuals" {
+          "asset_modifier" { "type" "persona" "persona" "1" }
+          "asset_modifier" { "type" "entity_model" "asset" "npc_dota_hero_antimage" "modifier" "${personaModel}" }
+        }
+      }
+    }
+  }`
+  const options = { overlayIds: [13783], personaSlotsOnlyIds: [13783] }
+  const { report } = compileItemsGame(
+    source,
+    { antimage: { weapon: 'Regular Weapon', persona_weapon: 'Official Persona Weapon' } },
+    {},
+    options
+  )
+
+  assert.ok(report.validation.ok)
+  assert.equal(report.skipped[0]?.itemName, 'Regular Weapon')
+  assert.deepEqual(report.entityModelOverrides, [])
+  assert.deepEqual(
+    report.modelSwaps.map((swap) => [swap.destModel, swap.sourceModel]),
+    [
+      ['models/persona_weapon.vmdl', 'models/official_weapon.vmdl'],
+      ['models/male_weapon.vmdl', 'models/official_weapon.vmdl']
+    ]
+  )
+  assert.equal(report.applied.find((patch) => patch.slot === 'persona_selector')?.reason, 'persona-activation')
+
+  const regular = compileItemsGame(source, { antimage: { weapon: 'Regular Weapon' } }, {}, options).report
+  assert.deepEqual(
+    regular.modelSwaps.map((swap) => swap.destModel),
+    ['models/male_weapon.vmdl']
+  )
+})
+
+test('overlay personas keep uncovered base slots untouched instead of pointing them at prop_null', () => {
+  const source = `"items_game" {
+    "items" {
+      "1" { "name" "Default Weapon" "item_slot" "weapon" "prefab" "default_item" "used_by_heroes" { "phantom_assassin" "1" } "model_player" "models/pa_weapon.vmdl" }
+      "2" { "name" "Default Back" "item_slot" "back" "prefab" "default_item" "used_by_heroes" { "phantom_assassin" "1" } "model_player" "models/pa_cape.vmdl" }
+      "3" { "name" "Default Persona Selector" "item_slot" "persona_selector" "prefab" "default_item" "used_by_heroes" { "phantom_assassin" "1" } }
+      "22723" {
+        "name" "Exile Unveiled"
+        "item_slot" "persona_selector"
+        "prefab" "wearable"
+        "used_by_heroes" { "phantom_assassin" "1" }
+        "visuals" {
+          "asset_modifier" { "type" "persona" "persona" "1" }
+          "asset_modifier" { "type" "entity_model" "asset" "npc_dota_hero_phantom_assassin" "modifier" "models/heroes/phantom_assassin_persona/phantom_assassin_persona.vmdl" }
+        }
+      }
+    }
+  }`
+
+  const overlay = compileItemsGame(source, { phantom_assassin: { persona: 'Exile Unveiled' } }, {}, { overlayIds: [22723] })
+  assert.ok(overlay.report.validation.ok)
+  assert.equal(
+    overlay.report.applied.some((a) => a.reason === 'persona-hide'),
+    false
+  )
+  assert.equal(overlay.content.includes('prop_null'), false)
+
+  const nonOverlay = compileItemsGame(source, { phantom_assassin: { persona: 'Exile Unveiled' } }, {})
+  assert.ok(nonOverlay.report.validation.ok)
+  assert.equal(
+    nonOverlay.report.applied.some((a) => a.reason === 'persona-hide' && a.targetId === '2'),
+    true
+  )
+  assert.equal(nonOverlay.content.includes('prop_null'), true)
 })
 
 test('HERO_BASE_MODELS maps official heroes and provides predictable convention fallback', () => {
@@ -167,11 +285,68 @@ test('HERO_BASE_MODELS maps official heroes and provides predictable convention 
   assert.equal(baseModelForHero('custom_hero'), 'models/heroes/custom_hero/custom_hero.vmdl')
 })
 
-test('isNewerVersion accurately handles semver comparison and prereleases', () => {
-  assert.equal(isNewerVersion('1.3.0', '1.4.0'), true)
-  assert.equal(isNewerVersion('v1.3.1', 'v1.3.2'), true)
-  assert.equal(isNewerVersion('1.4.0', '1.3.9'), false)
-  assert.equal(isNewerVersion('1.4.0', '1.4.0'), false)
-  // Prerelease comparison: stable release is newer than prerelease of same version
-  assert.equal(isNewerVersion('1.4.0-beta.1', '1.4.0'), true)
+test('styled wearable with skin writes visuals.skin and model_skin onto the default item', () => {
+  const source = `"items_game"
+{
+  "items"
+  {
+    "1"
+    {
+      "name" "Default Armor"
+      "prefab" "default_item"
+      "item_slot" "armor"
+      "model_player" "models/heroes/antimage/antimage_chest.vmdl"
+      "used_by_heroes" { "npc_dota_hero_antimage" "1" }
+    }
+    "27560"
+    {
+      "name" "Pinions of Piety - Armor"
+      "prefab" "wearable"
+      "item_slot" "armor"
+      "model_player" "models/items/antimage_female/am_screeauk/am_screeauk_armor.vmdl"
+      "used_by_heroes" { "npc_dota_hero_antimage" "1" }
+      "visuals"
+      {
+        "skip_model_combine" "1"
+        "styles"
+        {
+          "0" { "name" "Style 0" "skin" "0" }
+          "1" { "name" "Style 1" "skin" "1" }
+        }
+      }
+    }
+  }
+}`
+  const res = compileItemsGame(source, { antimage: { armor: 'Pinions of Piety - Armor' } }, { antimage: { armor: { style: 1 } } })
+  assert.ok(res.report.validation.ok)
+  assert.match(res.content, /"skin"\s+"1"/)
+  assert.match(res.content, /"type"\s+"model_skin"/)
+})
+
+test('VDF skipBlock ignores braces and quotes inside comments within opaque blocks', () => {
+  const source = `"items_game"
+{
+  "visuals"
+  {
+    // comment with unmatched } and "quote
+    /* block comment with { and } and " */
+    "skin" "1"
+  }
+  "after" "ok"
+}`
+  const doc = parseVdf(source, { opaque: (k) => k === 'visuals' })
+  assert.equal(doc.root.entries.length, 2)
+  const visuals = doc.root.entries[0].value
+  assert.ok(isNode(visuals) && visuals.opaque)
+  materialize(source, visuals)
+  assert.equal(visuals.entries[0].key, 'skin')
+  assert.equal(doc.root.entries[1].value, 'ok')
+})
+
+test('localize matches mixed-case localization tokens case-insensitively', () => {
+  const schema = buildSchema('"items_game" { "items" {} }', {
+    localizationText: '"lang" { "Tokens" { "DOTA_Style_Arcana_Alt" "Second Style" } }'
+  })
+  assert.equal(localize(schema, '#dota_style_arcana_alt'), 'Second Style')
+  assert.equal(localize(schema, '#DOTA_Style_Arcana_Alt'), 'Second Style')
 })

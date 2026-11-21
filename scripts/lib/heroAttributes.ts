@@ -3,7 +3,7 @@
  *
  * `items_game.txt` carries no attribute data at all: the game keeps `AttributePrimary` in
  * each hero's own file under `scripts/npc/heroes/`. Reading it here is what lets the armory
- * carry the attribute instead of a hand-maintained map — and it is the only source that
+ * carry the attribute instead of a hand-maintained map â€” and it is the only source that
  * tracks patches, which is exactly where the old map drifted (7 heroes had no entry and
  * ~16 disagreed with the game).
  *
@@ -12,11 +12,10 @@
  */
 import path from 'path'
 
-import type { HeroAttribute } from '../../src/shared/constants/attributes'
-import { detectDotaPath } from '../../src/main/services/dotaPathService'
+import type { HeroAttribute } from '../../src/shared/armory/armoryTypes'
+import { detectDotaPath } from '../../src/main/services/dota/dotaService'
 import { getNode, getString, parseVdf } from '../../src/main/services/modifier/vdf'
-import { getOrLoadVpkIndex } from '../../src/main/services/vpkService'
-import { readEntry } from '../../src/main/services/vpkIndex'
+import { getOrLoadVpkIndex, readEntry } from '../../src/main/services/dota/vpkService'
 
 const PRIMARY_BY_TOKEN: Record<string, HeroAttribute> = {
   DOTA_ATTRIBUTE_STRENGTH: 'str',
@@ -37,7 +36,7 @@ export function attributeFromHeroFile(text: string, internalName: string): HeroA
 /**
  * Attributes for the given heroes, keyed by their canonical (schema) name.
  *
- * Reads in memory — no temp files — and returns an empty map when no game install can be
+ * Reads in memory â€” no temp files â€” and returns an empty map when no game install can be
  * found, so callers keep whatever they already had instead of failing the run.
  */
 export function loadHeroAttributes(canonicalNames: Iterable<string>): Map<string, HeroAttribute> {

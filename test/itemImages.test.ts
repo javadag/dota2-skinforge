@@ -1,20 +1,20 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { getItemRarityKey, getRarityConfig, RARITY_CONFIG } from '../src/shared/armory/rarityConfig'
-import { getCategorySvg, getSlotImage, resolveEmptySlotImage } from '../src/shared/armory/slotSvgIcons'
-import { generateItemSvg } from '../src/shared/armory/cardSvgGenerator'
-import { getItemImage } from '../src/shared/armory/itemImages'
+import { getCategorySvg, getSlotImage, resolveEmptySlotImage } from '../src/renderer/utils/slotSvgIcons'
+import { generateItemSvg } from '../src/renderer/utils/cardSvgGenerator'
+import { getItemImage } from '../src/renderer/utils/itemImages'
 
 test('getItemRarityKey prioritizes authoritative Valve tags', () => {
   assert.equal(getItemRarityKey({ rarity: 'arcana' }), 'arcana')
-  assert.equal(getItemRarityKey({ tag: 'immortal' }), 'immortal')
+  assert.equal(getItemRarityKey({ rarity: 'immortal' }), 'immortal')
   assert.equal(getItemRarityKey({ rarity: 'persona' }), 'persona')
-  assert.equal(getItemRarityKey({ tag: 'mythical' }), 'mythical')
+  assert.equal(getItemRarityKey({ rarity: 'mythical' }), 'mythical')
   assert.equal(getItemRarityKey({ rarity: 'legendary' }), 'legendary')
   assert.equal(getItemRarityKey({ rarity: 'rare' }), 'rare')
   assert.equal(getItemRarityKey({ rarity: 'uncommon' }), 'uncommon')
   assert.equal(getItemRarityKey({ rarity: 'common' }), 'common')
-  assert.equal(getItemRarityKey({ tag: 'taunt' }), 'taunt')
+  assert.equal(getItemRarityKey({ rarity: 'taunt' }), 'taunt')
   assert.equal(getItemRarityKey({ isDefault: true }), 'common')
   assert.equal(getItemRarityKey(null), 'default')
 })

@@ -3,10 +3,10 @@
  *
  * For every file in every bundle, decide what it actually is:
  *
- *   duplicate    Valve has the exact same bytes at the exact same path — shipping it is waste
+ *   duplicate    Valve has the exact same bytes at the exact same path â€” shipping it is waste
  *   valve-copy   same bytes as one of the item's own Valve files, just renamed onto a slot
- *                path — we could pull it from the player's game instead of shipping it
- *   custom       the modder's own bytes — this is the part that has to be shipped
+ *                path â€” we could pull it from the player's game instead of shipping it
+ *   custom       the modder's own bytes â€” this is the part that has to be shipped
  *   new          a path Valve does not have at all
  *
  *   tsx scripts/bundle_audit.ts [--json]
@@ -16,16 +16,19 @@ import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 
-import { loadIndex, readEntry, type VpkIndex } from '../src/main/services/vpkIndex'
+import { detectDotaPath } from '../src/main/services/dota/dotaService'
+import { loadIndex, readEntry, type VpkIndex } from '../src/main/services/dota/vpkService'
 import { buildSchema } from '../src/main/services/modifier/schema'
 import { materializeDeep, getNode, getString, isNode } from '../src/main/services/modifier/vdf'
 import { assetModifiers } from '../src/main/services/modifier/visuals'
+import { DEFAULT_ASSET_SOURCE } from './lib/cosmeticPackages'
 
-const VPK = 'D:/SteamLibrary/steamapps/common/dota 2 beta/game/dota/pak01_dir.vpk'
+const dotaDir = detectDotaPath()
+if (!dotaDir) throw new Error('Dota 2 not detected.')
+const VPK = path.join(dotaDir, 'dota', 'pak01_dir.vpk')
 const md5 = (b: Buffer): string => crypto.createHash('md5').update(b).digest('hex')
 
 const manifest = JSON.parse(fs.readFileSync('data/cosmetic-assets.json', 'utf-8')) as {
-  sourceDir: string
   items: Record<string, { name: string; hero: string; group: string; files: string[] }>
 }
 
@@ -74,7 +77,7 @@ for (const [id, entry] of Object.entries(manifest.items)) {
   let customBytes = 0
 
   for (const rel of entry.files) {
-    const local = path.join(manifest.sourceDir, entry.group, rel.replace(/\//g, path.sep))
+    const local = path.join(DEFAULT_ASSET_SOURCE, entry.group, rel.replace(/\//g, path.sep))
     if (!fs.existsSync(local)) continue
     const data = fs.readFileSync(local)
     const hash = md5(data)

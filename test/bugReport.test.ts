@@ -4,14 +4,23 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {
+  buildCommentBody,
   buildIssueBody,
   buildIssueTitle,
   computeFingerprint,
+  IN_APP_FOLLOWUP_FOOTER,
   redactSensitive,
   validateBugReport,
+  validateBugReportComment,
   BUG_REPORT_LIMITS
-} from '../src/shared/bugReport'
-import { submitBugReport, SUBMIT_COOLDOWN_MS, type SubmitInput } from '../src/main/services/bugReportService'
+} from '../src/shared/utils/bugReport'
+import {
+  commentOnBugReport,
+  listBugReports,
+  submitBugReport,
+  SUBMIT_COOLDOWN_MS,
+  type SubmitInput
+} from '../src/main/services/app/bugReportService'
 import { handleRequest, LIMITS, type Env, type KVLike } from '../workers/bug-report/src/index'
 
 const diagnostics = {
@@ -242,4 +251,169 @@ test('worker: screenshot is validated by magic bytes and linked from the issue',
   assert.equal(puts.length, 1)
   assert.ok(puts[0].endsWith('.png'))
   assert.ok(String(JSON.parse(String(calls[0].init.body)).body).includes(`https://img.test/${puts[0]}`))
+})
+
+test('validateBugReportComment and buildCommentBody sanitise and defuse input', () => {
+  assert.equal(validateBugReportComment({ message: 'hi', installId: 'install-1234-abcd' }).ok, false)
+  const v = validateBugReportComment({
+    message: 'ping @octocat see #12 token ghp_abcdefghijklmnopqrstuvwxyz0123',
+    installId: 'install-1234-abcd'
+  })
+  assert.ok(v.ok)
+  if (!v.ok) return
+  assert.ok(!v.value.message.includes('ghp_'))
+  const body = buildCommentBody(v.value.message)
+  assert.ok(!body.includes('@octocat'))
+  assert.ok(!body.includes('#12'))
+  assert.ok(body.includes(IN_APP_FOLLOWUP_FOOTER))
+})
+
+test('worker: GET /issues caches status + comments and POST /issues/:n/comments verifies owner', async () => {
+  const env: Env = { GITHUB_TOKEN: 't', GITHUB_REPO: 'o/r', STATE: new MemKV() }
+  let githubCalls = 0
+  const fetchImpl = (async (url: string, init?: RequestInit) => {
+    githubCalls++
+    if (url.endsWith('/issues') && init?.method === 'POST') {
+      return new Response(JSON.stringify({ html_url: 'https://github.com/o/r/issues/7', number: 7 }), { status: 201 })
+    }
+    if (url.endsWith('/issues/7')) {
+      return new Response(
+        JSON.stringify({
+          number: 7,
+          html_url: 'https://github.com/o/r/issues/7',
+          title: '[Bug] Crash',
+          state: 'open',
+          labels: [{ name: 'bug' }],
+          updated_at: '2026-01-01T00:00:00Z'
+        }),
+        { status: 200 }
+      )
+    }
+    if (url.includes('/issues/7/comments') && (!init?.method || init.method === 'GET')) {
+      return new Response(
+        JSON.stringify([
+          { id: 1, user: { login: 'dev' }, body: 'Can you share more details?', created_at: '2026-01-01T01:00:00Z' },
+          { id: 2, user: { login: 'bot' }, body: `Still happens\n\n---\n${IN_APP_FOLLOWUP_FOOTER}`, created_at: '2026-01-01T02:00:00Z' }
+        ]),
+        { status: 200 }
+      )
+    }
+    if (url.endsWith('/issues/7/comments') && init?.method === 'POST') {
+      return new Response(
+        JSON.stringify({ id: 3, user: { login: 'bot' }, body: JSON.parse(String(init.body)).body, created_at: '2026-01-01T03:00:00Z' }),
+        { status: 201 }
+      )
+    }
+    return new Response('not found', { status: 404 })
+  }) as unknown as typeof fetch
+
+  const deps = { fetchImpl, now: () => 5_000_000 }
+  await handleRequest(workerRequest(validBody()), env, deps)
+  assert.equal(githubCalls, 1)
+
+  // First GET fetches issue + comments (2 GitHub calls); second GET uses KV cache (0 new GitHub calls).
+  const g1 = await handleRequest(new Request('https://relay.test/issues?numbers=7', { method: 'GET' }), env, deps)
+  assert.equal(g1.status, 200)
+  const g1Json = (await g1.json()) as { ok: boolean; issues: Array<{ comments: Array<{ fromReporter: boolean; author: string }> }> }
+  assert.equal(g1Json.issues.length, 1)
+  assert.equal(g1Json.issues[0].comments[0].fromReporter, false)
+  assert.equal(g1Json.issues[0].comments[0].author, 'dev')
+  assert.equal(g1Json.issues[0].comments[1].fromReporter, true)
+  assert.equal(g1Json.issues[0].comments[1].author, 'You')
+  assert.equal(githubCalls, 3)
+
+  const g2 = await handleRequest(new Request('https://relay.test/issues?numbers=7', { method: 'GET' }), env, deps)
+  assert.equal(g2.status, 200)
+  assert.equal(githubCalls, 3)
+
+  // Non-owner cannot comment.
+  const denied = await handleRequest(
+    new Request('https://relay.test/issues/7/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': '8.8.8.8' },
+      body: JSON.stringify({ installId: 'stranger-install-99', message: 'spam' })
+    }),
+    env,
+    deps
+  )
+  assert.equal(denied.status, 403)
+
+  // Original reporter can comment and cache is updated immediately.
+  const posted = await handleRequest(
+    new Request('https://relay.test/issues/7/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': '1.1.1.1' },
+      body: JSON.stringify({ installId: 'install-1234-abcd', message: 'New update from app' })
+    }),
+    env,
+    deps
+  )
+  assert.equal(posted.status, 201)
+  const g3 = await handleRequest(new Request('https://relay.test/issues?numbers=7', { method: 'GET' }), env, deps)
+  const g3Json = (await g3.json()) as { issues: Array<{ comments: Array<{ body: string }> }> }
+  assert.equal(g3Json.issues[0].comments.length, 3)
+  assert.equal(g3Json.issues[0].comments[2].body, 'New update from app')
+})
+
+test('client: listBugReports and commentOnBugReport handle live, offline, and reply flows', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bugreport-track-'))
+  const stateFile = path.join(dir, 'state.json')
+  const submitFetch = (async () =>
+    new Response(JSON.stringify({ ok: true, issueUrl: 'https://github.com/o/r/issues/12', issueNumber: 12 }), {
+      status: 201
+    })) as unknown as typeof fetch
+
+  await submitBugReport(
+    { title: 'Icon missing', description: 'Ability icon does not show up.', includeLogs: false, diagnostics },
+    { endpoint: 'https://relay.test', stateFile, fetchImpl: submitFetch }
+  )
+
+  const offlineFetch = (async () => {
+    throw new TypeError('offline')
+  }) as unknown as typeof fetch
+  const offline = await listBugReports({ endpoint: 'https://relay.test', stateFile, fetchImpl: offlineFetch })
+  assert.equal(offline.offline, true)
+  assert.equal(offline.reports.length, 1)
+  assert.equal(offline.reports[0].issueNumber, 12)
+  assert.equal(offline.reports[0].state, 'unknown')
+
+  const liveFetch = (async (url: string) => {
+    if (url.includes('/issues?numbers=12')) {
+      return new Response(
+        JSON.stringify({
+          ok: true,
+          issues: [
+            {
+              issueNumber: 12,
+              issueUrl: 'https://github.com/o/r/issues/12',
+              title: '[Bug] Icon missing',
+              state: 'open',
+              labels: ['bug'],
+              updatedAt: '2026-01-01T00:00:00Z',
+              comments: []
+            }
+          ]
+        }),
+        { status: 200 }
+      )
+    }
+    return new Response(
+      JSON.stringify({
+        ok: true,
+        comment: { id: 9, author: 'You', fromReporter: true, body: 'Fixed in v2?', createdAt: '2026-01-01T01:00:00Z' }
+      }),
+      { status: 201 }
+    )
+  }) as unknown as typeof fetch
+
+  const live = await listBugReports({ endpoint: 'https://relay.test', stateFile, fetchImpl: liveFetch })
+  assert.equal(live.offline, undefined)
+  assert.equal(live.reports[0].state, 'open')
+
+  const reply = await commentOnBugReport(
+    { issueNumber: 12, message: 'Fixed in v2?' },
+    { endpoint: 'https://relay.test', stateFile, fetchImpl: liveFetch }
+  )
+  assert.equal(reply.ok, true)
+  assert.equal(reply.comment?.body, 'Fixed in v2?')
 })

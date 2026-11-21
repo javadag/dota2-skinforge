@@ -4,14 +4,14 @@
  */
 
 import { create } from 'zustand'
-import { listCategories, listHeroes } from '../components/slotGenerator'
-import type { InstallProgress } from '../env'
+import { listCategories, listHeroes } from '../../shared/armory/armoryCatalog'
+import type { AppSettings, StepProgress } from '../../shared/types/ipc'
 import { createLoadoutSlice, type LoadoutSlice } from './slices/loadoutSlice'
 import { createLogsSlice, type LogsSlice } from './slices/logsSlice'
 import { createNavigationSlice, type NavigationSlice } from './slices/navigationSlice'
-import { createPipelineSlice, type PipelineSlice } from './slices/pipelineSlice'
+import { createPipelineSlice, isPatchReset, type PipelineSlice } from './slices/pipelineSlice'
 import { createPresetsSlice, type PresetsSlice } from './slices/presetsSlice'
-import { createSettingsSlice, DEFAULT_LAUNCH_OPTIONS, type AppSettings, type SettingsSlice } from './slices/settingsSlice'
+import { createSettingsSlice, DEFAULT_LAUNCH_OPTIONS, type SettingsSlice } from './slices/settingsSlice'
 import { createUpdateSlice, type UpdateSlice } from './slices/updateSlice'
 
 export interface InitAppSlice {
@@ -27,19 +27,13 @@ export type AppStoreState = NavigationSlice &
   LogsSlice &
   InitAppSlice
 
-// Re-export domain types and helpers for 100% backward compatibility
-export { type AppTab, type AttributeFilter, type CategoryGroup } from './slices/navigationSlice'
-export { isPersonaSlotId, RARITY_RANK, rarityRank } from './slices/loadoutSlice'
-export { getStoredPresets, type Preset } from './slices/presetsSlice'
-export {
-  buildLaunchArgsString,
-  DEFAULT_LAUNCH_OPTIONS,
-  type AppSettings,
-  type CacheStats,
-  type LaunchOptionsSettings
-} from './slices/settingsSlice'
-export { type LogEntry } from './slices/logsSlice'
-export { type UpdateStatus } from './slices/updateSlice'
+// Re-export domain types and helpers used by components and tests
+export { type AttributeFilter } from './slices/navigationSlice'
+export { isPatchReset } from './slices/pipelineSlice'
+export { buildLaunchArgsString, DEFAULT_LAUNCH_OPTIONS, type LaunchOptionsSettings } from './slices/settingsSlice'
+
+let unsubscribeInstallProgress: (() => void) | undefined
+let initAppPromise: Promise<void> | null = null
 
 export const useAppStore = create<AppStoreState>((set, get, store) => ({
   ...createNavigationSlice(set, get, store),
@@ -51,80 +45,91 @@ export const useAppStore = create<AppStoreState>((set, get, store) => ({
   ...createLogsSlice(set, get, store),
 
   initApp: async () => {
-    const { addLog } = get()
-    try {
-      // Progress IPC listener
-      if (window.skinforge && typeof window.skinforge.onInstallProgress === 'function') {
-        window.skinforge.onInstallProgress((data: InstallProgress) => {
-          if (data && data.total) {
-            set({ progress: data })
-            addLog(`[${data.step}/${data.total}] ${data.message}`, 'info')
-          }
-        })
-      }
-
-      if (!window.skinforge || typeof window.skinforge.getInitialData !== 'function') {
-        throw new Error('IPC bridge window.skinforge is not available.')
-      }
-
-      // The roster comes from bundled data, so render it without waiting on IPC.
-      const heroes = listHeroes()
-      const categories = listCategories()
-      set({ heroes, categories })
-
-      const initial = await window.skinforge.getInitialData()
-      const dotaPath = initial.dotaPath || ''
-      const status = initial.status
-
-      let savedSettings: Partial<AppSettings> = {}
+    if (initAppPromise) return initAppPromise
+    initAppPromise = (async () => {
+      const { addLog } = get()
       try {
-        savedSettings = (await window.skinforge.readSettings()) || {}
-      } catch {
-        // ignore
-      }
-
-      set((state) => ({
-        dotaPath,
-        status,
-        settings: {
-          ...state.settings,
-          dotaPath: typeof savedSettings.dotaPath === 'string' ? savedSettings.dotaPath : dotaPath,
-          modFolder: typeof savedSettings.modFolder === 'string' ? savedSettings.modFolder : 'skinforge',
-          autoDetect: typeof savedSettings.autoDetect === 'boolean' ? savedSettings.autoDetect : true,
-          launchAfter: typeof savedSettings.launchAfter === 'boolean' ? savedSettings.launchAfter : false,
-          confirmRestore: typeof savedSettings.confirmRestore === 'boolean' ? savedSettings.confirmRestore : true,
-          autoCheckUpdates: typeof savedSettings.autoCheckUpdates === 'boolean' ? savedSettings.autoCheckUpdates : true,
-          launchOptions: {
-            ...DEFAULT_LAUNCH_OPTIONS,
-            ...(savedSettings.launchOptions || {})
-          }
+        // Progress IPC listener
+        if (window.skinforge && typeof window.skinforge.onInstallProgress === 'function') {
+          unsubscribeInstallProgress?.()
+          unsubscribeInstallProgress = window.skinforge.onInstallProgress((data: StepProgress) => {
+            if (data && data.total) {
+              set({ progress: data })
+              addLog(`[${data.step}/${data.total}] ${data.message}`, 'info')
+            }
+          })
         }
-      }))
 
-      // Cache stats only appear in Settings; never block startup on them.
-      window.skinforge
-        .getCacheStats()
-        .then((cacheStats) => set({ cacheStats }))
-        .catch(() => {})
+        if (!window.skinforge || typeof window.skinforge.getInitialData !== 'function') {
+          throw new Error('IPC bridge window.skinforge is not available.')
+        }
 
-      // CRITICAL: Log for smoke test pattern /Loaded (\d+) heroes/
-      addLog(`Loaded ${heroes.length} heroes from local database.`, 'success')
-      if (dotaPath) {
-        addLog(`Dota 2 installation identified: ${dotaPath}`, 'info')
-      } else {
-        addLog('Dota 2 directory not automatically found. Please set it in Settings.', 'warn')
+        // The roster comes from bundled data, so render it without waiting on IPC.
+        const heroes = listHeroes()
+        const categories = listCategories()
+        set({ heroes, categories })
+
+        const initial = await window.skinforge.getInitialData()
+        const dotaPath = initial.dotaPath || ''
+        const status = initial.status
+
+        let savedSettings: Partial<AppSettings> = {}
+        try {
+          savedSettings = (await window.skinforge.readSettings()) || {}
+        } catch {
+          // ignore
+        }
+
+        const autoDetect = typeof savedSettings.autoDetect === 'boolean' ? savedSettings.autoDetect : true
+        set((state) => ({
+          dotaPath,
+          status,
+          patchAlertVisible: isPatchReset(status, autoDetect),
+          settings: {
+            ...state.settings,
+            dotaPath: typeof savedSettings.dotaPath === 'string' && savedSettings.dotaPath ? savedSettings.dotaPath : dotaPath,
+            modFolder: typeof savedSettings.modFolder === 'string' ? savedSettings.modFolder : 'skinforge',
+            autoDetect,
+            launchAfter: typeof savedSettings.launchAfter === 'boolean' ? savedSettings.launchAfter : false,
+            confirmRestore: typeof savedSettings.confirmRestore === 'boolean' ? savedSettings.confirmRestore : true,
+            autoCheckUpdates: typeof savedSettings.autoCheckUpdates === 'boolean' ? savedSettings.autoCheckUpdates : true,
+            launchOptions: {
+              ...DEFAULT_LAUNCH_OPTIONS,
+              ...(savedSettings.launchOptions || {})
+            }
+          }
+        }))
+
+        const installedVersion = window.appInfo?.version
+        if (installedVersion && savedSettings.lastSeenWhatsNewVersion !== installedVersion) {
+          void get().loadWhatsNew(installedVersion)
+        }
+
+        // Cache stats only appear in Settings; never block startup on them.
+        window.skinforge
+          .getCacheStats()
+          .then((cacheStats) => set({ cacheStats }))
+          .catch(() => {})
+
+        addLog(`Loaded ${heroes.length} heroes from local database.`, 'success')
+        if (dotaPath) {
+          addLog(`Dota 2 installation identified: ${dotaPath}`, 'info')
+        } else {
+          addLog('Dota 2 directory not automatically found. Please set it in Settings.', 'warn')
+        }
+
+        // Check for updates automatically in background if enabled
+        const currentSettings = get().settings
+        if (currentSettings.autoCheckUpdates) {
+          setTimeout(() => {
+            get().checkForUpdates(false)
+          }, 1500)
+        }
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err)
+        addLog(`Initialization error: ${msg}`, 'error')
       }
-
-      // Check for updates automatically in background if enabled
-      const currentSettings = get().settings
-      if (currentSettings.autoCheckUpdates) {
-        setTimeout(() => {
-          get().checkForUpdates(false)
-        }, 1500)
-      }
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : String(err)
-      addLog(`Initialization error: ${msg}`, 'error')
-    }
+    })()
+    return initAppPromise
   }
 }))

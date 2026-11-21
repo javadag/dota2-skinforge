@@ -8,7 +8,8 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
 import armoryData from '../data/heroes_armory.json'
-import { getHeroSets } from '../src/renderer/utils/heroSets'
+import { resolveArmoryEntry } from '../src/shared/armory/armoryCatalog'
+import { getHeroSets } from '../src/shared/armory/heroSets'
 
 interface ArmoryMod {
   id?: number
@@ -66,6 +67,17 @@ test('heroes with sets expose them', () => {
   for (const hero of ['abaddon', 'lina', 'phantom assassin']) {
     assert.ok(getHeroSets(hero).length > 0, `${hero} lost its sets`)
   }
+})
+
+test('Roost equips its own back piece and leaves Frost Avalanche available separately', () => {
+  const sets = getHeroSets('crystal_maiden')
+  const roost = sets.find((set) => set.id === 'crystal_maiden_roost_of_the_winter_raven')
+  assert.ok(roost)
+  assert.deepEqual(roost.items.map(({ slot }) => slot).sort(), ['arms', 'back', 'head', 'shoulder', 'weapon'])
+  assert.equal(roost.items.find(({ slot }) => slot === 'back')?.name, 'Roost of the Winter Raven - Back')
+
+  const back = resolveArmoryEntry('crystal_maiden')?.slots.find(({ slot }) => slot === 'back')
+  assert.equal(back?.mods.find(({ id }) => id === 7385)?.name, 'Frost Avalanche')
 })
 
 test('set lookup survives alias-shaped tags', () => {

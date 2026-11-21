@@ -9,9 +9,9 @@
 
 import fs from 'fs'
 import path from 'path'
-import { getAppRoot } from '../../src/main/services/appPathService'
-import { detectDotaPath } from '../../src/main/services/dotaPathService'
-import { extract } from '../../src/main/services/vpkService'
+import { getAppRoot } from '../../src/main/services/app/appPaths'
+import { detectDotaPath } from '../../src/main/services/dota/dotaService'
+import { extract } from '../../src/main/services/dota/vpkService'
 import { buildSchema, type SchemaIndex } from '../../src/main/services/modifier/schema'
 
 export interface SchemaFiles {
@@ -77,7 +77,7 @@ export function dataPath(file: string): string {
 
 /**
  * Re-serialize JSON in the repo's 2-space form, refusing when the round trip would change the
- * file by more than the intended edit — so a rewrite can never silently reformat or drop data.
+ * file by more than the intended edit â€” so a rewrite can never silently reformat or drop data.
  */
 /**
  * Re-serialize JSON in the repo's 2-space form.

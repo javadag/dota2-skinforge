@@ -1,5 +1,5 @@
 /**
- * Selection pipeline test: compile slot picks into an items_game-only pack.
+ * Selection pipeline test: build slot picks with their schema and required assets.
  *
  *   npx tsx scripts/build_selection_test.ts --pick "legion commander|head|Baneful Devotion"
  *   npx tsx scripts/build_selection_test.ts --pick "zeus|head|Arc of the Sovereign Head" --install
@@ -8,10 +8,10 @@
 import fs from 'fs'
 import path from 'path'
 
-import { detectDotaPath } from '../src/main/services/dotaPathService'
-import * as pipeline from '../src/main/services/pipelineService'
-import * as packService from '../src/main/services/packService'
-import * as vpk from '../src/main/services/vpkService'
+import { detectDotaPath } from '../src/main/services/dota/dotaService'
+import * as pipeline from '../src/main/services/pipeline'
+import * as packService from '../src/main/services/pipeline/itemsGamePatcher'
+import * as vpk from '../src/main/services/dota/vpkService'
 
 function arg(name: string, fallback?: string): string | undefined {
   const index = process.argv.indexOf(name)
@@ -78,7 +78,7 @@ async function main(): Promise<void> {
   console.log(`       ${mb(pack.packBytes)}`)
 
   const listing = (await vpk.list(pack.dirVpk)) as unknown as { ok?: boolean; count?: number; totalBytes?: number }
-  if (!listing || listing.ok === false) throw new Error('Built VPK is not readable by vpktool.')
+  if (!listing || listing.ok === false) throw new Error('Built VPK is not readable.')
   console.log(`verify ${listing.count} entries / ${mb(listing.totalBytes ?? 0)}`)
 
   const out = path.resolve('scratch', 'selection_items_game.txt')

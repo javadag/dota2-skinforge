@@ -15,11 +15,13 @@
  *
  * Usage:
  *   npm run clean:other
+ *   npm run clean:other -- --items-game <path>
  */
 
 import fs from 'fs'
 import path from 'path'
 import { buildItemIndex, findItemId, readItemsGame } from './lib/itemIdIndex'
+import { resolveSchemaFiles } from './lib/schemaSource'
 
 interface CatalogMod {
   id?: number
@@ -48,7 +50,6 @@ interface CatalogCategory {
 type Catalog = Record<string, CatalogCategory>
 
 const CATALOG_PATH = path.resolve(__dirname, '../data/other_armory.json')
-const ITEMS_GAME_PATH = path.resolve(__dirname, 'items/items_game.txt')
 
 /** Categories SkinForge does not support. */
 const DROP_CATEGORIES = new Set(['loadscreens'])
@@ -204,14 +205,10 @@ interface Stats {
   droppedByCategory: Record<string, number>
 }
 
-function main(): void {
-  if (!fs.existsSync(ITEMS_GAME_PATH)) {
-    console.error(`Error: items_game.txt not found at ${ITEMS_GAME_PATH}`)
-    process.exit(1)
-  }
-
+async function main(): Promise<void> {
+  const { itemsGame } = await resolveSchemaFiles()
   const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf8')) as Catalog
-  const index = buildItemIndex(readItemsGame(ITEMS_GAME_PATH))
+  const index = buildItemIndex(readItemsGame(itemsGame))
 
   const stats: Stats = {
     categories: 0,
@@ -248,4 +245,7 @@ function main(): void {
   }
 }
 
-main()
+main().catch((error) => {
+  console.error(error instanceof Error ? error.message : String(error))
+  process.exitCode = 1
+})

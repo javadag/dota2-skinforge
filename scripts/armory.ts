@@ -7,7 +7,7 @@
  *       { id, name, rarity?, img? } ] }], ... } }
  *
  * Item icons use the `image_inventory` path (`econ/items/...`), which is exactly the key the
- * R2 icon sync uploads, so the renderer resolves them through `skinforge-icon://`.
+ * the app bundles, so the renderer resolves them through `skinforge-icon://`.
  *
  * Style variants of one item are emitted as separate mods with a `- <style>` suffix and sorted
  * next to each other instead of being scattered by rarity.
@@ -204,7 +204,7 @@ function buildSlots(schema: SchemaIndex, text: string, owner: string, previous?:
         mods: bySlot.get(slot)!.map((entry) => entry.mod)
       }
       // Hero-specific empty state: the default item's own icon for this slot.
-      // Same `econ/...` key shape as mod icons, so it resolves via R2 like they do.
+      // Use the same bundled `econ/...` icon keys as cosmetic items.
       const fallback = defaultFor(schema, owner, schemaSlotForArmorySlot(slot))?.image
       if (fallback) out.empty_img = fallback
       return out
@@ -230,7 +230,7 @@ function withoutExternalFields(entry: HeroEntry | undefined): Record<string, unk
   // Hero art comes from `assets/heroes/<canonical>.png`, taunts come from the generated
   // `taunt` slot, and portrait metadata from the old dataset — none of it needs an
   // external image host. `empty_img` survives here only as Valve `econ/...` paths (http
-  // variants are pruned above); the renderer resolves those through R2 like mod icons.
+  // variants are pruned above); the renderer loads them from the bundled icon pack.
   delete out.portrait
   delete out.taunt
   delete out.gamesets

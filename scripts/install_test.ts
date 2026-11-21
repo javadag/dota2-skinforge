@@ -6,8 +6,8 @@
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
-import { detectDotaPath } from '../src/main/services/dotaPathService'
-import * as pipeline from '../src/main/services/pipelineService'
+import { detectDotaPath } from '../src/main/services/dota/dotaService'
+import * as pipeline from '../src/main/services/pipeline'
 
 const REAL = detectDotaPath()
 if (!REAL) throw new Error('Dota 2 not detected')
@@ -57,7 +57,7 @@ async function main(): Promise<void> {
 
   const gameinfoAfter = fs.readFileSync(path.join(fake, 'dota', 'gameinfo_branchspecific.gi'), 'utf-8')
   check('mount added', new RegExp(`Game\\s+${MOD}`).test(gameinfoAfter))
-  check('previous mount preserved', /Dota2SkinChanger/.test(gameinfoAfter))
+  check('base dota mount preserved', /Game\s+dota/.test(gameinfoAfter))
 
   const sigsAfter = fs.readFileSync(path.join(fake, 'bin', 'win64', 'dota.signatures'), 'utf-8')
   const lastLine = sigsAfter.trimEnd().split(/\r?\n/).pop() ?? ''

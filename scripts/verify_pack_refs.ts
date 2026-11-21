@@ -3,19 +3,18 @@
  * items_game blocks actually exists in Valve's VPK.
  *
  * A dangling model reference renders fine on first spawn but fails on a full
- * reload — the classic first-load-OK / reconnect-ERROR pattern. This finds it
+ * reload â€” the classic first-load-OK / reconnect-ERROR pattern. This finds it
  * before the pack ever reaches the game.
  *
  *   npx tsx scripts/verify_pack_refs.ts --items <packed items_game> [--base <valve items_game>] [--vpk <valve pak>]
  */
 
 import fs from 'fs'
-import os from 'os'
 import path from 'path'
-import { execFileSync } from 'child_process'
 
-import { detectDotaPath } from '../src/main/services/dotaPathService'
-import { readItemsSection } from '../src/main/services/packService'
+import { detectDotaPath } from '../src/main/services/dota/dotaService'
+import { readItemsSection } from '../src/main/services/pipeline/itemsGamePatcher'
+import { loadIndex, type VpkIndex } from '../src/main/services/dota/vpkService'
 
 function arg(name: string, fallback?: string): string | undefined {
   const i = process.argv.indexOf(name)
@@ -35,25 +34,9 @@ function refsIn(block: string): string[] {
   return [...out]
 }
 
-/**
- * `vpktool list` ignores its filter argument and always dumps the (truncated) index, so
- * existence has to be proven by extracting. A missing entry leaves no file behind.
- */
-function existsInVpk(vpk: string, ref: string): boolean {
-  const probe = path.join(os.tmpdir(), `skinforge_ref_probe_${process.pid}.bin`)
-  for (const candidate of [ref, `${ref}_c`]) {
-    fs.rmSync(probe, { force: true })
-    try {
-      execFileSync(path.resolve('tools/vpktool.exe'), ['extract', vpk, candidate, probe], { stdio: 'ignore', timeout: 120000 })
-    } catch {
-      continue
-    }
-    if (fs.existsSync(probe) && fs.statSync(probe).size > 0) {
-      fs.rmSync(probe, { force: true })
-      return true
-    }
-  }
-  return false
+function existsInVpk(index: VpkIndex, ref: string): boolean {
+  const clean = ref.replace(/\\/g, '/')
+  return index.entries.has(clean) || (!clean.endsWith('_c') && index.entries.has(`${clean}_c`))
 }
 
 async function main(): Promise<void> {
@@ -63,6 +46,7 @@ async function main(): Promise<void> {
   const dotaDir = arg('--dota') ?? detectDotaPath()
   if (!dotaDir) throw new Error('Dota 2 not detected; pass --dota <dir>.')
   const vpk = arg('--vpk') ?? path.join(dotaDir, 'dota', 'pak01_dir.vpk')
+  const valveIndex = loadIndex(vpk)
 
   const text = fs.readFileSync(itemsPath, 'utf-8')
   const section = readItemsSection(text)
@@ -90,14 +74,15 @@ async function main(): Promise<void> {
 
   // A ref can be satisfied by the mod's own VPK (overlay assets) or by Valve's.
   const packVpk = arg('--pack')
-  console.log(`checking ${refs.size} referenced assets against ${packVpk ? 'the pack and ' : ''}Valve...`)
+  const packIndex = packVpk ? loadIndex(packVpk) : null
+  console.log(`checking ${refs.size} referenced assets against ${packIndex ? 'the pack and ' : ''}Valve...`)
   const missing: Array<[string, string[]]> = []
   let i = 0
   for (const [ref, ids] of refs) {
     i++
     if (i % 25 === 0) console.log(`  ${i}/${refs.size}...`)
-    if (packVpk && existsInVpk(packVpk, ref)) continue
-    if (!existsInVpk(vpk, ref)) missing.push([ref, ids])
+    if (packIndex && existsInVpk(packIndex, ref)) continue
+    if (!existsInVpk(valveIndex, ref)) missing.push([ref, ids])
   }
 
   if (!missing.length) {

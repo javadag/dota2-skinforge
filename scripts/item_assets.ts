@@ -6,19 +6,19 @@
  *   tsx scripts/item_assets.ts --all              every overlay cosmetic, totals
  *   tsx scripts/item_assets.ts --scan             every catalog item, what it carries
  *
- * The walk itself lives in `src/main/services/assetReceipt.ts` so the app and this script
+ * The walk itself lives in `src/main/services/assets/assetReceipt.ts` so the app and this script
  * always agree on what an item needs.
  */
 
 import fs from 'fs'
 import path from 'path'
 
-import { detectDotaPath } from '../src/main/services/dotaPathService'
-import { receiptFor, type AssetReceipt } from '../src/main/services/assetReceipt'
-import { readItemsSection } from '../src/main/services/packService'
+import { detectDotaPath } from '../src/main/services/dota/dotaService'
+import { receiptFor, type AssetReceipt } from '../src/main/services/assets/assetReceipt'
+import { readItemsSection } from '../src/main/services/pipeline/itemsGamePatcher'
 import { buildSchema } from '../src/main/services/modifier/schema'
 import { baseModelForHero } from '../src/main/services/modifier/heroBaseModels'
-import { loadIndex, readEntry } from '../src/main/services/vpkIndex'
+import { loadIndex, readEntry } from '../src/main/services/dota/vpkService'
 
 function arg(name: string, fallback?: string): string | undefined {
   const i = process.argv.indexOf(name)
@@ -39,7 +39,7 @@ function printReceipt(r: AssetReceipt): void {
   console.log(`\n${r.item.id}  ${r.item.name}   (${r.item.hero} / ${r.item.slot})`)
   console.log(`   delivery: ${r.kind}`)
   if (r.kind === 'prepared') {
-    console.log('   NOTE: swaps the hero body. A copied file will not animate — this needs an')
+    console.log('   NOTE: swaps the hero body. A copied file will not animate â€” this needs an')
     console.log('         authored model (mesh merged onto the hero skeleton, own animations).')
   }
   console.log(`   lands on block ${r.target.id} "${r.target.name}"`)
@@ -58,7 +58,7 @@ function printReceipt(r: AssetReceipt): void {
 
 /**
  * Walk every catalog item once and count what it actually carries: a model, particles,
- * spawns, sounds, model rewrites. Text only — no file reads — so it finishes in seconds.
+ * spawns, sounds, model rewrites. Text only â€” no file reads â€” so it finishes in seconds.
  */
 function scanCatalog(schemaText: string): void {
   const spans = readItemsSection(schemaText).blocks
@@ -130,7 +130,7 @@ function scanCatalog(schemaText: string): void {
 
 /**
  * Every catalog item that swaps the hero's whole body, i.e. the ones that need an authored
- * model rather than a copied file. Text-only pass — same rule the receipt uses, but it does
+ * model rather than a copied file. Text-only pass â€” same rule the receipt uses, but it does
  * not walk any files, so it can cover the whole catalog in a second.
  */
 function listPrepared(schemaText: string): void {
