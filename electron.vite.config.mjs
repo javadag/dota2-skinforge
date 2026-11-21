@@ -46,10 +46,12 @@ function serveStaticFolder(prefix, folderPath) {
 function copyStaticFolderPlugin(items, cleanDirs = []) {
   return {
     name: 'copy-static-assets-on-build',
-    closeBundle() {
+    buildStart() {
       for (const dir of cleanDirs) {
         fs.rmSync(dir, { recursive: true, force: true })
       }
+    },
+    closeBundle() {
       for (const { src, dests } of items) {
         if (!fs.existsSync(src)) continue
         for (const dest of dests) {
@@ -116,12 +118,7 @@ export default defineConfig({
             dests: [resolve(projectRoot, 'out/assets/categories')]
           }
         ],
-        [
-          resolve(projectRoot, 'out/assets'),
-          resolve(projectRoot, 'out/data'),
-          resolve(projectRoot, 'out/renderer/assets'),
-          resolve(projectRoot, 'out/renderer/data')
-        ]
+        [resolve(projectRoot, 'out/assets'), resolve(projectRoot, 'out/data'), resolve(projectRoot, 'out/renderer/data')]
       ),
       tightenProductionCspPlugin()
     ],
