@@ -43,7 +43,7 @@
     "format": "prettier --write \"src/**/*.{js,ts,tsx,css,html}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,tsx,css,html}\"",
     "typecheck": "tsc -b --noEmit",
-    "test": "tsx --test test/*.test.ts",
+    "test": "tsx --test test",
     "prepare": "husky"
   },
   "keywords": [
