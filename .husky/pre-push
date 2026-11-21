@@ -1,0 +1,13 @@
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/tags/v*)
+      if [ "$local_ref" != "(delete)" ]; then
+        if ! git diff --quiet "$local_sha" -- package.json data/cosmetic-assets.json data/cosmetic-packages.json; then
+          echo "The release tag does not contain the package version and manifests in this checkout." >&2
+          exit 1
+        fi
+        npm run check:assets -- --local --tag "${remote_ref#refs/tags/}" || exit $?
+      fi
+      ;;
+  esac
+done

@@ -3,6 +3,14 @@ out/
 dist/
 build/
 data/
+docs/
+tools/
+scratch*/
+.cache/
+.state/
+.codex_tmp/
+.staging_*/
+assets/ability-icons.json
 package-lock.json
 *.zip
 *.vpk

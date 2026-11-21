@@ -13,8 +13,21 @@ files:
 extraResources:
   - from: data
     to: data
+    filter:
+      - '**/*'
+      - '!itemStyles.json'
   - from: assets
     to: assets
+    filter:
+      - icon.ico
+      - icon-pack.tar.br
+      - icon-pack.json
+      - ability-icons.tar.br
+      - ability-icons.json
+  - from: .cache/wearable-merger
+    to: tools
+    filter:
+      - wearable-merger.exe
 
 win:
   icon: assets/icon.ico

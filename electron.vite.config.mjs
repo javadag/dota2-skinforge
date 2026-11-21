@@ -43,16 +43,32 @@ function serveStaticFolder(prefix, folderPath) {
   }
 }
 
-function copyStaticFolderPlugin(items) {
+function copyStaticFolderPlugin(items, cleanDirs = []) {
   return {
     name: 'copy-static-assets-on-build',
     closeBundle() {
+      for (const dir of cleanDirs) {
+        fs.rmSync(dir, { recursive: true, force: true })
+      }
       for (const { src, dests } of items) {
         if (!fs.existsSync(src)) continue
         for (const dest of dests) {
-          fs.mkdirSync(dest, { recursive: true })
+          fs.mkdirSync(fs.statSync(src).isFile() ? resolve(dest, '..') : dest, { recursive: true })
           fs.cpSync(src, dest, { recursive: true })
         }
+      }
+    }
+  }
+}
+
+function tightenProductionCspPlugin() {
+  return {
+    name: 'tighten-production-csp',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html) {
+        return html.replace("script-src 'self' 'unsafe-inline'", "script-src 'self'")
       }
     }
   }
@@ -85,17 +101,29 @@ export default defineConfig({
       react(),
       tailwindcss(),
       serveStaticFolder('assets', resolve(projectRoot, 'assets')),
-      serveStaticFolder('data', resolve(projectRoot, 'data')),
-      copyStaticFolderPlugin([
-        {
-          src: resolve(projectRoot, 'assets'),
-          dests: [resolve(projectRoot, 'out/renderer/assets'), resolve(projectRoot, 'out/assets')]
-        },
-        {
-          src: resolve(projectRoot, 'data'),
-          dests: [resolve(projectRoot, 'out/renderer/data'), resolve(projectRoot, 'out/data')]
-        }
-      ])
+      copyStaticFolderPlugin(
+        [
+          {
+            src: resolve(projectRoot, 'assets/icon.png'),
+            dests: [resolve(projectRoot, 'out/renderer/assets/icon.png')]
+          },
+          {
+            src: resolve(projectRoot, 'assets/heroes'),
+            dests: [resolve(projectRoot, 'out/assets/heroes')]
+          },
+          {
+            src: resolve(projectRoot, 'assets/categories'),
+            dests: [resolve(projectRoot, 'out/assets/categories')]
+          }
+        ],
+        [
+          resolve(projectRoot, 'out/assets'),
+          resolve(projectRoot, 'out/data'),
+          resolve(projectRoot, 'out/renderer/assets'),
+          resolve(projectRoot, 'out/renderer/data')
+        ]
+      ),
+      tightenProductionCspPlugin()
     ],
     server: {
       fs: {

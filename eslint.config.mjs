@@ -11,9 +11,17 @@ export default [
       'node_modules/**',
       'data/**',
       'tools/**',
+      'docs/**',
+      'scratch*/**',
+      '.cache/**',
+      '.state/**',
+      '.codex_tmp/**',
       '.staging_pack/**',
+      '.staging_pack_out/**',
       '.staging_icons/**',
+      '.staging_schema-*/**',
       '.superpowers/**',
+      '.claude/**',
       'package-lock.json'
     ]
   },

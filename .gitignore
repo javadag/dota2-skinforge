@@ -15,13 +15,17 @@ release/
 .staging_pack/
 .staging_pack_out/
 .staging_icons/
-.staging_styles/
 .staging_schema-*/
 .state/
+updates/
+skinforge_pack/
 scratch*
-scratch_*.txt
-# Standalone Binaries
-tools/*.dll
+# Standalone binaries and generated tool files
+tools/*
+!tools/wearable-merger/
+tools/wearable-merger/*
+!tools/wearable-merger/Program.cs
+!tools/wearable-merger/wearable-merger.csproj
 *.temp
 temp/
 tmp/
@@ -37,6 +41,7 @@ lerna-debug.log*
 
 # Cache
 .cache/
+.codex_tmp/
 
 # Electron Crash Reports
 CrashDumps/
@@ -57,6 +62,7 @@ desktop.ini
 !.vscode/settings.json
 !.vscode/extensions.json
 .idea/
+.claude/
 *.sublime-project
 *.sublime-workspace
 *.suo
@@ -68,6 +74,7 @@ desktop.ini
 # Executable binaries
 *.exe
 
-# Local documentation
-docs/
+# Local investigation archive (core docs/ guides are tracked)
+docs/d2c-investigation/
 
+exceptions.txt

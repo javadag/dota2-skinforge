@@ -16,16 +16,10 @@
     "src/main/**/*",
     "src/preload/**/*",
     "src/shared/**/*",
-    "src/data/**/*",
     "scripts/**/*",
     "test/**/*",
-    // The armory resolver and the set hydration live in the renderer but are unit tested
-    // from `test/`; listing them (and what they import) here keeps those tests inside the
-    // type check.
-    "src/renderer/components/slotGenerator.ts",
-    "src/renderer/utils/heroSets.ts",
-    "src/renderer/utils/itemImages.ts",
-    "src/renderer/env.d.ts",
+    "src/renderer/state/**/*.ts",
+    "src/renderer/utils/**/*.ts",
     "workers/**/*",
     "electron.vite.config.*",
     "package.json"

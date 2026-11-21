@@ -1,433 +1,510 @@
 {
-  "version": 1,
-  "generatedAt": "2026-11-10T01:42:27.102Z",
+  "version": 2,
+  "generatedAt": "2026-11-21T18:05:00.765Z",
   "baseUrl": "cosmetic-assets/packages",
   "packages": {
-    "antimage": {
-      "file": "antimage.tar.br",
-      "version": "1.0.1",
-      "sha256": "ae5264550a5cd2b3aa74654c6c3e7974061fd28aacdb46267ef2f01b2625c0b5",
-      "size": 4875651,
-      "uncompressedSize": 14969776,
-      "fileCount": 52,
-      "dependencies": [
-        "_global"
-      ]
-    },
     "axe": {
-      "file": "axe.tar.br",
-      "version": "1.0.1",
-      "sha256": "fa3005b8ba10fa066eaf3e400a750525ddc3a850321972ed5dbfe078d92729a0",
-      "size": 1100223,
-      "uncompressedSize": 2445465,
-      "fileCount": 8,
+      "file": "axe-fa393a9ea2ba8e61b72a9719741a574a9a8a68daef993b4f84a2ed4d91b88eb8.tar.br",
+      "version": "fa393a9ea2ba",
+      "sha256": "fa393a9ea2ba8e61b72a9719741a574a9a8a68daef993b4f84a2ed4d91b88eb8",
+      "sourceSha256": "94c6e64cc6d8960f320f564068f688f8ffbc5e37d8850850d459759759090004",
+      "size": 1117890,
+      "fileCount": 7,
+      "uncompressedSize": 2462271,
       "dependencies": [
         "_global"
       ]
     },
     "axe_persona": {
-      "file": "axe_persona.tar.br",
-      "version": "1.0.1",
-      "sha256": "b05d8240ab71e4dfe92648e78b297b6ef8046272be932c56c83cf4ecc7b0fe38",
-      "size": 1206651,
-      "uncompressedSize": 2167685,
-      "fileCount": 13,
+      "file": "axe_persona-dfb72bdcc829d9872b8167908a89a5b39f36be6112159bc31dc688cb5ab87a3a.tar.br",
+      "version": "dfb72bdcc829",
+      "sha256": "dfb72bdcc829d9872b8167908a89a5b39f36be6112159bc31dc688cb5ab87a3a",
+      "sourceSha256": "3d1a69fa0ca205c7bf38b90c09aaf95ef975f4f8f27858b56c597ea923253308",
+      "size": 1058995,
+      "fileCount": 6,
+      "uncompressedSize": 1946087,
       "dependencies": [
         "_global"
       ]
     },
     "bristleback": {
-      "file": "bristleback.tar.br",
-      "version": "1.0.1",
-      "sha256": "466e5c3c2720ee86923c92756842ff6f92cfe532d8507d697ec0fd8967afc2c2",
-      "size": 2242536,
-      "uncompressedSize": 5752861,
+      "file": "bristleback-55831b1c0411cb521325ccabafe7d21cee33c00fb89e1526e66a144ef7e1a733.tar.br",
+      "version": "55831b1c0411",
+      "sha256": "55831b1c0411cb521325ccabafe7d21cee33c00fb89e1526e66a144ef7e1a733",
+      "sourceSha256": "05ee1f1a01df92563613786f87f9dd0710252287f741074bff39dbdb3df2f0a3",
+      "size": 2193689,
       "fileCount": 8,
-      "dependencies": [
-        "_global"
-      ]
-    },
-    "crystal_maiden": {
-      "file": "crystal_maiden.tar.br",
-      "version": "1.0.1",
-      "sha256": "e72a86db12f2f4f7ddd92dbf5bc679d1eea742d927d354b303587480967139d2",
-      "size": 1636978,
-      "uncompressedSize": 2857348,
-      "fileCount": 12,
+      "uncompressedSize": 8950870,
       "dependencies": [
         "_global"
       ]
     },
     "crystal_maiden_persona": {
-      "file": "crystal_maiden_persona.tar.br",
-      "version": "1.0.1",
-      "sha256": "fa300eeea8a1ae075ad2b096c87e52c3d881cf62511a5f045f366b4bc67236df",
-      "size": 2778257,
-      "uncompressedSize": 8262076,
-      "fileCount": 13,
+      "file": "crystal_maiden_persona-c73d555bbe17c3717f5d55cd991e5a7bb5d6455fc613eee91006b777f2d46726.tar.br",
+      "version": "c73d555bbe17",
+      "sha256": "c73d555bbe17c3717f5d55cd991e5a7bb5d6455fc613eee91006b777f2d46726",
+      "sourceSha256": "c4d7c3b57cd079085cd8b10de0b89b52021847d2baa88db9e8488ec5361ce1bd",
+      "size": 1993016,
+      "fileCount": 7,
+      "uncompressedSize": 7532216,
       "dependencies": [
         "_global"
       ]
     },
     "dragon_knight": {
-      "file": "dragon_knight.tar.br",
-      "version": "1.0.1",
-      "sha256": "c882c594bcf05c5495d975b857a396742e36efb2230ac261392c6a0c58178dc0",
-      "size": 5478746,
-      "uncompressedSize": 11979215,
+      "file": "dragon_knight-ba515d5126a2b3661514cff56bc88fab23b7d2a2a9ba2196d787d7ec60766972.tar.br",
+      "version": "ba515d5126a2",
+      "sha256": "ba515d5126a2b3661514cff56bc88fab23b7d2a2a9ba2196d787d7ec60766972",
+      "sourceSha256": "55e177a8ce593640744ba4c13e4198656ac90db9a127c5cbfab085b3d7ccbcdf",
+      "size": 5474150,
       "fileCount": 8,
+      "uncompressedSize": 12045522,
       "dependencies": [
         "_global"
       ]
     },
     "drow": {
-      "file": "drow.tar.br",
-      "version": "1.0.1",
-      "sha256": "9d0770000238b41d6121aa1562683962b2dbfedd2b20fa9e58bdf6887e87367e",
-      "size": 21132728,
-      "uncompressedSize": 52744990,
-      "fileCount": 123,
+      "file": "drow-33342e111dc939f2e3bc81dcfb31a7b73192e4953250f616d1b7a848d9afbba0.tar.br",
+      "version": "33342e111dc9",
+      "sha256": "33342e111dc939f2e3bc81dcfb31a7b73192e4953250f616d1b7a848d9afbba0",
+      "sourceSha256": "dc988219c7238f82b1b23f98da1e722da5b350cfea8bf38deba6d9fc823d0c6e",
+      "size": 18359120,
+      "fileCount": 42,
+      "uncompressedSize": 55592004,
       "dependencies": [
         "_global"
       ]
     },
     "earthshaker": {
-      "file": "earthshaker.tar.br",
-      "version": "1.0.1",
-      "sha256": "4b26b9c72cd44bac9dc1491cf265c57b7f6df127c7b9b2fa97e414ba8002a3e0",
-      "size": 6574386,
-      "uncompressedSize": 14382997,
-      "fileCount": 63,
+      "file": "earthshaker-ac99f368f720b7646802d507d46c15cb8dd8a27345799471636893a7a06a9405.tar.br",
+      "version": "ac99f368f720",
+      "sha256": "ac99f368f720b7646802d507d46c15cb8dd8a27345799471636893a7a06a9405",
+      "sourceSha256": "b1c7dd6fe903aa65976bf50479ba9f202abb8529a0a8d95606ffa4a7a28d709e",
+      "size": 3162281,
+      "fileCount": 17,
+      "uncompressedSize": 10542372,
       "dependencies": [
         "_global"
       ]
     },
     "faceless_void": {
-      "file": "faceless_void.tar.br",
-      "version": "1.0.1",
-      "sha256": "fb76858ff566f76315f92abec9f4dc8ffdea912a040ff6aa051771070c80b358",
-      "size": 5712348,
-      "uncompressedSize": 8755289,
-      "fileCount": 41,
+      "file": "faceless_void-54d77631fb32b0f5b64e6626335aa40489f2b866c0dd0f510e0c352397dea2bb.tar.br",
+      "version": "54d77631fb32",
+      "sha256": "54d77631fb32b0f5b64e6626335aa40489f2b866c0dd0f510e0c352397dea2bb",
+      "sourceSha256": "bd1c7215bd250f0a32a9d07f176bf3206f5ccf7737aa4a65466eeec7a998ac8b",
+      "size": 4105027,
+      "fileCount": 9,
+      "uncompressedSize": 12685663,
       "dependencies": [
         "_global"
       ]
     },
     "invoker": {
-      "file": "invoker.tar.br",
-      "version": "1.0.1",
-      "sha256": "1979f21695ceed54969e0dc2e5a73832fb6ea617794e531f09de44f70037c530",
-      "size": 2357967,
-      "uncompressedSize": 3325429,
+      "file": "invoker-ad17ad716339e02f20db41183b41db8123ba67ca4a4b802087da70a0a2e18f1b.tar.br",
+      "version": "ad17ad716339",
+      "sha256": "ad17ad716339e02f20db41183b41db8123ba67ca4a4b802087da70a0a2e18f1b",
+      "sourceSha256": "b3424819dd660c2923ab09b863c932f65dce6c0e1f22c17cb32d1632c17446eb",
+      "size": 2276912,
       "fileCount": 22,
+      "uncompressedSize": 6287045,
       "dependencies": [
         "_global"
       ]
     },
     "juggernaut": {
-      "file": "juggernaut.tar.br",
-      "version": "1.0.1",
-      "sha256": "701174e20730a53086b077e2e666128a678a99ff2db7744a83cb005586751e90",
-      "size": 1849840,
-      "uncompressedSize": 3655935,
+      "file": "juggernaut-2bb4976c8b3a614a7f2a707a0bd296785cad037f71ed5198121cb889c0896971.tar.br",
+      "version": "2bb4976c8b3a",
+      "sha256": "2bb4976c8b3a614a7f2a707a0bd296785cad037f71ed5198121cb889c0896971",
+      "sourceSha256": "222ecd3a95f412d5114c41dacb67e3f51bd307b4b71191a671188d1326b29cc4",
+      "size": 2832528,
       "fileCount": 7,
+      "uncompressedSize": 10690060,
       "dependencies": [
         "_global"
       ]
     },
     "legion_commander": {
-      "file": "legion_commander.tar.br",
-      "version": "1.0.1",
+      "file": "legion_commander-fb842fe42bdfa1c77af7b25c84e336f831e2dfd3b547c02c4b73ef8365735713.tar.br",
+      "version": "fb842fe42bdf",
       "sha256": "fb842fe42bdfa1c77af7b25c84e336f831e2dfd3b547c02c4b73ef8365735713",
+      "sourceSha256": "e9b10885e7515dc5ee94642ba1282c4bc57ace6cc703ae613c06ff74e1324f8d",
       "size": 960062,
-      "uncompressedSize": 4540061,
       "fileCount": 3,
+      "uncompressedSize": 4540061,
       "dependencies": [
         "_global"
       ]
     },
     "legion_commander_persona": {
-      "file": "legion_commander_persona.tar.br",
-      "version": "1.0.1",
-      "sha256": "03e7472bc6c2e508d31c35189cc7f8001bdf6121832517b603f39b7183ecbd5c",
-      "size": 1573434,
-      "uncompressedSize": 3452791,
-      "fileCount": 13,
+      "file": "legion_commander_persona-73a9cd998c427221aac60aace06c6f17046541144b44a1a92105fb8b908b103a.tar.br",
+      "version": "73a9cd998c42",
+      "sha256": "73a9cd998c427221aac60aace06c6f17046541144b44a1a92105fb8b908b103a",
+      "sourceSha256": "9d134411153e87d9f1fd0b7eb4e3f4476cd53bc5ea4d9dfdbc80d93743f1a6e4",
+      "size": 1119477,
+      "fileCount": 7,
+      "uncompressedSize": 5613665,
       "dependencies": [
         "_global"
       ]
     },
     "lina": {
-      "file": "lina.tar.br",
-      "version": "1.0.1",
-      "sha256": "8679429b6252bb2060d4bcca53337954af13b698d45d672bff4c455d0c67f077",
-      "size": 4566,
-      "uncompressedSize": 10228,
+      "file": "lina-eb44827b109c2f5072372d948e3247cfc7cc47e02eb95945a63a46e1b93356e9.tar.br",
+      "version": "eb44827b109c",
+      "sha256": "eb44827b109c2f5072372d948e3247cfc7cc47e02eb95945a63a46e1b93356e9",
+      "sourceSha256": "71e032422a2fefad4306c19f839d8e3a4eab2d2279deca5f073542e8b4e3d948",
+      "size": 4586,
       "fileCount": 3,
+      "uncompressedSize": 10296,
       "dependencies": [
         "_global"
       ]
     },
     "mirana": {
-      "file": "mirana.tar.br",
-      "version": "1.0.1",
-      "sha256": "03cee9bdc34c6ed91eaa73856bbf20513defec828d6c5d6362648194be26ac79",
-      "size": 2758364,
-      "uncompressedSize": 6121884,
+      "file": "mirana-62ad7d53ce51c6f03aae0a358dd6232b0e0f326f99165a313d30c0ea710d26a0.tar.br",
+      "version": "62ad7d53ce51",
+      "sha256": "62ad7d53ce51c6f03aae0a358dd6232b0e0f326f99165a313d30c0ea710d26a0",
+      "sourceSha256": "2b14910f776485c340762c02f644eb85ed8301070ac28bf5a4560411650a26dd",
+      "size": 2608085,
       "fileCount": 8,
+      "uncompressedSize": 8891415,
       "dependencies": [
         "_global"
       ]
     },
     "monkey_king": {
-      "file": "monkey_king.tar.br",
-      "version": "1.0.1",
-      "sha256": "9573ed3ae6e61444043871baee4c52a0bdfec4bde9aea4d529ea2cc14f936d33",
-      "size": 10537025,
-      "uncompressedSize": 24180219,
-      "fileCount": 33,
+      "file": "monkey_king-d29bcba64654638dd26a4afe9af548c6d1a5bb4bed1744eaf645af980204c915.tar.br",
+      "version": "d29bcba64654",
+      "sha256": "d29bcba64654638dd26a4afe9af548c6d1a5bb4bed1744eaf645af980204c915",
+      "sourceSha256": "32e3cb9fc1c2e1e35f2319f3c11a1df2131670cd38cc49b169c0b1826ef4811e",
+      "size": 9495494,
+      "fileCount": 17,
+      "uncompressedSize": 21069906,
       "dependencies": [
         "_global"
       ]
     },
     "morphling": {
-      "file": "morphling.tar.br",
-      "version": "1.0.1",
-      "sha256": "0c1626c6282415886dd4bb06107e699b2feed7222329383575e381fb7ad26c1b",
-      "size": 2137367,
-      "uncompressedSize": 5880750,
+      "file": "morphling-d1031faa291b27827678932455b29a17a29b05a567f87dcb1aeeeaf261570ec1.tar.br",
+      "version": "d1031faa291b",
+      "sha256": "d1031faa291b27827678932455b29a17a29b05a567f87dcb1aeeeaf261570ec1",
+      "sourceSha256": "3a5bf09094bbf870533a1d2e84eee54fc4253ab3ba867bbdd995acca766ec8a1",
+      "size": 2018641,
       "fileCount": 7,
+      "uncompressedSize": 9326961,
       "dependencies": [
         "_global"
       ]
     },
     "ogre_magi": {
-      "file": "ogre_magi.tar.br",
-      "version": "1.0.1",
-      "sha256": "48b6e75d06196dee8889218f4aab540f8486972f1652415e665b125144fbaddd",
-      "size": 13457349,
-      "uncompressedSize": 51667694,
-      "fileCount": 72,
+      "file": "ogre_magi-4b9232256d0f225541f0ab1cc3144c22b52011de23c36970c99619ca41b73d68.tar.br",
+      "version": "4b9232256d0f",
+      "sha256": "4b9232256d0f225541f0ab1cc3144c22b52011de23c36970c99619ca41b73d68",
+      "sourceSha256": "706aa3908ba816479fb8c48c174a83fcb718ae9811ed0edc3c3c0101cdbe94a1",
+      "size": 11551491,
+      "fileCount": 61,
+      "uncompressedSize": 56589758,
       "dependencies": [
         "_global"
       ]
     },
     "oracle": {
-      "file": "oracle.tar.br",
-      "version": "1.0.1",
-      "sha256": "1a93c4fbb583b652efb4f88f15fb4b28da0f413d3199a078e6b7296ce1510cf9",
-      "size": 2002317,
-      "uncompressedSize": 3558496,
+      "file": "oracle-2d55e34206fd925aa39d901f8397e489d08042a29b419e324e57b9c703aa6bd5.tar.br",
+      "version": "2d55e34206fd",
+      "sha256": "2d55e34206fd925aa39d901f8397e489d08042a29b419e324e57b9c703aa6bd5",
+      "sourceSha256": "9a57ec65dee19e0d322cd21951a195dbf66e2550f6c9a30f49656bb45d2f5b7a",
+      "size": 1770148,
       "fileCount": 11,
+      "uncompressedSize": 8944674,
       "dependencies": [
         "_global"
       ]
     },
     "phantom_assassin": {
-      "file": "phantom_assassin.tar.br",
-      "version": "1.0.1",
-      "sha256": "de15fd127c34ec685c08ca58f32202a55e109e06b4e864e866c5ae2a2db9499e",
-      "size": 753310,
-      "uncompressedSize": 1332432,
+      "file": "phantom_assassin-3b4111e203549a98639bb853ad17b329e143fd645dc99274b55e24c4e92246a7.tar.br",
+      "version": "3b4111e20354",
+      "sha256": "3b4111e203549a98639bb853ad17b329e143fd645dc99274b55e24c4e92246a7",
+      "sourceSha256": "b0d528c0bfb495db7be143ee05c018f94b38fe2a116fddcfe0600a03ecd5d9a1",
+      "size": 720387,
       "fileCount": 11,
+      "uncompressedSize": 2312613,
       "dependencies": [
         "_global"
       ]
     },
     "phantom_assassin_persona": {
-      "file": "phantom_assassin_persona.tar.br",
-      "version": "1.0.1",
-      "sha256": "0eb381f4f347de5f649aaf9b6caf624682a706efc341447a86476af83257102c",
-      "size": 2626336,
-      "uncompressedSize": 5355102,
-      "fileCount": 13,
+      "file": "phantom_assassin_persona-08914297f8e2c04322da04b395e734ea4aa17893d1966df10b3aa85eef24eb82.tar.br",
+      "version": "08914297f8e2",
+      "sha256": "08914297f8e2c04322da04b395e734ea4aa17893d1966df10b3aa85eef24eb82",
+      "sourceSha256": "7e8cee6c2a3e542ef26f12bf8dba05515ddae0d558dabe2aa79c1e7aace4818a",
+      "size": 2584937,
+      "fileCount": 12,
+      "uncompressedSize": 7729760,
       "dependencies": [
         "_global"
       ]
     },
     "pudge": {
-      "file": "pudge.tar.br",
-      "version": "1.0.1",
-      "sha256": "c1af7f014c903438b9ada8b6f6c1ddc38374bcd0345ec66f1bdb8ec05d2b315e",
-      "size": 15131560,
-      "uncompressedSize": 16001885,
-      "fileCount": 45,
+      "file": "pudge-eadc4da0321eb35b9620c45e5e7e9f73cfcf2081148ed45afdf16730e9db220f.tar.br",
+      "version": "eadc4da0321e",
+      "sha256": "eadc4da0321eb35b9620c45e5e7e9f73cfcf2081148ed45afdf16730e9db220f",
+      "sourceSha256": "567360126289658eadbdaf580375f2cfa537684b0b3c6a330f80c15668ee7585",
+      "size": 14001605,
+      "fileCount": 39,
+      "uncompressedSize": 17759965,
       "dependencies": [
         "_global"
       ]
     },
     "pudge_persona": {
-      "file": "pudge_persona.tar.br",
-      "version": "1.0.1",
-      "sha256": "91c8d11f7165c5f93f94c14a2814ed47e6bba3785b2438a874a3a6366c398bf2",
-      "size": 2894437,
-      "uncompressedSize": 5051776,
-      "fileCount": 22,
+      "file": "pudge_persona-961b4c95702189f7be54c3bfa995de09471991f9f8bcdca47a22eebf8d2f63a3.tar.br",
+      "version": "961b4c957021",
+      "sha256": "961b4c95702189f7be54c3bfa995de09471991f9f8bcdca47a22eebf8d2f63a3",
+      "sourceSha256": "2ad47b58a880c71affc7b829950e52a789b835287ef07dd3790a01959da2b837",
+      "size": 1911273,
+      "fileCount": 15,
+      "uncompressedSize": 6386296,
       "dependencies": [
         "_global"
       ]
     },
     "queenofpain": {
-      "file": "queenofpain.tar.br",
-      "version": "1.0.1",
-      "sha256": "7975c2e24123578d6b37354260b1fcfe9c079d407c61245c59b739816a9c53bd",
-      "size": 10758466,
-      "uncompressedSize": 17852192,
-      "fileCount": 58,
+      "file": "queenofpain-82c69cc70bcdc04175bda6bb92d82e8a4ad60584793e8e6727b8f0d9979a186d.tar.br",
+      "version": "82c69cc70bcd",
+      "sha256": "82c69cc70bcdc04175bda6bb92d82e8a4ad60584793e8e6727b8f0d9979a186d",
+      "sourceSha256": "65347be9b59fe01fb30df6344153c92740ba095fdb77615e27aac8e63c1adefe",
+      "size": 9602921,
+      "fileCount": 30,
+      "uncompressedSize": 17826133,
       "dependencies": [
         "_global"
       ]
     },
     "razor": {
-      "file": "razor.tar.br",
-      "version": "1.0.1",
-      "sha256": "9d846131c295e7302e4f15e08649ece705951ed95618afb68e88a7882475b23d",
-      "size": 2067078,
-      "uncompressedSize": 2913505,
-      "fileCount": 16,
+      "file": "razor-4eb4a99b921f739a14e6609d9996bf9d3171f749f42cfff7290eb0e27422f090.tar.br",
+      "version": "4eb4a99b921f",
+      "sha256": "4eb4a99b921f739a14e6609d9996bf9d3171f749f42cfff7290eb0e27422f090",
+      "sourceSha256": "0cc71647f8a211c4b70d4b46b7763583917057c0bfb0a6bd7189982f9d9845b6",
+      "size": 1831783,
+      "fileCount": 11,
+      "uncompressedSize": 5375535,
       "dependencies": [
         "_global"
       ]
     },
     "rubick": {
-      "file": "rubick.tar.br",
-      "version": "1.0.1",
-      "sha256": "0227e4aa608732162273c57ee6f8b6f7a6917a04975fa32a5beefbdcc6b6d4a0",
-      "size": 7092727,
-      "uncompressedSize": 11218084,
+      "file": "rubick-9c8661e9f185332d707e59e5cbe0dc52d94c2a5d11101f9f376297533e7172b8.tar.br",
+      "version": "9c8661e9f185",
+      "sha256": "9c8661e9f185332d707e59e5cbe0dc52d94c2a5d11101f9f376297533e7172b8",
+      "sourceSha256": "d4c2eff0a54fea7223dd1021e5ec45aabbb9dccc5955881f5edd0836e536bff2",
+      "size": 6701771,
       "fileCount": 1365,
+      "uncompressedSize": 25543035,
       "dependencies": [
         "_global"
       ]
     },
     "shadow_fiend": {
-      "file": "shadow_fiend.tar.br",
-      "version": "1.0.1",
-      "sha256": "5eb1c0ca192cfb0946de9eaa4eafa92fbc733717034c1a9ecd51f5f3ffd619f7",
-      "size": 1066191,
-      "uncompressedSize": 1548563,
+      "file": "shadow_fiend-b5dea4c2eb18af9445935639525687b3449093e657423c2c4fddd1c9b4b45a9e.tar.br",
+      "version": "b5dea4c2eb18",
+      "sha256": "b5dea4c2eb18af9445935639525687b3449093e657423c2c4fddd1c9b4b45a9e",
+      "sourceSha256": "9368026a4c727bb8a7dc493f0f955cc2b9cac74e346f9330d5875251e826ad24",
+      "size": 1019234,
       "fileCount": 8,
+      "uncompressedSize": 3848441,
       "dependencies": [
         "_global"
       ]
     },
     "skywrath_mage": {
-      "file": "skywrath_mage.tar.br",
-      "version": "1.0.1",
-      "sha256": "93da27d3efea79ebb36b66a0cc1074c209040e8d8e722ad191422683c988b918",
-      "size": 5664445,
-      "uncompressedSize": 16982021,
-      "fileCount": 34,
+      "file": "skywrath_mage-e60f66c4b4f84e086c4980bbd9ef0fd4fa5e566669c38dd5c3d1c4b84b378f66.tar.br",
+      "version": "e60f66c4b4f8",
+      "sha256": "e60f66c4b4f84e086c4980bbd9ef0fd4fa5e566669c38dd5c3d1c4b84b378f66",
+      "sourceSha256": "8256e617d4bc60be3bb7b2fea2a90c75d253efe260d221e5abc8abec709bd71b",
+      "size": 5417010,
+      "fileCount": 12,
+      "uncompressedSize": 25055566,
       "dependencies": [
         "_global"
       ]
     },
     "spectre": {
-      "file": "spectre.tar.br",
-      "version": "1.0.1",
-      "sha256": "130af6cbf2de14d8e1cde0b3b9a70762f2838554b4169206cafe635cedec7dd0",
-      "size": 2346511,
-      "uncompressedSize": 6314300,
-      "fileCount": 34,
+      "file": "spectre-2c04a40672ebbec10a81c740ab27cbe29c064ccb65c20648f142cb263fd3e9d0.tar.br",
+      "version": "2c04a40672eb",
+      "sha256": "2c04a40672ebbec10a81c740ab27cbe29c064ccb65c20648f142cb263fd3e9d0",
+      "sourceSha256": "ffd07f93a1d138aedd51910ac1f74fcd838b89360714180313cdf8c674a7b346",
+      "size": 3600403,
+      "fileCount": 19,
+      "uncompressedSize": 11074947,
       "dependencies": [
         "_global"
       ]
     },
     "techies_arcana": {
-      "file": "techies_arcana.tar.br",
-      "version": "1.0.1",
-      "sha256": "bdff8f13d702071c3c2f0adecb7b994c77d547418ee31e59f93e8f9cdd9636eb",
-      "size": 2549288,
-      "uncompressedSize": 11108350,
-      "fileCount": 98,
+      "file": "techies_arcana-010f8d04619f3f2380dcc7fdbe646dd90e6f4ec5a0c39b0cc8c6b4df76a628d5.tar.br",
+      "version": "010f8d04619f",
+      "sha256": "010f8d04619f3f2380dcc7fdbe646dd90e6f4ec5a0c39b0cc8c6b4df76a628d5",
+      "sourceSha256": "5a812f220d3b9ce90d9d29f114c9e49d540224ed751fc28277919a6ea5c1d1dd",
+      "size": 2116742,
+      "fileCount": 91,
+      "uncompressedSize": 13717954,
       "dependencies": [
         "_global"
       ]
     },
     "terrorblade": {
-      "file": "terrorblade.tar.br",
-      "version": "1.0.1",
-      "sha256": "e5dfe35f4ee9bfce3d4d672215377f6aed6a00a28f0ac2c9fb075c62ceb83829",
-      "size": 15938371,
-      "uncompressedSize": 30276358,
+      "file": "terrorblade-0c06f7463b959cc5fc39b1306de02d59ad8c773c48936cbce787428ce91a9992.tar.br",
+      "version": "0c06f7463b95",
+      "sha256": "0c06f7463b959cc5fc39b1306de02d59ad8c773c48936cbce787428ce91a9992",
+      "sourceSha256": "51f950e58b088754f94401310054d72dd5c7c23d24b1c5a109974bac3e370dda",
+      "size": 15897950,
       "fileCount": 359,
+      "uncompressedSize": 31177885,
       "dependencies": [
         "_global"
       ]
     },
     "tidehunter": {
-      "file": "tidehunter.tar.br",
-      "version": "1.0.1",
-      "sha256": "bddefee3a1233656c2c9e13a74b4e2197120aed985375c2d949d1433439052d3",
-      "size": 9493636,
-      "uncompressedSize": 34916920,
-      "fileCount": 31,
+      "file": "tidehunter-43697af9096b150cf02176033c0fa51e33d59cf3cd1cc34828d6601f88f113bb.tar.br",
+      "version": "43697af9096b",
+      "sha256": "43697af9096b150cf02176033c0fa51e33d59cf3cd1cc34828d6601f88f113bb",
+      "sourceSha256": "cda4cda49bb8873be93fbe0e36176dc6db53d452f173ca57644e54f9aea5a0e4",
+      "size": 5926590,
+      "fileCount": 7,
+      "uncompressedSize": 22634632,
       "dependencies": [
         "_global"
       ]
     },
     "vengeful": {
-      "file": "vengeful.tar.br",
-      "version": "1.0.1",
-      "sha256": "5f4559429a1abd9c42844c555b2d4a9b7cddac518a64f4bf9713841d7660faa6",
-      "size": 20037588,
-      "uncompressedSize": 43665922,
-      "fileCount": 92,
+      "file": "vengeful-b35b8ee3b0baba849e6e65d0f0d18a3b68ae38a93711ada7af00a64d628beecd.tar.br",
+      "version": "b35b8ee3b0ba",
+      "sha256": "b35b8ee3b0baba849e6e65d0f0d18a3b68ae38a93711ada7af00a64d628beecd",
+      "sourceSha256": "a0a1d50b5ae5d7946c1fe05e774031d75867ebca2b967fa2a848f14e5a6d7353",
+      "size": 12149405,
+      "fileCount": 17,
+      "uncompressedSize": 39668374,
       "dependencies": [
         "_global"
       ]
     },
     "windrunner": {
-      "file": "windrunner.tar.br",
-      "version": "1.0.1",
-      "sha256": "4ed6275d562ee2bcc9fb01c5cfc47471e214b6858f0d3f00b5844a66abde26ab",
-      "size": 8965817,
-      "uncompressedSize": 16481935,
-      "fileCount": 80,
+      "file": "windrunner-a11e570dd05c2a3038720bf730a602569d4bd52f5b97051409731093e6786515.tar.br",
+      "version": "a11e570dd05c",
+      "sha256": "a11e570dd05c2a3038720bf730a602569d4bd52f5b97051409731093e6786515",
+      "sourceSha256": "38fed0724f67902a3d46660aebcb241f06af9459a75deb41f170c1a4ce1fa875",
+      "size": 6080995,
+      "fileCount": 33,
+      "uncompressedSize": 20331718,
       "dependencies": [
         "_global"
       ]
     },
     "wisp": {
-      "file": "wisp.tar.br",
-      "version": "1.0.1",
-      "sha256": "d14e7f3a4ebb7a51627bf02015ecc54b6afbe864006fec7bce325ded73e2f348",
-      "size": 159048,
-      "uncompressedSize": 238849,
-      "fileCount": 10,
+      "file": "wisp-dca1f697d92ff08daab5213283f902dcc3d670af0b148f1edfb50c2a42184207.tar.br",
+      "version": "dca1f697d92f",
+      "sha256": "dca1f697d92ff08daab5213283f902dcc3d670af0b148f1edfb50c2a42184207",
+      "sourceSha256": "ae2539980282be2f8adb907cf4a17dcf33b0f0af7b8652fc89219f64f31856d4",
+      "size": 829890,
+      "fileCount": 19,
+      "uncompressedSize": 1368478,
       "dependencies": [
         "_global"
       ]
     },
     "wraith_king": {
-      "file": "wraith_king.tar.br",
-      "version": "1.0.1",
-      "sha256": "8a310c45f6f21dd5816e0bc56fdfc3cf413a905609e163ed9f3c44f1b403b84e",
-      "size": 2764052,
-      "uncompressedSize": 9609806,
-      "fileCount": 33,
+      "file": "wraith_king-2c6f210c95c4874ef7413a43fe35830c73f77985504f41f678f250fdc3fae7a0.tar.br",
+      "version": "2c6f210c95c4",
+      "sha256": "2c6f210c95c4874ef7413a43fe35830c73f77985504f41f678f250fdc3fae7a0",
+      "sourceSha256": "3c1ada8de9a8b5dd39a992fab87d7751518b58d4cdb153d75b47a62f635b252d",
+      "size": 2635166,
+      "fileCount": 18,
+      "uncompressedSize": 11776612,
       "dependencies": [
         "_global"
       ]
     },
     "zeus": {
-      "file": "zeus.tar.br",
-      "version": "1.0.1",
-      "sha256": "66780b6bd319052304ae1ff9e6ee7d6e95625a5a45c38a111393a46e70ec5027",
-      "size": 1810,
-      "uncompressedSize": 4709,
+      "file": "zeus-94639fca93ace2cc771be8fbe555281551d79b5f83631ab8932a7bb03561cc27.tar.br",
+      "version": "94639fca93ac",
+      "sha256": "94639fca93ace2cc771be8fbe555281551d79b5f83631ab8932a7bb03561cc27",
+      "sourceSha256": "2d9910c65ae90ab7fbe14854045fe6644c76cb44738b7a4cedffea3717937b06",
+      "size": 3292,
       "fileCount": 2,
+      "uncompressedSize": 12869,
       "dependencies": [
         "_global"
       ]
     },
     "_global": {
-      "file": "_global.tar.br",
-      "version": "1.0.1",
-      "sha256": "db174d543623f7fddf68333ab5f44fda7842d18676f50caca5a89a579ba3fc41",
-      "size": 507879,
-      "uncompressedSize": 1385865,
-      "fileCount": 5
+      "file": "_global-9297da48b2a9ad3a8eb8cd13e58bab33729f8199fc5fb3197188073f693aba47.tar.br",
+      "version": "9297da48b2a9",
+      "sha256": "9297da48b2a9ad3a8eb8cd13e58bab33729f8199fc5fb3197188073f693aba47",
+      "sourceSha256": "ab23286a75365e8f457988dd75f96463e61712f473a6cbb455ac0338283e71e9",
+      "size": 3802,
+      "fileCount": 2,
+      "uncompressedSize": 23753
+    },
+    "antimage": {
+      "file": "antimage-6714a07e1c6f5a7d71c1434a5c8a796440edaeeae9556bb343010d9ece915236.tar.br",
+      "version": "6714a07e1c6f",
+      "sha256": "6714a07e1c6f5a7d71c1434a5c8a796440edaeeae9556bb343010d9ece915236",
+      "sourceSha256": "3633ff7afa6b76d9107fe11cd9e20645875c719e739c54a681c5c260051c3ac1",
+      "size": 3464087,
+      "fileCount": 10,
+      "uncompressedSize": 11985832,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "crystal_maiden": {
+      "file": "crystal_maiden-208b621f5b5a818329c7b45d9e507c55aa71f8325db199046ea75171c2111591.tar.br",
+      "version": "208b621f5b5a",
+      "sha256": "208b621f5b5a818329c7b45d9e507c55aa71f8325db199046ea75171c2111591",
+      "sourceSha256": "295f57f05523eadead04e9cacb24a5e8bbb6871efbc4541c245454b7aea97d1f",
+      "size": 1429871,
+      "fileCount": 6,
+      "uncompressedSize": 2191018,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "death_prophet": {
+      "file": "death_prophet-d5df4b48a8956b99c7489ba543d29b6bda0e8ac42b644fb0c7bfbf7edc9d4970.tar.br",
+      "version": "d5df4b48a895",
+      "sha256": "d5df4b48a8956b99c7489ba543d29b6bda0e8ac42b644fb0c7bfbf7edc9d4970",
+      "sourceSha256": "028d045d227d341fd38d86f6b8ee0b804c6eaf89a13dd1a7e25a59f2caa3daa1",
+      "size": 795,
+      "fileCount": 1,
+      "uncompressedSize": 2148,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "leshrac": {
+      "file": "leshrac-458cb0bba01805d30ed363474ccd3da8f29f283a03c36703296d9ebe9926a2c4.tar.br",
+      "version": "458cb0bba018",
+      "sha256": "458cb0bba01805d30ed363474ccd3da8f29f283a03c36703296d9ebe9926a2c4",
+      "sourceSha256": "a117d5d2158754ae43f3abb9859549f77cd99cafe3527b08c2311f3e26ee6065",
+      "size": 782230,
+      "fileCount": 9,
+      "uncompressedSize": 7960529,
+      "dependencies": [
+        "_global"
+      ]
+    },
+    "night_stalker": {
+      "file": "night_stalker-c0d7b650e9af4097a72c261651c408f4743a864799481ae36351bef6d71e82de.tar.br",
+      "version": "c0d7b650e9af",
+      "sha256": "c0d7b650e9af4097a72c261651c408f4743a864799481ae36351bef6d71e82de",
+      "sourceSha256": "3229225e70c937b3784bd21d71cd8d3a942742cbdd80ca5d13cb509f204257ea",
+      "size": 1346707,
+      "fileCount": 9,
+      "uncompressedSize": 7854604,
+      "dependencies": [
+        "_global"
+      ]
     }
-  }
+  },
+  "appVersion": "1.5.0",
+  "overlaySha256": "b72397678a3368338e0e108bb8cbdfd66594defc9d2f888eca1983771e1e3113"
 }
