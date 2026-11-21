@@ -1,6 +1,6 @@
 /**
- * Universal Valve Hero Internal Aliases Map
- * Maps Dota 2 cosmetic schema internal hero names to UI tags.
+ * Maps UI/display hero and category aliases (e.g. `zeus`, `windranger`, `wraith king`,
+ * `music`) to Valve's internal schema names (`zuus`, `windrunner`, `skeleton_king`, `music_packs`).
  */
 export const HERO_ALIASES: Record<string, string> = {
   zeus: 'zuus',

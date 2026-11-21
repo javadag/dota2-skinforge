@@ -1,40 +1,26 @@
 /**
- * Dota 2 SkinForge — Pipeline Status & Process Detection
+ * Dota 2 SkinForge — Pipeline Status
  */
 
-import { execSync } from 'child_process'
-import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 import { APP_CONFIG } from '../../../shared/constants/appConfig'
-import * as gameinfo from '../gameinfoService'
-import * as signatures from '../signatureService'
+import type { PipelineStatus, ProgressCallback, StepProgress } from '../../../shared/types/ipc'
+import { isDotaRunning, isDotaRunningAsync } from '../dota/dotaService'
+import * as gameinfo from '../dota/gameinfoService'
+import * as signatures from '../dota/signatureService'
+import { assertDirVpk } from '../dota/vpkService'
+
+export { assertDirVpk, isDotaRunning, isDotaRunningAsync }
+export type { PipelineStatus, ProgressCallback, StepProgress }
 
 export const MOD_FOLDER_NAME = APP_CONFIG.modFolder || 'skinforge'
-
-export function isDotaRunning(): boolean {
-  try {
-    const output = execSync('tasklist /FI "IMAGENAME eq dota2.exe" /NH', { encoding: 'utf-8' })
-    return output.toLowerCase().includes('dota2.exe')
-  } catch {
-    return false
-  }
-}
 
 export function getBackupDir(dotaGameDir: string, modFolder = MOD_FOLDER_NAME): string {
   return path.join(dotaGameDir, `${modFolder}.backup`)
 }
 
-export interface PipelineStatus {
-  validDotaDir: boolean
-  dotaRunning: boolean
-  installed: boolean
-  signaturesBypassed: boolean
-  gameinfoConfigured: boolean
-  vpkFileExists?: boolean
-}
-
-export function checkStatus(dotaGameDir?: string | null, modFolder = MOD_FOLDER_NAME): PipelineStatus {
+function buildStatus(dotaGameDir: string | null | undefined, modFolder: string, dotaRunning: boolean): PipelineStatus {
   if (!dotaGameDir || !fs.existsSync(dotaGameDir)) {
     return {
       validDotaDir: false,
@@ -45,24 +31,18 @@ export function checkStatus(dotaGameDir?: string | null, modFolder = MOD_FOLDER_
     }
   }
 
-  const dotaRunning = isDotaRunning()
-  const vpkDir = path.join(dotaGameDir, modFolder)
-  const vpkFile = path.join(vpkDir, 'pak01_dir.vpk')
+  const vpkFile = path.join(dotaGameDir, modFolder, 'pak01_dir.vpk')
   const hasVpk = fs.existsSync(vpkFile)
 
   const giPath = gameinfo.getGameinfoPath(dotaGameDir)
   let gameinfoConfigured = false
+  let giBuffer: Buffer | null = null
   if (fs.existsSync(giPath)) {
-    gameinfoConfigured = fs.readFileSync(giPath, 'utf-8').includes(modFolder)
+    giBuffer = fs.readFileSync(giPath)
+    gameinfoConfigured = gameinfo.hasModEntry(giBuffer.toString('utf-8'), modFolder)
   }
 
-  const sigPath = signatures.getSignaturesPath(dotaGameDir)
-  let signaturesBypassed = false
-  if (fs.existsSync(sigPath) && fs.existsSync(giPath)) {
-    const sigContent = fs.readFileSync(sigPath, 'utf-8')
-    const sha1 = crypto.createHash('sha1').update(fs.readFileSync(giPath)).digest('hex').toUpperCase()
-    signaturesBypassed = sigContent.includes(sha1)
-  }
+  const signaturesBypassed = giBuffer ? signatures.isGameinfoSigned(dotaGameDir, giBuffer) : false
 
   return {
     validDotaDir: true,
@@ -74,23 +54,16 @@ export function checkStatus(dotaGameDir?: string | null, modFolder = MOD_FOLDER_
   }
 }
 
-export interface ProgressCallbackData {
-  step: number
-  total: number
-  message: string
+export function checkStatus(dotaGameDir?: string | null, modFolder = MOD_FOLDER_NAME): PipelineStatus {
+  if (!dotaGameDir || !fs.existsSync(dotaGameDir)) {
+    return buildStatus(dotaGameDir, modFolder, false)
+  }
+  return buildStatus(dotaGameDir, modFolder, isDotaRunning())
 }
 
-export type ProgressCallback = (progress: ProgressCallbackData) => void
-
-export function assertDirVpk(dirVpk: string): void {
-  const header = Buffer.alloc(12)
-  const fd = fs.openSync(dirVpk, 'r')
-  try {
-    fs.readSync(fd, header, 0, 12, 0)
-  } finally {
-    fs.closeSync(fd)
+export async function checkStatusAsync(dotaGameDir?: string | null, modFolder = MOD_FOLDER_NAME): Promise<PipelineStatus> {
+  if (!dotaGameDir || !fs.existsSync(dotaGameDir)) {
+    return buildStatus(dotaGameDir, modFolder, false)
   }
-  if (header.readUInt32LE(0) !== 0x55aa1234 || header.readUInt32LE(4) !== 2) {
-    throw new Error(`Packed dir VPK failed its header check: ${dirVpk}`)
-  }
+  return buildStatus(dotaGameDir, modFolder, await isDotaRunningAsync())
 }

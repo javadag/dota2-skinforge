@@ -141,13 +141,24 @@ function readToken(text: string, c: Cursor): Token {
   return { value: text.slice(start, c.pos), start, end: c.pos }
 }
 
-/** Advance past a balanced `{ ... }` block, respecting quoted strings. */
+/** Advance past a balanced `{ ... }` block, respecting quoted strings and comments. */
 function skipBlock(text: string, c: Cursor): number {
   const start = c.pos
   c.pos++ // consume '{'
   let depth = 1
   while (c.pos < text.length) {
     const ch = text[c.pos]
+    if (ch === '/' && text[c.pos + 1] === '/') {
+      c.pos += 2
+      while (c.pos < text.length && text[c.pos] !== '\n') c.pos++
+      continue
+    }
+    if (ch === '/' && text[c.pos + 1] === '*') {
+      c.pos += 2
+      while (c.pos + 1 < text.length && !(text[c.pos] === '*' && text[c.pos + 1] === '/')) c.pos++
+      c.pos = Math.min(text.length, c.pos + 2)
+      continue
+    }
     if (ch === '"') {
       c.pos++
       while (c.pos < text.length) {
@@ -300,21 +311,9 @@ export function getString(node: VdfNode | undefined, key: string): string | unde
   return entry && !isNode(entry.value) ? entry.value : undefined
 }
 
-export function getStrings(node: VdfNode | undefined, key: string): string[] {
-  return findAll(node, key)
-    .map((entry) => entry.value)
-    .filter((value): value is string => !isNode(value))
-}
-
 export function getNode(node: VdfNode | undefined, key: string): VdfNode | undefined {
   const entry = find(node, key)
   return entry && isNode(entry.value) ? entry.value : undefined
-}
-
-export function getNodes(node: VdfNode | undefined, key: string): VdfNode[] {
-  return findAll(node, key)
-    .map((entry) => entry.value)
-    .filter(isNode)
 }
 
 // ---------------------------------------------------------------------------
@@ -341,10 +340,6 @@ export function setEntry(node: VdfNode, key: string, value: VdfValue): void {
     return
   }
   node.entries.push({ key, value, keyStart: 0, keyEnd: 0, valueStart: 0, valueEnd: 0 })
-}
-
-export function setString(node: VdfNode, key: string, value: string): void {
-  setEntry(node, key, value)
 }
 
 export function removeEntries(node: VdfNode, predicate: (entry: VdfEntry) => boolean): void {

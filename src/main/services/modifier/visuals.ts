@@ -6,7 +6,7 @@
  * per sub-key, so nothing depends on braces, indentation or key order.
  */
 
-import { cloneNode, findAll, getNode, getString, isNode, setEntry, type VdfEntry, type VdfNode } from './vdf'
+import { cloneNode, getNode, getString, isNode, setEntry, type VdfEntry, type VdfNode } from './vdf'
 import { localize, type SchemaIndex } from './schema'
 
 export interface StyleOption {
@@ -112,13 +112,15 @@ export function flattenVisuals(schema: SchemaIndex, visuals: VdfNode, targetStyl
     })
   }
 
-  // If the style declares a skin but no model_skin modifier survived, add one. Skin 0 is
-  // what the model draws by default, so carrying it over would rewrite the block for
-  // nothing.
-  const hasModelSkin = assetModifiers(out).some((entry) => isNode(entry.value) && getString(entry.value, 'type') === 'model_skin')
-  if (!hasModelSkin) {
-    const option = styleOptions(schema, visuals).find((style) => style.index === targetStyle)
-    if (option?.skin !== undefined && option.skin !== 0) {
+  // If the style declares a skin, set `skin` on `visuals` (what Dota 2 reads for
+  // standalone/uncombined wearables) and ensure a `model_skin` modifier is present too.
+  // Skin 0 is what the model draws by default, so carrying it over would rewrite the block
+  // for nothing.
+  const option = styleOptions(schema, visuals).find((style) => style.index === targetStyle)
+  if (option?.skin !== undefined && option.skin !== 0) {
+    setEntry(out, 'skin', String(option.skin))
+    const hasModelSkin = assetModifiers(out).some((entry) => isNode(entry.value) && getString(entry.value, 'type') === 'model_skin')
+    if (!hasModelSkin) {
       out.entries.push({
         key: 'asset_modifier',
         value: {
@@ -140,6 +142,11 @@ export function flattenVisuals(schema: SchemaIndex, visuals: VdfNode, targetStyl
   return out
 }
 
+export function modelForStyle(cosmetic: VdfNode, style: number): string | undefined {
+  const styles = getNode(getNode(cosmetic, 'visuals'), 'styles')
+  return getString(getNode(styles, String(style)), 'model_player') || getString(cosmetic, 'model_player')
+}
+
 /**
  * Copy a cosmetic's visual identity onto a target default item:
  * `model_player`, `particle_folder`, the whole `visuals` block (style-flattened), and
@@ -153,7 +160,7 @@ export function applyVisuals(schema: SchemaIndex, target: VdfNode, cosmetic: Vdf
     throw new Error('applyVisuals requires deep-materialized nodes; call materializeDeep first')
   }
 
-  const model = getString(cosmetic, 'model_player')
+  const model = modelForStyle(cosmetic, targetStyle)
   if (model !== undefined) setEntry(target, 'model_player', model)
 
   const particles = getString(cosmetic, 'particle_folder')
@@ -197,7 +204,9 @@ export function applyHide(target: VdfNode): void {
 
 /** Signature used to recognise an already-present modifier. */
 function modifierSignature(modifier: VdfNode): string {
-  return ['type', 'asset', 'modifier', 'style', 'skin', 'control_point_number'].map((key) => getString(modifier, key) ?? '').join('|')
+  return ['type', 'asset', 'modifier', 'style', 'skin', 'control_point_number', 'attachment', 'attach_type']
+    .map((key) => getString(modifier, key) ?? '')
+    .join('|')
 }
 
 /**
@@ -231,19 +240,4 @@ export function mergeAssetModifiers(target: VdfNode, modifiers: VdfNode[]): void
       valueEnd: 0
     })
   }
-}
-
-/** Entries that reference a `type` value anywhere in a visuals block. */
-export function modifierTypes(visuals: VdfNode | undefined): string[] {
-  return assetModifiers(visuals)
-    .map((entry) => (isNode(entry.value) ? getString(entry.value, 'type') : undefined))
-    .filter((value): value is string => Boolean(value))
-}
-
-export function hasModifierType(visuals: VdfNode | undefined, type: string): boolean {
-  return modifierTypes(visuals).includes(type)
-}
-
-export function findStringEntry(node: VdfNode | undefined, key: string): VdfEntry | undefined {
-  return findAll(node, key)[0]
 }

@@ -3,20 +3,7 @@
  */
 
 export type ItemRarity =
-  | 'arcana'
-  | 'persona'
-  | 'immortal'
-  | 'golden'
-  | 'crimson'
-  | 'legendary'
-  | 'mythical'
-  | 'rare'
-  | 'uncommon'
-  | 'common'
-  | 'taunt'
-  | 'voice'
-  | 'ambient'
-  | 'default'
+  'arcana' | 'persona' | 'immortal' | 'legendary' | 'mythical' | 'rare' | 'uncommon' | 'common' | 'taunt' | 'voice' | 'ambient' | 'default'
 
 export interface RarityConfigItem {
   name: string
@@ -29,14 +16,8 @@ export interface RarityConfigItem {
 export interface ItemDescriptor {
   id?: string | number
   name?: string
-  tag?: string
   rarity?: ItemRarity | string
   isDefault?: boolean
-  img?: string
-}
-
-export interface HeroImageTarget {
-  tag?: string
   img?: string
 }
 
@@ -61,20 +42,6 @@ export const RARITY_CONFIG: Record<ItemRarity, RarityConfigItem> = {
     glow: 'rgba(234, 179, 8, 0.55)',
     bg1: '#362402',
     bg2: '#160e01'
-  },
-  golden: {
-    name: 'Immortal',
-    color: '#ffd700',
-    glow: 'rgba(255, 215, 0, 0.65)',
-    bg1: '#3a2902',
-    bg2: '#181201'
-  },
-  crimson: {
-    name: 'Crimson',
-    color: '#ef4444',
-    glow: 'rgba(239, 68, 68, 0.6)',
-    bg1: '#360909',
-    bg2: '#160303'
   },
   legendary: {
     name: 'Legendary',
@@ -145,8 +112,6 @@ export const RARITY_CONFIG: Record<ItemRarity, RarityConfigItem> = {
 export const RARITY_RANK: Record<string, number> = {
   arcana: 8,
   immortal: 7,
-  golden: 7,
-  crimson: 7,
   legendary: 6,
   mythical: 5,
   rare: 4,
@@ -167,7 +132,7 @@ export function rarityRank(rarity?: string): number {
 export function getItemRarityKey(item?: ItemDescriptor | null): ItemRarity {
   if (!item) return 'default'
   if (item.isDefault) return 'common'
-  const tag = (item.tag || item.rarity || '').toLowerCase().trim()
+  const tag = (item.rarity || '').toLowerCase().trim()
 
   // 1. Prioritize authoritative Valve tag / rarity
   if (tag.includes('arcana')) return 'arcana'

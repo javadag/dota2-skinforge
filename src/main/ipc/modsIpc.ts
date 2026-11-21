@@ -2,82 +2,71 @@
  * Mods Domain IPC Handlers
  */
 
-import { dialog, ipcMain, BrowserWindow } from 'electron'
-import * as pipeline from '../services/pipelineService'
-import * as dotaPathModule from '../services/dotaPathService'
-import { storedModFolder } from '../services/settingsStore'
+import { BrowserWindow, ipcMain } from 'electron'
+import type { HeroAbilityIconOverrides } from '../../shared/types/abilityIcons'
+import type { HeroCustomizationsMap } from '../../shared/types/customization'
+import { IPC_CHANNELS, type StepProgress } from '../../shared/types/ipc'
+import { storedModFolder } from '../services/app/settingsService'
+import { getHeroAbilityIcons } from '../services/assets/abilityIconResolver'
+import { resolveDotaPathAsync } from '../services/dota/dotaService'
+import * as pipeline from '../services/pipeline'
 
-interface ProgressInfo {
-  step: number
-  total: number
-  message: string
+function createProgressSender(getMainWindow: () => BrowserWindow | null) {
+  return (progress: StepProgress) => {
+    const mainWindow = getMainWindow()
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send(IPC_CHANNELS.modsInstallProgress, progress)
+    }
+  }
+}
+
+function toFailureEnvelope(err: unknown): { success: false; error: string } {
+  return { success: false, error: err instanceof Error ? err.message : String(err) }
 }
 
 export function registerModsIpc(getMainWindow: () => BrowserWindow | null) {
-  ipcMain.handle('check-status', async (_event, customPath?: string) => {
-    const dotaPath = customPath || dotaPathModule.detectDotaPath()
-    return pipeline.checkStatus(dotaPath, storedModFolder())
+  const sendProgress = createProgressSender(getMainWindow)
+
+  ipcMain.handle(IPC_CHANNELS.modsCheckStatus, async (_event, customPath?: string) => {
+    const dotaPath = await resolveDotaPathAsync(customPath)
+    return pipeline.checkStatusAsync(dotaPath, storedModFolder())
   })
 
   ipcMain.handle(
-    'install-mods',
+    IPC_CHANNELS.modsGetHeroAbilityIcons,
+    async (_event, customPath: string, hero: string, slots: Record<string, string>, styles: Record<string, { style?: number }>) => {
+      const dota = await resolveDotaPathAsync(customPath)
+      return dota ? getHeroAbilityIcons(dota, hero, slots, styles) : null
+    }
+  )
+
+  ipcMain.handle(
+    IPC_CHANNELS.modsInstall,
     async (
       _event,
       customPath?: string,
       equipped?: Record<string, Record<string, string>>,
-      customizations?: import('../../shared/types/customization').HeroCustomizationsMap
+      customizations?: HeroCustomizationsMap,
+      abilityIcons?: HeroAbilityIconOverrides
     ) => {
-      const dotaPath = customPath || dotaPathModule.detectDotaPath()
-      const mainWindow = getMainWindow()
-      return await pipeline.installMods(
-        dotaPath,
-        equipped || {},
-        customizations || {},
-        (progress: ProgressInfo) => {
-          if (mainWindow && !mainWindow.isDestroyed()) {
-            mainWindow.webContents.send('install-progress', progress)
-          }
-        },
-        { modFolder: storedModFolder() }
-      )
+      try {
+        const dotaPath = await resolveDotaPathAsync(customPath)
+        return await pipeline.installMods(dotaPath, equipped || {}, customizations || {}, sendProgress, {
+          modFolder: storedModFolder(),
+          abilityIcons
+        })
+      } catch (err) {
+        return toFailureEnvelope(err)
+      }
     }
   )
 
-  ipcMain.handle('uninstall-mods', async (_event, customPath?: string) => {
-    const dotaPath = customPath || dotaPathModule.detectDotaPath()
-    const mainWindow = getMainWindow()
-    return pipeline.uninstallMods(
-      dotaPath,
-      (progress: ProgressInfo) => {
-        if (mainWindow && !mainWindow.isDestroyed()) {
-          mainWindow.webContents.send('install-progress', progress)
-        }
-      },
-      storedModFolder()
-    )
-  })
-
-  ipcMain.handle('select-bundle-directory', async () => {
-    const mainWindow = getMainWindow()
-    if (!mainWindow) return null
-    const result = await dialog.showOpenDialog(mainWindow, {
-      properties: ['openDirectory'],
-      title: 'Select a pack folder (hero folders with items_patch.txt inside)'
-    })
-    if (result.canceled || result.filePaths.length === 0) return null
-    return result.filePaths[0]
-  })
-
-  ipcMain.handle('install-bundle', async (_event, customPath?: string, bundleDir?: string) => {
-    const dotaPath = customPath || dotaPathModule.detectDotaPath()
-    if (!dotaPath) return { success: false, error: 'Dota 2 game directory not found.' }
-    if (!bundleDir) return { success: false, error: 'No pack folder selected.' }
-
-    const mainWindow = getMainWindow()
-    return pipeline.installFromBundle(dotaPath, { bundleDir, modFolder: storedModFolder() }, (progress: ProgressInfo) => {
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        mainWindow.webContents.send('install-progress', progress)
-      }
-    })
+  ipcMain.handle(IPC_CHANNELS.modsUninstall, async (_event, customPath?: string) => {
+    try {
+      const dotaPath = await resolveDotaPathAsync(customPath)
+      return await pipeline.uninstallMods(dotaPath, sendProgress, storedModFolder())
+    } catch (err) {
+      return toFailureEnvelope(err)
+    }
   })
 }

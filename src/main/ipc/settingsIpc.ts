@@ -2,16 +2,14 @@
  * Settings & Preferences Domain IPC Handlers
  */
 
-import { app, BrowserWindow, dialog, ipcMain } from 'electron'
-import fs from 'fs'
-import path from 'path'
-import * as dotaPathModule from '../services/dotaPathService'
-import { getIconCacheStats, clearIconCache } from '../services/iconCacheService'
+import { BrowserWindow, dialog, ipcMain } from 'electron'
+import { IPC_CHANNELS, type AppSettingsPayload } from '../../shared/types/ipc'
+import { readStoredSettings, writeStoredSettings } from '../services/app/settingsService'
+import { clearIconCache, getIconCacheStats } from '../services/assets/iconPackService'
+import { isValidDotaGameDir } from '../services/dota/dotaService'
 
 export function registerSettingsIpc(getMainWindow: () => BrowserWindow | null) {
-  const settingsPath = path.join(app.getPath('userData'), 'skinforge_settings.json')
-
-  ipcMain.handle('select-directory', async () => {
+  ipcMain.handle(IPC_CHANNELS.settingsSelectDotaDir, async () => {
     const mainWindow = getMainWindow()
     if (!mainWindow) return null
     const result = await dialog.showOpenDialog(mainWindow, {
@@ -20,34 +18,27 @@ export function registerSettingsIpc(getMainWindow: () => BrowserWindow | null) {
     })
     if (result.canceled || result.filePaths.length === 0) return null
     const selected = result.filePaths[0]
-    const isValid = dotaPathModule.isValidDotaGameDir(selected)
-    return { path: selected, isValid }
+    return { path: selected, isValid: isValidDotaGameDir(selected) }
   })
 
-  ipcMain.handle('read-settings', async () => {
-    if (!fs.existsSync(settingsPath)) return {}
-    try {
-      return JSON.parse(fs.readFileSync(settingsPath, 'utf8'))
-    } catch {
-      return {}
-    }
+  ipcMain.handle(IPC_CHANNELS.settingsRead, async () => {
+    return readStoredSettings()
   })
 
-  ipcMain.handle('write-settings', async (_event, settings) => {
+  ipcMain.handle(IPC_CHANNELS.settingsWrite, async (_event, settings: AppSettingsPayload) => {
     try {
-      fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2), 'utf8')
-      return { ok: true }
+      writeStoredSettings(settings)
+      return { ok: true as const }
     } catch (e: unknown) {
-      const errorMessage = e instanceof Error ? e.message : String(e)
-      return { ok: false, error: errorMessage }
+      return { ok: false as const, error: e instanceof Error ? e.message : String(e) }
     }
   })
 
-  ipcMain.handle('get-cache-stats', async () => {
+  ipcMain.handle(IPC_CHANNELS.settingsGetIconPackStats, async () => {
     return await getIconCacheStats()
   })
 
-  ipcMain.handle('clear-icon-cache', async () => {
+  ipcMain.handle(IPC_CHANNELS.settingsResetIconPacks, async () => {
     return await clearIconCache()
   })
 }

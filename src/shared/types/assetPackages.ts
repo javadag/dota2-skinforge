@@ -10,8 +10,10 @@ export interface AssetPackageEntry {
   file: string
   /** Semantic version or content hash version of the package */
   version: string
-  /** SHA-256 hex digest of the ZIP archive for integrity verification */
+  /** SHA-256 hex digest of the archive for integrity verification */
   sha256: string
+  /** Hash of game-relative paths and source file bytes, independent of archive timestamps. */
+  sourceSha256?: string
   /** Archive size in bytes */
   size: number
   /** Approximate uncompressed size in bytes */
@@ -24,6 +26,10 @@ export interface AssetPackageEntry {
 
 export interface AssetPackageManifest {
   version: number
+  /** Version 2 manifests pin asset packages to this app version. */
+  appVersion?: string
+  /** Hash of the overlay manifest this package set was checked against. */
+  overlaySha256?: string
   generatedAt: string
   /** Relative base URL prefix or path inside CDN bucket */
   baseUrl?: string
@@ -31,9 +37,4 @@ export interface AssetPackageManifest {
   packages: Record<string, AssetPackageEntry>
 }
 
-export interface LocalPackageState {
-  version: string
-  sha256: string
-  installedAt: string
-  group: string
-}
+export const ASSET_PACKAGE_BASE_PATH = 'cosmetic-assets/packages'

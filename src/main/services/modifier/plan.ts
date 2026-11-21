@@ -9,17 +9,8 @@
  */
 
 import { getCanonicalHero } from '../../../shared/constants/heroAliases'
-import { getStyleOptionsByName } from '../../../shared/constants/itemStyles'
-import {
-  baseSlotOfPersona,
-  defaultFor,
-  defaultSlots,
-  isPersonaSlot,
-  itemByName,
-  personaVariantSlots,
-  type SchemaIndex,
-  type SchemaItem
-} from './schema'
+import { resolveCosmeticStyle } from '../../../shared/armory/itemStyles'
+import { defaultFor, defaultSlots, isPersonaSlot, itemByName, personaVariantSlots, type SchemaIndex, type SchemaItem } from './schema'
 
 export type PatchReason =
   /** The user picked this item for this slot. */
@@ -60,22 +51,7 @@ const DEFAULT_STYLE = 0
 
 function styleOf(customizations: CustomizationsMap, hero: string, slot: string, rawName?: string): number {
   const style = customizations?.[hero]?.[slot]?.style ?? customizations?.[hero.toLowerCase()]?.[slot]?.style
-  if (typeof style === 'number' && Number.isFinite(style) && style >= 0) {
-    return style
-  }
-  if (rawName) {
-    const match = rawName.match(/style\s*(\d+)/i)
-    if (match) {
-      return Math.max(0, parseInt(match[1], 10) - 1)
-    }
-    const options = getStyleOptionsByName(rawName)
-    for (const opt of options) {
-      if (opt.index > 0 && rawName.toLowerCase().endsWith(opt.name.toLowerCase())) {
-        return opt.index
-      }
-    }
-  }
-  return DEFAULT_STYLE
+  return resolveCosmeticStyle(rawName, style)
 }
 
 /** The persona a hero's `persona_selector` slot can activate, if the hero has one. */
@@ -128,6 +104,7 @@ export interface PlanOptions {
    * be nulled out with prop_null.
    */
   overlayIds?: Iterable<number | string>
+  personaSlotsOnlyIds?: Iterable<number | string>
 }
 
 /**
@@ -148,6 +125,7 @@ export function buildPlan(
   const skipped: SkippedSelection[] = []
   const warnings: string[] = []
   const overlayIds = new Set([...(options.overlayIds ?? [])].map(String))
+  const personaSlotsOnlyIds = new Set([...(options.personaSlotsOnlyIds ?? [])].map(String))
 
   for (const heroTag of Object.keys(equipped)) {
     const selections = equipped[heroTag]
@@ -166,7 +144,7 @@ export function buildPlan(
       const name = rawName.trim()
       if (!name || /official base/i.test(name) || name.toLowerCase() === 'default') continue
 
-      let item = itemByName(schema, name)
+      let item = itemByName(schema, rawName) ?? itemByName(schema, name)
       if (!item) {
         const cleanName = name
           .replace(/\s*-\s*Style\s*\d+/i, '')
@@ -216,6 +194,14 @@ export function buildPlan(
     // 2. Persona handling.
     const personaRequested = [...claims.keys()].some((slot) => isPersonaSlot(slot))
     const shadowedByPersona = new Map<string, SchemaItem>()
+    const selectedPersona = claims.get('persona_selector')?.item ?? personaItemFor(schema, hero)
+    if (personaRequested && selectedPersona && personaSlotsOnlyIds.has(selectedPersona.id)) {
+      for (const [slot, claim] of claims) {
+        if (isPersonaSlot(slot)) continue
+        claims.delete(slot)
+        skipped.push({ hero, slot, itemName: claim.item.name, reason: 'the active Persona supports only official Persona gear' })
+      }
+    }
     if (personaRequested) {
       const persona = personaItemFor(schema, hero)
       if (!persona) {
@@ -265,9 +251,7 @@ export function buildPlan(
         const isPersonaOverlay = Boolean(activePersona && overlayIds.has(String(activePersona.id)))
         if (!isPersonaOverlay) {
           for (const slot of defaultSlots(schema, hero)) {
-            if (isPersonaSlot(slot) || baseSlotOfPersona(slot)) continue
-            if (variants.has(slot) || claims.has(slot)) continue
-            if (slot === 'persona_selector') continue
+            if (isPersonaSlot(slot) || variants.has(slot) || claims.has(slot)) continue
             const target = defaultFor(schema, hero, slot)
             if (!target?.model) continue
             claims.set(slot, { item: target, style: DEFAULT_STYLE, reason: 'persona-hide' })
@@ -303,7 +287,7 @@ export function buildPlan(
     // 4. Persona bodies render their own variant pieces; an explicit non-persona
     // pick for a covered base slot is ignored by the client, so say so instead of
     // silently shipping an invisible cosmetic. The pick stays applied — removing the
-    // persona (or the item) is His call.
+    // persona (or the item) is the user's call.
     if (personaRequested) {
       for (const [slot, variantItem] of shadowedByPersona) {
         const claim = claims.get(slot)

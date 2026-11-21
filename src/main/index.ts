@@ -2,15 +2,18 @@
  * Dota 2 SkinForge — Electron Main Process Entry
  */
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, shell } from 'electron'
 import fs from 'fs'
 import path from 'path'
 import { APP_CONFIG } from '../shared/constants/appConfig'
 import { registerIpcHandlers } from './ipc'
-import { registerIconScheme, registerIconProtocol, ensureIconPack } from './services/iconCacheService'
-import { getAssetsPath } from './services/appPathService'
-import { migrateLegacySettings } from './services/settingsStore'
-import { installMainErrorCapture } from './services/bugReportService'
+import { getAssetsPath, loadLocalEnvFile } from './services/app/appPaths'
+import { installMainErrorCapture } from './services/app/bugReportService'
+import { migrateLegacySettings } from './services/app/settingsService'
+import { ensureIconPack, registerIconProtocol, registerIconScheme } from './services/assets/iconPackService'
+
+// Load local .env overrides (e.g. SKINFORGE_ASSET_SOURCE) in unpackaged dev/preview runs
+loadLocalEnvFile()
 
 // Start collecting main-process errors early so bug reports can include them
 installMainErrorCapture()
@@ -33,10 +36,7 @@ function getPreloadPath() {
 
 function getAppIconPath(): string {
   const icoPath = getAssetsPath('icon.ico')
-  if (fs.existsSync(icoPath)) return icoPath
-  const pngPath = getAssetsPath('icon.png')
-  if (fs.existsSync(pngPath)) return pngPath
-  return getAssetsPath('icon.jpg')
+  return fs.existsSync(icoPath) ? icoPath : getAssetsPath('icon.png')
 }
 
 function createWindow() {
@@ -56,6 +56,31 @@ function createWindow() {
     show: false,
     title: `${APP_CONFIG.name} — ${APP_CONFIG.tagline}`,
     icon: getAppIconPath()
+  })
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    try {
+      const parsed = new URL(url)
+      if (parsed.protocol === 'https:' || parsed.protocol === 'steam:') {
+        void shell.openExternal(url).catch(() => {})
+      }
+    } catch {
+      // Ignore malformed URLs
+    }
+    return { action: 'deny' }
+  })
+
+  const rendererDirUrl = `file:///${path.resolve(__dirname, '../renderer').replace(/\\/g, '/').toLowerCase()}/`
+  mainWindow.webContents.on('will-navigate', (event, targetUrl) => {
+    const devUrl = process.env.ELECTRON_RENDERER_URL
+    try {
+      const parsed = new URL(targetUrl)
+      if (devUrl && parsed.origin === new URL(devUrl).origin) return
+      if (!devUrl && parsed.protocol === 'file:' && targetUrl.replace(/\\/g, '/').toLowerCase().startsWith(rendererDirUrl)) return
+    } catch {
+      // Block malformed navigation URLs
+    }
+    event.preventDefault()
   })
 
   mainWindow.webContents.on('preload-error', (_event, preloadPath, error) => {
@@ -93,31 +118,26 @@ if (!gotTheLock) {
     }
   })
 
-  app.whenReady().then(() => {
-    migrateLegacySettings()
-    const settingsFile = path.join(app.getPath('userData'), 'skinforge_settings.json')
-    registerIconProtocol(() => {
-      try {
-        if (fs.existsSync(settingsFile)) {
-          return JSON.parse(fs.readFileSync(settingsFile, 'utf8'))
-        }
-      } catch {
-        // Fallback to empty settings
-      }
-      return {}
+  app
+    .whenReady()
+    .then(() => {
+      migrateLegacySettings()
+      registerIconProtocol()
+
+      registerIpcHandlers(() => mainWindow)
+
+      // Start extracting the bundled icon pack while the window boots instead of
+      // waiting for the first icon request.
+      void ensureIconPack()
+      createWindow()
+
+      app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) createWindow()
+      })
     })
-
-    registerIpcHandlers(() => mainWindow)
-
-    // Start extracting the bundled icon pack while the window boots instead of
-    // waiting for the first icon request.
-    void ensureIconPack()
-    createWindow()
-
-    app.on('activate', () => {
-      if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    .catch((err) => {
+      console.error('[Main] Failed to initialize application:', err)
     })
-  })
 
   app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()

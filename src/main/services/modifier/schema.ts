@@ -1,13 +1,11 @@
 /**
  * Dota 2 SkinForge — typed index over the game's own items_game.txt.
  *
- * Everything the modifier engine needs is derived here from the schema itself:
- * item identity and slots, per-hero default items, `item_sets` membership, persona
- * variant slots and localized style names. No cosmetic is ever referenced by id or
- * by hand-written name, so new arcanas, personas and sets work on release day.
+ * Indexes item identity and slots, per-hero default items, persona selectors and
+ * variant slots, forced-default rules, and localized style names directly from the schema.
  */
 
-import { find, findAll, getNode, getString, isNode, materializeDeep, parseVdf, type VdfDocument, type VdfEntry, type VdfNode } from './vdf'
+import { findAll, getNode, getString, isNode, materializeDeep, parseVdf, type VdfDocument, type VdfEntry, type VdfNode } from './vdf'
 
 /** A cosmetic or base item from the `items` block. */
 export interface SchemaItem {
@@ -44,28 +42,13 @@ export interface SchemaItem {
   entry: VdfEntry
 }
 
-/** An `item_sets` entry: the authoritative definition of a cosmetic set. */
-export interface SchemaSet {
-  key: string
-  displayName: string
-  storeBundle: string
-  members: string[]
-}
-
 export interface SchemaIndex {
   items: Map<string, SchemaItem>
   byName: Map<string, SchemaItem>
-  sets: Map<string, SchemaSet>
-  /** Item name -> keys of every set containing it. */
-  setsForItem: Map<string, string[]>
-  /** Bundle item name -> member names. */
-  bundleMembers: Map<string, string[]>
   /** Owner (hero or non-hero category) -> slot -> default item. */
   defaults: Map<string, Map<string, SchemaItem>>
   /** Normalized localization token -> display text. */
   localization: Map<string, string>
-  /** Names that appeared more than once; the engine refuses to guess for these. */
-  ambiguousNames: Set<string>
   /**
    * Hero -> persona selector items (`prefab: wearable`, `item_slot: persona_selector`).
    * These are the real personas: each carries `type persona` plus the `entity_model`
@@ -116,24 +99,12 @@ const BASE_ITEM_SLOTS: Record<string, { owner: string; slot: string }> = {
 
 const HERO_PREFIX = 'npc_dota_hero_'
 
-/** Words that carry no set identity, so they never count as a shared stem. */
-const STOP_WORDS = new Set(['of', 'the', 'a', 'an', 'and', 's', 'set', 'bundle'])
-
-export function tokenizeName(name: string): Set<string> {
-  const tokens = name
-    .toLowerCase()
-    .split(/[^a-z0-9]+/)
-    .filter((token) => token.length > 1 && !STOP_WORDS.has(token))
-  return new Set(tokens)
-}
-
 function readHeroes(node: VdfNode | undefined): string[] {
   if (!node) return []
   return node.entries.map((entry) => (entry.key.startsWith(HERO_PREFIX) ? entry.key.slice(HERO_PREFIX.length) : entry.key))
 }
 
 interface RawItem extends Omit<SchemaItem, 'resolvedSlot' | 'slotSource' | 'forcesDefaultSlots' | 'forcesDefaultExceptions'> {
-  itemType: string
   baseItem: boolean
 }
 
@@ -212,7 +183,6 @@ function readItem(entry: VdfEntry): RawItem | null {
     particleFolder: getString(node, 'particle_folder') ?? '',
     image: getString(node, 'image_inventory') ?? '',
     entry,
-    itemType: getString(node, 'item_type_name') ?? '',
     baseItem: getString(node, 'baseitem') === '1'
   }
 }
@@ -272,12 +242,10 @@ export function buildSchema(text: string, options: BuildSchemaOptions = {}): Sch
     }
   }
 
-  // Pass 2 — resolve slots, index items, defaults and bundles.
+  // Pass 2 — resolve slots, index items and defaults.
   const items = new Map<string, SchemaItem>()
   const byName = new Map<string, SchemaItem>()
-  const ambiguousNames = new Set<string>()
   const defaults = new Map<string, Map<string, SchemaItem>>()
-  const bundleMembers = new Map<string, string[]>()
   const personaSelectors = new Map<string, SchemaItem[]>()
 
   for (const item of raw) {
@@ -291,8 +259,7 @@ export function buildSchema(text: string, options: BuildSchemaOptions = {}): Sch
     }
     items.set(full.id, full)
 
-    if (byName.has(full.name)) ambiguousNames.add(full.name)
-    else byName.set(full.name, full)
+    if (!byName.has(full.name)) byName.set(full.name, full)
 
     if (full.resolvedSlot === 'persona_selector' && full.prefab === 'wearable') {
       for (const hero of full.heroes) {
@@ -319,37 +286,16 @@ export function buildSchema(text: string, options: BuildSchemaOptions = {}): Sch
         if (!current || !/^default\b/i.test(current.name)) slots.set(mapping.slot, full)
       }
     }
-
-    if (full.prefab === 'bundle') {
-      const members = getNode(full.entry.value as VdfNode, 'bundle')
-      if (members && !members.opaque)
-        bundleMembers.set(
-          full.name,
-          members.entries.map((m) => m.key)
-        )
-    }
   }
 
-  const sets = new Map<string, SchemaSet>()
-  const setsForItem = new Map<string, string[]>()
-  const setsNode = getNode(doc.root, 'item_sets')
-  if (setsNode && !setsNode.opaque) {
-    for (const entry of setsNode.entries) {
-      if (!isNode(entry.value)) continue
-      const membersNode = getNode(entry.value, 'items')
-      const set: SchemaSet = {
-        key: entry.key,
-        displayName: getString(entry.value, 'name') ?? '',
-        storeBundle: getString(entry.value, 'store_bundle') ?? '',
-        members: membersNode && !membersNode.opaque ? membersNode.entries.map((m) => m.key) : []
-      }
-      sets.set(set.key, set)
-      for (const member of set.members) {
-        const list = setsForItem.get(member)
-        if (list) list.push(set.key)
-        else setsForItem.set(member, [set.key])
-      }
-    }
+  const whitespaceAliases = new Map<string, SchemaItem | undefined>()
+  for (const item of byName.values()) {
+    const name = item.name.trim()
+    if (!name || byName.has(name)) continue
+    whitespaceAliases.set(name, whitespaceAliases.has(name) ? undefined : item)
+  }
+  for (const [name, item] of whitespaceAliases) {
+    if (item) byName.set(name, item)
   }
 
   const localization = options.localizationText ? buildLocalization(options.localizationText) : new Map<string, string>()
@@ -363,7 +309,7 @@ export function buildSchema(text: string, options: BuildSchemaOptions = {}): Sch
     }
   }
 
-  return { items, byName, sets, setsForItem, bundleMembers, defaults, localization, ambiguousNames, personaSelectors }
+  return { items, byName, defaults, localization, personaSelectors }
 }
 
 function buildLocalization(text: string): Map<string, string> {
@@ -372,7 +318,11 @@ function buildLocalization(text: string): Map<string, string> {
   const tokens = getNode(doc.root, 'Tokens')
   if (!tokens || tokens.opaque) return out
   for (const entry of tokens.entries) {
-    if (!isNode(entry.value)) out.set(entry.key, entry.value)
+    if (!isNode(entry.value)) {
+      out.set(entry.key, entry.value)
+      const lower = entry.key.toLowerCase()
+      if (!out.has(lower)) out.set(lower, entry.value)
+    }
   }
   return out
 }
@@ -381,9 +331,9 @@ function buildLocalization(text: string): Map<string, string> {
 // Queries
 // ---------------------------------------------------------------------------
 
-/** Exact lookup by display name. Names are unique in items_game.txt. */
+/** Prefer Valve's exact name, then an unambiguous whitespace-normalized alias. */
 export function itemByName(schema: SchemaIndex, name: string): SchemaItem | undefined {
-  return schema.byName.get(name)
+  return schema.byName.get(name) ?? schema.byName.get(name.trim())
 }
 
 export function defaultFor(schema: SchemaIndex, owner: string, slot: string): SchemaItem | undefined {
@@ -416,84 +366,6 @@ export function localize(schema: SchemaIndex, token: string | undefined): string
   if (!token.startsWith('#')) return token
   const key = token.replace(/^#+/, '')
   return schema.localization.get(key) ?? schema.localization.get(key.toLowerCase()) ?? prettifyToken(key)
-}
-
-/** Fraction of a set's members whose name shares a stem with `itemName`. */
-export function setMemberAffinity(set: SchemaSet, itemName: string): number {
-  if (set.members.length === 0) return 0
-  const stem = tokenizeName(itemName)
-  let shared = 0
-  for (const member of set.members) {
-    for (const token of tokenizeName(member)) {
-      if (stem.has(token)) {
-        shared++
-        break
-      }
-    }
-  }
-  return shared / set.members.length
-}
-
-/**
- * How strongly a set's own identity (key, localized name, store bundle) names the
- * item. This is what separates an arcana's real bundle from a seasonal set that
- * merely re-lists the same arcana — both score identically on raw member overlap
- * because the arcana itself is a member of each.
- */
-export function setIdentityScore(set: SchemaSet, itemName: string): number {
-  const stem = tokenizeName(itemName)
-  const identity = new Set<string>([...tokenizeName(set.key), ...tokenizeName(set.displayName), ...tokenizeName(set.storeBundle)])
-  let shared = 0
-  for (const token of identity) if (stem.has(token)) shared++
-  return shared
-}
-
-function setScore(set: SchemaSet, itemName: string): number {
-  return setIdentityScore(set, itemName) * 10 + setMemberAffinity(set, itemName)
-}
-
-export interface SetChoice {
-  set: SchemaSet
-  /** Combined identity + member affinity score. */
-  score: number
-  identity: number
-  affinity: number
-  /** Every set containing the item, best first. */
-  candidates: Array<{ set: SchemaSet; score: number }>
-  /** True when no candidate had any signal, so pairing was skipped. */
-  ambiguous: boolean
-}
-
-/**
- * Pick the set an item belongs to. An arcana can be listed in several sets — its own
- * bundle plus an unrelated seasonal set that re-lists it — so prefer the set whose own
- * name/bundle matches the item, then the one whose members share its name stem, then
- * the more complete set. Returns undefined when pairing would be a guess.
- */
-export function primarySetFor(schema: SchemaIndex, item: SchemaItem): SetChoice | undefined {
-  const keys = schema.setsForItem.get(item.name)
-  if (!keys || keys.length === 0) return undefined
-  const candidates = keys
-    .map((key) => schema.sets.get(key))
-    .filter((set): set is SchemaSet => Boolean(set))
-    .map((set) => ({
-      set,
-      score: setScore(set, item.name),
-      identity: setIdentityScore(set, item.name),
-      affinity: setMemberAffinity(set, item.name)
-    }))
-    .sort((a, b) => b.score - a.score || b.set.members.length - a.set.members.length)
-  if (candidates.length === 0) return undefined
-  const best = candidates[0]
-  const ambiguous = best.identity === 0 && best.affinity === 0
-  return {
-    set: best.set,
-    score: best.score,
-    identity: best.identity,
-    affinity: best.affinity,
-    candidates: candidates.map((c) => ({ set: c.set, score: c.score })),
-    ambiguous
-  }
 }
 
 /**
@@ -533,16 +405,6 @@ export function personaVariantSlots(schema: SchemaIndex, hero: string): Map<stri
   return out
 }
 
-/** Heroes that actually have a persona, derived from the schema. */
-export function personaHeroes(schema: SchemaIndex): string[] {
-  const out: string[] = []
-  for (const hero of schema.defaults.keys()) {
-    if (hero === 'all') continue
-    if (personaVariantSlots(schema, hero).size > 0) out.push(hero)
-  }
-  return out.sort()
-}
-
 export function isPersonaSlot(slot: string): boolean {
   return slot === 'persona_selector' || /_persona_\d+$/.test(slot)
 }
@@ -550,12 +412,4 @@ export function isPersonaSlot(slot: string): boolean {
 /** The base slot a persona variant slot belongs to, if any. */
 export function baseSlotOfPersona(slot: string): string | undefined {
   return /^(.*)_persona_\d+$/.exec(slot)?.[1]
-}
-
-export function findEntry(node: VdfNode | undefined, key: string): VdfEntry | undefined {
-  return find(node, key)
-}
-
-export function findEntries(node: VdfNode | undefined, key: string): VdfEntry[] {
-  return findAll(node, key)
 }

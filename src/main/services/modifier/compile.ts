@@ -24,9 +24,9 @@ import {
   type VdfDocument,
   type VdfNode
 } from './vdf'
-import { buildSchema, defaultFor, defaultSlots, isOpaqueBlock, isPersonaSlot, type SchemaItem } from './schema'
+import { buildSchema, defaultFor, defaultSlots, isOpaqueBlock, isPersonaSlot, type SchemaIndex, type SchemaItem } from './schema'
 import { buildPlan, type CustomizationsMap, type PatchReason as PlanPatchReason, type SkippedSelection } from './plan'
-import { applyHide, applyVisuals, assetModifiers, flattenVisuals, mergeAssetModifiers } from './visuals'
+import { applyHide, applyVisuals, assetModifiers, flattenVisuals, mergeAssetModifiers, modelForStyle, NULL_MODEL } from './visuals'
 import { baseModelForHero } from './heroBaseModels'
 
 export type PatchReason = PlanPatchReason | 'hero-model-anchor' | 'model-swap'
@@ -58,8 +58,6 @@ export interface AppliedPatch {
   targetId: string
   reason: PatchReason
   style: number
-  /** Slots whose item had no declared `item_slot`, so the weapon convention was used. */
-  assumedSlot?: string
 }
 
 export interface EntityModelOverride {
@@ -94,6 +92,10 @@ export interface CompileResult {
 }
 
 export interface CompileOptions {
+  /** Pre-parsed VDF document to avoid parsing the ~50 MB `items_game.txt` twice. */
+  document?: VdfDocument
+  /** Pre-built schema index matching `document`. */
+  schema?: SchemaIndex
   /** Contents of dota_english.txt, so style names resolve to readable labels. */
   localizationText?: string
   /**
@@ -102,11 +104,22 @@ export interface CompileOptions {
    * model path, which the overlay already overwrites.
    */
   overlayIds?: Iterable<number | string>
+  personaSlotsOnlyIds?: Iterable<number | string>
 }
 
 function countItemBlocks(doc: VdfDocument): number {
   const items = getNode(doc.root, 'items')
   return items && !items.opaque ? items.entries.length : 0
+}
+
+/** Ensure `visuals.skip_model_combine = "1"` is set on a wearable so standalone models survive reconnects. */
+function ensureSkipModelCombine(node: VdfNode): void {
+  let vis = getNode(node, 'visuals')
+  if (!vis) {
+    vis = { entries: [], start: 0, end: 0 }
+    setEntry(node, 'visuals', vis)
+  }
+  setEntry(vis, 'skip_model_combine', '1')
 }
 
 /**
@@ -120,9 +133,12 @@ export function compileItemsGame(
   customizations: CustomizationsMap = {},
   options: CompileOptions = {}
 ): CompileResult {
-  const doc = parseVdf(source, { opaque: isOpaqueBlock })
-  const schema = buildSchema(source, { document: doc, localizationText: options.localizationText })
-  const plan = buildPlan(schema, equipped, customizations)
+  const doc = options.document ?? parseVdf(source, { opaque: isOpaqueBlock })
+  const schema = options.schema ?? buildSchema(source, { document: doc, localizationText: options.localizationText })
+  const plan = buildPlan(schema, equipped, customizations, {
+    overlayIds: options.overlayIds,
+    personaSlotsOnlyIds: options.personaSlotsOnlyIds
+  })
 
   // Group by target item: a shared default item (e.g. the all-heroes pet) may be
   // targeted by more than one hero, and a single item must produce a single splice.
@@ -252,6 +268,7 @@ export function compileItemsGame(
     }
   }
 
+  const overlayHeroes = new Set(plan.patches.filter((p) => p.cosmetic && overlayIds.has(String(p.cosmetic.id))).map((p) => p.hero))
   const modelSwaps: ModelSwap[] = []
 
   for (const [targetId, patches] of byTarget) {
@@ -268,19 +285,20 @@ export function compileItemsGame(
     for (const patch of patches) {
       if (patch.cosmetic === null) {
         applyHide(clone)
-        expectedModel.set(targetId, 'models/props_nature/prop_null.vmdl')
+        expectedModel.set(targetId, NULL_MODEL)
         touched = true
       } else {
         const cosmeticNode = patch.cosmetic.entry.value
         if (typeof cosmeticNode === 'string') continue
         materializeDeep(source, cosmeticNode)
-        let cosmeticModel = patch.cosmetic.model
+        const selectedModel = modelForStyle(cosmeticNode, patch.style)
+        let cosmeticModel = selectedModel
         const remaps = heroModelRemaps.get(patch.hero)
         if (cosmeticModel && remaps) {
           const remapped = remaps.get(cosmeticModel.toLowerCase())
           if (remapped) cosmeticModel = remapped
         }
-        const heroHasOverlay = plan.patches.some((p) => p.hero === patch.hero && p.cosmetic && overlayIds.has(String(p.cosmetic.id)))
+        const heroHasOverlay = overlayHeroes.has(patch.hero)
         if ((patch.reason === 'requested' || (patch.reason === 'persona-piece' && heroHasOverlay)) && vanillaModel && cosmeticModel) {
           // Deliver the model by replacing the vanilla file (see ModelSwap). The block
           // keeps Valve's `model_player`, so the client never has to load a new path.
@@ -311,12 +329,7 @@ export function compileItemsGame(
             }
           }
           if (heroHasOverlay && !['weapon', 'offhand_weapon'].includes(patch.slot)) {
-            let vis = getNode(clone, 'visuals')
-            if (!vis) {
-              vis = { entries: [], start: 0, end: 0 }
-              setEntry(clone, 'visuals', vis)
-            }
-            setEntry(vis, 'skip_model_combine', '1')
+            ensureSkipModelCombine(clone)
             touched = true
           }
           expectedModel.set(targetId, vanillaModel)
@@ -336,20 +349,10 @@ export function compileItemsGame(
             }
           }
           if (heroHasOverlay && !['weapon', 'offhand_weapon'].includes(patch.slot)) {
-            let vis = getNode(clone, 'visuals')
-            if (!vis) {
-              vis = { entries: [], start: 0, end: 0 }
-              setEntry(clone, 'visuals', vis)
-            }
-            setEntry(vis, 'skip_model_combine', '1')
+            ensureSkipModelCombine(clone)
           }
-          expectedModel.set(targetId, patch.cosmetic.model || null)
+          expectedModel.set(targetId, selectedModel || null)
           touched = true
-          if (patch.reason === 'requested' && !cosmeticModel) {
-            warnings.push(
-              `${patch.hero}/${patch.slot}: "${patch.cosmetic.name}" has no model of its own, so it is applied as item data only.`
-            )
-          }
         }
       }
       applied.push({
@@ -358,8 +361,7 @@ export function compileItemsGame(
         itemName: patch.cosmetic ? patch.cosmetic.name : '(hidden)',
         targetId,
         reason: patch.reason === 'requested' && vanillaModel ? 'model-swap' : patch.reason,
-        style: patch.style,
-        assumedSlot: patch.cosmetic && patch.cosmetic.slotSource === 'fallback' ? patch.cosmetic.name : undefined
+        style: patch.style
       })
     }
 
@@ -381,7 +383,7 @@ export function compileItemsGame(
   }
 
   const content = applySplices(source, splices)
-  const validation = validate(source, content, doc, expectedModel, warnings)
+  const validation = validate(content, doc, expectedModel, warnings)
 
   return {
     content,
@@ -403,13 +405,7 @@ export function compileItemsGame(
  * every rewritten item actually carries the expected model. A failure here aborts the
  * install rather than shipping a corrupt `items_game.txt`.
  */
-function validate(
-  source: string,
-  content: string,
-  before: VdfDocument,
-  expectedModel: Map<string, string | null>,
-  warnings: string[]
-): ValidationResult {
+function validate(content: string, before: VdfDocument, expectedModel: Map<string, string | null>, warnings: string[]): ValidationResult {
   const errors: string[] = []
   const itemCountBefore = countItemBlocks(before)
 
@@ -448,5 +444,3 @@ function validate(
   if (errors.length > 0) warnings.push(...errors)
   return { ok: errors.length === 0, itemCountBefore, itemCountAfter, errors }
 }
-
-export default compileItemsGame

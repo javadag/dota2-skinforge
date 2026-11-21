@@ -1,0 +1,192 @@
+/**
+ * Source 2 gameinfo_branchspecific.gi SearchPaths Injection Service
+ */
+
+import fs from 'fs'
+import path from 'path'
+import { APP_CONFIG } from '../../../shared/constants/appConfig'
+
+const DEFAULT_MOD_FOLDER = APP_CONFIG.modFolder || 'skinforge'
+
+export function getGameinfoPath(dotaGameDir: string): string {
+  return path.join(dotaGameDir, 'dota', 'gameinfo_branchspecific.gi')
+}
+
+const TEMPLATE_WITH_MOD = (modFolderName: string) => `"GameInfo"
+{
+	//
+	// Branch-varying info, such as the game/title and app IDs, is in gameinfo_branchspecific.gi.
+	// gameinfo.gi is the non-branch-varying content and can be integrated between branches.
+	//
+
+	game 		"Dota 2"
+	title 		"Dota 2"
+
+	FileSystem
+	{
+		SteamAppId				570
+		BreakpadAppId			373300	// Report crashes under beta DLC, not the S1 game.  Delete this when all clients are switched to S2
+		BreakpadAppId_Tools		375360  // Use a separate bucket of buckets for "-tools" crashes so that they don't get drowned out by game crashes. Falls back to BreakpadAppId/SteamAppId if missing	
+		//
+		// The code that loads this file automatically does a few things here:
+		//
+		// 1. For each "Game" search path, it adds a "GameBin" path, in <dir>\\bin
+		// 2. For each "Game" search path, it adds another "Game" path in front of it with _<langage> at the end.
+		//    For example: c:\\hl2\\cstrike on a french machine would get a c:\\hl2\\cstrike_french path added to it.
+		// 3. For the first "Game" search path, it adds a search path called "MOD".
+		// 4. For the first "Game" search path, it adds a search path called "DEFAULT_WRITE_PATH".
+		//
+
+		//
+		// Search paths are relative to the exe directory\\..\\
+		//
+		SearchPaths
+		{
+			// These are optional language paths. They must be mounted first, which is why there are first in the list.
+			// *LANGUAGE* will be replaced with the actual language name. If not running a specific language, these paths will not be mounted
+			Game_AudioLanguage	dota_*LANGUAGE*
+
+			// These are optional low-violence paths. They will only get mounted if you're in a low-violence mode.
+			Game_LowViolence	dota_lv
+
+			Game				${modFolderName}
+			Game				dota
+			Game				core
+
+			Mod					${modFolderName}
+			Mod					dota
+
+			Write				dota
+
+			// These are optional language paths. They must be mounted first, which is why there are first in the list.
+			// *LANGUAGE* will be replaced with the actual language name. If not running a specific language, these paths will not be mounted
+			AddonRoot_AudioLanguage	dota_*LANGUAGE*_addons
+
+			AddonRoot			dota_addons
+
+			// Note: addon content is included in publiccontent by default.
+			PublicContent		dota_core
+			PublicContent		core
+		}
+		
+		"UserSettingsPathID"	"USRLOCAL"
+		"LegacyUserSettingsPathID"	"MOD"
+				
+		AddonsChangeDefaultWritePath 0
+	}
+}
+`
+
+const CLEAN_TEMPLATE = `"GameInfo"
+{
+	//
+	// Branch-varying info, such as the game/title and app IDs, is in gameinfo_branchspecific.gi.
+	// gameinfo.gi is the non-branch-varying content and can be integrated between branches.
+	//
+
+	game 		"Dota 2"
+	title 		"Dota 2"
+
+	FileSystem
+	{
+		SteamAppId				570
+		BreakpadAppId			373300	// Report crashes under beta DLC, not the S1 game.  Delete this when all clients are switched to S2
+		BreakpadAppId_Tools		375360  // Use a separate bucket of buckets for "-tools" crashes so that they don't get drowned out by game crashes. Falls back to BreakpadAppId/SteamAppId if missing
+	}
+}
+`
+
+const isGameLine = (line: string): boolean => /^\s*Game\s+\S/.test(line) && !/Game_(AudioLanguage|LowViolence)/.test(line)
+
+const isModLine = (line: string): boolean => /^\s*Mod\s+\S/.test(line) && !/Mod_AudioLanguage/.test(line)
+
+export function hasModEntry(content: string, modFolderName: string): boolean {
+  const escaped = modFolderName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`^\\s*(?:Game|Mod)\\s+"?${escaped}"?\\s*$`, 'm').test(content)
+}
+
+/**
+ * Insert the mod's search paths ahead of the existing ones.
+ *
+ * Rewriting the whole file would drop every other mounted mod (another cosmetic mod, addons...),
+ * so a configured gameinfo is edited in place: the mod goes directly above the first
+ * `Game` entry, which is what gives it priority over everything below.
+ */
+function addModEntries(content: string, modFolderName: string): string {
+  const lines = content.split(/\r?\n/)
+  const gameIndex = lines.findIndex(isGameLine)
+  if (gameIndex === -1) return TEMPLATE_WITH_MOD(modFolderName).replace(/\r?\n/g, '\r\n')
+
+  const indent = /^\s*/.exec(lines[gameIndex])?.[0] || '\t\t\t'
+  const gameLine = `${indent}Game\t\t\t\t${modFolderName}`
+  const modLine = `${indent}Mod\t\t\t\t${modFolderName}`
+
+  const modIndex = lines.findIndex(isModLine)
+  if (modIndex > gameIndex) {
+    lines.splice(modIndex, 0, modLine)
+    lines.splice(gameIndex, 0, gameLine)
+  } else if (modIndex !== -1) {
+    lines.splice(gameIndex, 0, gameLine)
+    lines.splice(modIndex, 0, modLine)
+  } else {
+    lines.splice(gameIndex, 0, gameLine)
+  }
+
+  return lines.join('\r\n')
+}
+
+export type GameinfoInjectStatus = 'already_configured' | 'updated'
+export type GameinfoRestoreStatus = 'restored_from_backup' | 'reset_to_clean'
+
+export interface GameinfoInjectResult {
+  success: true
+  status: GameinfoInjectStatus
+}
+
+export interface GameinfoRestoreResult {
+  success: true
+  status: GameinfoRestoreStatus
+}
+
+export function injectSearchPaths(
+  dotaGameDir: string,
+  modFolderName = DEFAULT_MOD_FOLDER,
+  backupDir: string | null = null
+): GameinfoInjectResult {
+  const filePath = getGameinfoPath(dotaGameDir)
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`gameinfo_branchspecific.gi not found at ${filePath}`)
+  }
+
+  const currentContent = fs.readFileSync(filePath, 'utf-8')
+  const alreadyConfigured = hasModEntry(currentContent, modFolderName)
+  if (backupDir) {
+    if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir, { recursive: true })
+    const backupTarget = path.join(backupDir, 'gameinfo_branchspecific.gi')
+    // Refresh backup when the live file does not mount this mod (e.g. after a Steam patch reset).
+    if (!fs.existsSync(backupTarget) || !alreadyConfigured) {
+      fs.writeFileSync(backupTarget, currentContent, 'utf-8')
+    }
+  }
+
+  if (alreadyConfigured) {
+    return { success: true, status: 'already_configured' }
+  }
+
+  fs.writeFileSync(filePath, addModEntries(currentContent, modFolderName), 'utf-8')
+  return { success: true, status: 'updated' }
+}
+
+/** Put the pre-install gameinfo back, exactly as it was. */
+export function restoreGameinfo(dotaGameDir: string, backupDir: string | null = null): GameinfoRestoreResult {
+  const filePath = getGameinfoPath(dotaGameDir)
+  if (backupDir) {
+    const backupTarget = path.join(backupDir, 'gameinfo_branchspecific.gi')
+    if (fs.existsSync(backupTarget)) {
+      fs.copyFileSync(backupTarget, filePath)
+      return { success: true, status: 'restored_from_backup' }
+    }
+  }
+  fs.writeFileSync(filePath, CLEAN_TEMPLATE.replace(/\r?\n/g, '\r\n'), 'utf-8')
+  return { success: true, status: 'reset_to_clean' }
+}

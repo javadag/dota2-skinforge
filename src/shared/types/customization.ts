@@ -18,8 +18,8 @@ export function dropStaleStyles(
   const heroCust = cust[heroTag]
   if (!heroCust) return cust
   let next = heroCust
-  for (const slotId of Object.keys(after)) {
-    if (before[slotId] !== after[slotId] && next[slotId]) {
+  for (const slotId of Object.keys(heroCust)) {
+    if (before[slotId] !== after[slotId]) {
       if (next === heroCust) next = { ...heroCust }
       delete next[slotId]
     }
