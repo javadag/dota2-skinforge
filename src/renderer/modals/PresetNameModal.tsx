@@ -9,17 +9,22 @@ export const PresetNameModal: React.FC = () => {
   const addPreset = useAppStore((s) => s.addPreset)
 
   const [name, setName] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    if (isPresetModalOpen) setName('')
+    if (isPresetModalOpen) {
+      setName('')
+      setError('')
+    }
   }, [isPresetModalOpen])
 
   const handleSave = () => {
     const trimmed = name.trim()
     if (!trimmed) {
-      alert('Please enter a name for your preset.')
+      setError('Please enter a name for your preset.')
       return
     }
+    setError('')
     addPreset(trimmed)
   }
 
@@ -33,12 +38,16 @@ export const PresetNameModal: React.FC = () => {
           placeholder="e.g. My PA Arcana Build"
           maxLength={48}
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value)
+            if (error) setError('')
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') handleSave()
           }}
           autoFocus
         />
+        {error && <p className="text-[11px] text-rose-400">{error}</p>}
 
         <div className="flex justify-end gap-2.5 pt-2">
           <Button id="btnPresetNameCancel" variant="ghost" onClick={closePresetModal}>

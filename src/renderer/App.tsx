@@ -4,6 +4,7 @@ import { Sidebar } from './components/layout/Sidebar'
 import { Topbar } from './components/layout/Topbar'
 import { BugReportModal } from './modals/BugReportModal'
 import { CosmeticPickerModal } from './modals/CosmeticPickerModal'
+import { DialogModal } from './modals/DialogModal'
 import { PresetNameModal } from './modals/PresetNameModal'
 import { UpdateModal } from './modals/UpdateModal'
 import { WhatsNewModal } from './modals/WhatsNewModal'
@@ -80,6 +81,7 @@ export const App = () => {
         <UpdateModal />
         <WhatsNewModal />
         <BugReportModal />
+        <DialogModal />
       </div>
     </AppErrorBoundary>
   )

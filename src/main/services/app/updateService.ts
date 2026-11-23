@@ -466,13 +466,56 @@ export interface InstallUpdateOptions {
   skipSpawn?: boolean
   /** Require the file and checksum to match the latest verified `downloadUpdate()` result. */
   requireVerifiedRelease?: boolean
+  /** Override `PORTABLE_EXECUTABLE_FILE` in tests. */
+  portableTargetPath?: string
 }
 
-async function spawnDetachedExecutable(filePath: string): Promise<void> {
+function escapePowerShellLiteral(value: string): string {
+  return `'${value.replace(/'/g, "''")}'`
+}
+
+export function buildPortableReplaceEncodedCommand(sourcePath: string, targetPath: string): string {
+  const src = escapePowerShellLiteral(path.resolve(sourcePath))
+  const dst = escapePowerShellLiteral(path.resolve(targetPath))
+  const script = [
+    `$src = ${src}`,
+    `$dst = ${dst}`,
+    '$moved = $false',
+    'for ($i = 0; $i -lt 80; $i++) {',
+    '  try {',
+    '    Move-Item -LiteralPath $src -Destination $dst -Force -ErrorAction Stop',
+    '    $moved = $true',
+    '    break',
+    '  } catch {',
+    '    Start-Sleep -Milliseconds 250',
+    '  }',
+    '}',
+    '$launch = if ($moved -or (Test-Path -LiteralPath $dst)) { $dst } else { $src }',
+    '$dir = Split-Path -Parent $launch',
+    'Start-Process -FilePath $launch -WorkingDirectory $dir'
+  ].join('\n')
+  return Buffer.from(script, 'utf16le').toString('base64')
+}
+
+export function cleanupStaleUpdates(updatesDir?: string): void {
+  const dir = getUpdatesDir(updatesDir)
+  if (!fs.existsSync(dir)) return
+  for (const entry of fs.readdirSync(dir)) {
+    if (!entry.toLowerCase().endsWith('.exe')) continue
+    try {
+      fs.unlinkSync(path.join(dir, entry))
+    } catch {
+      // Ignore locked executables still finishing an install
+    }
+  }
+}
+
+async function spawnDetachedExecutable(filePath: string, args: string[] = []): Promise<void> {
   await new Promise<void>((resolve, reject) => {
-    const child = spawn(filePath, [], {
+    const child = spawn(filePath, args, {
       detached: true,
-      stdio: 'ignore'
+      stdio: 'ignore',
+      windowsHide: args.length > 0
     })
     child.once('error', reject)
     child.once('spawn', () => {
@@ -528,18 +571,39 @@ export async function installUpdate(
       return { ok: true }
     }
 
-    console.log(`[UpdateService] Launching verified update installer: ${filePath}`)
-    try {
-      await spawnDetachedExecutable(filePath)
-    } catch (spawnErr: unknown) {
-      const code = (spawnErr as NodeJS.ErrnoException | null)?.code
-      if (process.platform === 'win32' && code === 'EACCES') {
-        // NSIS installers requiring UAC elevation fail direct spawn with EACCES; ShellExecute prompts UAC.
-        const electron = require('electron') as typeof import('electron')
-        const openError = await electron.shell.openPath(filePath)
-        if (openError) throw new Error(openError, { cause: spawnErr })
-      } else {
-        throw spawnErr
+    const portableTarget = options?.portableTargetPath ?? process.env.PORTABLE_EXECUTABLE_FILE
+    const isPortableSelfUpdate =
+      process.platform === 'win32' &&
+      path.basename(filePath).toLowerCase().includes('portable') &&
+      Boolean(portableTarget) &&
+      portableTarget!.toLowerCase().endsWith('.exe') &&
+      path.resolve(portableTarget!) !== path.resolve(filePath)
+
+    if (isPortableSelfUpdate) {
+      console.log(`[UpdateService] Replacing portable executable ${portableTarget} from ${filePath}`)
+      const encoded = buildPortableReplaceEncodedCommand(filePath, portableTarget!)
+      await spawnDetachedExecutable('powershell.exe', [
+        '-NoProfile',
+        '-NonInteractive',
+        '-WindowStyle',
+        'Hidden',
+        '-EncodedCommand',
+        encoded
+      ])
+    } else {
+      console.log(`[UpdateService] Launching verified update installer: ${filePath}`)
+      try {
+        await spawnDetachedExecutable(filePath)
+      } catch (spawnErr: unknown) {
+        const code = (spawnErr as NodeJS.ErrnoException | null)?.code
+        if (process.platform === 'win32' && code === 'EACCES') {
+          // NSIS installers requiring UAC elevation fail direct spawn with EACCES; ShellExecute prompts UAC.
+          const electron = require('electron') as typeof import('electron')
+          const openError = await electron.shell.openPath(filePath)
+          if (openError) throw new Error(openError, { cause: spawnErr })
+        } else {
+          throw spawnErr
+        }
       }
     }
 

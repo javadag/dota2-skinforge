@@ -19,6 +19,7 @@ export const SettingsView: React.FC = () => {
   const updateStatus = useAppStore((s) => s.updateStatus)
   const updateInfo = useAppStore((s) => s.updateInfo)
   const setUpdateModalOpen = useAppStore((s) => s.setUpdateModalOpen)
+  const openConfirm = useAppStore((s) => s.openConfirm)
 
   const appInfo = typeof window !== 'undefined' ? window.appInfo : null
 
@@ -32,20 +33,41 @@ export const SettingsView: React.FC = () => {
     }
   }
 
-  const handleClearPresets = () => {
-    if (confirm('Clear all saved presets? This cannot be undone.')) {
+  const handleClearPresets = async () => {
+    if (
+      await openConfirm({
+        title: 'Clear Saved Presets',
+        message: 'Clear all saved presets? This cannot be undone.',
+        confirmText: 'Clear Presets',
+        danger: true
+      })
+    ) {
       clearAllPresets()
     }
   }
 
-  const handleResetDefaults = () => {
-    if (confirm('Reset all settings to default values?')) {
+  const handleResetDefaults = async () => {
+    if (
+      await openConfirm({
+        title: 'Reset Settings',
+        message: 'Reset all settings to default values?',
+        confirmText: 'Reset',
+        danger: true
+      })
+    ) {
       resetSettings()
     }
   }
 
   const handleClearCache = async () => {
-    if (confirm('Clear the extracted icon cache? Skinforge can restore it from the bundled icon pack.')) {
+    if (
+      await openConfirm({
+        title: 'Clear Icon Cache',
+        message: 'Clear the extracted icon cache? Skinforge can restore it from the bundled icon pack.',
+        confirmText: 'Clear Cache',
+        danger: true
+      })
+    ) {
       await clearIconCache()
     }
   }

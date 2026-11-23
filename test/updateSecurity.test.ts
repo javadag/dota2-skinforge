@@ -197,3 +197,27 @@ test('downloadUpdate and installUpdate reject missing SHA-256 and untrusted down
     fs.rmSync(tmpDir, { recursive: true, force: true })
   }
 })
+
+test('portable replace script encodes source/target move and stale updates are cleaned up', async () => {
+  const { buildPortableReplaceEncodedCommand, cleanupStaleUpdates } = await import('../src/main/services/app/updateService')
+  const encoded = buildPortableReplaceEncodedCommand(
+    'C:\\Users\\Test\\updates\\Dota2SkinForge-Portable.exe',
+    'D:\\Games\\Dota2SkinForge-Portable.exe'
+  )
+  const decoded = Buffer.from(encoded, 'base64').toString('utf16le')
+  assert.match(decoded, /Move-Item -LiteralPath \$src -Destination \$dst -Force/)
+  assert.match(decoded, /Start-Process -FilePath \$launch/)
+
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-cleanup-test-'))
+  try {
+    const staleExe = path.join(tmpDir, 'old-portable.exe')
+    const keepTxt = path.join(tmpDir, 'notes.txt')
+    fs.writeFileSync(staleExe, 'exe')
+    fs.writeFileSync(keepTxt, 'keep')
+    cleanupStaleUpdates(tmpDir)
+    assert.equal(fs.existsSync(staleExe), false)
+    assert.equal(fs.existsSync(keepTxt), true)
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true })
+  }
+})

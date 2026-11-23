@@ -8,6 +8,17 @@ export type AppTab = 'heroes' | 'presets' | 'launch' | 'settings' | 'about'
 export type AttributeFilter = 'all' | HeroAttribute
 export type CategoryGroup = ArmoryCategoryGroup
 
+export interface DialogRequest {
+  kind: 'alert' | 'confirm'
+  title: string
+  message: string
+  confirmText?: string
+  cancelText?: string
+  danger?: boolean
+}
+
+let pendingDialogResolve: ((confirmed: boolean) => void) | null = null
+
 export interface NavigationSlice {
   // Navigation & Filtering State
   activeTab: AppTab
@@ -24,6 +35,7 @@ export interface NavigationSlice {
   isConsoleOpen: boolean
   isUpdateModalOpen: boolean
   isBugReportOpen: boolean
+  dialog: DialogRequest | null
 
   // Navigation Actions
   setTab: (tab: AppTab, category?: CategoryGroup | null) => void
@@ -41,6 +53,9 @@ export interface NavigationSlice {
   setPatchAlertVisible: (visible: boolean) => void
   setUpdateModalOpen: (open: boolean) => void
   setBugReportOpen: (open: boolean) => void
+  openAlert: (title: string, message: string) => Promise<void>
+  openConfirm: (options: Omit<DialogRequest, 'kind'>) => Promise<boolean>
+  resolveDialog: (confirmed: boolean) => void
 }
 
 export const createNavigationSlice: StateCreator<AppStoreState, [], [], NavigationSlice> = (set) => ({
@@ -57,6 +72,7 @@ export const createNavigationSlice: StateCreator<AppStoreState, [], [], Navigati
   isConsoleOpen: false,
   isUpdateModalOpen: false,
   isBugReportOpen: false,
+  dialog: null,
 
   setTab: (tab, category = null) => {
     set((state) => ({
@@ -98,5 +114,26 @@ export const createNavigationSlice: StateCreator<AppStoreState, [], [], Navigati
 
   setUpdateModalOpen: (open: boolean) => set({ isUpdateModalOpen: open }),
 
-  setBugReportOpen: (open: boolean) => set({ isBugReportOpen: open })
+  setBugReportOpen: (open: boolean) => set({ isBugReportOpen: open }),
+
+  openAlert: (title, message) =>
+    new Promise<void>((resolve) => {
+      pendingDialogResolve?.(false)
+      pendingDialogResolve = () => resolve()
+      set({ dialog: { kind: 'alert', title, message } })
+    }),
+
+  openConfirm: (options) =>
+    new Promise<boolean>((resolve) => {
+      pendingDialogResolve?.(false)
+      pendingDialogResolve = resolve
+      set({ dialog: { kind: 'confirm', ...options } })
+    }),
+
+  resolveDialog: (confirmed) => {
+    const resolve = pendingDialogResolve
+    pendingDialogResolve = null
+    set({ dialog: null })
+    resolve?.(confirmed)
+  }
 })

@@ -54,7 +54,7 @@ export const createPipelineSlice: StateCreator<AppStoreState, [], [], PipelineSl
         // Keep stillRunning = true if live check fails.
       }
       if (stillRunning) {
-        alert('Dota 2 is currently running. Please close Dota 2 before applying mods.')
+        await state.openAlert('Dota 2 Is Running', 'Dota 2 is currently running. Please close Dota 2 before applying mods.')
         return
       }
     }
@@ -70,7 +70,10 @@ export const createPipelineSlice: StateCreator<AppStoreState, [], [], PipelineSl
     const totalIcons = countAbilityIconOverrides(state.heroAbilityIcons)
     if (totalSelected + totalIcons === 0) {
       state.addLog('No cosmetics or ability icon overrides are selected.', 'warn')
-      alert('Equip a cosmetic or choose an ability icon before applying mods. Use Restore to remove an installed mod pack.')
+      await state.openAlert(
+        'Nothing Selected',
+        'Equip a cosmetic or choose an ability icon before applying mods. Use Restore to remove an installed mod pack.'
+      )
       return
     }
 
@@ -114,12 +117,12 @@ export const createPipelineSlice: StateCreator<AppStoreState, [], [], PipelineSl
         const msg = res.error || 'Unknown error'
         state.addLog(`Installation failed: ${msg}`, 'error')
         set({ progress: { step: 10, total: 10, message: 'Install failed' } })
-        alert(`Failed to apply mods:\n${msg}`)
+        await state.openAlert('Install Failed', `Failed to apply mods:\n${msg}`)
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err)
       state.addLog(`Installation error: ${msg}`, 'error')
-      alert(`Failed to apply mods: ${msg}`)
+      await state.openAlert('Install Error', `Failed to apply mods: ${msg}`)
     } finally {
       set({ isBusy: false })
       clearProgressTimer()
@@ -135,7 +138,13 @@ export const createPipelineSlice: StateCreator<AppStoreState, [], [], PipelineSl
     if (state.isBusy) return
 
     if (state.settings.confirmRestore) {
-      if (!confirm('Restore clean game files? This will deactivate all modded cosmetics.')) {
+      const confirmed = await state.openConfirm({
+        title: 'Restore Game Files',
+        message: 'Restore clean game files? This will deactivate all modded cosmetics.',
+        confirmText: 'Restore',
+        danger: true
+      })
+      if (!confirmed) {
         return
       }
     }
@@ -154,12 +163,12 @@ export const createPipelineSlice: StateCreator<AppStoreState, [], [], PipelineSl
       } else if (res) {
         const msg = res.error || 'Unknown error'
         state.addLog(`Restore failed: ${msg}`, 'error')
-        alert(`Failed to restore:\n${msg}`)
+        await state.openAlert('Restore Failed', `Failed to restore:\n${msg}`)
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err)
       state.addLog(`Restore error: ${msg}`, 'error')
-      alert(`Failed to restore: ${msg}`)
+      await state.openAlert('Restore Error', `Failed to restore: ${msg}`)
     } finally {
       set({ isBusy: false })
       clearProgressTimer()

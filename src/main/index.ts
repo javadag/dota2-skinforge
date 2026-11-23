@@ -10,6 +10,7 @@ import { registerIpcHandlers } from './ipc'
 import { getAssetsPath, loadLocalEnvFile } from './services/app/appPaths'
 import { installMainErrorCapture } from './services/app/bugReportService'
 import { migrateLegacySettings } from './services/app/settingsService'
+import { cleanupStaleUpdates } from './services/app/updateService'
 import { ensureIconPack, registerIconProtocol, registerIconScheme } from './services/assets/iconPackService'
 
 // Load local .env overrides (e.g. SKINFORGE_ASSET_SOURCE) in unpackaged dev/preview runs
@@ -122,6 +123,7 @@ if (!gotTheLock) {
     .whenReady()
     .then(() => {
       migrateLegacySettings()
+      cleanupStaleUpdates()
       registerIconProtocol()
 
       registerIpcHandlers(() => mainWindow)

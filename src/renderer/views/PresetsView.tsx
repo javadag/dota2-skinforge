@@ -10,6 +10,7 @@ export const PresetsView: React.FC = () => {
   const openPresetModal = useAppStore((s) => s.openPresetModal)
   const applyPreset = useAppStore((s) => s.applyPreset)
   const deletePreset = useAppStore((s) => s.deletePreset)
+  const openConfirm = useAppStore((s) => s.openConfirm)
 
   return (
     <section id="tabPresets" className="flex-1 h-full overflow-y-auto p-8">
@@ -61,9 +62,18 @@ export const PresetsView: React.FC = () => {
                     variant="danger"
                     size="sm"
                     onClick={() => {
-                      if (confirm(`Delete preset "${preset.name}"?`)) {
-                        deletePreset(preset.id)
-                      }
+                      void (async () => {
+                        if (
+                          await openConfirm({
+                            title: 'Delete Preset',
+                            message: `Delete preset "${preset.name}"?`,
+                            confirmText: 'Delete',
+                            danger: true
+                          })
+                        ) {
+                          deletePreset(preset.id)
+                        }
+                      })()
                     }}
                   >
                     <Trash2 className="w-3.5 h-3.5" />

@@ -124,7 +124,7 @@ export interface LoadoutSlice {
   resetHeroAbilityIcons: (heroTag: string) => void
   resetHeroSlot: (heroTag: string, slotId: string) => void
   resetAllHeroSlots: (heroTag: string) => void
-  clearAllEquippedSlots: () => void
+  clearAllEquippedSlots: () => Promise<void>
   setHeroActiveStance: (heroTag: string, stance: HeroStance) => void
   equipSet: (heroTag: string, set: HeroSet) => void
 }
@@ -277,7 +277,7 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
       get().addLog(`Reset active slots for ${formatCatalogName(heroTag)} to default.`, 'info')
     },
 
-    clearAllEquippedSlots: () => {
+    clearAllEquippedSlots: async () => {
       const state = get()
       const totalEquipped = countEquippedSlots(state.heroSlots)
       const totalIcons = countAbilityIconOverrides(state.heroAbilityIcons)
@@ -286,7 +286,13 @@ export const createLoadoutSlice: StateCreator<AppStoreState, [], [], LoadoutSlic
         return
       }
 
-      if (!confirm('Clear all equipped cosmetics and ability icon overrides from your loadout?')) {
+      const confirmed = await state.openConfirm({
+        title: 'Clear Loadout',
+        message: 'Clear all equipped cosmetics and ability icon overrides from your loadout?',
+        confirmText: 'Clear All',
+        danger: true
+      })
+      if (!confirmed) {
         return
       }
 
