@@ -1,7 +1,13 @@
-import { Check, ChevronDown, Sparkles } from 'lucide-react'
+import { Check, ChevronDown, Info, Sparkles } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { CatalogEntry } from '../../../shared/armory/armoryCatalog'
-import { displayStyleOptions, getStyleOptionsByName, inferStyleIndex, type StyleOption } from '../../../shared/armory/itemStyles'
+import {
+  displayStyleOptions,
+  getStyleNoteByName,
+  getStyleOptionsByName,
+  inferStyleIndex,
+  type StyleOption
+} from '../../../shared/armory/itemStyles'
 import type { ItemDescriptor } from '../../../shared/armory/rarityConfig'
 import { useAppStore } from '../../state/useAppStore'
 import { generateItemSvg } from '../../utils/cardSvgGenerator'
@@ -67,6 +73,7 @@ export const StyleSelect = ({ hero, slotId, itemName, item }: StyleSelectProps) 
   }, [open, close])
 
   const styles = getStyleOptionsByName(itemName)
+  const note = getStyleNoteByName(itemName)
   // One option is no choice — a dropdown would only be noise.
   const options = displayStyleOptions(styles)
   if (options.length < 2) return null
@@ -125,6 +132,13 @@ export const StyleSelect = ({ hero, slotId, itemName, item }: StyleSelectProps) 
         <span className="text-[11px] font-semibold text-purple-200 truncate flex-1 text-left">{activeStyle.name}</span>
         <ChevronDown className={`w-3.5 h-3.5 text-purple-400 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
+
+      {note && (
+        <p className="mt-1 flex items-start gap-1 text-[10px] leading-snug text-slate-400" title={note}>
+          <Info className="w-3 h-3 text-purple-400/80 shrink-0 mt-0.5" />
+          <span>{note}</span>
+        </p>
+      )}
 
       {open && pos && (
         <div

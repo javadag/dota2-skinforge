@@ -21,6 +21,7 @@ export interface StyleOption {
 interface StylesEntry {
   hero: string
   slot: string
+  note?: string
   styles: StyleOption[]
 }
 
@@ -74,6 +75,12 @@ function findEntry(itemName: string): StylesEntry | undefined {
 export function getStyleOptionsByName(itemName?: string): StyleOption[] {
   if (!itemName) return []
   return findEntry(itemName)?.styles ?? []
+}
+
+/** Optional short UI note explaining a custom style's in-game behavior or engine limitation. */
+export function getStyleNoteByName(itemName?: string): string | undefined {
+  if (!itemName) return undefined
+  return findEntry(itemName)?.note
 }
 
 export function resolveCosmeticStyle(itemName?: string, style?: number): number {

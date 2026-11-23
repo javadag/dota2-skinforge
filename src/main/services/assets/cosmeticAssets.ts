@@ -274,12 +274,12 @@ export function applyOverlay(itemIds: Iterable<number>, options: ApplyOverlayOpt
         for (const alias of refit.aliases ?? []) copyAlias(entry.group, alias)
         for (const vc of refit.valveCopies ?? []) copyFromValve(vc)
 
-        const pickedStyle =
+        const refitPickedStyle =
           options.styles instanceof Map
             ? options.styles.get(Number(companionId))
             : (options.styles as Record<string, number> | undefined)?.[companionId]
-        const styleKey = pickedStyle !== undefined ? String(pickedStyle) : '0'
-        const refitStyleOverride = refit.styles?.[styleKey]
+        const refitStyleKey = refitPickedStyle !== undefined ? String(refitPickedStyle) : styleKey
+        const refitStyleOverride = refit.styles?.[refitStyleKey]
         if (refitStyleOverride) {
           for (const rel of refitStyleOverride.files ?? []) copyGroupFile(entry.group, rel)
           for (const alias of refitStyleOverride.aliases ?? []) copyAlias(entry.group, alias)

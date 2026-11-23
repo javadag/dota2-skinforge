@@ -89,6 +89,27 @@ test('sameSetOverlaySlots resolves canonical hero names for aliased armory entri
   assert.equal(slots.has(`windrunner/${companion.slot}`), true)
 })
 
+test('sameSetOverlaySlots excludes separate sets that reuse an Arcana base item (e.g. King Kringle)', () => {
+  const manifest: CosmeticAssetsManifest = {
+    items: {
+      '13456': { name: 'Crown of the One True King', hero: 'wraith_king', group: 'wraith_king', patch: 'items_patch.txt', files: [] }
+    }
+  }
+  const slots = sameSetOverlaySlots(
+    [{ hero: 'wraith_king', slot: 'head', id: 13456 }],
+    [
+      { hero: 'wraith_king', slot: 'head', id: 13456 },
+      { hero: 'wraith_king', slot: 'arms', id: 24202 },
+      { hero: 'wraith_king', slot: 'armor', id: 24229 },
+      { hero: 'wraith_king', slot: 'back', id: 24230 },
+      { hero: 'wraith_king', slot: 'shoulder', id: 24282 },
+      { hero: 'wraith_king', slot: 'weapon', id: 24300 }
+    ],
+    manifest
+  )
+  assert.equal(slots.size, 0)
+})
+
 test('applyItemBlocks emits valid keyed VDF for newly added item IDs and deduplicates inputs', () => {
   const base = makeSchema({
     '100': '\t\t\t"name"\t\t"Existing"'

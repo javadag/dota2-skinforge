@@ -14174,6 +14174,120 @@
               "dst": "materials/models/items/queenofpain/queenofpain_arcana/queenofpain_arcana_dagger.vmat_c"
             }
           ]
+        },
+        "2": {
+          "files": [],
+          "aliases": [
+            {
+              "src": "skinforge/particles/queen_of_pain_arcana/qop_arcana_anim_sonic_wave_trace.vpcf_c",
+              "dst": "skinforge/particles/queen_of_pain_arcana/qop_arcana_anim_sonic_wave_trace.vpcf_c"
+            },
+            {
+              "src": "skinforge/particles/queen_of_pain_arcana/qop_arcana_anim_sonic_wave_trace_glow.vpcf_c",
+              "dst": "skinforge/particles/queen_of_pain_arcana/qop_arcana_anim_sonic_wave_trace_glow.vpcf_c"
+            },
+            {
+              "src": "skinforge/particles/queen_of_pain_arcana/qop_arcana_anim_sonic_wave_trace_rope.vpcf_c",
+              "dst": "skinforge/particles/queen_of_pain_arcana/qop_arcana_anim_sonic_wave_trace_rope.vpcf_c"
+            },
+            {
+              "src": "styles/0/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/0/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_legs_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_legs_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/0/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_lower_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/0/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_tail_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/0/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_upper_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/0/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_whip_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_whip_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/0/particles/units/heroes/hero_queenofpain/queen_sonic_wave.vpcf_c",
+              "dst": "particles/units/heroes/hero_queenofpain/queen_sonic_wave.vpcf_c"
+            },
+            {
+              "src": "styles/whip/models/heroes/queenofpain/queenofpain.vmdl_c",
+              "dst": "models/heroes/queenofpain/queenofpain.vmdl_c"
+            },
+            {
+              "src": "styles/whip/morphs/queen_of_pain_arcana_head_skinforge_vmorf.vtex_c",
+              "dst": "models/heroes/queenofpain/queenofpain/queen_of_pain_arcana_head_skinforge_vmorf.vtex_c"
+            }
+          ]
+        },
+        "3": {
+          "patch": "styles/1/items_patch.txt",
+          "aliases": [
+            {
+              "src": "styles/1/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/1/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_legs_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_legs_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/1/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_lower_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/1/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_tail_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/1/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_head_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_upper_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/1/skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_whip_skinforge.vmat_c",
+              "dst": "skinforge/models/queen_of_pain/arcana/queenofpain_arcana_base_whip_skinforge.vmat_c"
+            },
+            {
+              "src": "styles/1/particles/units/heroes/hero_queenofpain/queen_sonic_wave.vpcf_c",
+              "dst": "particles/units/heroes/hero_queenofpain/queen_sonic_wave.vpcf_c"
+            },
+            {
+              "src": "styles/1/models/heroes/queenofpain/wings.vmdl_c",
+              "dst": "models/heroes/queenofpain/wings.vmdl_c"
+            },
+            {
+              "src": "styles/1/models/heroes/queenofpain/wings.vmdl_c",
+              "dst": "models/items/queenofpain/queenofpain_arcana/queenofpain_arcana_wings.vmdl_c"
+            },
+            {
+              "src": "models/heroes/queenofpain/wings.vmdl_c",
+              "dst": "skinforge/models/queen_of_pain/items/wings/queenofpain_arcana_wings.vmdl_c"
+            },
+            {
+              "src": "styles/1/skinforge/materials/queen_of_pain/items/queenofpain_arcana/queenofpain_arcana_base_armor_style1.vmat_c",
+              "dst": "skinforge/materials/queen_of_pain/items/queenofpain_arcana/queenofpain_arcana_base_armor_style1.vmat_c"
+            },
+            {
+              "src": "styles/1/skinforge/materials/queen_of_pain/items/queenofpain_arcana/queenofpain_arcana_wings_style1.vmat_c",
+              "dst": "skinforge/materials/queen_of_pain/items/queenofpain_arcana/queenofpain_arcana_wings_style1.vmat_c"
+            },
+            {
+              "src": "styles/whip/models/heroes/queenofpain/queenofpain.vmdl_c",
+              "dst": "models/heroes/queenofpain/queenofpain.vmdl_c"
+            },
+            {
+              "src": "styles/whip/morphs/queen_of_pain_arcana_head_skinforge_vmorf.vtex_c",
+              "dst": "models/heroes/queenofpain/queenofpain/queen_of_pain_arcana_head_skinforge_vmorf.vtex_c"
+            }
+          ]
         }
       },
       "valveCopies": [
@@ -14301,7 +14415,7 @@
         },
         {
           "src": "morphs/queen_of_pain_arcana_head_skinforge_vmorf.vtex_c",
-          "dst": "models/heroes/queenofpain/queen_of_pain_arcana/queen_of_pain_arcana_head_skinforge_vmorf.vtex_c"
+          "dst": "models/heroes/queenofpain/queenofpain/queen_of_pain_arcana_head_skinforge_vmorf.vtex_c"
         }
       ]
     },
@@ -14536,6 +14650,28 @@
         "soundevents/voscripts/game_sounds_vo_skeleton_king.vsndevts_c"
       ],
       "refits": {
+        "24202": {
+          "name": "King Kringle Arms refit",
+          "slot": "arms",
+          "files": [],
+          "valveCopies": [
+            {
+              "src": "models/items/wraith_king/frostivus_wraith_king/frostivus_wraith_king_arms_refit.vmdl_c",
+              "dst": "models/heroes/wraith_king/wraith_king_gauntlet.vmdl_c"
+            }
+          ]
+        },
+        "24229": {
+          "name": "King Kringle Armor refit",
+          "slot": "armor",
+          "files": [],
+          "valveCopies": [
+            {
+              "src": "models/items/wraith_king/frostivus_wraith_king/frostivus_wraith_king_armor_refit.vmdl_c",
+              "dst": "models/heroes/wraith_king/wraith_king_chest.vmdl_c"
+            }
+          ]
+        },
         "24230": {
           "name": "King Kringle Back head refit",
           "slot": "head",
@@ -17306,6 +17442,38 @@
         "447"
       ],
       "files": [],
+      "refits": {
+        "22720": {
+          "name": "The Resurrection of Shen - Head",
+          "slot": "head",
+          "files": [],
+          "styles": {
+            "0": {
+              "valveCopies": [
+                {
+                  "src": "models/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_head.vmdl_c",
+                  "dst": "models/heroes/vengeful/vengeful_hair.vmdl_c"
+                }
+              ]
+            }
+          }
+        },
+        "22721": {
+          "name": "The Resurrection of Shen - Legs",
+          "slot": "legs",
+          "files": [],
+          "styles": {
+            "0": {
+              "valveCopies": [
+                {
+                  "src": "models/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_legs.vmdl_c",
+                  "dst": "models/heroes/vengeful/vengeful_lowerbody.vmdl_c"
+                }
+              ]
+            }
+          }
+        }
+      },
       "styles": {
         "0": {
           "aliases": [
@@ -17467,30 +17635,6 @@
               "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/imperia/imperia_goblet_skinforge.vmat_c"
             },
             {
-              "src": "materials/models/items/vengefulspirit/imperia/imperia_head.vmat_c",
-              "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/imperia/imperia_head_skinforge.vmat_c"
-            },
-            {
-              "src": "materials/models/items/vengefulspirit/imperia/imperia_legs.vmat_c",
-              "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/imperia/imperia_legs_skinforge.vmat_c"
-            },
-            {
-              "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/alt/vengeful_spirit_arcana_head_alt.vmat_c",
-              "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_head_alt_skinforge.vmat_c"
-            },
-            {
-              "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_head.vmat_c",
-              "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_head_skinforge.vmat_c"
-            },
-            {
-              "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/alt/vengeful_spirit_arcana_legs_alt.vmat_c",
-              "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_legs_alt_skinforge.vmat_c"
-            },
-            {
-              "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_legs.vmat_c",
-              "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_legs_skinforge.vmat_c"
-            },
-            {
               "src": "particles/econ/items/vengeful/vengeful_arcana/vengeful_arcana_base_attack_v3.vpcf_c",
               "dst": "particles/units/heroes/hero_vengeful/vengeful_base_attack.vpcf_c"
             },
@@ -17506,6 +17650,30 @@
         }
       },
       "valveCopies": [
+        {
+          "src": "materials/models/items/vengefulspirit/imperia/imperia_head.vmat_c",
+          "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/imperia/imperia_head_skinforge.vmat_c"
+        },
+        {
+          "src": "materials/models/items/vengefulspirit/imperia/imperia_legs.vmat_c",
+          "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/imperia/imperia_legs_skinforge.vmat_c"
+        },
+        {
+          "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/alt/vengeful_spirit_arcana_head_alt.vmat_c",
+          "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_head_alt_skinforge.vmat_c"
+        },
+        {
+          "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_head.vmat_c",
+          "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_head_skinforge.vmat_c"
+        },
+        {
+          "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/alt/vengeful_spirit_arcana_legs_alt.vmat_c",
+          "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_legs_alt_skinforge.vmat_c"
+        },
+        {
+          "src": "materials/models/items/vengefulspirit/vengeful_spirit_arcana/vengeful_spirit_arcana_legs.vmat_c",
+          "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/vengeful_spirit_arcana_legs_skinforge.vmat_c"
+        },
         {
           "src": "materials/models/items/vengefulspirit/imperia/imperia_shoulders.vmat_c",
           "dst": "skinforge/materials/vengeful_spirit/vengeful_spirit_arcana/imperia/imperia_shoulders_skinforge.vmat_c"

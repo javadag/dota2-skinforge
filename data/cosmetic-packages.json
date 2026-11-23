@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-11-21T18:05:00.765Z",
+  "generatedAt": "2026-11-23T20:38:58.497Z",
   "baseUrl": "cosmetic-assets/packages",
   "packages": {
     "axe": {
@@ -268,13 +268,13 @@
       ]
     },
     "queenofpain": {
-      "file": "queenofpain-82c69cc70bcdc04175bda6bb92d82e8a4ad60584793e8e6727b8f0d9979a186d.tar.br",
-      "version": "82c69cc70bcd",
-      "sha256": "82c69cc70bcdc04175bda6bb92d82e8a4ad60584793e8e6727b8f0d9979a186d",
-      "sourceSha256": "65347be9b59fe01fb30df6344153c92740ba095fdb77615e27aac8e63c1adefe",
-      "size": 9602921,
-      "fileCount": 30,
-      "uncompressedSize": 17826133,
+      "file": "queenofpain-e2db2ac82c41e5250874dd9bf077cc88ca77eff83162c81547efdff891b04c8f.tar.br",
+      "version": "e2db2ac82c41",
+      "sha256": "e2db2ac82c41e5250874dd9bf077cc88ca77eff83162c81547efdff891b04c8f",
+      "sourceSha256": "09027d038d18ceeebbe4b89ca4701095fbf5002907dbbd1d7e71d8d717d161e8",
+      "size": 13113793,
+      "fileCount": 32,
+      "uncompressedSize": 19545731,
       "dependencies": [
         "_global"
       ]
@@ -304,25 +304,25 @@
       ]
     },
     "shadow_fiend": {
-      "file": "shadow_fiend-b5dea4c2eb18af9445935639525687b3449093e657423c2c4fddd1c9b4b45a9e.tar.br",
-      "version": "b5dea4c2eb18",
-      "sha256": "b5dea4c2eb18af9445935639525687b3449093e657423c2c4fddd1c9b4b45a9e",
-      "sourceSha256": "9368026a4c727bb8a7dc493f0f955cc2b9cac74e346f9330d5875251e826ad24",
-      "size": 1019234,
+      "file": "shadow_fiend-cd88f756a55ee4a99b03ec028718ecf700dfcb53b2bef7985e6045a863f971c7.tar.br",
+      "version": "cd88f756a55e",
+      "sha256": "cd88f756a55ee4a99b03ec028718ecf700dfcb53b2bef7985e6045a863f971c7",
+      "sourceSha256": "ca5d20d54a18a949b0a684f899a050400612ea584946665b7f69e516e160223d",
+      "size": 1019149,
       "fileCount": 8,
-      "uncompressedSize": 3848441,
+      "uncompressedSize": 3848571,
       "dependencies": [
         "_global"
       ]
     },
     "skywrath_mage": {
-      "file": "skywrath_mage-e60f66c4b4f84e086c4980bbd9ef0fd4fa5e566669c38dd5c3d1c4b84b378f66.tar.br",
-      "version": "e60f66c4b4f8",
-      "sha256": "e60f66c4b4f84e086c4980bbd9ef0fd4fa5e566669c38dd5c3d1c4b84b378f66",
-      "sourceSha256": "8256e617d4bc60be3bb7b2fea2a90c75d253efe260d221e5abc8abec709bd71b",
-      "size": 5417010,
+      "file": "skywrath_mage-bc8ef53d706a70ab29a3abb791d8a7c90c7e9de467157fea723ae275b2da942f.tar.br",
+      "version": "bc8ef53d706a",
+      "sha256": "bc8ef53d706a70ab29a3abb791d8a7c90c7e9de467157fea723ae275b2da942f",
+      "sourceSha256": "a8d32e943636bc3a1729de63afe77ed624643e47137f6e59485ba3aec1860183",
+      "size": 5720759,
       "fileCount": 12,
-      "uncompressedSize": 25055566,
+      "uncompressedSize": 16349360,
       "dependencies": [
         "_global"
       ]
@@ -505,6 +505,6 @@
       ]
     }
   },
-  "appVersion": "1.6.0",
-  "overlaySha256": "b72397678a3368338e0e108bb8cbdfd66594defc9d2f888eca1983771e1e3113"
+  "appVersion": "1.6.1",
+  "overlaySha256": "116b8f090b080cb0a2026747ebbba068639d825d9b62020ca96958ca627a2b0b"
 }

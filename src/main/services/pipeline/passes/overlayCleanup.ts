@@ -30,7 +30,22 @@ export function sameSetOverlaySlots(
     if (!entry?.patch) continue
     const sets = (getRawHeroEntry(overlayPick.hero)?.sets ?? []).filter((s) => s.items.some((it) => it.id === overlayPick.id))
     if (!sets.length) continue
-    const companionIds = new Set<number>(sets.flatMap((s) => s.items.map((it) => it.id)))
+    // When an Arcana/Persona base item is reused in later sets (e.g. Wraith King's Crown of the One True King
+    // in King Kringle, or Drow's Dread Retribution in Sepulchral Stalker), only treat the overlay's own
+    // matching bundle as same-set so the other set's wearables still get their model swaps.
+    const entryName = entry.name.toLowerCase()
+    const ownSets =
+      sets.length > 1
+        ? sets.filter((s) => {
+            const setBase = s.name
+              .toLowerCase()
+              .replace(/\s*-\s*bundle$|\s+bundle$/, '')
+              .trim()
+            return entryName.includes(setBase) || setBase.includes(entryName)
+          })
+        : sets
+    const activeSets = ownSets.length ? ownSets : sets
+    const companionIds = new Set<number>(activeSets.flatMap((s) => s.items.map((it) => it.id)))
     for (const pick of resolvedPicks) {
       if (pick.hero === overlayPick.hero && pick.id !== overlayPick.id && companionIds.has(pick.id)) {
         result.add(`${pick.hero}/${pick.slot}`)

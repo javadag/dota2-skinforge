@@ -9,6 +9,7 @@ import fs from 'fs'
 import path from 'path'
 
 import { detectDotaPath } from '../src/main/services/dota/dotaService'
+import { loadLocalEnvFile } from '../src/main/services/app/appPaths'
 import * as pipeline from '../src/main/services/pipeline'
 import * as packService from '../src/main/services/pipeline/itemsGamePatcher'
 import * as vpk from '../src/main/services/dota/vpkService'
@@ -32,6 +33,7 @@ function argAll(name: string): string[] {
 const mb = (bytes: number): string => `${(bytes / 1e6).toFixed(2)} MB`
 
 async function main(): Promise<void> {
+  loadLocalEnvFile()
   const dotaDir = arg('--dota') ?? detectDotaPath()
   if (!dotaDir) throw new Error('Could not detect the Dota 2 install; pass --dota <dir>.')
   const outDir = path.resolve(arg('--out', 'scratch/test_selection')!)

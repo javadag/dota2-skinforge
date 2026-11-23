@@ -5993,18 +5993,33 @@
         {
           "index": 0,
           "token": "#DOTA_Style_Queen_of_Pain_Arcana_Style0",
-          "name": "Eminence of Ristul",
+          "name": "Eminence of Ristul (Knife)",
           "skin": 0,
           "img": "econ/items/queenofpain/queenofpain_arcana/queenofpain_arcana"
         },
         {
           "index": 1,
           "token": "#DOTA_Style_Queen_of_Pain_Arcana_Style1",
-          "name": "Royal Decree",
+          "name": "Royal Decree (Knife)",
+          "skin": 1,
+          "img": "econ/items/queenofpain/queenofpain_arcana/queenofpain_arcana_style1"
+        },
+        {
+          "index": 2,
+          "token": "#DOTA_Style_Queen_of_Pain_Arcana_Style0",
+          "name": "Eminence of Ristul (Whip)",
+          "skin": 0,
+          "img": "econ/items/queenofpain/queenofpain_arcana/queenofpain_arcana"
+        },
+        {
+          "index": 3,
+          "token": "#DOTA_Style_Queen_of_Pain_Arcana_Style1",
+          "name": "Royal Decree (Whip)",
           "skin": 1,
           "img": "econ/items/queenofpain/queenofpain_arcana/queenofpain_arcana_style1"
         }
-      ]
+      ],
+      "note": "Range-based whip/knife switching is server-side in Dota 2, so real matches use the chosen Knife or Whip style (Demo Mode switches automatically)."
     },
     "Ernest Do of the Voyager": {
       "hero": "kunkka",
@@ -6966,7 +6981,8 @@
           "name": "Shawl and Upgraded Blueheart Wolf Pup",
           "img": "econ/heroes/crystal_maiden/crystal_maiden_arcana_back_pet_alt"
         }
-      ]
+      ],
+      "note": "Wolf Pup pet spawning and variants are server-side in Dota 2, so style options only affect Demo Mode / local lobbies (real matches show the shawl only)."
     },
     "Frostivus 2024 Tormentor": {
       "hero": "",
