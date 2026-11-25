@@ -19,13 +19,16 @@ export function readAbilityIconModifiers(visuals: VdfNode | undefined) {
     const ability = getString(value, 'asset')?.toLowerCase()
     const icon = getString(value, 'modifier')?.toLowerCase()
     if (!ability || !icon) return []
+    // Valve's `minimum_priority "1"` marks fallback icons (e.g. Arcana icons that
+    // yield to an equipped Immortal), so it has lower priority than a normal modifier.
+    const minimumPriority = Number(getString(value, 'minimum_priority')) > 0
     return [
       {
         ability,
         icon,
         node: value,
         style: getString(value, 'style'),
-        priority: Number(getString(value, 'minimum_priority')) || 0
+        priority: minimumPriority ? -1 : 0
       }
     ]
   })

@@ -1,7 +1,14 @@
 /**
- * Resolves particle conflicts when an overlay occupies a stock `.vpcf_c` path that an
- * explicitly selected wearable also redirects. Replaces the staged particle with the
- * selected wearable's donor effect and unifies the overlay's schema redirect for that hero.
+ * Stages donor `.vpcf_c` files over stock hero ability/projectile particle paths for
+ * explicitly selected wearables, and resolves conflicts when an overlay also occupies
+ * or redirects the same stock `.vpcf_c` path.
+ *
+ * Why file staging is needed in addition to `items_game.txt` `type: "particle"` entries:
+ * Dota 2's server resolves many ability effects and projectiles (e.g. tracking/linear
+ * projectiles and server-spawned ability particles) against its own stock `items_game.txt`
+ * and sends the stock `.vpcf` path to the client, bypassing client-side `asset_modifier`
+ * substitution. Staging the selected wearable's donor `.vpcf_c` at the hero's stock path
+ * ensures both client- and server-resolved ability effects render in-game.
  */
 
 import { readEntry, type VpkIndex, type VpkPackEntry } from '../../dota/vpkService'
@@ -12,6 +19,7 @@ import { assetModifiers } from '../../modifier/visuals'
 import { readItemsSection } from '../itemsGamePatcher'
 
 const particlePath = /^particles\/.+\.vpcf$/
+const heroStockParticlePath = /^particles\/units\/heroes\/.+\.vpcf$/
 
 export function resolveOverlayParticleConflicts(
   content: string,
@@ -25,7 +33,7 @@ export function resolveOverlayParticleConflicts(
   const picks = applied.filter(
     ({ reason, targetId }) => (reason === 'requested' || reason === 'model-swap') && !overlayTargets.has(targetId)
   )
-  if (!picks.length || ![...entries.keys()].some((path) => path.endsWith('.vpcf_c'))) return content
+  if (!picks.length) return content
 
   const { blocks } = readItemsSection(content)
   function redirects(id: string) {
@@ -34,6 +42,8 @@ export function resolveOverlayParticleConflicts(
     const { root } = parseVdf(content.slice(span.start, span.end))
     return assetModifiers(getNode(root, 'visuals')).flatMap(({ value }) => {
       if (!isNode(value) || getString(value, 'type') !== 'particle') return []
+      if (getString(value, 'replacement_type')?.toUpperCase() === 'PARTICLE_REPLACE_NONE') return []
+      if (getString(value, 'criteria') !== undefined) return []
       const asset = getString(value, 'asset')?.toLowerCase()
       const modifier = find(value, 'modifier')
       if (!asset || !particlePath.test(asset) || typeof modifier?.value !== 'string') return []
@@ -47,7 +57,12 @@ export function resolveOverlayParticleConflicts(
   for (const pick of picks) {
     for (const { asset, donor } of redirects(pick.targetId)) {
       const destination = `${asset}_c`
-      if (asset === donor || !stock.entries.has(destination) || !entries.has(destination)) continue
+      if (asset === donor || !stock.entries.has(destination)) continue
+      // Stage when an overlay already occupies this path (conflict resolution) or when
+      // the target is a hero-specific stock particle (`particles/units/heroes/...`).
+      // Skip shared non-hero paths (e.g. `particles/items_fx/...`) unless an overlay
+      // already claimed them, so one hero's cosmetic does not alter global item effects.
+      if (!entries.has(destination) && !heroStockParticlePath.test(asset)) continue
       const claims = candidates.get(asset) ?? []
       claims.push({ hero: pick.hero, donor })
       candidates.set(asset, claims)

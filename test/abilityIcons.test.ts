@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { getHeroAbilitySlots, readAbilityIconModifiers } from '../src/main/services/assets/abilityIconResolver'
 import { buildSchema } from '../src/main/services/modifier'
-import { getNode, isNode, materializeDeep } from '../src/main/services/modifier/vdf'
+import { getNode, isNode, materializeDeep, parseVdf } from '../src/main/services/modifier/vdf'
 import { applyAbilityIconOverrides } from '../src/main/services/pipeline/passes/applyUserAbilityIcons'
 import type { VpkEntry, VpkIndex } from '../src/main/services/dota/vpkService'
 
@@ -78,4 +78,16 @@ test('a standalone override adds a wearable redirect and replaces the loadout re
   const original = schema.items.get('3')!.entry
   assert.equal(result.content.slice(untouched.valueStart, untouched.valueEnd), content.slice(original.valueStart, original.valueEnd))
   assert.equal(applyAbilityIconOverrides(content, schema, stock, {}, []).content, content)
+})
+
+test('minimum_priority ability_icon modifiers have lower priority than normal wearable icons', () => {
+  const arcanaVisuals = parseVdf(`"visuals" {
+    "asset_modifier" { "type" "ability_icon" "asset" "phantom_assassin_stifling_dagger" "modifier" "phantom_assassin_arcana_stifling_dagger" "minimum_priority" "1" }
+  }`).root
+  const immortalVisuals = parseVdf(`"visuals" {
+    "asset_modifier" { "type" "ability_icon" "asset" "phantom_assassin_stifling_dagger" "modifier" "phantom_assassin/ti8_immortal_helmet/phantom_assassin_stifling_dagger_immortal" }
+  }`).root
+  const [arcanaMod] = readAbilityIconModifiers(arcanaVisuals)
+  const [immortalMod] = readAbilityIconModifiers(immortalVisuals)
+  assert.ok(immortalMod.priority > arcanaMod.priority)
 })

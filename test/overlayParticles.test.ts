@@ -47,3 +47,53 @@ test('a selected wearable replaces a conflicting overlay particle and its redire
   assert.ok(actual.includes(redirect(stockPath, selectedPath)))
   assert.ok(actual.includes(redirect(secondaryPath, overlayPath)))
 })
+
+test('stages hero-specific stock ability particles for selected wearables without an overlay', () => {
+  const screamProj = 'particles/units/heroes/hero_queenofpain/queen_scream_of_pain.vpcf'
+  const screamDonor = 'particles/econ/items/queen_of_pain/qop_2022_immortal/queen_2022_scream_of_pain_projectile.vpcf'
+  const blinkStock = 'particles/items_fx/blink_dagger_start.vpcf'
+  const blinkDonor = 'particles/econ/items/queen_of_pain/custom_blink.vpcf'
+  const skippedStock = 'particles/units/heroes/hero_queenofpain/queen_ambient_blade.vpcf'
+  const skippedDonor = 'particles/econ/items/queen_of_pain/ambient_generic.vpcf'
+  const criteriaStock = 'particles/units/heroes/hero_queenofpain/queen_criteria.vpcf'
+  const criteriaDonor = 'particles/econ/items/queen_of_pain/criteria_donor.vpcf'
+  const source = `"items_game" { "items" {
+    "83" { "name" "Queen of Pain's Armor" "prefab" "default_item" "item_slot" "shoulder"
+      "used_by_heroes" { "npc_dota_hero_queenofpain" "1" } "model_player" "models/heroes/queenofpain/shoulders.vmdl" }
+    "23697" { "name" "Bloodfeather Frock" "prefab" "wearable" "item_slot" "shoulder"
+      "used_by_heroes" { "npc_dota_hero_queenofpain" "1" } "model_player" "models/items/queenofpain/qop_2022_immortal/qop_2022_immortal.vmdl"
+      "visuals" {
+        "asset_modifier" { "type" "particle" "asset" "${screamProj}" "modifier" "${screamDonor}" }
+        "asset_modifier" { "type" "particle" "asset" "${blinkStock}" "modifier" "${blinkDonor}" }
+        "asset_modifier" { "type" "particle" "asset" "${skippedStock}" "modifier" "${skippedDonor}" "replacement_type" "PARTICLE_REPLACE_NONE" }
+        "asset_modifier" { "type" "particle" "asset" "${criteriaStock}" "modifier" "${criteriaDonor}" "criteria" "isbetween( style, 1, 2 )" }
+      } }
+  } }`
+  const schema = buildSchema(source)
+  const compiled = compileItemsGame(source, { queenofpain: { shoulder: 'Bloodfeather Frock' } })
+  const particle = (data: string) => ({ archive: 0x7fff, offset: 0, length: 0, preload: Buffer.from(data) })
+  const stock: VpkIndex = {
+    dir: '',
+    entries: new Map([
+      [`${screamProj}_c`, particle('stock-scream')],
+      [`${screamDonor}_c`, particle('immortal-scream')],
+      [`${blinkStock}_c`, particle('stock-blink')],
+      [`${blinkDonor}_c`, particle('custom-blink')],
+      [`${skippedStock}_c`, particle('stock-skipped')],
+      [`${skippedDonor}_c`, particle('donor-skipped')],
+      [`${criteriaStock}_c`, particle('stock-criteria')],
+      [`${criteriaDonor}_c`, particle('donor-criteria')]
+    ])
+  }
+  const entries = new Map<string, VpkPackEntry>()
+  const warnings: string[] = []
+
+  resolveOverlayParticleConflicts(compiled.content, schema, compiled.report.applied, new Set(), entries, stock, warnings)
+
+  assert.deepEqual(warnings, [])
+  assert.deepEqual(entries.get(`${screamProj}_c`)?.source, Buffer.from('immortal-scream'))
+  // Shared non-hero item particles, PARTICLE_REPLACE_NONE, and criteria-gated modifiers must not be staged globally.
+  assert.equal(entries.has(`${blinkStock}_c`), false)
+  assert.equal(entries.has(`${skippedStock}_c`), false)
+  assert.equal(entries.has(`${criteriaStock}_c`), false)
+})
