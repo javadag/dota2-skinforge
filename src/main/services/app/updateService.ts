@@ -7,6 +7,7 @@
 import { spawn } from 'child_process'
 import crypto from 'crypto'
 import fs from 'fs'
+import os from 'os'
 import path from 'path'
 import { APP_CONFIG } from '../../../shared/constants/appConfig'
 import type { UpdateAsset as ReleaseAsset, UpdateDownloadProgress as DownloadProgress } from '../../../shared/types/ipc'
@@ -470,42 +471,68 @@ export interface InstallUpdateOptions {
   portableTargetPath?: string
 }
 
-function escapePowerShellLiteral(value: string): string {
-  return `'${value.replace(/'/g, "''")}'`
+function escapeBatchValue(value: string): string {
+  // Reject newlines/quotes so values cannot break out of `set "VAR=..."` lines.
+  return value.replace(/[\r\n"]/g, '').replace(/%/g, '%%')
 }
 
-export function buildPortableReplaceEncodedCommand(sourcePath: string, targetPath: string): string {
-  const src = escapePowerShellLiteral(path.resolve(sourcePath))
-  const dst = escapePowerShellLiteral(path.resolve(targetPath))
-  const script = [
-    `$src = ${src}`,
-    `$dst = ${dst}`,
-    '$moved = $false',
-    'for ($i = 0; $i -lt 80; $i++) {',
-    '  try {',
-    '    Move-Item -LiteralPath $src -Destination $dst -Force -ErrorAction Stop',
-    '    $moved = $true',
-    '    break',
-    '  } catch {',
-    '    Start-Sleep -Milliseconds 250',
-    '  }',
-    '}',
-    '$launch = if ($moved -or (Test-Path -LiteralPath $dst)) { $dst } else { $src }',
-    '$dir = Split-Path -Parent $launch',
-    'Start-Process -FilePath $launch -WorkingDirectory $dir'
-  ].join('\n')
-  return Buffer.from(script, 'utf16le').toString('base64')
+export interface PortableReplaceScriptOptions {
+  /** Launch the updated executable after replacement completes (default: true). */
+  launchAfterReplace?: boolean
+  /** Number of ~1s retry attempts while waiting for the running portable wrapper to exit (default: 60). */
+  maxAttempts?: number
+}
+
+/**
+ * Builds a Windows `.cmd` helper script that waits for the running portable `.exe`
+ * to exit, replaces it in-place with the verified download, relaunches it, and self-deletes.
+ *
+ * Uses `cmd.exe` instead of `powershell.exe` because Windows PowerShell 5.1 silently exits
+ * without running `-EncodedCommand` when spawned with `DETACHED_PROCESS` (`detached: true`).
+ */
+export function buildPortableReplaceScript(sourcePath: string, targetPath: string, options?: PortableReplaceScriptOptions): string {
+  const resolvedSrc = path.resolve(sourcePath)
+  const resolvedDst = path.resolve(targetPath)
+  const launchAfterReplace = options?.launchAfterReplace ?? true
+  const maxAttempts = Math.max(1, Math.floor(options?.maxAttempts ?? 60))
+
+  const lines = [
+    '@echo off',
+    'chcp 65001 >nul',
+    `set "SRC=${escapeBatchValue(resolvedSrc)}"`,
+    `set "DST=${escapeBatchValue(resolvedDst)}"`,
+    `set "SRC_DIR=${escapeBatchValue(path.dirname(resolvedSrc))}"`,
+    `set "DST_DIR=${escapeBatchValue(path.dirname(resolvedDst))}"`,
+    'set "MOVED=0"',
+    `for /L %%I in (1,1,${maxAttempts}) do (`,
+    '  move /Y "%SRC%" "%DST%" >nul 2>&1',
+    '  if not errorlevel 1 (',
+    '    set "MOVED=1"',
+    '    goto :after_move',
+    '  )',
+    '  ping 127.0.0.1 -n 2 >nul',
+    ')',
+    ':after_move'
+  ]
+
+  if (launchAfterReplace) {
+    lines.push('if "%MOVED%"=="1" (', '  start "" /D "%DST_DIR%" "%DST%"', ') else (', '  start "" /D "%SRC_DIR%" "%SRC%"', ')')
+  }
+
+  lines.push('(goto) 2>nul & del /F /Q "%~f0"')
+  return `${lines.join('\r\n')}\r\n`
 }
 
 export function cleanupStaleUpdates(updatesDir?: string): void {
   const dir = getUpdatesDir(updatesDir)
   if (!fs.existsSync(dir)) return
   for (const entry of fs.readdirSync(dir)) {
-    if (!entry.toLowerCase().endsWith('.exe')) continue
+    const lower = entry.toLowerCase()
+    if (!lower.endsWith('.exe') && !lower.endsWith('.cmd')) continue
     try {
       fs.unlinkSync(path.join(dir, entry))
     } catch {
-      // Ignore locked executables still finishing an install
+      // Ignore locked executables or active update scripts still finishing an install
     }
   }
 }
@@ -515,7 +542,9 @@ async function spawnDetachedExecutable(filePath: string, args: string[] = []): P
     const child = spawn(filePath, args, {
       detached: true,
       stdio: 'ignore',
-      windowsHide: args.length > 0
+      windowsHide: args.length > 0,
+      // Avoid inheriting the portable app's extracted temp directory as cwd so NSIS can clean it up on exit.
+      cwd: os.tmpdir()
     })
     child.once('error', reject)
     child.once('spawn', () => {
@@ -581,15 +610,10 @@ export async function installUpdate(
 
     if (isPortableSelfUpdate) {
       console.log(`[UpdateService] Replacing portable executable ${portableTarget} from ${filePath}`)
-      const encoded = buildPortableReplaceEncodedCommand(filePath, portableTarget!)
-      await spawnDetachedExecutable('powershell.exe', [
-        '-NoProfile',
-        '-NonInteractive',
-        '-WindowStyle',
-        'Hidden',
-        '-EncodedCommand',
-        encoded
-      ])
+      const scriptPath = path.join(updatesDir, 'portable-update.cmd')
+      fs.writeFileSync(scriptPath, buildPortableReplaceScript(filePath, portableTarget!), 'utf8')
+      const cmdExe = process.env.ComSpec || 'cmd.exe'
+      await spawnDetachedExecutable(cmdExe, ['/d', '/c', scriptPath])
     } else {
       console.log(`[UpdateService] Launching verified update installer: ${filePath}`)
       try {

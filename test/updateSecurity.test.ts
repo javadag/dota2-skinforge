@@ -198,26 +198,72 @@ test('downloadUpdate and installUpdate reject missing SHA-256 and untrusted down
   }
 })
 
-test('portable replace script encodes source/target move and stale updates are cleaned up', async () => {
-  const { buildPortableReplaceEncodedCommand, cleanupStaleUpdates } = await import('../src/main/services/app/updateService')
-  const encoded = buildPortableReplaceEncodedCommand(
+test('portable replace script builds safe batch move/relaunch and stale updates are cleaned up', async () => {
+  const { buildPortableReplaceScript, cleanupStaleUpdates } = await import('../src/main/services/app/updateService')
+  const script = buildPortableReplaceScript(
     'C:\\Users\\Test\\updates\\Dota2SkinForge-Portable.exe',
-    'D:\\Games\\Dota2SkinForge-Portable.exe'
+    'D:\\Games (100%)\\Dota2SkinForge-Portable.exe'
   )
-  const decoded = Buffer.from(encoded, 'base64').toString('utf16le')
-  assert.match(decoded, /Move-Item -LiteralPath \$src -Destination \$dst -Force/)
-  assert.match(decoded, /Start-Process -FilePath \$launch/)
+  assert.match(script, /chcp 65001 >nul/)
+  assert.match(script, /set "DST=D:\\Games \(100%%\)\\Dota2SkinForge-Portable\.exe"/)
+  assert.match(script, /move \/Y "%SRC%" "%DST%"/)
+  assert.match(script, /start "" \/D "%DST_DIR%" "%DST%"/)
+  assert.match(script, /start "" \/D "%SRC_DIR%" "%SRC%"/)
+  assert.match(script, /del \/F \/Q "%~f0"/)
 
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-cleanup-test-'))
   try {
     const staleExe = path.join(tmpDir, 'old-portable.exe')
+    const staleCmd = path.join(tmpDir, 'portable-update.cmd')
     const keepTxt = path.join(tmpDir, 'notes.txt')
     fs.writeFileSync(staleExe, 'exe')
+    fs.writeFileSync(staleCmd, '@echo off')
     fs.writeFileSync(keepTxt, 'keep')
     cleanupStaleUpdates(tmpDir)
     assert.equal(fs.existsSync(staleExe), false)
+    assert.equal(fs.existsSync(staleCmd), false)
     assert.equal(fs.existsSync(keepTxt), true)
   } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true })
   }
+})
+
+test('portable replace script executes detached on Windows and replaces target file', { skip: process.platform !== 'win32' }, async (t) => {
+  const { spawn } = await import('node:child_process')
+  const { buildPortableReplaceScript } = await import('../src/main/services/app/updateService')
+
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sf-portable-replace-'))
+  t.after(() => fs.rmSync(tmpDir, { recursive: true, force: true }))
+
+  const src = path.join(tmpDir, 'new-portable.exe')
+  const dst = path.join(tmpDir, 'Dota2SkinForge-Portable.exe')
+  const scriptPath = path.join(tmpDir, 'portable-update.cmd')
+
+  fs.writeFileSync(src, 'NEW_PORTABLE_BINARY')
+  fs.writeFileSync(dst, 'OLD_PORTABLE_BINARY')
+  fs.writeFileSync(scriptPath, buildPortableReplaceScript(src, dst, { launchAfterReplace: false, maxAttempts: 10 }), 'utf8')
+
+  const child = spawn(process.env.ComSpec || 'cmd.exe', ['/d', '/c', scriptPath], {
+    detached: true,
+    stdio: 'ignore',
+    windowsHide: true,
+    cwd: os.tmpdir()
+  })
+  await new Promise<void>((resolve, reject) => {
+    child.once('error', reject)
+    child.once('spawn', () => {
+      child.unref()
+      resolve()
+    })
+  })
+
+  // Poll up to 5s for the detached script to move src -> dst and self-delete.
+  const deadline = Date.now() + 5000
+  while (Date.now() < deadline && (fs.existsSync(src) || fs.existsSync(scriptPath))) {
+    await new Promise((r) => setTimeout(r, 100))
+  }
+
+  assert.equal(fs.existsSync(src), false, 'source update file should be moved')
+  assert.equal(fs.readFileSync(dst, 'utf8'), 'NEW_PORTABLE_BINARY', 'target portable exe should be replaced')
+  assert.equal(fs.existsSync(scriptPath), false, 'helper script should self-delete')
 })
